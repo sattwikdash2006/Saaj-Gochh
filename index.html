@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Saaj Gochh | Traditional Clothing & Artisanal Decor</title>
+  <title>Saaj Gochh | Explore Items</title>
 
   <!-- Google Fonts for Regal Traditional Serif & Clean Modern UI -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -142,106 +142,22 @@
       white-space: nowrap;
     }
 
-    /* Hero Section */
-    .hero {
-      position: relative;
-      background: linear-gradient(135deg, var(--maroon-dark) 0%, var(--maroon) 52%, var(--terracotta) 100%);
-      color: var(--cream);
-      padding: 48px 18px 54px;
-      overflow: hidden;
-      text-align: center;
+    /* Single Main Section: Explore Items */
+    main {
+      flex: 1;
+      width: 100%;
     }
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      opacity: 0.08;
-      background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23EBD8AE' stroke-width='1.4'%3E%3Ccircle cx='40' cy='40' r='22'/%3E%3Cpath d='M40 6 L48 32 L74 40 L48 48 L40 74 L32 48 L6 40 L32 32 Z'/%3E%3C/g%3E%3C/svg%3E");
-      background-size: 80px 80px;
-      pointer-events: none;
+    .explore-section {
+      padding: 28px 0 56px;
     }
 
-    .hero-inner {
-      position: relative;
-      max-width: 780px;
-      margin: 0 auto;
-      z-index: 1;
-    }
-
-    .hero-pill {
-      display: inline-block;
-      background: rgba(235, 216, 174, 0.16);
-      border: 1px solid var(--gold);
-      color: var(--gold-soft);
-      padding: 5px 16px;
-      border-radius: 999px;
-      font-size: 0.84rem;
-      font-weight: 500;
-      margin-bottom: 14px;
-      letter-spacing: 0.4px;
-    }
-
-    .hero h2 {
-      font-size: clamp(1.8rem, 4.5vw, 2.8rem);
-      line-height: 1.24;
-      margin-bottom: 14px;
-      color: #FFFDF8;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-    }
-
-    .hero p {
-      font-size: clamp(0.96rem, 2.5vw, 1.1rem);
-      color: #F6E9D7;
-      max-width: 630px;
-      margin: 0 auto 24px;
-    }
-
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--gold);
-      color: var(--maroon-dark);
-      font-weight: 700;
-      font-size: 0.96rem;
-      padding: 12px 26px;
-      border-radius: 999px;
-      text-decoration: none;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-
-    .hero-cta:hover {
-      background: #DBAE4E;
-      transform: translateY(-2px);
-    }
-
-    .trust-strip {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 14px 26px;
-      margin-top: 28px;
-      padding-top: 20px;
-      border-top: 1px solid rgba(235, 216, 174, 0.25);
-      font-size: 0.88rem;
-      color: var(--gold-soft);
-    }
-
-    .trust-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* Decorative Divider */
     .alpona-divider {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 14px;
-      margin: 34px auto 12px;
+      margin: 0 auto 10px;
       max-width: 1200px;
       padding: 0 18px;
     }
@@ -255,7 +171,7 @@
     .section-heading {
       text-align: center;
       color: var(--maroon);
-      font-size: clamp(1.45rem, 3.2vw, 1.95rem);
+      font-size: clamp(1.6rem, 3.6vw, 2.2rem);
       font-weight: 700;
     }
 
@@ -263,7 +179,7 @@
       text-align: center;
       color: var(--text-muted);
       font-size: 0.94rem;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
       padding: 0 18px;
     }
 
@@ -343,15 +259,10 @@
       box-shadow: 0 4px 12px rgba(109, 26, 34, 0.22);
     }
 
-    /* Main Product Grid */
-    main {
-      flex: 1;
-      width: 100%;
-    }
-
+    /* Product Grid */
     .product-grid {
       max-width: 1200px;
-      margin: 0 auto 56px;
+      margin: 0 auto;
       padding: 0 18px;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -382,7 +293,7 @@
       aspect-ratio: 4 / 4;
       background: var(--sand);
       overflow: hidden;
-      cursor: zoom-in;
+      cursor: pointer;
     }
 
     .product-img-wrap img {
@@ -411,12 +322,28 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
+    .photo-count-badge {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(44, 24, 16, 0.78);
+      color: #FFFDF8;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      backdrop-filter: blur(4px);
+    }
+
     .product-body {
       padding: 15px 16px 17px;
       display: flex;
       flex-direction: column;
       flex: 1;
-      gap: 10px;
+      gap: 8px;
     }
 
     .product-title {
@@ -424,11 +351,23 @@
       font-size: 1.06rem;
       font-weight: 600;
       color: var(--text-dark);
-      line-height: 1.38;
+      line-height: 1.35;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      cursor: pointer;
+    }
+
+    .product-desc-preview {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      cursor: pointer;
     }
 
     .price-row {
@@ -436,7 +375,7 @@
       align-items: baseline;
       justify-content: space-between;
       margin-top: auto;
-      padding-top: 4px;
+      padding-top: 6px;
     }
 
     .product-price {
@@ -445,10 +384,16 @@
       color: var(--maroon);
     }
 
-    .price-note {
-      font-size: 0.76rem;
-      color: var(--text-muted);
-      font-weight: 500;
+    .view-details-link {
+      font-size: 0.78rem;
+      color: var(--terracotta);
+      font-weight: 600;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: inherit;
+      padding: 0;
+      text-decoration: underline;
     }
 
     .wa-btn {
@@ -491,23 +436,23 @@
       background: var(--maroon-dark);
       color: var(--gold-soft);
       text-align: center;
-      padding: 28px 18px 24px;
+      padding: 24px 18px 22px;
       border-top: 3px solid var(--gold);
       margin-top: auto;
     }
 
     .footer-brand {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.22rem;
+      font-size: 1.2rem;
       color: #FFF;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
 
     .footer-desc {
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       opacity: 0.88;
       max-width: 540px;
-      margin: 0 auto 14px;
+      margin: 0 auto 12px;
     }
 
     /* Completely hidden in plain sight as normal copyright text */
@@ -521,7 +466,7 @@
       padding: 4px 8px;
     }
 
-    /* Modals (Lightbox, Access Gate, Admin Panel) */
+    /* Modals */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -543,8 +488,8 @@
       border: 2px solid var(--gold);
       border-radius: 16px;
       width: 100%;
-      max-width: 420px;
-      padding: 24px;
+      max-width: 460px;
+      padding: 22px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
       position: relative;
       max-height: 92vh;
@@ -552,8 +497,12 @@
       animation: popIn 0.2s ease-out;
     }
 
+    .modal-card.product-detail-card {
+      max-width: 560px;
+    }
+
     .modal-card.admin-wide {
-      max-width: 840px;
+      max-width: 900px;
     }
 
     @keyframes popIn {
@@ -565,14 +514,15 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
       border-bottom: 1px solid var(--border);
+      gap: 10px;
     }
 
     .modal-header h3 {
       color: var(--maroon);
-      font-size: 1.24rem;
+      font-size: 1.2rem;
     }
 
     .close-btn {
@@ -587,6 +537,7 @@
       cursor: pointer;
       display: grid;
       place-items: center;
+      flex-shrink: 0;
     }
 
     .close-btn:hover {
@@ -594,34 +545,151 @@
       color: #FFF;
     }
 
+    /* Product Detail & Multi-Photo Lightbox */
+    .gallery-stage {
+      position: relative;
+      background: var(--sand);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-bottom: 10px;
+    }
+
+    .lightbox-img {
+      width: 100%;
+      height: 340px;
+      object-fit: contain;
+      display: block;
+      background: var(--sand);
+    }
+
+    .gallery-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(44, 24, 16, 0.72);
+      color: #FFF;
+      border: 1px solid var(--gold);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    .gallery-nav.prev { left: 10px; }
+    .gallery-nav.next { right: 10px; }
+    .gallery-nav:hover { background: var(--maroon); }
+
+    .gallery-counter {
+      position: absolute;
+      bottom: 8px;
+      right: 10px;
+      background: rgba(44, 24, 16, 0.76);
+      color: #FFF;
+      font-size: 0.75rem;
+      padding: 2px 9px;
+      border-radius: 999px;
+    }
+
+    .thumb-strip {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+    }
+
+    .thumb-strip img {
+      width: 56px;
+      height: 56px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      flex-shrink: 0;
+      opacity: 0.7;
+      transition: opacity 0.2s, border-color 0.2s;
+    }
+
+    .thumb-strip img.active {
+      border-color: var(--maroon);
+      opacity: 1;
+    }
+
+    .detail-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .detail-cat {
+      background: var(--sand);
+      border: 1px solid var(--gold);
+      color: var(--maroon);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .detail-price {
+      font-size: 1.38rem;
+      font-weight: 700;
+      color: var(--maroon);
+    }
+
+    .detail-desc {
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      background: #FFF;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 14px;
+      white-space: pre-line;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+
     /* Form Controls inside Modals */
     .form-group {
-      margin-bottom: 14px;
+      margin-bottom: 13px;
     }
 
     .form-group label {
       display: block;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 600;
       color: var(--maroon);
       margin-bottom: 5px;
     }
 
     .form-group input,
-    .form-group select {
+    .form-group select,
+    .form-group textarea {
       width: 100%;
       padding: 10px 12px;
       border: 1.5px solid var(--border);
       border-radius: 9px;
       font-family: inherit;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       background: #FFF;
       color: var(--text-dark);
       outline: none;
     }
 
+    .form-group textarea {
+      resize: vertical;
+      min-height: 78px;
+    }
+
     .form-group input:focus,
-    .form-group select:focus {
+    .form-group select:focus,
+    .form-group textarea:focus {
       border-color: var(--terracotta);
     }
 
@@ -632,7 +700,7 @@
       border-radius: 10px;
       padding: 11px 18px;
       font-family: inherit;
-      font-size: 0.93rem;
+      font-size: 0.92rem;
       font-weight: 600;
       cursor: pointer;
       width: 100%;
@@ -665,8 +733,8 @@
     /* Admin Dashboard Sections */
     .admin-grid {
       display: grid;
-      grid-template-columns: 1fr 1.15fr;
-      gap: 20px;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 18px;
     }
 
     .admin-box {
@@ -684,22 +752,107 @@
       padding-bottom: 6px;
     }
 
-    .preview-thumb {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      margin-top: 8px;
-      display: none;
+    /* Gallery Upload Dropzone inside Admin */
+    .gallery-upload-box {
+      border: 2px dashed var(--gold);
+      background: var(--cream);
+      border-radius: 10px;
+      padding: 14px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      display: block;
+    }
+
+    .gallery-upload-box:hover {
       background: var(--sand);
+      border-color: var(--terracotta);
+    }
+
+    .gallery-upload-box input[type="file"] {
+      display: none;
+    }
+
+    .gallery-upload-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--maroon);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .gallery-upload-sub {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .admin-photo-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .admin-photo-tile {
+      position: relative;
+      width: 58px;
+      height: 58px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1.5px solid var(--gold);
+      background: var(--sand);
+    }
+
+    .admin-photo-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .remove-photo-btn {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(198, 40, 40, 0.92);
+      color: #FFF;
+      font-size: 12px;
+      line-height: 1;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    .url-inline-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .url-inline-row input {
+      flex: 1;
+      padding: 7px 10px;
+      font-size: 0.82rem;
+    }
+
+    .url-inline-row button {
+      padding: 7px 12px;
+      font-size: 0.8rem;
+      white-space: nowrap;
     }
 
     .admin-list {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      max-height: 410px;
+      max-height: 500px;
       overflow-y: auto;
       padding-right: 4px;
     }
@@ -737,8 +890,9 @@
     }
 
     .admin-item-info span {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       color: var(--text-muted);
+      display: block;
     }
 
     .del-btn {
@@ -777,15 +931,6 @@
       margin-bottom: 0;
     }
 
-    /* Image Lightbox */
-    .lightbox-img {
-      width: 100%;
-      max-height: 68vh;
-      object-fit: contain;
-      border-radius: 10px;
-      background: var(--sand);
-    }
-
     /* Toast Notification */
     .toast {
       position: fixed;
@@ -816,6 +961,9 @@
       .admin-grid {
         grid-template-columns: 1fr;
       }
+      .explore-section {
+        padding: 20px 0 42px;
+      }
       .product-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
@@ -826,6 +974,9 @@
       .product-title {
         font-size: 0.94rem;
       }
+      .product-desc-preview {
+        font-size: 0.76rem;
+      }
       .product-price {
         font-size: 1.12rem;
       }
@@ -835,6 +986,9 @@
       }
       .header-badge {
         display: none;
+      }
+      .lightbox-img {
+        height: 260px;
       }
     }
 
@@ -878,52 +1032,31 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-inner">
-      <span class="hero-pill">Festive &amp; Heritage Collection</span>
-      <h2>Bring Home the Soul of Bengali Craftsmanship</h2>
-      <p>
-        From handloom Jamdani sarees and terracotta wall accents to classic brassware and ethnic jewelry — shop authentic curated treasures and order directly on WhatsApp.
-      </p>
-      <a href="#catalog" class="hero-cta">
-        Explore Collection
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
-          <path d="M12 5v14M5 12l7 7 7-7"/>
-        </svg>
-      </a>
-
-      <div class="trust-strip">
-        <div class="trust-item">Authentic Artisanal Designs</div>
-        <div class="trust-item">Pan-India Home Delivery</div>
-        <div class="trust-item">Instant WhatsApp Ordering</div>
+  <!-- Single Section: Explore Items -->
+  <main>
+    <section class="explore-section" id="explore">
+      <div class="alpona-divider">
+        <span class="line"></span>
+        <h2 class="section-heading">Explore Items</h2>
+        <span class="line"></span>
       </div>
-    </div>
-  </section>
+      <p class="section-sub">Traditional handloom clothing, artisanal decor &amp; festive gifts — tap any item for more photos &amp; details</p>
 
-  <!-- Catalog Section -->
-  <main id="catalog">
-    <div class="alpona-divider">
-      <span class="line"></span>
-      <h2 class="section-heading">Our Signature Collection</h2>
-      <span class="line"></span>
-    </div>
-    <p class="section-sub">Select your favorite piece and tap the WhatsApp button to place an instant order</p>
-
-    <!-- Search & Category Filter -->
-    <div class="controls-wrap">
-      <div class="search-box">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"/>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-        <input type="text" id="searchInput" placeholder="Search items (e.g., Saree, Terracotta, Brass)..." />
+      <!-- Search & Category Filter -->
+      <div class="controls-wrap">
+        <div class="search-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" id="searchInput" placeholder="Search items (e.g., Saree, Terracotta, Brass)..." />
+        </div>
+        <div class="category-bar" id="categoryBar"></div>
       </div>
-      <div class="category-bar" id="categoryBar"></div>
-    </div>
 
-    <!-- Dynamic Product Grid -->
-    <section class="product-grid" id="productGrid" aria-live="polite"></section>
+      <!-- Dynamic Product Grid -->
+      <div class="product-grid" id="productGrid" aria-live="polite"></div>
+    </section>
   </main>
 
   <!-- Footer -->
@@ -936,14 +1069,33 @@
     <span class="footer-copy" id="stealthGate">© 2026 Saaj Gochh. All rights reserved.</span>
   </footer>
 
-  <!-- Lightbox Modal for Product Image Zoom -->
+  <!-- Product Gallery & Details Modal -->
   <div class="modal-backdrop" id="lightboxModal" role="dialog" aria-modal="true">
-    <div class="modal-card">
+    <div class="modal-card product-detail-card">
       <div class="modal-header">
-        <h3 id="lightboxTitle">Product Preview</h3>
+        <h3 id="lightboxTitle">Product Details</h3>
         <button class="close-btn" id="closeLightbox" aria-label="Close">&times;</button>
       </div>
-      <img id="lightboxImg" class="lightbox-img" src="" alt="" />
+
+      <div class="gallery-stage">
+        <img id="lightboxImg" class="lightbox-img" src="" alt="" />
+        <button type="button" class="gallery-nav prev" id="galleryPrev" aria-label="Previous photo">&#8249;</button>
+        <button type="button" class="gallery-nav next" id="galleryNext" aria-label="Next photo">&#8250;</button>
+        <span class="gallery-counter" id="galleryCounter">1 / 1</span>
+      </div>
+
+      <div class="thumb-strip" id="galleryThumbs"></div>
+
+      <div class="detail-meta">
+        <span class="detail-cat" id="detailCategory"></span>
+        <span class="detail-price" id="detailPrice"></span>
+      </div>
+
+      <div class="detail-desc" id="detailDesc"></div>
+
+      <a class="wa-btn" id="detailWaBtn" href="#" target="_blank" rel="noopener noreferrer">
+        Order This Item on WhatsApp
+      </a>
     </div>
   </div>
 
@@ -1009,9 +1161,33 @@
             </div>
 
             <div class="form-group">
-              <label for="prodImage">Image URL (Meesho / Imgur / Direct Link)</label>
-              <input type="url" id="prodImage" placeholder="https://..." required />
-              <img id="imgPreview" class="preview-thumb" alt="Image preview" />
+              <label for="prodDesc">Product Description</label>
+              <textarea id="prodDesc" placeholder="Describe fabric, size, dimensions, material, or care instructions..." required></textarea>
+            </div>
+
+            <!-- Direct Gallery Multi-Photo Upload (Max 10) -->
+            <div class="form-group">
+              <label>Upload Photos from Gallery (<span id="photoCounterLabel">0 / 10</span>)</label>
+              <label class="gallery-upload-box" for="prodGalleryInput">
+                <input type="file" id="prodGalleryInput" accept="image/*" multiple />
+                <div class="gallery-upload-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                  <span id="uploadPromptText">Choose Photos from Gallery</span>
+                </div>
+                <div class="gallery-upload-sub">Select up to 10 photos per item (auto-optimized)</div>
+              </label>
+
+              <div class="admin-photo-grid" id="adminPhotoGrid"></div>
+
+              <!-- Optional URL Adder -->
+              <div class="url-inline-row">
+                <input type="url" id="prodImageUrl" placeholder="Or paste an image URL (Meesho / Imgur)..." />
+                <button type="button" class="btn-secondary" id="addUrlBtn">+ Add</button>
+              </div>
             </div>
 
             <button type="submit" class="btn-primary">+ Publish Product</button>
@@ -1040,6 +1216,7 @@
       // =========================================================
       const DEFAULT_WHATSAPP_NUMBER = "919876543210"; // Country code + 10-digit number
       const ADMIN_PASSWORD = String.fromCharCode(48,51,50,50,48,50,54,51,50,56,49); // 03220263281
+      const MAX_PHOTOS_PER_ITEM = 10;
       const STORAGE_KEYS = {
         PRODUCTS: "saajgochh_products_v1",
         WA_NUMBER: "saajgochh_wa_v1"
@@ -1078,72 +1255,90 @@
           title: "Handwoven Red-Border White Dhakai Jamdani Saree",
           price: 1250,
           category: "Sarees & Apparel",
-          image: makeArtSVG(
-            "#7D1B24", "#B84A2F", "#F2D79B", "Dhakai Jamdani",
-            `<path d="M180 155 Q250 130 320 155 L340 275 Q250 295 160 275 Z" fill="#FFF8EE" stroke="#C89B3C" stroke-width="4"/>
-             <path d="M168 255 Q250 275 332 255" stroke="#9B1B27" stroke-width="14" fill="none"/>
-             <circle cx="250" cy="205" r="14" fill="#C89B3C"/>`
-          )
+          description: "Classic crisp cotton-blend Dhakai Jamdani weave in off-white with traditional crimson temple border and intricate motifs. Length: 5.5m (without blouse piece). Ideal for pujas and festive mornings.",
+          images: [
+            makeArtSVG(
+              "#7D1B24", "#B84A2F", "#F2D79B", "Dhakai Jamdani",
+              `<path d="M180 155 Q250 130 320 155 L340 275 Q250 295 160 275 Z" fill="#FFF8EE" stroke="#C89B3C" stroke-width="4"/>
+               <path d="M168 255 Q250 275 332 255" stroke="#9B1B27" stroke-width="14" fill="none"/>
+               <circle cx="250" cy="205" r="14" fill="#C89B3C"/>`
+            )
+          ]
         },
         {
           id: "demo-2",
           title: "Hand-Painted Terracotta Alpona Wall Hanging",
           price: 450,
           category: "Home Decor",
-          image: makeArtSVG(
-            "#9E3B24", "#5A1F16", "#F4D58D", "Terracotta Wall Art",
-            `<circle cx="250" cy="215" r="72" fill="#C9593B" stroke="#F4D58D" stroke-width="4"/>
-             <circle cx="250" cy="215" r="42" fill="none" stroke="#FFFDF8" stroke-width="3" stroke-dasharray="6 6"/>
-             <path d="M250 160 L265 200 L305 215 L265 230 L250 270 L235 230 L195 215 L235 200 Z" fill="#F4D58D"/>`
-          )
+          description: "Baked clay wall plate adorned with traditional hand-painted Alpona geometric patterns. Diameter: 10 inches. Comes with a ready-to-hang jute cord at the back.",
+          images: [
+            makeArtSVG(
+              "#9E3B24", "#5A1F16", "#F4D58D", "Terracotta Wall Art",
+              `<circle cx="250" cy="215" r="72" fill="#C9593B" stroke="#F4D58D" stroke-width="4"/>
+               <circle cx="250" cy="215" r="42" fill="none" stroke="#FFFDF8" stroke-width="3" stroke-dasharray="6 6"/>
+               <path d="M250 160 L265 200 L305 215 L265 230 L250 270 L235 230 L195 215 L235 200 Z" fill="#F4D58D"/>`
+            )
+          ]
         },
         {
           id: "demo-3",
           title: "Dokra & Oxidized Traditional Jhumka Necklace Set",
           price: 380,
           category: "Jewelry & Craft",
-          image: makeArtSVG(
-            "#4A151B", "#8D3B24", "#E6C27A", "Dokra Jewelry Set",
-            `<path d="M190 165 Q250 265 310 165" fill="none" stroke="#E6C27A" stroke-width="7" stroke-linecap="round"/>
-             <circle cx="250" cy="222" r="22" fill="#E6C27A"/>
-             <circle cx="215" cy="204" r="10" fill="#E6C27A"/>
-             <circle cx="285" cy="204" r="10" fill="#E6C27A"/>`
-          )
+          description: "Handcrafted Dokra-inspired antique brass & oxidized choker paired with matching lightweight jhumkas. Adjustable dori thread closure suitable for sarees and kurtis.",
+          images: [
+            makeArtSVG(
+              "#4A151B", "#8D3B24", "#E6C27A", "Dokra Jewelry Set",
+              `<path d="M190 165 Q250 265 310 165" fill="none" stroke="#E6C27A" stroke-width="7" stroke-linecap="round"/>
+               <circle cx="250" cy="222" r="22" fill="#E6C27A"/>
+               <circle cx="215" cy="204" r="10" fill="#E6C27A"/>
+               <circle cx="285" cy="204" r="10" fill="#E6C27A"/>`
+            )
+          ]
         },
         {
           id: "demo-4",
           title: "Nakshi Kantha Embroidered Cotton Cushion Covers (Set of 2)",
           price: 520,
           category: "Home Decor",
-          image: makeArtSVG(
-            "#6A2E20", "#B85D3B", "#FBE4B4", "Nakshi Kantha",
-            `<rect x="180" y="145" width="140" height="140" rx="16" fill="#FBF7F0" stroke="#C89B3C" stroke-width="5"/>
-             <rect x="200" y="165" width="100" height="100" rx="8" fill="none" stroke="#B84A2F" stroke-width="3" stroke-dasharray="6 4"/>
-             <circle cx="250" cy="215" r="24" fill="#6D1A22"/>`
-          )
+          description: "Soft 100% pure cotton 16x16 inch cushion covers featuring authentic running-stitch Nakshi Kantha embroidery in maroon and gold threads with concealed zip.",
+          images: [
+            makeArtSVG(
+              "#6A2E20", "#B85D3B", "#FBE4B4", "Nakshi Kantha",
+              `<rect x="180" y="145" width="140" height="140" rx="16" fill="#FBF7F0" stroke="#C89B3C" stroke-width="5"/>
+               <rect x="200" y="165" width="100" height="100" rx="8" fill="none" stroke="#B84A2F" stroke-width="3" stroke-dasharray="6 4"/>
+               <circle cx="250" cy="215" r="24" fill="#6D1A22"/>`
+            )
+          ]
         },
         {
           id: "demo-5",
           title: "Pure Brass Mangal Diya & Dhunuchi Festive Gift Set",
           price: 690,
           category: "Festive Gifts",
-          image: makeArtSVG(
-            "#5B141B", "#9A4A1C", "#FFD97D", "Brass Festive Set",
-            `<ellipse cx="250" cy="245" rx="68" ry="22" fill="#D4AF37"/>
-             <path d="M210 240 Q250 285 290 240 Z" fill="#B68B22"/>
-             <path d="M250 155 C265 182 272 200 250 218 C228 200 235 182 250 155 Z" fill="#FFD97D"/>`
-          )
+          description: "Heavyweight solid brass puja essentials set containing one traditional Mangal Diya and one classic Dhunuchi. Easy to polish and perfect for housewarming gifts.",
+          images: [
+            makeArtSVG(
+              "#5B141B", "#9A4A1C", "#FFD97D", "Brass Festive Set",
+              `<ellipse cx="250" cy="245" rx="68" ry="22" fill="#D4AF37"/>
+               <path d="M210 240 Q250 285 290 240 Z" fill="#B68B22"/>
+               <path d="M250 155 C265 182 272 200 250 218 C228 200 235 182 250 155 Z" fill="#FFD97D"/>`
+            )
+          ]
         },
         {
           id: "demo-6",
           title: "Shantiniketan Batik Print Pure Cotton Kurta",
           price: 790,
           category: "Sarees & Apparel",
-          image: makeArtSVG(
-            "#82311E", "#4E1016", "#F3D38C", "Batik Cotton Kurta",
-            `<path d="M205 150 L295 150 L325 200 L298 220 L290 205 L290 285 L210 285 L210 205 L202 220 L175 200 Z" fill="#FBF7F0" stroke="#C89B3C" stroke-width="4"/>
-             <line x1="250" y1="150" x2="250" y2="220" stroke="#6D1A22" stroke-width="4"/>`
-          )
+          description: "Breathable hand-dyed Shantiniketan batik print cotton kurta in warm terracotta & cream tones. Available in sizes M, L, XL, and XXL.",
+          images: [
+            makeArtSVG(
+              "#82311E", "#4E1016", "#F3D38C", "Batik Cotton Kurta",
+              `<path d="M205 150 L295 150 L325 200 L298 220 L290 205 L290 285 L210 285 L210 205 L202 220 L175 200 Z" fill="#FBF7F0" stroke="#C89B3C" stroke-width="4"/>
+               <line x1="250" y1="150" x2="250" y2="220" stroke="#6D1A22" stroke-width="4"/>`
+            )
+          ]
         }
       ];
 
@@ -1152,6 +1347,15 @@
       // =========================================================
       let activeCategory = "All";
       let searchQuery = "";
+      let pendingGalleryPhotos = []; // Holds up to 10 photos while creating an item
+
+      function getProductImages(product) {
+        if (Array.isArray(product.images) && product.images.length > 0) {
+          return product.images;
+        }
+        if (product.image) return [product.image];
+        return [FALLBACK_IMG];
+      }
 
       function getProducts() {
         const raw = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
@@ -1168,7 +1372,13 @@
       }
 
       function saveProducts(list) {
-        localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(list));
+        try {
+          localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(list));
+          return true;
+        } catch (err) {
+          showToast("Browser storage is full! Delete older items or use fewer photos per item.");
+          return false;
+        }
       }
 
       function getWhatsAppNumber() {
@@ -1191,7 +1401,39 @@
         toast.textContent = msg;
         toast.classList.add("show");
         clearTimeout(window._toastTimer);
-        window._toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+        window._toastTimer = setTimeout(() => toast.classList.remove("show"), 2800);
+      }
+
+      // Compress uploaded gallery photos cleanly so up to 10 fit in localStorage
+      function compressImageFile(file, maxSize = 720, quality = 0.72) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onerror = () => reject(new Error("Could not read file"));
+          reader.onload = (e) => {
+            const img = new Image();
+            img.onerror = () => reject(new Error("Invalid image file"));
+            img.onload = () => {
+              let { width, height } = img;
+              if (width > maxSize || height > maxSize) {
+                if (width >= height) {
+                  height = Math.round((height * maxSize) / width);
+                  width = maxSize;
+                } else {
+                  width = Math.round((width * maxSize) / height);
+                  height = maxSize;
+                }
+              }
+              const canvas = document.createElement("canvas");
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext("2d");
+              ctx.drawImage(img, 0, 0, width, height);
+              resolve(canvas.toDataURL("image/jpeg", quality));
+            };
+            img.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        });
       }
 
       // =========================================================
@@ -1239,6 +1481,7 @@
           const q = searchQuery.trim().toLowerCase();
           const matchSearch = !q ||
             p.title.toLowerCase().includes(q) ||
+            (p.description && p.description.toLowerCase().includes(q)) ||
             (p.category && p.category.toLowerCase().includes(q));
           return matchCat && matchSearch;
         });
@@ -1256,18 +1499,33 @@
         }
 
         productGrid.innerHTML = filtered.map(product => {
+          const imgs = getProductImages(product);
+          const coverImg = imgs[0];
           const waUrl = buildWhatsAppLink(product);
+          const descText = product.description || "Handcrafted Bengali artisanal item.";
+
           return `
             <article class="product-card">
-              <div class="product-img-wrap" data-zoom-title="${escapeHTML(product.title)}" data-zoom-img="${escapeHTML(product.image)}">
-                <img src="${escapeHTML(product.image)}" alt="${escapeHTML(product.title)}" loading="lazy" onerror="this.onerror=null; this.src='${FALLBACK_IMG}';" />
+              <div class="product-img-wrap" data-open-id="${escapeHTML(product.id)}">
+                <img src="${escapeHTML(coverImg)}" alt="${escapeHTML(product.title)}" loading="lazy" onerror="this.onerror=null; this.src='${FALLBACK_IMG}';" />
                 <span class="category-tag">${escapeHTML(product.category)}</span>
+                ${imgs.length > 1 ? `
+                  <span class="photo-count-badge">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <rect x="3" y="3" width="18" height="18" rx="2"/>
+                      <circle cx="8.5" cy="8.5" r="1.5"/>
+                      <polyline points="21 15 16 10 5 21"/>
+                    </svg>
+                    ${imgs.length} Photos
+                  </span>
+                ` : ""}
               </div>
               <div class="product-body">
-                <h3 class="product-title">${escapeHTML(product.title)}</h3>
+                <h3 class="product-title" data-open-id="${escapeHTML(product.id)}">${escapeHTML(product.title)}</h3>
+                <p class="product-desc-preview" data-open-id="${escapeHTML(product.id)}">${escapeHTML(descText)}</p>
                 <div class="price-row">
                   <span class="product-price">₹${Number(product.price).toLocaleString("en-IN")}</span>
-                  <span class="price-note">In Stock</span>
+                  <button type="button" class="view-details-link" data-open-id="${escapeHTML(product.id)}">View Details</button>
                 </div>
                 <a class="wa-btn" href="${waUrl}" target="_blank" rel="noopener noreferrer">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -1280,14 +1538,12 @@
           `;
         }).join("");
 
-        // Attach Image Lightbox Zoom
-        productGrid.querySelectorAll(".product-img-wrap").forEach(box => {
-          box.addEventListener("click", () => {
-            document.getElementById("lightboxTitle").textContent = box.getAttribute("data-zoom-title");
-            const imgEl = document.getElementById("lightboxImg");
-            imgEl.src = box.getAttribute("data-zoom-img");
-            imgEl.onerror = () => { imgEl.src = FALLBACK_IMG; };
-            document.getElementById("lightboxModal").classList.add("open");
+        // Open Multi-Photo Product Gallery & Description Modal
+        productGrid.querySelectorAll("[data-open-id]").forEach(el => {
+          el.addEventListener("click", () => {
+            const id = el.getAttribute("data-open-id");
+            const prod = getProducts().find(item => item.id === id);
+            if (prod) openProductDetailModal(prod);
           });
         });
       }
@@ -1298,9 +1554,69 @@
       });
 
       // =========================================================
-      // LIGHTBOX MODAL CLOSE
+      // PRODUCT DETAIL & MULTI-PHOTO GALLERY MODAL
       // =========================================================
       const lightboxModal = document.getElementById("lightboxModal");
+      const lightboxImg = document.getElementById("lightboxImg");
+      const galleryCounter = document.getElementById("galleryCounter");
+      const galleryThumbs = document.getElementById("galleryThumbs");
+      const galleryPrev = document.getElementById("galleryPrev");
+      const galleryNext = document.getElementById("galleryNext");
+
+      let currentGalleryImages = [];
+      let currentSlideIndex = 0;
+
+      function updateGallerySlide(index) {
+        if (!currentGalleryImages.length) return;
+        currentSlideIndex = (index + currentGalleryImages.length) % currentGalleryImages.length;
+
+        lightboxImg.src = currentGalleryImages[currentSlideIndex];
+        lightboxImg.onerror = () => { lightboxImg.src = FALLBACK_IMG; };
+        galleryCounter.textContent = `${currentSlideIndex + 1} / ${currentGalleryImages.length}`;
+
+        const multi = currentGalleryImages.length > 1;
+        galleryPrev.style.display = multi ? "grid" : "none";
+        galleryNext.style.display = multi ? "grid" : "none";
+        galleryCounter.style.display = multi ? "block" : "none";
+
+        galleryThumbs.querySelectorAll("img").forEach((thumb, idx) => {
+          thumb.classList.toggle("active", idx === currentSlideIndex);
+        });
+      }
+
+      function openProductDetailModal(product) {
+        currentGalleryImages = getProductImages(product);
+        currentSlideIndex = 0;
+
+        document.getElementById("lightboxTitle").textContent = product.title;
+        document.getElementById("detailCategory").textContent = product.category;
+        document.getElementById("detailPrice").textContent = `₹${Number(product.price).toLocaleString("en-IN")}`;
+        document.getElementById("detailDesc").textContent = product.description || "Handcrafted Bengali artisanal item.";
+        document.getElementById("detailWaBtn").href = buildWhatsAppLink(product);
+
+        if (currentGalleryImages.length > 1) {
+          galleryThumbs.style.display = "flex";
+          galleryThumbs.innerHTML = currentGalleryImages.map((src, idx) => `
+            <img src="${escapeHTML(src)}" alt="Photo ${idx + 1}" data-thumb-idx="${idx}" onerror="this.onerror=null; this.src='${FALLBACK_IMG}';" />
+          `).join("");
+
+          galleryThumbs.querySelectorAll("img").forEach(imgEl => {
+            imgEl.addEventListener("click", () => {
+              updateGallerySlide(Number(imgEl.getAttribute("data-thumb-idx")));
+            });
+          });
+        } else {
+          galleryThumbs.style.display = "none";
+          galleryThumbs.innerHTML = "";
+        }
+
+        updateGallerySlide(0);
+        lightboxModal.classList.add("open");
+      }
+
+      galleryPrev.addEventListener("click", () => updateGallerySlide(currentSlideIndex - 1));
+      galleryNext.addEventListener("click", () => updateGallerySlide(currentSlideIndex + 1));
+
       document.getElementById("closeLightbox").addEventListener("click", () => lightboxModal.classList.remove("open"));
       lightboxModal.addEventListener("click", (e) => {
         if (e.target === lightboxModal) lightboxModal.classList.remove("open");
@@ -1362,17 +1678,95 @@
       });
 
       // =========================================================
-      // ADMIN PANEL LOGIC
+      // ADMIN PANEL LOGIC (Multi-Photo Gallery + Description)
       // =========================================================
       const addProductForm = document.getElementById("addProductForm");
       const adminProductList = document.getElementById("adminProductList");
       const adminCount = document.getElementById("adminCount");
-      const prodImageInput = document.getElementById("prodImage");
-      const imgPreview = document.getElementById("imgPreview");
       const waNumberInput = document.getElementById("waNumberInput");
+
+      const prodGalleryInput = document.getElementById("prodGalleryInput");
+      const adminPhotoGrid = document.getElementById("adminPhotoGrid");
+      const photoCounterLabel = document.getElementById("photoCounterLabel");
+      const uploadPromptText = document.getElementById("uploadPromptText");
+      const prodImageUrlInput = document.getElementById("prodImageUrl");
+      const addUrlBtn = document.getElementById("addUrlBtn");
+
+      function renderAdminPendingPhotos() {
+        photoCounterLabel.textContent = `${pendingGalleryPhotos.length} / ${MAX_PHOTOS_PER_ITEM}`;
+
+        if (pendingGalleryPhotos.length === 0) {
+          adminPhotoGrid.innerHTML = "";
+          return;
+        }
+
+        adminPhotoGrid.innerHTML = pendingGalleryPhotos.map((src, idx) => `
+          <div class="admin-photo-tile">
+            <img src="${escapeHTML(src)}" alt="Selected ${idx + 1}" onerror="this.onerror=null; this.src='${FALLBACK_IMG}';" />
+            <button type="button" class="remove-photo-btn" data-remove-idx="${idx}" aria-label="Remove photo">&times;</button>
+          </div>
+        `).join("");
+
+        adminPhotoGrid.querySelectorAll(".remove-photo-btn").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const idx = Number(btn.getAttribute("data-remove-idx"));
+            pendingGalleryPhotos.splice(idx, 1);
+            renderAdminPendingPhotos();
+          });
+        });
+      }
+
+      prodGalleryInput.addEventListener("change", async (e) => {
+        const files = Array.from(e.target.files || []);
+        if (!files.length) return;
+
+        const remaining = MAX_PHOTOS_PER_ITEM - pendingGalleryPhotos.length;
+        if (remaining <= 0) {
+          showToast(`Maximum ${MAX_PHOTOS_PER_ITEM} photos allowed per item.`);
+          prodGalleryInput.value = "";
+          return;
+        }
+
+        let filesToProcess = files;
+        if (files.length > remaining) {
+          filesToProcess = files.slice(0, remaining);
+          showToast(`Only ${MAX_PHOTOS_PER_ITEM} photos allowed per item. Extra photos were skipped.`);
+        }
+
+        uploadPromptText.textContent = "Optimizing photos...";
+        try {
+          for (const file of filesToProcess) {
+            if (!file.type.startsWith("image/")) continue;
+            const compressedDataUrl = await compressImageFile(file);
+            pendingGalleryPhotos.push(compressedDataUrl);
+          }
+          renderAdminPendingPhotos();
+        } catch {
+          showToast("Some photos could not be processed.");
+        } finally {
+          uploadPromptText.textContent = "Choose Photos from Gallery";
+          prodGalleryInput.value = "";
+        }
+      });
+
+      addUrlBtn.addEventListener("click", () => {
+        const url = prodImageUrlInput.value.trim();
+        if (!url) {
+          showToast("Paste an image URL first");
+          return;
+        }
+        if (pendingGalleryPhotos.length >= MAX_PHOTOS_PER_ITEM) {
+          showToast(`Maximum ${MAX_PHOTOS_PER_ITEM} photos allowed per item.`);
+          return;
+        }
+        pendingGalleryPhotos.push(url);
+        prodImageUrlInput.value = "";
+        renderAdminPendingPhotos();
+      });
 
       function openAdminDashboard() {
         waNumberInput.value = getWhatsAppNumber();
+        renderAdminPendingPhotos();
         renderAdminList();
         adminModal.classList.add("open");
       }
@@ -1394,26 +1788,27 @@
         showToast("WhatsApp number updated!");
       });
 
-      prodImageInput.addEventListener("input", () => {
-        const url = prodImageInput.value.trim();
-        if (url) {
-          imgPreview.src = url;
-          imgPreview.style.display = "block";
-          imgPreview.onerror = () => { imgPreview.style.display = "none"; };
-        } else {
-          imgPreview.style.display = "none";
-        }
-      });
-
       addProductForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const title = document.getElementById("prodTitle").value.trim();
         const price = Number(document.getElementById("prodPrice").value);
         const category = document.getElementById("prodCategory").value;
-        const image = prodImageInput.value.trim();
+        const description = document.getElementById("prodDesc").value.trim();
 
-        if (!title || !price || price <= 0 || !image) {
-          showToast("Please fill in all fields accurately");
+        // Also include URL field automatically if user typed one without clicking + Add
+        const inlineUrl = prodImageUrlInput.value.trim();
+        if (inlineUrl && pendingGalleryPhotos.length < MAX_PHOTOS_PER_ITEM) {
+          pendingGalleryPhotos.push(inlineUrl);
+          prodImageUrlInput.value = "";
+        }
+
+        if (!title || !price || price <= 0 || !description) {
+          showToast("Please fill in title, price, and description");
+          return;
+        }
+
+        if (pendingGalleryPhotos.length === 0) {
+          showToast("Please upload at least 1 photo from your gallery");
           return;
         }
 
@@ -1422,18 +1817,21 @@
           title,
           price,
           category,
-          image
+          description,
+          images: [...pendingGalleryPhotos]
         };
 
         const products = getProducts();
         products.unshift(newProduct);
-        saveProducts(products);
 
-        addProductForm.reset();
-        imgPreview.style.display = "none";
-        renderAdminList();
-        renderStore();
-        showToast("New product published!");
+        if (saveProducts(products)) {
+          addProductForm.reset();
+          pendingGalleryPhotos = [];
+          renderAdminPendingPhotos();
+          renderAdminList();
+          renderStore();
+          showToast("New product published!");
+        }
       });
 
       function renderAdminList() {
@@ -1445,16 +1843,19 @@
           return;
         }
 
-        adminProductList.innerHTML = products.map(p => `
-          <div class="admin-item">
-            <img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.title)}" onerror="this.onerror=null; this.src='${FALLBACK_IMG}';" />
-            <div class="admin-item-info">
-              <h5>${escapeHTML(p.title)}</h5>
-              <span>${escapeHTML(p.category)} • ₹${Number(p.price).toLocaleString("en-IN")}</span>
+        adminProductList.innerHTML = products.map(p => {
+          const imgs = getProductImages(p);
+          return `
+            <div class="admin-item">
+              <img src="${escapeHTML(imgs[0])}" alt="${escapeHTML(p.title)}" onerror="this.onerror=null; this.src='${FALLBACK_IMG}';" />
+              <div class="admin-item-info">
+                <h5>${escapeHTML(p.title)}</h5>
+                <span>${escapeHTML(p.category)} • ₹${Number(p.price).toLocaleString("en-IN")} • ${imgs.length} photo${imgs.length > 1 ? "s" : ""}</span>
+              </div>
+              <button type="button" class="del-btn" data-del-id="${escapeHTML(p.id)}">Delete</button>
             </div>
-            <button type="button" class="del-btn" data-del-id="${escapeHTML(p.id)}">Delete</button>
-          </div>
-        `).join("");
+          `;
+        }).join("");
 
         adminProductList.querySelectorAll(".del-btn").forEach(btn => {
           btn.addEventListener("click", () => {
