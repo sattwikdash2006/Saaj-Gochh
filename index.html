@@ -502,7 +502,7 @@
     }
 
     .modal-card.admin-wide {
-      max-width: 900px;
+      max-width: 920px;
     }
 
     @keyframes popIn {
@@ -553,6 +553,7 @@
       overflow: hidden;
       border: 1px solid var(--border);
       margin-bottom: 10px;
+      touch-action: pan-y;
     }
 
     .lightbox-img {
@@ -651,7 +652,7 @@
       padding: 12px;
       margin-bottom: 14px;
       white-space: pre-line;
-      max-height: 150px;
+      max-height: 160px;
       overflow-y: auto;
     }
 
@@ -723,6 +724,15 @@
       cursor: pointer;
     }
 
+    .btn-secondary:hover {
+      background: var(--gold-soft);
+    }
+
+    .form-actions-row {
+      display: flex;
+      gap: 8px;
+    }
+
     .error-msg {
       color: var(--danger);
       font-size: 0.82rem;
@@ -731,6 +741,62 @@
     }
 
     /* Admin Dashboard Sections */
+    .admin-top-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .wa-settings-bar,
+    .publish-bar {
+      background: var(--sand);
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--gold);
+    }
+
+    .wa-settings-inner {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .wa-settings-inner .form-group {
+      flex: 1;
+      min-width: 170px;
+      margin-bottom: 0;
+    }
+
+    .publish-bar-title {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--maroon);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .publish-bar-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 9px;
+      line-height: 1.4;
+    }
+
+    .storage-pill {
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: #FFF;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
     .admin-grid {
       display: grid;
       grid-template-columns: 1.05fr 1fr;
@@ -852,7 +918,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      max-height: 500px;
+      max-height: 520px;
       overflow-y: auto;
       padding-right: 4px;
     }
@@ -865,6 +931,11 @@
       border: 1px solid var(--border);
       border-radius: 10px;
       background: var(--cream);
+    }
+
+    .admin-item.editing-active {
+      border-color: var(--terracotta);
+      background: #FFF6ED;
     }
 
     .admin-item img {
@@ -895,6 +966,29 @@
       display: block;
     }
 
+    .admin-item-actions {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .edit-btn {
+      background: var(--sand);
+      color: var(--maroon);
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .edit-btn:hover {
+      background: var(--maroon);
+      color: #FFF;
+    }
+
     .del-btn {
       background: #FDECEA;
       color: var(--danger);
@@ -905,30 +999,11 @@
       font-size: 0.78rem;
       font-weight: 600;
       cursor: pointer;
-      flex-shrink: 0;
     }
 
     .del-btn:hover {
       background: var(--danger);
       color: #FFF;
-    }
-
-    .wa-settings-bar {
-      display: flex;
-      gap: 8px;
-      align-items: flex-end;
-      margin-bottom: 18px;
-      background: var(--sand);
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px solid var(--gold);
-      flex-wrap: wrap;
-    }
-
-    .wa-settings-bar .form-group {
-      flex: 1;
-      min-width: 210px;
-      margin-bottom: 0;
     }
 
     /* Toast Notification */
@@ -949,6 +1024,8 @@
       transition: transform 0.25s ease, opacity 0.25s ease;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
       pointer-events: none;
+      text-align: center;
+      max-width: 92vw;
     }
 
     .toast.show {
@@ -958,6 +1035,7 @@
 
     /* Responsive Adjustments */
     @media (max-width: 768px) {
+      .admin-top-panels,
       .admin-grid {
         grid-template-columns: 1fr;
       }
@@ -1077,7 +1155,7 @@
         <button class="close-btn" id="closeLightbox" aria-label="Close">&times;</button>
       </div>
 
-      <div class="gallery-stage">
+      <div class="gallery-stage" id="galleryStage">
         <img id="lightboxImg" class="lightbox-img" src="" alt="" />
         <button type="button" class="gallery-nav prev" id="galleryPrev" aria-label="Previous photo">&#8249;</button>
         <button type="button" class="gallery-nav next" id="galleryNext" aria-label="Next photo">&#8250;</button>
@@ -1125,19 +1203,36 @@
         <button class="close-btn" id="closeAdminModal" aria-label="Close">&times;</button>
       </div>
 
-      <!-- WhatsApp Number Configuration -->
-      <div class="wa-settings-bar">
-        <div class="form-group">
-          <label for="waNumberInput">WhatsApp Business Number (with country code, e.g., 919876543210)</label>
-          <input type="text" id="waNumberInput" placeholder="919876543210" />
+      <!-- Top Configuration & Global Publish Row -->
+      <div class="admin-top-panels">
+        <div class="wa-settings-bar">
+          <div class="wa-settings-inner">
+            <div class="form-group">
+              <label for="waNumberInput">WhatsApp Number (with country code)</label>
+              <input type="text" id="waNumberInput" placeholder="919876543210" />
+            </div>
+            <button type="button" class="btn-secondary" id="saveWaBtn">Save Number</button>
+          </div>
         </div>
-        <button type="button" class="btn-secondary" id="saveWaBtn">Save Number</button>
+
+        <div class="publish-bar">
+          <div class="publish-bar-title">
+            <span>Publish Changes for All Customers</span>
+            <span class="storage-pill" id="storageUsagePill">Storage: 0%</span>
+          </div>
+          <p class="publish-bar-desc">
+            Edits update this browser instantly. Download and replace <strong>index.html</strong> on GitHub Pages so all buyers see updates everywhere.
+          </p>
+          <button type="button" class="btn-secondary" id="downloadSiteBtn" style="width:100%;">
+            Download Updated index.html
+          </button>
+        </div>
       </div>
 
       <div class="admin-grid">
-        <!-- Add New Product Form -->
+        <!-- Add / Edit Product Form -->
         <div class="admin-box">
-          <h4>Add New Product</h4>
+          <h4 id="formModeTitle">Add New Product</h4>
           <form id="addProductForm">
             <div class="form-group">
               <label for="prodTitle">Product Title</label>
@@ -1146,7 +1241,7 @@
 
             <div class="form-group">
               <label for="prodPrice">Price (₹)</label>
-              <input type="number" id="prodPrice" min="1" placeholder="e.g., 850" required />
+              <input type="number" id="prodPrice" min="1" step="any" placeholder="e.g., 850" required />
             </div>
 
             <div class="form-group">
@@ -1190,7 +1285,10 @@
               </div>
             </div>
 
-            <button type="submit" class="btn-primary">+ Publish Product</button>
+            <div class="form-actions-row">
+              <button type="submit" class="btn-primary" id="submitProductBtn">+ Publish Product</button>
+              <button type="button" class="btn-secondary" id="cancelEditBtn" style="display:none; white-space:nowrap;">Cancel</button>
+            </div>
           </form>
         </div>
 
@@ -1209,6 +1307,9 @@
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
 
+  <!-- Embedded Catalog Snapshot (auto-updated when exporting index.html) -->
+  <script id="saaj-embedded-data" type="application/json">null</script>
+
   <script>
     (() => {
       // =========================================================
@@ -1219,7 +1320,8 @@
       const MAX_PHOTOS_PER_ITEM = 10;
       const STORAGE_KEYS = {
         PRODUCTS: "saajgochh_products_v1",
-        WA_NUMBER: "saajgochh_wa_v1"
+        WA_NUMBER: "saajgochh_wa_v1",
+        UPDATED_AT: "saajgochh_updated_at_v1"
       };
 
       // Helper to generate artistic SVG artwork data-URIs for default demo items
@@ -1247,6 +1349,13 @@
         "#6D1A22", "#B84A2F", "#EBD8AE", "Artisanal Treasure",
         `<path d="M250 140 C275 185 295 205 295 232 A45 45 0 1 1 205 232 C205 205 225 185 250 140 Z" fill="#EBD8AE" opacity="0.9"/>`
       );
+
+      // Global safe image fallback handler (avoids inline SVG quote issues)
+      window.__saajFallback = (imgEl) => {
+        if (!imgEl || imgEl.dataset.fallbackApplied) return;
+        imgEl.dataset.fallbackApplied = "1";
+        imgEl.src = FALLBACK_IMG;
+      };
 
       // Default Demo Products (loaded automatically on first visit)
       const DEFAULT_PRODUCTS = [
@@ -1347,7 +1456,33 @@
       // =========================================================
       let activeCategory = "All";
       let searchQuery = "";
-      let pendingGalleryPhotos = []; // Holds up to 10 photos while creating an item
+      let pendingGalleryPhotos = [];
+      let editingProductId = null;
+      let activeModalProductId = null;
+
+      function syncEmbeddedDataIfNewer() {
+        try {
+          const embeddedEl = document.getElementById("saaj-embedded-data");
+          if (!embeddedEl) return;
+          const embedded = JSON.parse(embeddedEl.textContent || "null");
+          if (!embedded || typeof embedded !== "object") return;
+
+          const localUpdatedAt = Number(localStorage.getItem(STORAGE_KEYS.UPDATED_AT) || 0);
+          const embeddedUpdatedAt = Number(embedded.updatedAt || 0);
+
+          if (embeddedUpdatedAt > localUpdatedAt || localStorage.getItem(STORAGE_KEYS.PRODUCTS) === null) {
+            if (Array.isArray(embedded.products)) {
+              localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(embedded.products));
+            }
+            if (embedded.whatsapp) {
+              localStorage.setItem(STORAGE_KEYS.WA_NUMBER, String(embedded.whatsapp));
+            }
+            localStorage.setItem(STORAGE_KEYS.UPDATED_AT, String(embeddedUpdatedAt || Date.now()));
+          }
+        } catch {
+          // Ignore malformed embedded snapshot
+        }
+      }
 
       function getProductImages(product) {
         if (Array.isArray(product.images) && product.images.length > 0) {
@@ -1374,9 +1509,11 @@
       function saveProducts(list) {
         try {
           localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(list));
+          localStorage.setItem(STORAGE_KEYS.UPDATED_AT, String(Date.now()));
+          updateStorageMeter();
           return true;
         } catch (err) {
-          showToast("Browser storage is full! Delete older items or use fewer photos per item.");
+          showToast("Browser storage is full! Remove older items or use fewer photos per item.");
           return false;
         }
       }
@@ -1388,6 +1525,19 @@
       function saveWhatsAppNumber(num) {
         const cleaned = num.replace(/\D/g, "");
         localStorage.setItem(STORAGE_KEYS.WA_NUMBER, cleaned || DEFAULT_WHATSAPP_NUMBER);
+        localStorage.setItem(STORAGE_KEYS.UPDATED_AT, String(Date.now()));
+      }
+
+      function updateStorageMeter() {
+        const pill = document.getElementById("storageUsagePill");
+        if (!pill) return;
+        try {
+          const usedBytes = (localStorage.getItem(STORAGE_KEYS.PRODUCTS) || "").length * 2;
+          const pct = Math.min(100, Math.round((usedBytes / (5 * 1024 * 1024)) * 100));
+          pill.textContent = `Storage: ${pct}%`;
+        } catch {
+          pill.textContent = "Storage: --";
+        }
       }
 
       function escapeHTML(str) {
@@ -1404,8 +1554,8 @@
         window._toastTimer = setTimeout(() => toast.classList.remove("show"), 2800);
       }
 
-      // Compress uploaded gallery photos cleanly so up to 10 fit in localStorage
-      function compressImageFile(file, maxSize = 720, quality = 0.72) {
+      // Compress uploaded gallery photos cleanly so up to 10 fit comfortably in localStorage
+      function compressImageFile(file, maxSize = 640, quality = 0.66) {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
           reader.onerror = () => reject(new Error("Could not read file"));
@@ -1427,6 +1577,9 @@
               canvas.width = width;
               canvas.height = height;
               const ctx = canvas.getContext("2d");
+              // Fill white first so transparent PNGs never turn black in JPEG
+              ctx.fillStyle = "#FFFFFF";
+              ctx.fillRect(0, 0, width, height);
               ctx.drawImage(img, 0, 0, width, height);
               resolve(canvas.toDataURL("image/jpeg", quality));
             };
@@ -1507,7 +1660,7 @@
           return `
             <article class="product-card">
               <div class="product-img-wrap" data-open-id="${escapeHTML(product.id)}">
-                <img src="${escapeHTML(coverImg)}" alt="${escapeHTML(product.title)}" loading="lazy" onerror="this.onerror=null; this.src='${FALLBACK_IMG}';" />
+                <img src="${escapeHTML(coverImg)}" alt="${escapeHTML(product.title)}" loading="lazy" onerror="window.__saajFallback(this)" />
                 <span class="category-tag">${escapeHTML(product.category)}</span>
                 ${imgs.length > 1 ? `
                   <span class="photo-count-badge">
@@ -1546,6 +1699,16 @@
             if (prod) openProductDetailModal(prod);
           });
         });
+
+        // Keep detail modal synced if it's currently open
+        if (lightboxModal.classList.contains("open") && activeModalProductId) {
+          const updatedProd = allProducts.find(item => item.id === activeModalProductId);
+          if (updatedProd) {
+            openProductDetailModal(updatedProd);
+          } else {
+            closeProductDetailModal();
+          }
+        }
       }
 
       searchInput.addEventListener("input", (e) => {
@@ -1562,6 +1725,7 @@
       const galleryThumbs = document.getElementById("galleryThumbs");
       const galleryPrev = document.getElementById("galleryPrev");
       const galleryNext = document.getElementById("galleryNext");
+      const galleryStage = document.getElementById("galleryStage");
 
       let currentGalleryImages = [];
       let currentSlideIndex = 0;
@@ -1570,8 +1734,9 @@
         if (!currentGalleryImages.length) return;
         currentSlideIndex = (index + currentGalleryImages.length) % currentGalleryImages.length;
 
+        delete lightboxImg.dataset.fallbackApplied;
         lightboxImg.src = currentGalleryImages[currentSlideIndex];
-        lightboxImg.onerror = () => { lightboxImg.src = FALLBACK_IMG; };
+        lightboxImg.onerror = () => window.__saajFallback(lightboxImg);
         galleryCounter.textContent = `${currentSlideIndex + 1} / ${currentGalleryImages.length}`;
 
         const multi = currentGalleryImages.length > 1;
@@ -1585,6 +1750,7 @@
       }
 
       function openProductDetailModal(product) {
+        activeModalProductId = product.id;
         currentGalleryImages = getProductImages(product);
         currentSlideIndex = 0;
 
@@ -1597,7 +1763,7 @@
         if (currentGalleryImages.length > 1) {
           galleryThumbs.style.display = "flex";
           galleryThumbs.innerHTML = currentGalleryImages.map((src, idx) => `
-            <img src="${escapeHTML(src)}" alt="Photo ${idx + 1}" data-thumb-idx="${idx}" onerror="this.onerror=null; this.src='${FALLBACK_IMG}';" />
+            <img src="${escapeHTML(src)}" alt="Photo ${idx + 1}" data-thumb-idx="${idx}" onerror="window.__saajFallback(this)" />
           `).join("");
 
           galleryThumbs.querySelectorAll("img").forEach(imgEl => {
@@ -1614,12 +1780,30 @@
         lightboxModal.classList.add("open");
       }
 
+      function closeProductDetailModal() {
+        lightboxModal.classList.remove("open");
+        activeModalProductId = null;
+      }
+
       galleryPrev.addEventListener("click", () => updateGallerySlide(currentSlideIndex - 1));
       galleryNext.addEventListener("click", () => updateGallerySlide(currentSlideIndex + 1));
 
-      document.getElementById("closeLightbox").addEventListener("click", () => lightboxModal.classList.remove("open"));
+      // Mobile touch swipe on gallery stage
+      let touchStartX = 0;
+      galleryStage.addEventListener("touchstart", (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+      galleryStage.addEventListener("touchend", (e) => {
+        if (currentGalleryImages.length <= 1) return;
+        const diff = e.changedTouches[0].screenX - touchStartX;
+        if (Math.abs(diff) > 40) {
+          updateGallerySlide(diff < 0 ? currentSlideIndex + 1 : currentSlideIndex - 1);
+        }
+      }, { passive: true });
+
+      document.getElementById("closeLightbox").addEventListener("click", closeProductDetailModal);
       lightboxModal.addEventListener("click", (e) => {
-        if (e.target === lightboxModal) lightboxModal.classList.remove("open");
+        if (e.target === lightboxModal) closeProductDetailModal();
       });
 
       // =========================================================
@@ -1657,6 +1841,16 @@
         if (e.ctrlKey && e.shiftKey && (e.key === "A" || e.key === "a")) {
           e.preventDefault();
           openPinModal();
+          return;
+        }
+        if (e.key === "Escape") {
+          if (lightboxModal.classList.contains("open")) closeProductDetailModal();
+          if (pinModal.classList.contains("open")) pinModal.classList.remove("open");
+          if (adminModal.classList.contains("open")) adminModal.classList.remove("open");
+        }
+        if (lightboxModal.classList.contains("open") && currentGalleryImages.length > 1) {
+          if (e.key === "ArrowLeft") updateGallerySlide(currentSlideIndex - 1);
+          if (e.key === "ArrowRight") updateGallerySlide(currentSlideIndex + 1);
         }
       });
 
@@ -1678,12 +1872,17 @@
       });
 
       // =========================================================
-      // ADMIN PANEL LOGIC (Multi-Photo Gallery + Description)
+      // ADMIN PANEL LOGIC (Add, Edit, Delete, Gallery, Export)
       // =========================================================
       const addProductForm = document.getElementById("addProductForm");
       const adminProductList = document.getElementById("adminProductList");
       const adminCount = document.getElementById("adminCount");
       const waNumberInput = document.getElementById("waNumberInput");
+
+      const prodTitleInput = document.getElementById("prodTitle");
+      const prodPriceInput = document.getElementById("prodPrice");
+      const prodCategorySelect = document.getElementById("prodCategory");
+      const prodDescInput = document.getElementById("prodDesc");
 
       const prodGalleryInput = document.getElementById("prodGalleryInput");
       const adminPhotoGrid = document.getElementById("adminPhotoGrid");
@@ -1691,6 +1890,56 @@
       const uploadPromptText = document.getElementById("uploadPromptText");
       const prodImageUrlInput = document.getElementById("prodImageUrl");
       const addUrlBtn = document.getElementById("addUrlBtn");
+
+      const formModeTitle = document.getElementById("formModeTitle");
+      const submitProductBtn = document.getElementById("submitProductBtn");
+      const cancelEditBtn = document.getElementById("cancelEditBtn");
+
+      function resetAdminForm() {
+        editingProductId = null;
+        addProductForm.reset();
+        pendingGalleryPhotos = [];
+        formModeTitle.textContent = "Add New Product";
+        submitProductBtn.textContent = "+ Publish Product";
+        cancelEditBtn.style.display = "none";
+        renderAdminPendingPhotos();
+        renderAdminList();
+      }
+
+      function startEditingProduct(product) {
+        editingProductId = product.id;
+        prodTitleInput.value = product.title || "";
+        prodPriceInput.value = product.price || "";
+        prodDescInput.value = product.description || "";
+        prodImageUrlInput.value = "";
+
+        // Ensure category option exists even for legacy/custom categories
+        const catVal = product.category || "Others";
+        const hasOption = Array.from(prodCategorySelect.options).some(opt => opt.value === catVal);
+        if (!hasOption) {
+          const opt = document.createElement("option");
+          opt.value = catVal;
+          opt.textContent = catVal;
+          prodCategorySelect.appendChild(opt);
+        }
+        prodCategorySelect.value = catVal;
+
+        pendingGalleryPhotos = [...getProductImages(product)].slice(0, MAX_PHOTOS_PER_ITEM);
+
+        formModeTitle.textContent = "Edit Product";
+        submitProductBtn.textContent = "Save Changes";
+        cancelEditBtn.style.display = "inline-block";
+
+        renderAdminPendingPhotos();
+        renderAdminList();
+
+        // Scroll modal up to form on mobile
+        const modalCard = adminModal.querySelector(".modal-card");
+        if (modalCard) modalCard.scrollTo({ top: 0, behavior: "smooth" });
+        prodTitleInput.focus();
+      }
+
+      cancelEditBtn.addEventListener("click", resetAdminForm);
 
       function renderAdminPendingPhotos() {
         photoCounterLabel.textContent = `${pendingGalleryPhotos.length} / ${MAX_PHOTOS_PER_ITEM}`;
@@ -1702,7 +1951,7 @@
 
         adminPhotoGrid.innerHTML = pendingGalleryPhotos.map((src, idx) => `
           <div class="admin-photo-tile">
-            <img src="${escapeHTML(src)}" alt="Selected ${idx + 1}" onerror="this.onerror=null; this.src='${FALLBACK_IMG}';" />
+            <img src="${escapeHTML(src)}" alt="Selected ${idx + 1}" onerror="window.__saajFallback(this)" />
             <button type="button" class="remove-photo-btn" data-remove-idx="${idx}" aria-label="Remove photo">&times;</button>
           </div>
         `).join("");
@@ -1766,6 +2015,7 @@
 
       function openAdminDashboard() {
         waNumberInput.value = getWhatsAppNumber();
+        updateStorageMeter();
         renderAdminPendingPhotos();
         renderAdminList();
         adminModal.classList.add("open");
@@ -1785,25 +2035,24 @@
         saveWhatsAppNumber(val);
         waNumberInput.value = getWhatsAppNumber();
         renderStore();
-        showToast("WhatsApp number updated!");
+        showToast("WhatsApp number updated everywhere!");
       });
 
       addProductForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        const title = document.getElementById("prodTitle").value.trim();
-        const price = Number(document.getElementById("prodPrice").value);
-        const category = document.getElementById("prodCategory").value;
-        const description = document.getElementById("prodDesc").value.trim();
+        const title = prodTitleInput.value.trim();
+        const price = Number(prodPriceInput.value);
+        const category = prodCategorySelect.value;
+        const description = prodDescInput.value.trim();
 
-        // Also include URL field automatically if user typed one without clicking + Add
         const inlineUrl = prodImageUrlInput.value.trim();
         if (inlineUrl && pendingGalleryPhotos.length < MAX_PHOTOS_PER_ITEM) {
           pendingGalleryPhotos.push(inlineUrl);
           prodImageUrlInput.value = "";
         }
 
-        if (!title || !price || price <= 0 || !description) {
-          showToast("Please fill in title, price, and description");
+        if (!title || isNaN(price) || price <= 0 || !description) {
+          showToast("Please fill in title, valid price, and description");
           return;
         }
 
@@ -1812,25 +2061,53 @@
           return;
         }
 
-        const newProduct = {
-          id: "prod-" + Date.now(),
-          title,
-          price,
-          category,
-          description,
-          images: [...pendingGalleryPhotos]
-        };
-
         const products = getProducts();
-        products.unshift(newProduct);
+        const isEditing = Boolean(editingProductId);
+
+        if (isEditing) {
+          const idx = products.findIndex(p => p.id === editingProductId);
+          if (idx !== -1) {
+            products[idx] = {
+              ...products[idx],
+              title,
+              price,
+              category,
+              description,
+              images: [...pendingGalleryPhotos]
+            };
+          } else {
+            products.unshift({
+              id: "prod-" + Date.now(),
+              title,
+              price,
+              category,
+              description,
+              images: [...pendingGalleryPhotos]
+            });
+          }
+        } else {
+          products.unshift({
+            id: "prod-" + Date.now(),
+            title,
+            price,
+            category,
+            description,
+            images: [...pendingGalleryPhotos]
+          });
+        }
 
         if (saveProducts(products)) {
-          addProductForm.reset();
-          pendingGalleryPhotos = [];
-          renderAdminPendingPhotos();
-          renderAdminList();
+          // Ensure updated/added product is immediately visible on the storefront
+          if (activeCategory !== "All" && activeCategory !== category) {
+            activeCategory = "All";
+          }
+          if (searchQuery) {
+            searchQuery = "";
+            searchInput.value = "";
+          }
+          resetAdminForm();
           renderStore();
-          showToast("New product published!");
+          showToast(isEditing ? "Product updated everywhere!" : "New product published!");
         }
       });
 
@@ -1845,38 +2122,137 @@
 
         adminProductList.innerHTML = products.map(p => {
           const imgs = getProductImages(p);
+          const isCurrentEdit = editingProductId === p.id;
           return `
-            <div class="admin-item">
-              <img src="${escapeHTML(imgs[0])}" alt="${escapeHTML(p.title)}" onerror="this.onerror=null; this.src='${FALLBACK_IMG}';" />
+            <div class="admin-item ${isCurrentEdit ? "editing-active" : ""}">
+              <img src="${escapeHTML(imgs[0])}" alt="${escapeHTML(p.title)}" onerror="window.__saajFallback(this)" />
               <div class="admin-item-info">
                 <h5>${escapeHTML(p.title)}</h5>
                 <span>${escapeHTML(p.category)} • ₹${Number(p.price).toLocaleString("en-IN")} • ${imgs.length} photo${imgs.length > 1 ? "s" : ""}</span>
               </div>
-              <button type="button" class="del-btn" data-del-id="${escapeHTML(p.id)}">Delete</button>
+              <div class="admin-item-actions">
+                <button type="button" class="edit-btn" data-edit-id="${escapeHTML(p.id)}">Edit</button>
+                <button type="button" class="del-btn" data-del-id="${escapeHTML(p.id)}">Delete</button>
+              </div>
             </div>
           `;
         }).join("");
+
+        adminProductList.querySelectorAll(".edit-btn").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const id = btn.getAttribute("data-edit-id");
+            const prod = getProducts().find(item => item.id === id);
+            if (prod) startEditingProduct(prod);
+          });
+        });
 
         adminProductList.querySelectorAll(".del-btn").forEach(btn => {
           btn.addEventListener("click", () => {
             const id = btn.getAttribute("data-del-id");
             const updated = getProducts().filter(item => item.id !== id);
-            saveProducts(updated);
-            renderAdminList();
-            renderStore();
-            showToast("Product deleted");
+            if (saveProducts(updated)) {
+              if (editingProductId === id) {
+                resetAdminForm();
+              } else {
+                renderAdminList();
+              }
+              renderStore();
+              showToast("Product deleted");
+            }
           });
         });
       }
 
       document.getElementById("resetDemoBtn").addEventListener("click", () => {
-        saveProducts(DEFAULT_PRODUCTS);
-        renderAdminList();
-        renderStore();
-        showToast("Default products restored");
+        if (saveProducts(DEFAULT_PRODUCTS)) {
+          activeCategory = "All";
+          searchQuery = "";
+          searchInput.value = "";
+          resetAdminForm();
+          renderStore();
+          showToast("Default products restored");
+        }
+      });
+
+      // Download a clean standalone index.html with all live products & WhatsApp number baked in
+      document.getElementById("downloadSiteBtn").addEventListener("click", () => {
+        try {
+          const payload = {
+            updatedAt: Date.now(),
+            whatsapp: getWhatsAppNumber(),
+            products: getProducts()
+          };
+          localStorage.setItem(STORAGE_KEYS.UPDATED_AT, String(payload.updatedAt));
+
+          const clone = document.documentElement.cloneNode(true);
+
+          // Reset transient UI state inside exported file
+          clone.querySelectorAll(".modal-backdrop").forEach(m => m.classList.remove("open"));
+          const toastEl = clone.querySelector("#toast");
+          if (toastEl) {
+            toastEl.classList.remove("show");
+            toastEl.textContent = "";
+          }
+
+          ["#productGrid", "#categoryBar", "#adminProductList", "#adminPhotoGrid", "#galleryThumbs"].forEach(sel => {
+            const el = clone.querySelector(sel);
+            if (el) el.innerHTML = "";
+          });
+
+          ["#searchInput", "#pinInput", "#prodTitle", "#prodPrice", "#prodDesc", "#prodImageUrl", "#waNumberInput", "#prodGalleryInput"].forEach(sel => {
+            const el = clone.querySelector(sel);
+            if (el) {
+              el.value = "";
+              el.removeAttribute("value");
+            }
+          });
+
+          const cLabel = clone.querySelector("#photoCounterLabel");
+          if (cLabel) cLabel.textContent = `0 / ${MAX_PHOTOS_PER_ITEM}`;
+          const aCount = clone.querySelector("#adminCount");
+          if (aCount) aCount.textContent = "0";
+          const fTitle = clone.querySelector("#formModeTitle");
+          if (fTitle) fTitle.textContent = "Add New Product";
+          const sBtn = clone.querySelector("#submitProductBtn");
+          if (sBtn) sBtn.textContent = "+ Publish Product";
+          const cBtn = clone.querySelector("#cancelEditBtn");
+          if (cBtn) cBtn.style.display = "none";
+
+          const dataNode = clone.querySelector("#saaj-embedded-data");
+          if (dataNode) {
+            dataNode.textContent = JSON.stringify(payload).replace(/</g, "\\u003c");
+          }
+
+          const finalHtml = "<!DOCTYPE html>\n" + clone.outerHTML;
+          const blob = new Blob([finalHtml], { type: "text/html;charset=utf-8" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "index.html";
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(() => URL.revokeObjectURL(url), 1500);
+          showToast("Downloaded updated index.html! Upload it to update all buyers.");
+        } catch {
+          showToast("Could not export index.html");
+        }
+      });
+
+      // Live sync across multiple open browser tabs/windows
+      window.addEventListener("storage", (e) => {
+        if (e.key === STORAGE_KEYS.PRODUCTS || e.key === STORAGE_KEYS.WA_NUMBER || e.key === STORAGE_KEYS.UPDATED_AT) {
+          renderStore();
+          if (adminModal.classList.contains("open")) {
+            waNumberInput.value = getWhatsAppNumber();
+            updateStorageMeter();
+            renderAdminList();
+          }
+        }
       });
 
       // Initial Boot
+      syncEmbeddedDataIfNewer();
       renderStore();
     })();
   </script>
