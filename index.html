@@ -1221,7 +1221,7 @@
             <span class="storage-pill" id="storageUsagePill">Storage: 0%</span>
           </div>
           <p class="publish-bar-desc">
-            Edits update this browser instantly. Download and replace <strong>index.html</strong> on GitHub Pages so all buyers see updates everywhere.
+            Edits update this browser instantly. Download and replace <strong>index.html</strong> on your host so every visitor sees updates on all devices.
           </p>
           <button type="button" class="btn-secondary" id="downloadSiteBtn" style="width:100%;">
             Download Updated index.html
@@ -1350,14 +1350,12 @@
         `<path d="M250 140 C275 185 295 205 295 232 A45 45 0 1 1 205 232 C205 205 225 185 250 140 Z" fill="#EBD8AE" opacity="0.9"/>`
       );
 
-      // Global safe image fallback handler (avoids inline SVG quote issues)
       window.__saajFallback = (imgEl) => {
         if (!imgEl || imgEl.dataset.fallbackApplied) return;
         imgEl.dataset.fallbackApplied = "1";
         imgEl.src = FALLBACK_IMG;
       };
 
-      // Default Demo Products (loaded automatically on first visit)
       const DEFAULT_PRODUCTS = [
         {
           id: "demo-1",
@@ -1452,36 +1450,139 @@
       ];
 
       // =========================================================
-      // STATE & STORAGE HELPERS
+      // CRASH-PROOF STORAGE & MULTI-TAB SYNC
       // =========================================================
-      let activeCategory = "All";
-      let searchQuery = "";
-      let pendingGalleryPhotos = [];
-      let editingProductId = null;
-      let activeModalProductId = null;
+      const memoryState = {
+        products: null,
+        whatsapp: DEFAULT_WHATSAPP_NUMBER,
+        updatedAt: 0
+      };
 
-      function syncEmbeddedDataIfNewer() {
+      const syncChannel = typeof BroadcastChannel !== "undefined"
+        ? new BroadcastChannel("saajgochh_sync_v1")
+        : null;
+
+      function safeGetItem(key) {
         try {
-          const embeddedEl = document.getElementById("saaj-embedded-data");
-          if (!embeddedEl) return;
-          const embedded = JSON.parse(embeddedEl.textContent || "null");
-          if (!embedded || typeof embedded !== "object") return;
+          return window.localStorage.getItem(key);
+        } catch {
+          return null;
+        }
+      }
 
-          const localUpdatedAt = Number(localStorage.getItem(STORAGE_KEYS.UPDATED_AT) || 0);
-          const embeddedUpdatedAt = Number(embedded.updatedAt || 0);
+      function safeSetItem(key, value) {
+        try {
+          window.localStorage.setItem(key, value);
+          return true;
+        } catch {
+          return false;
+        }
+      }
 
-          if (embeddedUpdatedAt > localUpdatedAt || localStorage.getItem(STORAGE_KEYS.PRODUCTS) === null) {
-            if (Array.isArray(embedded.products)) {
-              localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(embedded.products));
-            }
-            if (embedded.whatsapp) {
-              localStorage.setItem(STORAGE_KEYS.WA_NUMBER, String(embedded.whatsapp));
-            }
-            localStorage.setItem(STORAGE_KEYS.UPDATED_AT, String(embeddedUpdatedAt || Date.now()));
+      function normalizeProduct(raw) {
+        if (!raw || typeof raw !== "object") return null;
+        const title = String(raw.title || "").trim();
+        const price = Number(raw.price);
+        if (!title || isNaN(price) || price <= 0) return null;
+
+        let imgs = [];
+        if (Array.isArray(raw.images) && raw.images.length > 0) {
+          imgs = raw.images.filter(Boolean).map(String);
+        } else if (raw.image) {
+          imgs = [String(raw.image)];
+        }
+        if (imgs.length === 0) imgs = [FALLBACK_IMG];
+
+        return {
+          id: String(raw.id || ("prod-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6))),
+          title,
+          price,
+          category: String(raw.category || "Others").trim() || "Others",
+          description: String(raw.description || "Handcrafted Bengali artisanal item.").trim(),
+          images: imgs
+        };
+      }
+
+      function normalizeList(arr) {
+        if (!Array.isArray(arr)) return [];
+        return arr.map(normalizeProduct).filter(Boolean);
+      }
+
+      function initCatalogState() {
+        let embedded = null;
+        try {
+          const el = document.getElementById("saaj-embedded-data");
+          if (el && el.textContent.trim()) {
+            embedded = JSON.parse(el.textContent);
           }
         } catch {
-          // Ignore malformed embedded snapshot
+          embedded = null;
         }
+
+        const localRawProducts = safeGetItem(STORAGE_KEYS.PRODUCTS);
+        const localUpdatedAt = Number(safeGetItem(STORAGE_KEYS.UPDATED_AT) || 0);
+        const localWa = safeGetItem(STORAGE_KEYS.WA_NUMBER);
+
+        const embeddedUpdatedAt = embedded && typeof embedded === "object"
+          ? Number(embedded.updatedAt || 0)
+          : 0;
+
+        // If exported HTML snapshot is newer OR local storage has nothing yet, prefer embedded snapshot
+        if (embedded && typeof embedded === "object" && Array.isArray(embedded.products) &&
+            (embeddedUpdatedAt > localUpdatedAt || localRawProducts === null)) {
+          const cleanEmbedded = normalizeList(embedded.products);
+          memoryState.products = cleanEmbedded;
+          memoryState.whatsapp = String(embedded.whatsapp || DEFAULT_WHATSAPP_NUMBER);
+          memoryState.updatedAt = embeddedUpdatedAt || Date.now();
+
+          safeSetItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(cleanEmbedded));
+          safeSetItem(STORAGE_KEYS.WA_NUMBER, memoryState.whatsapp);
+          safeSetItem(STORAGE_KEYS.UPDATED_AT, String(memoryState.updatedAt));
+          return;
+        }
+
+        // Otherwise read from localStorage if available
+        if (localRawProducts !== null) {
+          try {
+            const parsed = JSON.parse(localRawProducts);
+            if (Array.isArray(parsed)) {
+              memoryState.products = normalizeList(parsed);
+              memoryState.whatsapp = localWa || DEFAULT_WHATSAPP_NUMBER;
+              memoryState.updatedAt = localUpdatedAt;
+              return;
+            }
+          } catch {
+            // Fall through to defaults if JSON was corrupted
+          }
+        }
+
+        // Initial default state
+        memoryState.products = normalizeList(DEFAULT_PRODUCTS);
+        memoryState.whatsapp = localWa || DEFAULT_WHATSAPP_NUMBER;
+        memoryState.updatedAt = Date.now();
+
+        safeSetItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(memoryState.products));
+        safeSetItem(STORAGE_KEYS.WA_NUMBER, memoryState.whatsapp);
+        safeSetItem(STORAGE_KEYS.UPDATED_AT, String(memoryState.updatedAt));
+      }
+
+      function reloadFromStorageIfAvailable() {
+        const raw = safeGetItem(STORAGE_KEYS.PRODUCTS);
+        const wa = safeGetItem(STORAGE_KEYS.WA_NUMBER);
+        const updated = Number(safeGetItem(STORAGE_KEYS.UPDATED_AT) || 0);
+
+        if (raw !== null) {
+          try {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed)) {
+              memoryState.products = normalizeList(parsed);
+              memoryState.updatedAt = updated;
+            }
+          } catch {
+            // Keep existing memoryState
+          }
+        }
+        if (wa) memoryState.whatsapp = wa;
       }
 
       function getProductImages(product) {
@@ -1493,46 +1594,60 @@
       }
 
       function getProducts() {
-        const raw = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
-        if (raw === null) {
-          localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(DEFAULT_PRODUCTS));
-          return [...DEFAULT_PRODUCTS];
+        if (!Array.isArray(memoryState.products)) {
+          initCatalogState();
         }
-        try {
-          const parsed = JSON.parse(raw);
-          return Array.isArray(parsed) ? parsed : [];
-        } catch {
-          return [];
+        return memoryState.products;
+      }
+
+      function broadcastUpdate() {
+        if (syncChannel) {
+          try {
+            syncChannel.postMessage({ type: "SYNC_CATALOG", updatedAt: memoryState.updatedAt });
+          } catch {
+            // Ignore channel errors
+          }
         }
       }
 
       function saveProducts(list) {
-        try {
-          localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(list));
-          localStorage.setItem(STORAGE_KEYS.UPDATED_AT, String(Date.now()));
-          updateStorageMeter();
-          return true;
-        } catch (err) {
-          showToast("Browser storage is full! Remove older items or use fewer photos per item.");
-          return false;
+        const cleanList = normalizeList(list);
+        memoryState.products = cleanList;
+        memoryState.updatedAt = Date.now();
+
+        const serialized = JSON.stringify(cleanList);
+        const saved = safeSetItem(STORAGE_KEYS.PRODUCTS, serialized);
+        safeSetItem(STORAGE_KEYS.UPDATED_AT, String(memoryState.updatedAt));
+
+        updateStorageMeter();
+        broadcastUpdate();
+
+        if (!saved) {
+          showToast("Updated in this session. Storage quota reached — use fewer photos or Download index.html to save permanently.");
         }
+        return true;
       }
 
       function getWhatsAppNumber() {
-        return localStorage.getItem(STORAGE_KEYS.WA_NUMBER) || DEFAULT_WHATSAPP_NUMBER;
+        return memoryState.whatsapp || DEFAULT_WHATSAPP_NUMBER;
       }
 
       function saveWhatsAppNumber(num) {
-        const cleaned = num.replace(/\D/g, "");
-        localStorage.setItem(STORAGE_KEYS.WA_NUMBER, cleaned || DEFAULT_WHATSAPP_NUMBER);
-        localStorage.setItem(STORAGE_KEYS.UPDATED_AT, String(Date.now()));
+        const cleaned = String(num || "").replace(/\D/g, "") || DEFAULT_WHATSAPP_NUMBER;
+        memoryState.whatsapp = cleaned;
+        memoryState.updatedAt = Date.now();
+
+        safeSetItem(STORAGE_KEYS.WA_NUMBER, cleaned);
+        safeSetItem(STORAGE_KEYS.UPDATED_AT, String(memoryState.updatedAt));
+        broadcastUpdate();
       }
 
       function updateStorageMeter() {
         const pill = document.getElementById("storageUsagePill");
         if (!pill) return;
         try {
-          const usedBytes = (localStorage.getItem(STORAGE_KEYS.PRODUCTS) || "").length * 2;
+          const raw = safeGetItem(STORAGE_KEYS.PRODUCTS) || JSON.stringify(memoryState.products || []);
+          const usedBytes = raw.length * 2;
           const pct = Math.min(100, Math.round((usedBytes / (5 * 1024 * 1024)) * 100));
           pill.textContent = `Storage: ${pct}%`;
         } catch {
@@ -1551,10 +1666,10 @@
         toast.textContent = msg;
         toast.classList.add("show");
         clearTimeout(window._toastTimer);
-        window._toastTimer = setTimeout(() => toast.classList.remove("show"), 2800);
+        window._toastTimer = setTimeout(() => toast.classList.remove("show"), 3000);
       }
 
-      // Compress uploaded gallery photos cleanly so up to 10 fit comfortably in localStorage
+      // Compress uploaded gallery photos cleanly so up to 10 fit comfortably
       function compressImageFile(file, maxSize = 640, quality = 0.66) {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
@@ -1577,7 +1692,6 @@
               canvas.width = width;
               canvas.height = height;
               const ctx = canvas.getContext("2d");
-              // Fill white first so transparent PNGs never turn black in JPEG
               ctx.fillStyle = "#FFFFFF";
               ctx.fillRect(0, 0, width, height);
               ctx.drawImage(img, 0, 0, width, height);
@@ -1590,12 +1704,35 @@
       }
 
       // =========================================================
-      // FRONTEND RENDERING
+      // STATE & DOM REFERENCES
       // =========================================================
+      let activeCategory = "All";
+      let searchQuery = "";
+      let pendingGalleryPhotos = [];
+      let editingProductId = null;
+      let activeModalProductId = null;
+
       const productGrid = document.getElementById("productGrid");
       const categoryBar = document.getElementById("categoryBar");
       const searchInput = document.getElementById("searchInput");
 
+      const lightboxModal = document.getElementById("lightboxModal");
+      const lightboxImg = document.getElementById("lightboxImg");
+      const galleryCounter = document.getElementById("galleryCounter");
+      const galleryThumbs = document.getElementById("galleryThumbs");
+      const galleryPrev = document.getElementById("galleryPrev");
+      const galleryNext = document.getElementById("galleryNext");
+      const galleryStage = document.getElementById("galleryStage");
+
+      const pinModal = document.getElementById("pinModal");
+      const pinForm = document.getElementById("pinForm");
+      const pinInput = document.getElementById("pinInput");
+      const pinError = document.getElementById("pinError");
+      const adminModal = document.getElementById("adminModal");
+
+      // =========================================================
+      // FRONTEND RENDERING
+      // =========================================================
       function renderCategories(products) {
         const cats = ["All", ...new Set(products.map(p => p.category).filter(Boolean))];
         if (!cats.includes(activeCategory)) activeCategory = "All";
@@ -1648,59 +1785,56 @@
               <p>Try selecting another category or clearing your search filter.</p>
             </div>
           `;
-          return;
+        } else {
+          productGrid.innerHTML = filtered.map(product => {
+            const imgs = getProductImages(product);
+            const coverImg = imgs[0];
+            const waUrl = buildWhatsAppLink(product);
+            const descText = product.description || "Handcrafted Bengali artisanal item.";
+
+            return `
+              <article class="product-card">
+                <div class="product-img-wrap" data-open-id="${escapeHTML(product.id)}">
+                  <img src="${escapeHTML(coverImg)}" alt="${escapeHTML(product.title)}" loading="lazy" onerror="window.__saajFallback(this)" />
+                  <span class="category-tag">${escapeHTML(product.category)}</span>
+                  ${imgs.length > 1 ? `
+                    <span class="photo-count-badge">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <polyline points="21 15 16 10 5 21"/>
+                      </svg>
+                      ${imgs.length} Photos
+                    </span>
+                  ` : ""}
+                </div>
+                <div class="product-body">
+                  <h3 class="product-title" data-open-id="${escapeHTML(product.id)}">${escapeHTML(product.title)}</h3>
+                  <p class="product-desc-preview" data-open-id="${escapeHTML(product.id)}">${escapeHTML(descText)}</p>
+                  <div class="price-row">
+                    <span class="product-price">₹${Number(product.price).toLocaleString("en-IN")}</span>
+                    <button type="button" class="view-details-link" data-open-id="${escapeHTML(product.id)}">View Details</button>
+                  </div>
+                  <a class="wa-btn" href="${waUrl}" target="_blank" rel="noopener noreferrer">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12.031 2c-5.516 0-9.969 4.453-9.969 9.969 0 1.766.469 3.484 1.344 5l-1.406 5.141 5.266-1.375c1.469.797 3.109 1.219 4.766 1.219 5.516 0 9.969-4.453 9.969-9.969S17.547 2 12.031 2zm5.813 14.125c-.25.703-1.438 1.344-2 1.422-.516.078-1.172.109-1.906-.125-.453-.141-1.031-.328-1.766-.641-3.078-1.328-5.094-4.438-5.25-4.641-.156-.203-1.25-1.656-1.25-3.156s.781-2.25 1.063-2.563c.281-.313.609-.391.813-.391.203 0 .406.016.578.016.188 0 .438-.078.688.516.25.609.859 2.094.938 2.25.078.156.125.344.016.547-.094.203-.156.328-.313.516-.156.188-.328.406-.469.547-.156.156-.313.328-.141.641.188.313.813 1.344 1.75 2.172 1.203 1.078 2.219 1.406 2.531 1.563.313.156.5.125.688-.078.188-.203.781-.906.984-1.219.203-.313.422-.266.703-.156.281.109 1.797.844 2.109 1 .313.156.516.234.594.359.078.125.078.734-.172 1.438z"/>
+                    </svg>
+                    Order on WhatsApp
+                  </a>
+                </div>
+              </article>
+            `;
+          }).join("");
+
+          productGrid.querySelectorAll("[data-open-id]").forEach(el => {
+            el.addEventListener("click", () => {
+              const id = el.getAttribute("data-open-id");
+              const prod = getProducts().find(item => item.id === id);
+              if (prod) openProductDetailModal(prod);
+            });
+          });
         }
 
-        productGrid.innerHTML = filtered.map(product => {
-          const imgs = getProductImages(product);
-          const coverImg = imgs[0];
-          const waUrl = buildWhatsAppLink(product);
-          const descText = product.description || "Handcrafted Bengali artisanal item.";
-
-          return `
-            <article class="product-card">
-              <div class="product-img-wrap" data-open-id="${escapeHTML(product.id)}">
-                <img src="${escapeHTML(coverImg)}" alt="${escapeHTML(product.title)}" loading="lazy" onerror="window.__saajFallback(this)" />
-                <span class="category-tag">${escapeHTML(product.category)}</span>
-                ${imgs.length > 1 ? `
-                  <span class="photo-count-badge">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                      <rect x="3" y="3" width="18" height="18" rx="2"/>
-                      <circle cx="8.5" cy="8.5" r="1.5"/>
-                      <polyline points="21 15 16 10 5 21"/>
-                    </svg>
-                    ${imgs.length} Photos
-                  </span>
-                ` : ""}
-              </div>
-              <div class="product-body">
-                <h3 class="product-title" data-open-id="${escapeHTML(product.id)}">${escapeHTML(product.title)}</h3>
-                <p class="product-desc-preview" data-open-id="${escapeHTML(product.id)}">${escapeHTML(descText)}</p>
-                <div class="price-row">
-                  <span class="product-price">₹${Number(product.price).toLocaleString("en-IN")}</span>
-                  <button type="button" class="view-details-link" data-open-id="${escapeHTML(product.id)}">View Details</button>
-                </div>
-                <a class="wa-btn" href="${waUrl}" target="_blank" rel="noopener noreferrer">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M12.031 2c-5.516 0-9.969 4.453-9.969 9.969 0 1.766.469 3.484 1.344 5l-1.406 5.141 5.266-1.375c1.469.797 3.109 1.219 4.766 1.219 5.516 0 9.969-4.453 9.969-9.969S17.547 2 12.031 2zm5.813 14.125c-.25.703-1.438 1.344-2 1.422-.516.078-1.172.109-1.906-.125-.453-.141-1.031-.328-1.766-.641-3.078-1.328-5.094-4.438-5.25-4.641-.156-.203-1.25-1.656-1.25-3.156s.781-2.25 1.063-2.563c.281-.313.609-.391.813-.391.203 0 .406.016.578.016.188 0 .438-.078.688.516.25.609.859 2.094.938 2.25.078.156.125.344.016.547-.094.203-.156.328-.313.516-.156.188-.328.406-.469.547-.156.156-.313.328-.141.641.188.313.813 1.344 1.75 2.172 1.203 1.078 2.219 1.406 2.531 1.563.313.156.5.125.688-.078.188-.203.781-.906.984-1.219.203-.313.422-.266.703-.156.281.109 1.797.844 2.109 1 .313.156.516.234.594.359.078.125.078.734-.172 1.438z"/>
-                  </svg>
-                  Order on WhatsApp
-                </a>
-              </div>
-            </article>
-          `;
-        }).join("");
-
-        // Open Multi-Photo Product Gallery & Description Modal
-        productGrid.querySelectorAll("[data-open-id]").forEach(el => {
-          el.addEventListener("click", () => {
-            const id = el.getAttribute("data-open-id");
-            const prod = getProducts().find(item => item.id === id);
-            if (prod) openProductDetailModal(prod);
-          });
-        });
-
-        // Keep detail modal synced if it's currently open
         if (lightboxModal.classList.contains("open") && activeModalProductId) {
           const updatedProd = allProducts.find(item => item.id === activeModalProductId);
           if (updatedProd) {
@@ -1719,14 +1853,6 @@
       // =========================================================
       // PRODUCT DETAIL & MULTI-PHOTO GALLERY MODAL
       // =========================================================
-      const lightboxModal = document.getElementById("lightboxModal");
-      const lightboxImg = document.getElementById("lightboxImg");
-      const galleryCounter = document.getElementById("galleryCounter");
-      const galleryThumbs = document.getElementById("galleryThumbs");
-      const galleryPrev = document.getElementById("galleryPrev");
-      const galleryNext = document.getElementById("galleryNext");
-      const galleryStage = document.getElementById("galleryStage");
-
       let currentGalleryImages = [];
       let currentSlideIndex = 0;
 
@@ -1788,7 +1914,6 @@
       galleryPrev.addEventListener("click", () => updateGallerySlide(currentSlideIndex - 1));
       galleryNext.addEventListener("click", () => updateGallerySlide(currentSlideIndex + 1));
 
-      // Mobile touch swipe on gallery stage
       let touchStartX = 0;
       galleryStage.addEventListener("touchstart", (e) => {
         touchStartX = e.changedTouches[0].screenX;
@@ -1808,15 +1933,7 @@
 
       // =========================================================
       // STEALTH ADMIN TRIGGER
-      // 1) Tap footer copyright text 5 times rapidly (Mobile & Desktop)
-      // 2) Or press Ctrl + Shift + A (Desktop)
       // =========================================================
-      const pinModal = document.getElementById("pinModal");
-      const pinForm = document.getElementById("pinForm");
-      const pinInput = document.getElementById("pinInput");
-      const pinError = document.getElementById("pinError");
-      const adminModal = document.getElementById("adminModal");
-
       function openPinModal() {
         pinInput.value = "";
         pinError.style.display = "none";
@@ -1872,7 +1989,7 @@
       });
 
       // =========================================================
-      // ADMIN PANEL LOGIC (Add, Edit, Delete, Gallery, Export)
+      // ADMIN PANEL LOGIC
       // =========================================================
       const addProductForm = document.getElementById("addProductForm");
       const adminProductList = document.getElementById("adminProductList");
@@ -1913,7 +2030,6 @@
         prodDescInput.value = product.description || "";
         prodImageUrlInput.value = "";
 
-        // Ensure category option exists even for legacy/custom categories
         const catVal = product.category || "Others";
         const hasOption = Array.from(prodCategorySelect.options).some(opt => opt.value === catVal);
         if (!hasOption) {
@@ -1933,7 +2049,6 @@
         renderAdminPendingPhotos();
         renderAdminList();
 
-        // Scroll modal up to form on mobile
         const modalCard = adminModal.querySelector(".modal-card");
         if (modalCard) modalCard.scrollTo({ top: 0, behavior: "smooth" });
         prodTitleInput.focus();
@@ -2035,7 +2150,7 @@
         saveWhatsAppNumber(val);
         waNumberInput.value = getWhatsAppNumber();
         renderStore();
-        showToast("WhatsApp number updated everywhere!");
+        showToast("WhatsApp number updated!");
       });
 
       addProductForm.addEventListener("submit", (e) => {
@@ -2061,7 +2176,7 @@
           return;
         }
 
-        const products = getProducts();
+        const products = [...getProducts()];
         const isEditing = Boolean(editingProductId);
 
         if (isEditing) {
@@ -2096,19 +2211,18 @@
           });
         }
 
-        if (saveProducts(products)) {
-          // Ensure updated/added product is immediately visible on the storefront
-          if (activeCategory !== "All" && activeCategory !== category) {
-            activeCategory = "All";
-          }
-          if (searchQuery) {
-            searchQuery = "";
-            searchInput.value = "";
-          }
-          resetAdminForm();
-          renderStore();
-          showToast(isEditing ? "Product updated everywhere!" : "New product published!");
+        saveProducts(products);
+
+        if (activeCategory !== "All" && activeCategory !== category) {
+          activeCategory = "All";
         }
+        if (searchQuery) {
+          searchQuery = "";
+          searchInput.value = "";
+        }
+        resetAdminForm();
+        renderStore();
+        showToast(isEditing ? "Product updated everywhere!" : "New product published!");
       });
 
       function renderAdminList() {
@@ -2150,28 +2264,26 @@
           btn.addEventListener("click", () => {
             const id = btn.getAttribute("data-del-id");
             const updated = getProducts().filter(item => item.id !== id);
-            if (saveProducts(updated)) {
-              if (editingProductId === id) {
-                resetAdminForm();
-              } else {
-                renderAdminList();
-              }
-              renderStore();
-              showToast("Product deleted");
+            saveProducts(updated);
+            if (editingProductId === id) {
+              resetAdminForm();
+            } else {
+              renderAdminList();
             }
+            renderStore();
+            showToast("Product deleted");
           });
         });
       }
 
       document.getElementById("resetDemoBtn").addEventListener("click", () => {
-        if (saveProducts(DEFAULT_PRODUCTS)) {
-          activeCategory = "All";
-          searchQuery = "";
-          searchInput.value = "";
-          resetAdminForm();
-          renderStore();
-          showToast("Default products restored");
-        }
+        saveProducts(DEFAULT_PRODUCTS);
+        activeCategory = "All";
+        searchQuery = "";
+        searchInput.value = "";
+        resetAdminForm();
+        renderStore();
+        showToast("Default products restored");
       });
 
       // Download a clean standalone index.html with all live products & WhatsApp number baked in
@@ -2182,11 +2294,11 @@
             whatsapp: getWhatsAppNumber(),
             products: getProducts()
           };
-          localStorage.setItem(STORAGE_KEYS.UPDATED_AT, String(payload.updatedAt));
+          memoryState.updatedAt = payload.updatedAt;
+          safeSetItem(STORAGE_KEYS.UPDATED_AT, String(payload.updatedAt));
 
           const clone = document.documentElement.cloneNode(true);
 
-          // Reset transient UI state inside exported file
           clone.querySelectorAll(".modal-backdrop").forEach(m => m.classList.remove("open"));
           const toastEl = clone.querySelector("#toast");
           if (toastEl) {
@@ -2233,26 +2345,42 @@
           a.click();
           a.remove();
           setTimeout(() => URL.revokeObjectURL(url), 1500);
-          showToast("Downloaded updated index.html! Upload it to update all buyers.");
+          showToast("Downloaded updated index.html! Replace it on your host to update all buyers.");
         } catch {
           showToast("Could not export index.html");
         }
       });
 
-      // Live sync across multiple open browser tabs/windows
+      // =========================================================
+      // LIVE CROSS-TAB SYNCHRONIZATION
+      // =========================================================
+      function handleExternalSync() {
+        reloadFromStorageIfAvailable();
+        renderStore();
+        if (adminModal.classList.contains("open")) {
+          waNumberInput.value = getWhatsAppNumber();
+          updateStorageMeter();
+          renderAdminList();
+        }
+      }
+
+      if (syncChannel) {
+        syncChannel.addEventListener("message", handleExternalSync);
+      }
+
       window.addEventListener("storage", (e) => {
         if (e.key === STORAGE_KEYS.PRODUCTS || e.key === STORAGE_KEYS.WA_NUMBER || e.key === STORAGE_KEYS.UPDATED_AT) {
-          renderStore();
-          if (adminModal.classList.contains("open")) {
-            waNumberInput.value = getWhatsAppNumber();
-            updateStorageMeter();
-            renderAdminList();
-          }
+          handleExternalSync();
         }
       });
 
+      window.addEventListener("focus", handleExternalSync);
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) handleExternalSync();
+      });
+
       // Initial Boot
-      syncEmbeddedDataIfNewer();
+      initCatalogState();
       renderStore();
     })();
   </script>
