@@ -502,7 +502,7 @@
     }
 
     .modal-card.admin-wide {
-      max-width: 920px;
+      max-width: 940px;
     }
 
     @keyframes popIn {
@@ -741,6 +741,83 @@
     }
 
     /* Admin Dashboard Sections */
+    .sync-card {
+      background: #FFF9EE;
+      border: 1.5px solid var(--gold);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .sync-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .sync-card-title {
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: var(--maroon);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sync-status-badge {
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: #EFE7D6;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .sync-status-badge.connected {
+      background: #E6F4EA;
+      color: #137333;
+      border-color: #A8DAB5;
+    }
+
+    .sync-status-badge.syncing {
+      background: #FEF7E0;
+      color: #B06000;
+      border-color: #FDD663;
+    }
+
+    .sync-status-badge.error {
+      background: #FCE8E6;
+      color: #C5221F;
+      border-color: #F6AEA9;
+    }
+
+    .sync-fields {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .sync-fields .form-group {
+      margin-bottom: 0;
+    }
+
+    .sync-help {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      line-height: 1.45;
+    }
+
+    .sync-help a {
+      color: var(--terracotta);
+      font-weight: 600;
+    }
+
     .admin-top-panels {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1035,6 +1112,7 @@
 
     /* Responsive Adjustments */
     @media (max-width: 768px) {
+      .sync-fields,
       .admin-top-panels,
       .admin-grid {
         grid-template-columns: 1fr;
@@ -1203,7 +1281,34 @@
         <button class="close-btn" id="closeAdminModal" aria-label="Close">&times;</button>
       </div>
 
-      <!-- Top Configuration & Global Publish Row -->
+      <!-- Live Website Auto-Sync (GitHub) -->
+      <div class="sync-card">
+        <div class="sync-card-header">
+          <div class="sync-card-title">
+            <span>Live Website Auto-Sync (Updates All Browsers &amp; Phones)</span>
+          </div>
+          <span class="sync-status-badge" id="syncStatusBadge">Not Connected</span>
+        </div>
+
+        <div class="sync-fields">
+          <div class="form-group">
+            <label for="ghRepoInput">GitHub Repository (username/repo)</label>
+            <input type="text" id="ghRepoInput" placeholder="sattwikdash2006/Saaj-Gochh" />
+          </div>
+          <div class="form-group">
+            <label for="ghTokenInput">GitHub Token (Saved only on your device)</label>
+            <input type="password" id="ghTokenInput" placeholder="github_pat_..." autocomplete="off" />
+          </div>
+          <button type="button" class="btn-secondary" id="connectSyncBtn">Connect &amp; Sync Now</button>
+        </div>
+
+        <p class="sync-help">
+          Once connected, every product Add/Edit/Delete automatically publishes <strong>catalog.json</strong> to GitHub so everyone opening your link sees all items.
+          <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">Create Token</a> (Select repo &rarr; <strong>Contents: Read &amp; Write</strong>).
+        </p>
+      </div>
+
+      <!-- Top Configuration & Backup Export Row -->
       <div class="admin-top-panels">
         <div class="wa-settings-bar">
           <div class="wa-settings-inner">
@@ -1217,11 +1322,11 @@
 
         <div class="publish-bar">
           <div class="publish-bar-title">
-            <span>Publish Changes for All Customers</span>
+            <span>Offline Backup Export</span>
             <span class="storage-pill" id="storageUsagePill">Storage: 0%</span>
           </div>
           <p class="publish-bar-desc">
-            Edits update this browser instantly. Download and replace <strong>index.html</strong> on your host so every visitor sees updates on all devices.
+            Optionally download a standalone <strong>index.html</strong> containing all current items &amp; photos.
           </p>
           <button type="button" class="btn-secondary" id="downloadSiteBtn" style="width:100%;">
             Download Updated index.html
@@ -1316,12 +1421,16 @@
       // CONFIGURATION
       // =========================================================
       const DEFAULT_WHATSAPP_NUMBER = "919876543210"; // Country code + 10-digit number
+      const DEFAULT_GITHUB_REPO = "sattwikdash2006/Saaj-Gochh";
       const ADMIN_PASSWORD = String.fromCharCode(48,51,50,50,48,50,54,51,50,56,49); // 03220263281
       const MAX_PHOTOS_PER_ITEM = 10;
       const STORAGE_KEYS = {
         PRODUCTS: "saajgochh_products_v1",
         WA_NUMBER: "saajgochh_wa_v1",
-        UPDATED_AT: "saajgochh_updated_at_v1"
+        UPDATED_AT: "saajgochh_updated_at_v1",
+        GH_REPO: "saajgochh_gh_repo_v1",
+        GH_TOKEN: "saajgochh_gh_token_v1",
+        GH_BRANCH: "saajgochh_gh_branch_v1"
       };
 
       // Helper to generate artistic SVG artwork data-URIs for default demo items
@@ -1508,6 +1617,22 @@
         return arr.map(normalizeProduct).filter(Boolean);
       }
 
+      function applyCatalogSnapshot(snapshot) {
+        if (!snapshot || typeof snapshot !== "object" || !Array.isArray(snapshot.products)) return false;
+        const cleanProducts = normalizeList(snapshot.products);
+        const snapUpdatedAt = Number(snapshot.updatedAt || Date.now());
+        const snapWa = String(snapshot.whatsapp || DEFAULT_WHATSAPP_NUMBER);
+
+        memoryState.products = cleanProducts;
+        memoryState.whatsapp = snapWa;
+        memoryState.updatedAt = snapUpdatedAt;
+
+        safeSetItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(cleanProducts));
+        safeSetItem(STORAGE_KEYS.WA_NUMBER, snapWa);
+        safeSetItem(STORAGE_KEYS.UPDATED_AT, String(snapUpdatedAt));
+        return true;
+      }
+
       function initCatalogState() {
         let embedded = null;
         try {
@@ -1527,21 +1652,12 @@
           ? Number(embedded.updatedAt || 0)
           : 0;
 
-        // If exported HTML snapshot is newer OR local storage has nothing yet, prefer embedded snapshot
         if (embedded && typeof embedded === "object" && Array.isArray(embedded.products) &&
             (embeddedUpdatedAt > localUpdatedAt || localRawProducts === null)) {
-          const cleanEmbedded = normalizeList(embedded.products);
-          memoryState.products = cleanEmbedded;
-          memoryState.whatsapp = String(embedded.whatsapp || DEFAULT_WHATSAPP_NUMBER);
-          memoryState.updatedAt = embeddedUpdatedAt || Date.now();
-
-          safeSetItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(cleanEmbedded));
-          safeSetItem(STORAGE_KEYS.WA_NUMBER, memoryState.whatsapp);
-          safeSetItem(STORAGE_KEYS.UPDATED_AT, String(memoryState.updatedAt));
+          applyCatalogSnapshot(embedded);
           return;
         }
 
-        // Otherwise read from localStorage if available
         if (localRawProducts !== null) {
           try {
             const parsed = JSON.parse(localRawProducts);
@@ -1552,18 +1668,42 @@
               return;
             }
           } catch {
-            // Fall through to defaults if JSON was corrupted
+            // Fall through to defaults
           }
         }
 
-        // Initial default state
+        // Unedited defaults use updatedAt = 0 so remote catalog.json always takes priority
         memoryState.products = normalizeList(DEFAULT_PRODUCTS);
         memoryState.whatsapp = localWa || DEFAULT_WHATSAPP_NUMBER;
-        memoryState.updatedAt = Date.now();
+        memoryState.updatedAt = 0;
 
         safeSetItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(memoryState.products));
         safeSetItem(STORAGE_KEYS.WA_NUMBER, memoryState.whatsapp);
-        safeSetItem(STORAGE_KEYS.UPDATED_AT, String(memoryState.updatedAt));
+        safeSetItem(STORAGE_KEYS.UPDATED_AT, "0");
+      }
+
+      // Fetch live catalog.json hosted on GitHub Pages for all visitors
+      async function fetchRemoteCatalog() {
+        if (window.location.protocol === "file:") return;
+        try {
+          const res = await fetch(`./catalog.json?t=${Date.now()}`, { cache: "no-store" });
+          if (!res.ok) return;
+          const remote = await res.json();
+          if (!remote || typeof remote !== "object" || !Array.isArray(remote.products)) return;
+
+          const remoteUpdatedAt = Number(remote.updatedAt || 1);
+          if (remoteUpdatedAt > memoryState.updatedAt) {
+            applyCatalogSnapshot(remote);
+            renderStore();
+            if (adminModal.classList.contains("open")) {
+              waNumberInput.value = getWhatsAppNumber();
+              updateStorageMeter();
+              renderAdminList();
+            }
+          }
+        } catch {
+          // Offline or catalog.json not created yet — silently keep local/default state
+        }
       }
 
       function reloadFromStorageIfAvailable() {
@@ -1605,12 +1745,12 @@
           try {
             syncChannel.postMessage({ type: "SYNC_CATALOG", updatedAt: memoryState.updatedAt });
           } catch {
-            // Ignore channel errors
+            // Ignore
           }
         }
       }
 
-      function saveProducts(list) {
+      function saveProducts(list, shouldSyncRemote = true) {
         const cleanList = normalizeList(list);
         memoryState.products = cleanList;
         memoryState.updatedAt = Date.now();
@@ -1623,7 +1763,10 @@
         broadcastUpdate();
 
         if (!saved) {
-          showToast("Updated in this session. Storage quota reached — use fewer photos or Download index.html to save permanently.");
+          showToast("Updated in this session. Storage quota full — remove old items or fewer photos.");
+        }
+        if (shouldSyncRemote) {
+          queueGitHubSync(false);
         }
         return true;
       }
@@ -1632,7 +1775,7 @@
         return memoryState.whatsapp || DEFAULT_WHATSAPP_NUMBER;
       }
 
-      function saveWhatsAppNumber(num) {
+      function saveWhatsAppNumber(num, shouldSyncRemote = true) {
         const cleaned = String(num || "").replace(/\D/g, "") || DEFAULT_WHATSAPP_NUMBER;
         memoryState.whatsapp = cleaned;
         memoryState.updatedAt = Date.now();
@@ -1640,8 +1783,157 @@
         safeSetItem(STORAGE_KEYS.WA_NUMBER, cleaned);
         safeSetItem(STORAGE_KEYS.UPDATED_AT, String(memoryState.updatedAt));
         broadcastUpdate();
+
+        if (shouldSyncRemote) {
+          queueGitHubSync(false);
+        }
       }
 
+      // =========================================================
+      // GITHUB LIVE AUTO-SYNC (Pushes catalog.json automatically)
+      // =========================================================
+      function getGitHubConfig() {
+        return {
+          repo: (safeGetItem(STORAGE_KEYS.GH_REPO) || DEFAULT_GITHUB_REPO).trim(),
+          token: (safeGetItem(STORAGE_KEYS.GH_TOKEN) || "").trim(),
+          branch: (safeGetItem(STORAGE_KEYS.GH_BRANCH) || "").trim()
+        };
+      }
+
+      function utf8ToBase64(str) {
+        const bytes = new TextEncoder().encode(str);
+        let binary = "";
+        const chunkSize = 0x8000;
+        for (let i = 0; i < bytes.length; i += chunkSize) {
+          binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
+        }
+        return btoa(binary);
+      }
+
+      function setSyncStatus(text, stateClass) {
+        const badge = document.getElementById("syncStatusBadge");
+        if (!badge) return;
+        badge.textContent = text;
+        badge.className = "sync-status-badge" + (stateClass ? " " + stateClass : "");
+      }
+
+      let syncInFlight = false;
+      let syncQueuedAgain = false;
+
+      async function queueGitHubSync(explicitTrigger = false) {
+        const { repo, token } = getGitHubConfig();
+        if (!repo || !token) {
+          if (explicitTrigger) {
+            showToast("Enter your GitHub Token first to enable Auto-Sync.");
+          } else {
+            setSyncStatus("Not Connected", "");
+          }
+          return;
+        }
+
+        if (syncInFlight) {
+          syncQueuedAgain = true;
+          return;
+        }
+
+        syncInFlight = true;
+        setSyncStatus("Publishing to website...", "syncing");
+
+        try {
+          await pushCatalogToGitHub(repo, token);
+          setSyncStatus("Live on GitHub!", "connected");
+          if (explicitTrigger) {
+            showToast("Synced! All visitors will see your items in ~30 seconds.");
+          }
+        } catch (err) {
+          setSyncStatus("Sync Failed", "error");
+          showToast(err && err.message ? err.message : "GitHub sync failed. Check token & repo.");
+        } finally {
+          syncInFlight = false;
+          if (syncQueuedAgain) {
+            syncQueuedAgain = false;
+            queueGitHubSync(false);
+          }
+        }
+      }
+
+      async function pushCatalogToGitHub(repo, token) {
+        const headers = {
+          "Accept": "application/vnd.github+json",
+          "Authorization": `Bearer ${token}`,
+          "X-GitHub-Api-Version": "2022-11-28"
+        };
+
+        // Resolve default branch if not cached yet
+        let branch = safeGetItem(STORAGE_KEYS.GH_BRANCH);
+        if (!branch) {
+          const repoRes = await fetch(`https://api.github.com/repos/${repo}`, { headers });
+          if (repoRes.status === 401 || repoRes.status === 403) {
+            throw new Error("Invalid GitHub Token or missing Contents permission.");
+          }
+          if (repoRes.status === 404) {
+            throw new Error("Repository not found. Check username/repo.");
+          }
+          if (repoRes.ok) {
+            const repoInfo = await repoRes.json();
+            branch = repoInfo.default_branch || "main";
+            safeSetItem(STORAGE_KEYS.GH_BRANCH, branch);
+          } else {
+            branch = "main";
+          }
+        }
+
+        const apiUrl = `https://api.github.com/repos/${repo}/contents/catalog.json`;
+        const payloadJson = JSON.stringify({
+          updatedAt: memoryState.updatedAt || Date.now(),
+          whatsapp: getWhatsAppNumber(),
+          products: getProducts()
+        });
+        const contentBase64 = utf8ToBase64(payloadJson);
+
+        async function attemptPut() {
+          let sha;
+          const getRes = await fetch(`${apiUrl}?ref=${encodeURIComponent(branch)}&_=${Date.now()}`, { headers });
+          if (getRes.status === 200) {
+            const existing = await getRes.json();
+            sha = existing.sha;
+          } else if (getRes.status !== 404) {
+            const errData = await getRes.json().catch(() => ({}));
+            throw new Error(errData.message || "Could not read GitHub catalog.json");
+          }
+
+          const body = {
+            message: `Update Saaj Gochh catalog (${new Date().toISOString()})`,
+            content: contentBase64,
+            branch
+          };
+          if (sha) body.sha = sha;
+
+          return fetch(apiUrl, {
+            method: "PUT",
+            headers: { ...headers, "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+          });
+        }
+
+        let putRes = await attemptPut();
+        // Retry once on 409 conflict
+        if (putRes.status === 409) {
+          putRes = await attemptPut();
+        }
+
+        if (!putRes.ok) {
+          const errData = await putRes.json().catch(() => ({}));
+          if (putRes.status === 401 || putRes.status === 403) {
+            throw new Error("Token needs 'Contents: Read and write' permission.");
+          }
+          throw new Error(errData.message || `GitHub error (${putRes.status})`);
+        }
+      }
+
+      // =========================================================
+      // HELPERS & IMAGE COMPRESSION
+      // =========================================================
       function updateStorageMeter() {
         const pill = document.getElementById("storageUsagePill");
         if (!pill) return;
@@ -1666,10 +1958,9 @@
         toast.textContent = msg;
         toast.classList.add("show");
         clearTimeout(window._toastTimer);
-        window._toastTimer = setTimeout(() => toast.classList.remove("show"), 3000);
+        window._toastTimer = setTimeout(() => toast.classList.remove("show"), 3200);
       }
 
-      // Compress uploaded gallery photos cleanly so up to 10 fit comfortably
       function compressImageFile(file, maxSize = 640, quality = 0.66) {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
@@ -1991,6 +2282,10 @@
       // =========================================================
       // ADMIN PANEL LOGIC
       // =========================================================
+      const ghRepoInput = document.getElementById("ghRepoInput");
+      const ghTokenInput = document.getElementById("ghTokenInput");
+      const connectSyncBtn = document.getElementById("connectSyncBtn");
+
       const addProductForm = document.getElementById("addProductForm");
       const adminProductList = document.getElementById("adminProductList");
       const adminCount = document.getElementById("adminCount");
@@ -2011,6 +2306,31 @@
       const formModeTitle = document.getElementById("formModeTitle");
       const submitProductBtn = document.getElementById("submitProductBtn");
       const cancelEditBtn = document.getElementById("cancelEditBtn");
+
+      connectSyncBtn.addEventListener("click", () => {
+        const repoVal = ghRepoInput.value.trim().replace(/^https?:\/\/github\.com\//i, "").replace(/\/+$/, "");
+        const tokenVal = ghTokenInput.value.trim();
+
+        if (!repoVal || !repoVal.includes("/")) {
+          showToast("Enter repository as username/repo (e.g., sattwikdash2006/Saaj-Gochh)");
+          return;
+        }
+        if (!tokenVal) {
+          showToast("Paste your GitHub Personal Access Token");
+          return;
+        }
+
+        const prevRepo = safeGetItem(STORAGE_KEYS.GH_REPO);
+        if (prevRepo !== repoVal) {
+          try { window.localStorage.removeItem(STORAGE_KEYS.GH_BRANCH); } catch {}
+        }
+
+        safeSetItem(STORAGE_KEYS.GH_REPO, repoVal);
+        safeSetItem(STORAGE_KEYS.GH_TOKEN, tokenVal);
+        ghRepoInput.value = repoVal;
+
+        queueGitHubSync(true);
+      });
 
       function resetAdminForm() {
         editingProductId = null;
@@ -2129,6 +2449,11 @@
       });
 
       function openAdminDashboard() {
+        const gh = getGitHubConfig();
+        ghRepoInput.value = gh.repo;
+        ghTokenInput.value = gh.token;
+        setSyncStatus(gh.token ? "Auto-Sync Ready" : "Not Connected", gh.token ? "connected" : "");
+
         waNumberInput.value = getWhatsAppNumber();
         updateStorageMeter();
         renderAdminPendingPhotos();
@@ -2147,10 +2472,10 @@
           showToast("Please enter a valid 10–12 digit WhatsApp number");
           return;
         }
-        saveWhatsAppNumber(val);
+        saveWhatsAppNumber(val, true);
         waNumberInput.value = getWhatsAppNumber();
         renderStore();
-        showToast("WhatsApp number updated!");
+        showToast(getGitHubConfig().token ? "WhatsApp number saved & syncing live!" : "WhatsApp number updated!");
       });
 
       addProductForm.addEventListener("submit", (e) => {
@@ -2211,7 +2536,7 @@
           });
         }
 
-        saveProducts(products);
+        saveProducts(products, true);
 
         if (activeCategory !== "All" && activeCategory !== category) {
           activeCategory = "All";
@@ -2222,7 +2547,13 @@
         }
         resetAdminForm();
         renderStore();
-        showToast(isEditing ? "Product updated everywhere!" : "New product published!");
+
+        const hasToken = Boolean(getGitHubConfig().token);
+        showToast(
+          isEditing
+            ? (hasToken ? "Product updated & syncing to live website!" : "Product updated in this browser!")
+            : (hasToken ? "Product published & syncing to live website!" : "Product added in this browser!")
+        );
       });
 
       function renderAdminList() {
@@ -2264,20 +2595,20 @@
           btn.addEventListener("click", () => {
             const id = btn.getAttribute("data-del-id");
             const updated = getProducts().filter(item => item.id !== id);
-            saveProducts(updated);
+            saveProducts(updated, true);
             if (editingProductId === id) {
               resetAdminForm();
             } else {
               renderAdminList();
             }
             renderStore();
-            showToast("Product deleted");
+            showToast(getGitHubConfig().token ? "Deleted & syncing to live website!" : "Product deleted");
           });
         });
       }
 
       document.getElementById("resetDemoBtn").addEventListener("click", () => {
-        saveProducts(DEFAULT_PRODUCTS);
+        saveProducts(DEFAULT_PRODUCTS, true);
         activeCategory = "All";
         searchQuery = "";
         searchInput.value = "";
@@ -2286,7 +2617,7 @@
         showToast("Default products restored");
       });
 
-      // Download a clean standalone index.html with all live products & WhatsApp number baked in
+      // Download clean standalone index.html (never includes your private GitHub token)
       document.getElementById("downloadSiteBtn").addEventListener("click", () => {
         try {
           const payload = {
@@ -2311,13 +2642,19 @@
             if (el) el.innerHTML = "";
           });
 
-          ["#searchInput", "#pinInput", "#prodTitle", "#prodPrice", "#prodDesc", "#prodImageUrl", "#waNumberInput", "#prodGalleryInput"].forEach(sel => {
+          ["#searchInput", "#pinInput", "#prodTitle", "#prodPrice", "#prodDesc", "#prodImageUrl", "#waNumberInput", "#prodGalleryInput", "#ghRepoInput", "#ghTokenInput"].forEach(sel => {
             const el = clone.querySelector(sel);
             if (el) {
               el.value = "";
               el.removeAttribute("value");
             }
           });
+
+          const badge = clone.querySelector("#syncStatusBadge");
+          if (badge) {
+            badge.textContent = "Not Connected";
+            badge.className = "sync-status-badge";
+          }
 
           const cLabel = clone.querySelector("#photoCounterLabel");
           if (cLabel) cLabel.textContent = `0 / ${MAX_PHOTOS_PER_ITEM}`;
@@ -2345,14 +2682,14 @@
           a.click();
           a.remove();
           setTimeout(() => URL.revokeObjectURL(url), 1500);
-          showToast("Downloaded updated index.html! Replace it on your host to update all buyers.");
+          showToast("Downloaded updated index.html!");
         } catch {
           showToast("Could not export index.html");
         }
       });
 
       // =========================================================
-      // LIVE CROSS-TAB SYNCHRONIZATION
+      // LIVE CROSS-TAB & REMOTE SYNCHRONIZATION
       // =========================================================
       function handleExternalSync() {
         reloadFromStorageIfAvailable();
@@ -2374,14 +2711,22 @@
         }
       });
 
-      window.addEventListener("focus", handleExternalSync);
+      window.addEventListener("focus", () => {
+        handleExternalSync();
+        fetchRemoteCatalog();
+      });
+
       document.addEventListener("visibilitychange", () => {
-        if (!document.hidden) handleExternalSync();
+        if (!document.hidden) {
+          handleExternalSync();
+          fetchRemoteCatalog();
+        }
       });
 
       // Initial Boot
       initCatalogState();
       renderStore();
+      fetchRemoteCatalog();
     })();
   </script>
 </body>
