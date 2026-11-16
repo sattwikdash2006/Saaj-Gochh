@@ -25,7 +25,10 @@
       --text-muted: #6E564B;
       --whatsapp: #1E8E3E;
       --whatsapp-hover: #177331;
+      --success-bg: #E6F4EA;
+      --success-text: #137333;
       --danger: #C62828;
+      --danger-bg: #FDECEA;
       --border: #E6D9C3;
       --shadow-sm: 0 4px 14px rgba(109, 26, 34, 0.08);
       --shadow-md: 0 10px 28px rgba(109, 26, 34, 0.14);
@@ -287,6 +290,11 @@
       border-color: var(--gold);
     }
 
+    .product-card.is-sold-out .product-img-wrap img {
+      opacity: 0.72;
+      filter: grayscale(28%);
+    }
+
     .product-img-wrap {
       position: relative;
       width: 100%;
@@ -314,12 +322,40 @@
       left: 10px;
       background: rgba(251, 247, 240, 0.94);
       color: var(--maroon);
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 600;
       padding: 4px 10px;
       border-radius: 999px;
       border: 1px solid var(--gold);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      max-width: 55%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .stock-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 0.71rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      letter-spacing: 0.2px;
+    }
+
+    .stock-badge.in-stock {
+      background: var(--success-bg);
+      color: var(--success-text);
+      border: 1px solid #A8DAB5;
+    }
+
+    .stock-badge.sold-out {
+      background: var(--danger);
+      color: #FFFFFF;
+      border: 1px solid #FFCDD2;
     }
 
     .photo-count-badge {
@@ -339,7 +375,7 @@
     }
 
     .product-body {
-      padding: 15px 16px 17px;
+      padding: 14px 15px 16px;
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -348,7 +384,7 @@
 
     .product-title {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.06rem;
+      font-size: 1.05rem;
       font-weight: 600;
       color: var(--text-dark);
       line-height: 1.35;
@@ -360,9 +396,9 @@
     }
 
     .product-desc-preview {
-      font-size: 0.82rem;
+      font-size: 0.81rem;
       color: var(--text-muted);
-      line-height: 1.45;
+      line-height: 1.42;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -370,16 +406,47 @@
       cursor: pointer;
     }
 
+    /* Customer-facing Service Badges (COD & 7 Days Return) */
+    .feature-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .feat-badge {
+      font-size: 0.71rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      line-height: 1.25;
+    }
+
+    .feat-badge.cod {
+      background: #FFF6E5;
+      color: #8A5300;
+      border: 1px solid #F0D298;
+    }
+
+    .feat-badge.ret {
+      background: #EEF6FF;
+      color: #175CD3;
+      border: 1px solid #B2DDFF;
+    }
+
     .price-row {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
       margin-top: auto;
-      padding-top: 6px;
+      padding-top: 4px;
     }
 
     .product-price {
-      font-size: 1.28rem;
+      font-size: 1.26rem;
       font-weight: 700;
       color: var(--maroon);
     }
@@ -419,6 +486,15 @@
     .wa-btn:hover {
       background: var(--whatsapp-hover);
       transform: translateY(-1px);
+    }
+
+    .wa-btn.sold-out-btn {
+      background: #E5E0D8;
+      color: #6B5E57;
+      box-shadow: none;
+      cursor: not-allowed;
+      pointer-events: none;
+      border: 1px solid #D3C9BA;
     }
 
     .empty-state {
@@ -502,7 +578,7 @@
     }
 
     .modal-card.admin-wide {
-      max-width: 940px;
+      max-width: 960px;
     }
 
     @keyframes popIn {
@@ -558,7 +634,7 @@
 
     .lightbox-img {
       width: 100%;
-      height: 340px;
+      height: 330px;
       object-fit: contain;
       display: block;
       background: var(--sand);
@@ -624,7 +700,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .detail-cat {
@@ -643,6 +719,32 @@
       color: var(--maroon);
     }
 
+    .detail-badges-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .detail-stock-pill {
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .detail-stock-pill.in-stock {
+      background: var(--success-bg);
+      color: var(--success-text);
+      border: 1px solid #A8DAB5;
+    }
+
+    .detail-stock-pill.sold-out {
+      background: var(--danger-bg);
+      color: var(--danger);
+      border: 1px solid #F5C2C0;
+    }
+
     .detail-desc {
       font-size: 0.9rem;
       color: var(--text-dark);
@@ -652,7 +754,7 @@
       padding: 12px;
       margin-bottom: 14px;
       white-space: pre-line;
-      max-height: 160px;
+      max-height: 155px;
       overflow-y: auto;
     }
 
@@ -685,13 +787,61 @@
 
     .form-group textarea {
       resize: vertical;
-      min-height: 78px;
+      min-height: 76px;
     }
 
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
       border-color: var(--terracotta);
+    }
+
+    /* Advanced Admin Checkboxes Grid */
+    .checkbox-section-label {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--maroon);
+      margin-bottom: 6px;
+    }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .chk-card {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 11px;
+      background: var(--cream);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      transition: border-color 0.2s, background 0.2s;
+      user-select: none;
+    }
+
+    .chk-card:hover {
+      border-color: var(--gold);
+    }
+
+    .chk-card input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--maroon);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .chk-card.chk-sold input[type="checkbox"] {
+      accent-color: var(--danger);
     }
 
     .btn-primary {
@@ -778,8 +928,8 @@
     }
 
     .sync-status-badge.connected {
-      background: #E6F4EA;
-      color: #137333;
+      background: var(--success-bg);
+      color: var(--success-text);
       border-color: #A8DAB5;
     }
 
@@ -790,8 +940,8 @@
     }
 
     .sync-status-badge.error {
-      background: #FCE8E6;
-      color: #C5221F;
+      background: var(--danger-bg);
+      color: var(--danger);
       border-color: #F6AEA9;
     }
 
@@ -876,7 +1026,7 @@
 
     .admin-grid {
       display: grid;
-      grid-template-columns: 1.05fr 1fr;
+      grid-template-columns: 1.08fr 1fr;
       gap: 18px;
     }
 
@@ -893,6 +1043,21 @@
       font-size: 1.02rem;
       border-bottom: 1px dashed var(--border);
       padding-bottom: 6px;
+    }
+
+    .admin-filter-input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.84rem;
+      margin-bottom: 10px;
+      outline: none;
+    }
+
+    .admin-filter-input:focus {
+      border-color: var(--terracotta);
     }
 
     /* Gallery Upload Dropzone inside Admin */
@@ -995,7 +1160,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      max-height: 520px;
+      max-height: 560px;
       overflow-y: auto;
       padding-right: 4px;
     }
@@ -1038,10 +1203,29 @@
     }
 
     .admin-item-info span {
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
       display: block;
     }
+
+    .admin-mini-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .mini-tag {
+      font-size: 0.67rem;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    .mini-tag.ok { background: var(--success-bg); color: var(--success-text); }
+    .mini-tag.sold { background: var(--danger-bg); color: var(--danger); }
+    .mini-tag.cod { background: #FFF6E5; color: #8A5300; }
+    .mini-tag.ret { background: #EEF6FF; color: #175CD3; }
 
     .admin-item-actions {
       display: flex;
@@ -1067,7 +1251,7 @@
     }
 
     .del-btn {
-      background: #FDECEA;
+      background: var(--danger-bg);
       color: var(--danger);
       border: 1px solid #F5C2C0;
       border-radius: 8px;
@@ -1133,6 +1317,10 @@
       .product-desc-preview {
         font-size: 0.76rem;
       }
+      .feat-badge {
+        font-size: 0.65rem;
+        padding: 2px 6px;
+      }
       .product-price {
         font-size: 1.12rem;
       }
@@ -1150,6 +1338,9 @@
 
     @media (max-width: 390px) {
       .product-grid {
+        grid-template-columns: 1fr;
+      }
+      .checkbox-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -1246,6 +1437,8 @@
         <span class="detail-cat" id="detailCategory"></span>
         <span class="detail-price" id="detailPrice"></span>
       </div>
+
+      <div class="detail-badges-row" id="detailBadgesRow"></div>
 
       <div class="detail-desc" id="detailDesc"></div>
 
@@ -1365,6 +1558,30 @@
               <textarea id="prodDesc" placeholder="Describe fabric, size, dimensions, material, or care instructions..." required></textarea>
             </div>
 
+            <!-- Advanced Stock & Service Availability Checkboxes -->
+            <span class="checkbox-section-label">Availability &amp; Customer Options (Shown Directly on Store)</span>
+            <div class="checkbox-grid">
+              <label class="chk-card">
+                <input type="checkbox" id="chkInStock" checked />
+                <span>In Stock</span>
+              </label>
+
+              <label class="chk-card chk-sold">
+                <input type="checkbox" id="chkSoldOut" />
+                <span>Sold Out</span>
+              </label>
+
+              <label class="chk-card">
+                <input type="checkbox" id="chkCod" checked />
+                <span>COD Available</span>
+              </label>
+
+              <label class="chk-card">
+                <input type="checkbox" id="chkReturn" checked />
+                <span>7 Days Return</span>
+              </label>
+            </div>
+
             <!-- Direct Gallery Multi-Photo Upload (Max 10) -->
             <div class="form-group">
               <label>Upload Photos from Gallery (<span id="photoCounterLabel">0 / 10</span>)</label>
@@ -1403,6 +1620,7 @@
             <h4 style="margin-bottom:0; border:none; padding:0;">Live Products (<span id="adminCount">0</span>)</h4>
             <button type="button" class="btn-secondary" id="resetDemoBtn" style="font-size:0.75rem; padding:5px 10px;">Restore Defaults</button>
           </div>
+          <input type="text" id="adminSearchInput" class="admin-filter-input" placeholder="Filter live products..." />
           <div class="admin-list" id="adminProductList"></div>
         </div>
       </div>
@@ -1472,6 +1690,9 @@
           price: 1250,
           category: "Sarees & Apparel",
           description: "Classic crisp cotton-blend Dhakai Jamdani weave in off-white with traditional crimson temple border and intricate motifs. Length: 5.5m (without blouse piece). Ideal for pujas and festive mornings.",
+          inStock: true,
+          codAvailable: true,
+          return7Days: true,
           images: [
             makeArtSVG(
               "#7D1B24", "#B84A2F", "#F2D79B", "Dhakai Jamdani",
@@ -1487,6 +1708,9 @@
           price: 450,
           category: "Home Decor",
           description: "Baked clay wall plate adorned with traditional hand-painted Alpona geometric patterns. Diameter: 10 inches. Comes with a ready-to-hang jute cord at the back.",
+          inStock: true,
+          codAvailable: true,
+          return7Days: true,
           images: [
             makeArtSVG(
               "#9E3B24", "#5A1F16", "#F4D58D", "Terracotta Wall Art",
@@ -1502,6 +1726,9 @@
           price: 380,
           category: "Jewelry & Craft",
           description: "Handcrafted Dokra-inspired antique brass & oxidized choker paired with matching lightweight jhumkas. Adjustable dori thread closure suitable for sarees and kurtis.",
+          inStock: true,
+          codAvailable: true,
+          return7Days: true,
           images: [
             makeArtSVG(
               "#4A151B", "#8D3B24", "#E6C27A", "Dokra Jewelry Set",
@@ -1518,6 +1745,9 @@
           price: 520,
           category: "Home Decor",
           description: "Soft 100% pure cotton 16x16 inch cushion covers featuring authentic running-stitch Nakshi Kantha embroidery in maroon and gold threads with concealed zip.",
+          inStock: true,
+          codAvailable: true,
+          return7Days: true,
           images: [
             makeArtSVG(
               "#6A2E20", "#B85D3B", "#FBE4B4", "Nakshi Kantha",
@@ -1533,6 +1763,9 @@
           price: 690,
           category: "Festive Gifts",
           description: "Heavyweight solid brass puja essentials set containing one traditional Mangal Diya and one classic Dhunuchi. Easy to polish and perfect for housewarming gifts.",
+          inStock: true,
+          codAvailable: true,
+          return7Days: false,
           images: [
             makeArtSVG(
               "#5B141B", "#9A4A1C", "#FFD97D", "Brass Festive Set",
@@ -1548,6 +1781,9 @@
           price: 790,
           category: "Sarees & Apparel",
           description: "Breathable hand-dyed Shantiniketan batik print cotton kurta in warm terracotta & cream tones. Available in sizes M, L, XL, and XXL.",
+          inStock: true,
+          codAvailable: true,
+          return7Days: true,
           images: [
             makeArtSVG(
               "#82311E", "#4E1016", "#F3D38C", "Batik Cotton Kurta",
@@ -1608,6 +1844,9 @@
           price,
           category: String(raw.category || "Others").trim() || "Others",
           description: String(raw.description || "Handcrafted Bengali artisanal item.").trim(),
+          inStock: typeof raw.inStock === "boolean" ? raw.inStock : true,
+          codAvailable: typeof raw.codAvailable === "boolean" ? raw.codAvailable : false,
+          return7Days: typeof raw.return7Days === "boolean" ? raw.return7Days : false,
           images: imgs
         };
       }
@@ -1682,7 +1921,6 @@
         safeSetItem(STORAGE_KEYS.UPDATED_AT, "0");
       }
 
-      // Fetch live catalog.json hosted on GitHub Pages for all visitors
       async function fetchRemoteCatalog() {
         if (window.location.protocol === "file:") return;
         try {
@@ -1702,7 +1940,7 @@
             }
           }
         } catch {
-          // Offline or catalog.json not created yet — silently keep local/default state
+          // Offline or catalog.json not created yet
         }
       }
 
@@ -1719,7 +1957,7 @@
               memoryState.updatedAt = updated;
             }
           } catch {
-            // Keep existing memoryState
+            // Keep memoryState
           }
         }
         if (wa) memoryState.whatsapp = wa;
@@ -1790,7 +2028,7 @@
       }
 
       // =========================================================
-      // GITHUB LIVE AUTO-SYNC (Pushes catalog.json automatically)
+      // GITHUB LIVE AUTO-SYNC
       // =========================================================
       function getGitHubConfig() {
         return {
@@ -1864,7 +2102,6 @@
           "X-GitHub-Api-Version": "2022-11-28"
         };
 
-        // Resolve default branch if not cached yet
         let branch = safeGetItem(STORAGE_KEYS.GH_BRANCH);
         if (!branch) {
           const repoRes = await fetch(`https://api.github.com/repos/${repo}`, { headers });
@@ -1917,7 +2154,6 @@
         }
 
         let putRes = await attemptPut();
-        // Retry once on 409 conflict
         if (putRes.status === 409) {
           putRes = await attemptPut();
         }
@@ -1999,6 +2235,7 @@
       // =========================================================
       let activeCategory = "All";
       let searchQuery = "";
+      let adminSearchQuery = "";
       let pendingGalleryPhotos = [];
       let editingProductId = null;
       let activeModalProductId = null;
@@ -2014,6 +2251,8 @@
       const galleryPrev = document.getElementById("galleryPrev");
       const galleryNext = document.getElementById("galleryNext");
       const galleryStage = document.getElementById("galleryStage");
+      const detailBadgesRow = document.getElementById("detailBadgesRow");
+      const detailWaBtn = document.getElementById("detailWaBtn");
 
       const pinModal = document.getElementById("pinModal");
       const pinForm = document.getElementById("pinForm");
@@ -2044,13 +2283,29 @@
 
       function buildWhatsAppLink(product) {
         const waNum = getWhatsAppNumber();
+        const extras = [];
+        if (product.codAvailable) extras.push("COD Available");
+        if (product.return7Days) extras.push("7 Days Return");
+        const extrasLine = extras.length ? `\n• Options: ${extras.join(", ")}` : "";
+
         const message =
           `Hello! I would like to order this product from Saaj Gochh:\n\n` +
           `• Product: ${product.title}\n` +
           `• Category: ${product.category}\n` +
-          `• Price: ₹${product.price}\n\n` +
+          `• Price: ₹${product.price}${extrasLine}\n\n` +
           `Please share delivery and payment details.`;
         return `https://wa.me/${waNum}?text=${encodeURIComponent(message)}`;
+      }
+
+      function buildFeatureBadgesHTML(product) {
+        const badges = [];
+        if (product.codAvailable) {
+          badges.push(`<span class="feat-badge cod">&#10003; COD Available</span>`);
+        }
+        if (product.return7Days) {
+          badges.push(`<span class="feat-badge ret">&#8634; 7 Days Return</span>`);
+        }
+        return badges.join("");
       }
 
       function renderStore() {
@@ -2082,12 +2337,17 @@
             const coverImg = imgs[0];
             const waUrl = buildWhatsAppLink(product);
             const descText = product.description || "Handcrafted Bengali artisanal item.";
+            const isInStock = product.inStock !== false;
+            const featureHTML = buildFeatureBadgesHTML(product);
 
             return `
-              <article class="product-card">
+              <article class="product-card ${isInStock ? "" : "is-sold-out"}">
                 <div class="product-img-wrap" data-open-id="${escapeHTML(product.id)}">
                   <img src="${escapeHTML(coverImg)}" alt="${escapeHTML(product.title)}" loading="lazy" onerror="window.__saajFallback(this)" />
                   <span class="category-tag">${escapeHTML(product.category)}</span>
+                  <span class="stock-badge ${isInStock ? "in-stock" : "sold-out"}">
+                    ${isInStock ? "● In Stock" : "Sold Out"}
+                  </span>
                   ${imgs.length > 1 ? `
                     <span class="photo-count-badge">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
@@ -2102,16 +2362,21 @@
                 <div class="product-body">
                   <h3 class="product-title" data-open-id="${escapeHTML(product.id)}">${escapeHTML(product.title)}</h3>
                   <p class="product-desc-preview" data-open-id="${escapeHTML(product.id)}">${escapeHTML(descText)}</p>
+                  ${featureHTML ? `<div class="feature-badges">${featureHTML}</div>` : ""}
                   <div class="price-row">
                     <span class="product-price">₹${Number(product.price).toLocaleString("en-IN")}</span>
                     <button type="button" class="view-details-link" data-open-id="${escapeHTML(product.id)}">View Details</button>
                   </div>
-                  <a class="wa-btn" href="${waUrl}" target="_blank" rel="noopener noreferrer">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path d="M12.031 2c-5.516 0-9.969 4.453-9.969 9.969 0 1.766.469 3.484 1.344 5l-1.406 5.141 5.266-1.375c1.469.797 3.109 1.219 4.766 1.219 5.516 0 9.969-4.453 9.969-9.969S17.547 2 12.031 2zm5.813 14.125c-.25.703-1.438 1.344-2 1.422-.516.078-1.172.109-1.906-.125-.453-.141-1.031-.328-1.766-.641-3.078-1.328-5.094-4.438-5.25-4.641-.156-.203-1.25-1.656-1.25-3.156s.781-2.25 1.063-2.563c.281-.313.609-.391.813-.391.203 0 .406.016.578.016.188 0 .438-.078.688.516.25.609.859 2.094.938 2.25.078.156.125.344.016.547-.094.203-.156.328-.313.516-.156.188-.328.406-.469.547-.156.156-.313.328-.141.641.188.313.813 1.344 1.75 2.172 1.203 1.078 2.219 1.406 2.531 1.563.313.156.5.125.688-.078.188-.203.781-.906.984-1.219.203-.313.422-.266.703-.156.281.109 1.797.844 2.109 1 .313.156.516.234.594.359.078.125.078.734-.172 1.438z"/>
-                    </svg>
-                    Order on WhatsApp
-                  </a>
+                  ${isInStock ? `
+                    <a class="wa-btn" href="${waUrl}" target="_blank" rel="noopener noreferrer">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M12.031 2c-5.516 0-9.969 4.453-9.969 9.969 0 1.766.469 3.484 1.344 5l-1.406 5.141 5.266-1.375c1.469.797 3.109 1.219 4.766 1.219 5.516 0 9.969-4.453 9.969-9.969S17.547 2 12.031 2zm5.813 14.125c-.25.703-1.438 1.344-2 1.422-.516.078-1.172.109-1.906-.125-.453-.141-1.031-.328-1.766-.641-3.078-1.328-5.094-4.438-5.25-4.641-.156-.203-1.25-1.656-1.25-3.156s.781-2.25 1.063-2.563c.281-.313.609-.391.813-.391.203 0 .406.016.578.016.188 0 .438-.078.688.516.25.609.859 2.094.938 2.25.078.156.125.344.016.547-.094.203-.156.328-.313.516-.156.188-.328.406-.469.547-.156.156-.313.328-.141.641.188.313.813 1.344 1.75 2.172 1.203 1.078 2.219 1.406 2.531 1.563.313.156.5.125.688-.078.188-.203.781-.906.984-1.219.203-.313.422-.266.703-.156.281.109 1.797.844 2.109 1 .313.156.516.234.594.359.078.125.078.734-.172 1.438z"/>
+                      </svg>
+                      Order on WhatsApp
+                    </a>
+                  ` : `
+                    <button type="button" class="wa-btn sold-out-btn" disabled>Currently Sold Out</button>
+                  `}
                 </div>
               </article>
             `;
@@ -2171,11 +2436,28 @@
         currentGalleryImages = getProductImages(product);
         currentSlideIndex = 0;
 
+        const isInStock = product.inStock !== false;
+
         document.getElementById("lightboxTitle").textContent = product.title;
         document.getElementById("detailCategory").textContent = product.category;
         document.getElementById("detailPrice").textContent = `₹${Number(product.price).toLocaleString("en-IN")}`;
         document.getElementById("detailDesc").textContent = product.description || "Handcrafted Bengali artisanal item.";
-        document.getElementById("detailWaBtn").href = buildWhatsAppLink(product);
+
+        // Populate Stock, COD & 7 Days Return badges inside detail popup
+        const statusPill = `<span class="detail-stock-pill ${isInStock ? "in-stock" : "sold-out"}">${isInStock ? "● In Stock" : "Sold Out"}</span>`;
+        detailBadgesRow.innerHTML = statusPill + buildFeatureBadgesHTML(product);
+
+        if (isInStock) {
+          detailWaBtn.href = buildWhatsAppLink(product);
+          detailWaBtn.className = "wa-btn";
+          detailWaBtn.textContent = "Order This Item on WhatsApp";
+          detailWaBtn.setAttribute("target", "_blank");
+        } else {
+          detailWaBtn.href = "#";
+          detailWaBtn.className = "wa-btn sold-out-btn";
+          detailWaBtn.textContent = "Currently Sold Out";
+          detailWaBtn.removeAttribute("target");
+        }
 
         if (currentGalleryImages.length > 1) {
           galleryThumbs.style.display = "flex";
@@ -2289,12 +2571,18 @@
       const addProductForm = document.getElementById("addProductForm");
       const adminProductList = document.getElementById("adminProductList");
       const adminCount = document.getElementById("adminCount");
+      const adminSearchInput = document.getElementById("adminSearchInput");
       const waNumberInput = document.getElementById("waNumberInput");
 
       const prodTitleInput = document.getElementById("prodTitle");
       const prodPriceInput = document.getElementById("prodPrice");
       const prodCategorySelect = document.getElementById("prodCategory");
       const prodDescInput = document.getElementById("prodDesc");
+
+      const chkInStock = document.getElementById("chkInStock");
+      const chkSoldOut = document.getElementById("chkSoldOut");
+      const chkCod = document.getElementById("chkCod");
+      const chkReturn = document.getElementById("chkReturn");
 
       const prodGalleryInput = document.getElementById("prodGalleryInput");
       const adminPhotoGrid = document.getElementById("adminPhotoGrid");
@@ -2306,6 +2594,19 @@
       const formModeTitle = document.getElementById("formModeTitle");
       const submitProductBtn = document.getElementById("submitProductBtn");
       const cancelEditBtn = document.getElementById("cancelEditBtn");
+
+      // Mutually exclusive Stock checkboxes (In Stock <-> Sold Out)
+      chkInStock.addEventListener("change", () => {
+        chkSoldOut.checked = !chkInStock.checked;
+      });
+      chkSoldOut.addEventListener("change", () => {
+        chkInStock.checked = !chkSoldOut.checked;
+      });
+
+      adminSearchInput.addEventListener("input", (e) => {
+        adminSearchQuery = e.target.value;
+        renderAdminList();
+      });
 
       connectSyncBtn.addEventListener("click", () => {
         const repoVal = ghRepoInput.value.trim().replace(/^https?:\/\/github\.com\//i, "").replace(/\/+$/, "");
@@ -2335,6 +2636,10 @@
       function resetAdminForm() {
         editingProductId = null;
         addProductForm.reset();
+        chkInStock.checked = true;
+        chkSoldOut.checked = false;
+        chkCod.checked = true;
+        chkReturn.checked = true;
         pendingGalleryPhotos = [];
         formModeTitle.textContent = "Add New Product";
         submitProductBtn.textContent = "+ Publish Product";
@@ -2349,6 +2654,12 @@
         prodPriceInput.value = product.price || "";
         prodDescInput.value = product.description || "";
         prodImageUrlInput.value = "";
+
+        const isInStock = product.inStock !== false;
+        chkInStock.checked = isInStock;
+        chkSoldOut.checked = !isInStock;
+        chkCod.checked = Boolean(product.codAvailable);
+        chkReturn.checked = Boolean(product.return7Days);
 
         const catVal = product.category || "Others";
         const hasOption = Array.from(prodCategorySelect.options).some(opt => opt.value === catVal);
@@ -2485,6 +2796,10 @@
         const category = prodCategorySelect.value;
         const description = prodDescInput.value.trim();
 
+        const inStock = chkInStock.checked && !chkSoldOut.checked;
+        const codAvailable = chkCod.checked;
+        const return7Days = chkReturn.checked;
+
         const inlineUrl = prodImageUrlInput.value.trim();
         if (inlineUrl && pendingGalleryPhotos.length < MAX_PHOTOS_PER_ITEM) {
           pendingGalleryPhotos.push(inlineUrl);
@@ -2504,36 +2819,26 @@
         const products = [...getProducts()];
         const isEditing = Boolean(editingProductId);
 
+        const productPayload = {
+          title,
+          price,
+          category,
+          description,
+          inStock,
+          codAvailable,
+          return7Days,
+          images: [...pendingGalleryPhotos]
+        };
+
         if (isEditing) {
           const idx = products.findIndex(p => p.id === editingProductId);
           if (idx !== -1) {
-            products[idx] = {
-              ...products[idx],
-              title,
-              price,
-              category,
-              description,
-              images: [...pendingGalleryPhotos]
-            };
+            products[idx] = { ...products[idx], ...productPayload };
           } else {
-            products.unshift({
-              id: "prod-" + Date.now(),
-              title,
-              price,
-              category,
-              description,
-              images: [...pendingGalleryPhotos]
-            });
+            products.unshift({ id: "prod-" + Date.now(), ...productPayload });
           }
         } else {
-          products.unshift({
-            id: "prod-" + Date.now(),
-            title,
-            price,
-            category,
-            description,
-            images: [...pendingGalleryPhotos]
-          });
+          products.unshift({ id: "prod-" + Date.now(), ...productPayload });
         }
 
         saveProducts(products, true);
@@ -2557,23 +2862,36 @@
       });
 
       function renderAdminList() {
-        const products = getProducts();
-        adminCount.textContent = products.length;
+        const allProducts = getProducts();
+        adminCount.textContent = allProducts.length;
+
+        const q = adminSearchQuery.trim().toLowerCase();
+        const products = allProducts.filter(p =>
+          !q ||
+          p.title.toLowerCase().includes(q) ||
+          p.category.toLowerCase().includes(q)
+        );
 
         if (products.length === 0) {
-          adminProductList.innerHTML = `<p style="color:var(--text-muted); font-size:0.86rem; text-align:center; padding:20px;">No products yet. Add a new item using the form.</p>`;
+          adminProductList.innerHTML = `<p style="color:var(--text-muted); font-size:0.86rem; text-align:center; padding:20px;">No matching products found.</p>`;
           return;
         }
 
         adminProductList.innerHTML = products.map(p => {
           const imgs = getProductImages(p);
           const isCurrentEdit = editingProductId === p.id;
+          const isInStock = p.inStock !== false;
           return `
             <div class="admin-item ${isCurrentEdit ? "editing-active" : ""}">
               <img src="${escapeHTML(imgs[0])}" alt="${escapeHTML(p.title)}" onerror="window.__saajFallback(this)" />
               <div class="admin-item-info">
                 <h5>${escapeHTML(p.title)}</h5>
                 <span>${escapeHTML(p.category)} • ₹${Number(p.price).toLocaleString("en-IN")} • ${imgs.length} photo${imgs.length > 1 ? "s" : ""}</span>
+                <div class="admin-mini-tags">
+                  <span class="mini-tag ${isInStock ? "ok" : "sold"}">${isInStock ? "In Stock" : "Sold Out"}</span>
+                  ${p.codAvailable ? `<span class="mini-tag cod">COD</span>` : ""}
+                  ${p.return7Days ? `<span class="mini-tag ret">7d Return</span>` : ""}
+                </div>
               </div>
               <div class="admin-item-actions">
                 <button type="button" class="edit-btn" data-edit-id="${escapeHTML(p.id)}">Edit</button>
@@ -2612,6 +2930,8 @@
         activeCategory = "All";
         searchQuery = "";
         searchInput.value = "";
+        adminSearchQuery = "";
+        adminSearchInput.value = "";
         resetAdminForm();
         renderStore();
         showToast("Default products restored");
@@ -2637,12 +2957,12 @@
             toastEl.textContent = "";
           }
 
-          ["#productGrid", "#categoryBar", "#adminProductList", "#adminPhotoGrid", "#galleryThumbs"].forEach(sel => {
+          ["#productGrid", "#categoryBar", "#adminProductList", "#adminPhotoGrid", "#galleryThumbs", "#detailBadgesRow"].forEach(sel => {
             const el = clone.querySelector(sel);
             if (el) el.innerHTML = "";
           });
 
-          ["#searchInput", "#pinInput", "#prodTitle", "#prodPrice", "#prodDesc", "#prodImageUrl", "#waNumberInput", "#prodGalleryInput", "#ghRepoInput", "#ghTokenInput"].forEach(sel => {
+          ["#searchInput", "#adminSearchInput", "#pinInput", "#prodTitle", "#prodPrice", "#prodDesc", "#prodImageUrl", "#waNumberInput", "#prodGalleryInput", "#ghRepoInput", "#ghTokenInput"].forEach(sel => {
             const el = clone.querySelector(sel);
             if (el) {
               el.value = "";
@@ -2731,3 +3051,4 @@
   </script>
 </body>
 </html>
+```
