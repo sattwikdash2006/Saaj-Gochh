@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saaj Gochh | Traditional Clothing & Artisanal Decor</title>
+
+  <!-- Google Fonts for Regal Traditional Serif & Clean Modern UI -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --maroon: #6D1A22;
+      --maroon-dark: #4E1016;
+      --terracotta: #B84A2F;
+      --terracotta-light: #D46548;
+      --gold: #C89B3C;
+      --gold-soft: #EBD8AE;
+      --cream: #FBF7F0;
+      --sand: #F3EAD8;
+      --card-bg: #FFFFFF;
+      --text-dark: #2C1810;
+      --text-muted: #6E564B;
+      --whatsapp: #1E8E3E;
+      --whatsapp-hover: #177331;
+      --danger: #C62828;
+      --border: #E6D9C3;
+      --shadow-sm: 0 4px 14px rgba(109, 26, 34, 0.08);
+      --shadow-md: 0 10px 28px rgba(109, 26, 34, 0.14);
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--cream);
+      color: var(--text-dark);
+      line-height: 1.6;
+      background-image: radial-gradient(rgba(200, 155, 60, 0.13) 1px, transparent 1px);
+      background-size: 24px 24px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1, h2, h3, .serif-heading {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    /* Top Decorative Alpona Ribbon */
+    .alpona-ribbon {
+      height: 10px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--maroon) 0px,
+        var(--maroon) 18px,
+        var(--gold) 18px,
+        var(--gold) 24px,
+        var(--terracotta) 24px,
+        var(--terracotta) 42px,
+        var(--gold) 42px,
+        var(--gold) 48px
+      );
+    }
+
+    /* Header / Navbar */
+    header {
+      background: rgba(251, 247, 240, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+      color: var(--maroon);
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, var(--maroon), var(--terracotta));
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--gold);
+      flex-shrink: 0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .brand-text h1 {
+      font-size: 1.32rem;
+      line-height: 1.15;
+      color: var(--maroon);
+      font-weight: 700;
+    }
+
+    .brand-text span {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      display: block;
+      letter-spacing: 0.3px;
+    }
+
+    .header-badge {
+      background: var(--sand);
+      border: 1px solid var(--gold);
+      color: var(--maroon);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      background: linear-gradient(135deg, var(--maroon-dark) 0%, var(--maroon) 52%, var(--terracotta) 100%);
+      color: var(--cream);
+      padding: 48px 18px 54px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.08;
+      background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23EBD8AE' stroke-width='1.4'%3E%3Ccircle cx='40' cy='40' r='22'/%3E%3Cpath d='M40 6 L48 32 L74 40 L48 48 L40 74 L32 48 L6 40 L32 32 Z'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 80px 80px;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      max-width: 780px;
+      margin: 0 auto;
+      z-index: 1;
+    }
+
+    .hero-pill {
+      display: inline-block;
+      background: rgba(235, 216, 174, 0.16);
+      border: 1px solid var(--gold);
+      color: var(--gold-soft);
+      padding: 5px 16px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 500;
+      margin-bottom: 14px;
+      letter-spacing: 0.4px;
+    }
+
+    .hero h2 {
+      font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+      line-height: 1.24;
+      margin-bottom: 14px;
+      color: #FFFDF8;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    .hero p {
+      font-size: clamp(0.96rem, 2.5vw, 1.1rem);
+      color: #F6E9D7;
+      max-width: 630px;
+      margin: 0 auto 24px;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold);
+      color: var(--maroon-dark);
+      font-weight: 700;
+      font-size: 0.96rem;
+      padding: 12px 26px;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .hero-cta:hover {
+      background: #DBAE4E;
+      transform: translateY(-2px);
+    }
+
+    .trust-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px 26px;
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(235, 216, 174, 0.25);
+      font-size: 0.88rem;
+      color: var(--gold-soft);
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Decorative Divider */
+    .alpona-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 34px auto 12px;
+      max-width: 1200px;
+      padding: 0 18px;
+    }
+
+    .alpona-divider .line {
+      height: 1px;
+      flex: 1;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .section-heading {
+      text-align: center;
+      color: var(--maroon);
+      font-size: clamp(1.45rem, 3.2vw, 1.95rem);
+      font-weight: 700;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.94rem;
+      margin-bottom: 20px;
+      padding: 0 18px;
+    }
+
+    /* Filter & Search Controls */
+    .controls-wrap {
+      max-width: 1200px;
+      margin: 0 auto 26px;
+      padding: 0 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .search-box {
+      width: 100%;
+      max-width: 440px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 11px 16px 11px 42px;
+      border: 1.5px solid var(--border);
+      border-radius: 999px;
+      background: #FFFDF9;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--terracotta);
+      box-shadow: 0 0 0 3px rgba(184, 74, 47, 0.12);
+    }
+
+    .search-box svg {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .category-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .cat-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-dark);
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.86rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .cat-btn:hover {
+      border-color: var(--terracotta);
+      color: var(--maroon);
+    }
+
+    .cat-btn.active {
+      background: var(--maroon);
+      color: #FFF;
+      border-color: var(--maroon);
+      box-shadow: 0 4px 12px rgba(109, 26, 34, 0.22);
+    }
+
+    /* Main Product Grid */
+    main {
+      flex: 1;
+      width: 100%;
+    }
+
+    .product-grid {
+      max-width: 1200px;
+      margin: 0 auto 56px;
+      padding: 0 18px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 22px;
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--gold);
+    }
+
+    .product-img-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 4;
+      background: var(--sand);
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .product-card:hover .product-img-wrap img {
+      transform: scale(1.04);
+    }
+
+    .category-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(251, 247, 240, 0.94);
+      color: var(--maroon);
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--gold);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-body {
+      padding: 15px 16px 17px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 10px;
+    }
+
+    .product-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.06rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      line-height: 1.38;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 4px;
+    }
+
+    .product-price {
+      font-size: 1.28rem;
+      font-weight: 700;
+      color: var(--maroon);
+    }
+
+    .price-note {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .wa-btn {
+      width: 100%;
+      background: var(--whatsapp);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.15s ease;
+      box-shadow: 0 4px 12px rgba(30, 142, 62, 0.22);
+    }
+
+    .wa-btn:hover {
+      background: var(--whatsapp-hover);
+      transform: translateY(-1px);
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 50px 20px;
+      background: var(--card-bg);
+      border: 1px dashed var(--gold);
+      border-radius: var(--radius);
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--maroon-dark);
+      color: var(--gold-soft);
+      text-align: center;
+      padding: 28px 18px 24px;
+      border-top: 3px solid var(--gold);
+      margin-top: auto;
+    }
+
+    .footer-brand {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.22rem;
+      color: #FFF;
+      margin-bottom: 6px;
+    }
+
+    .footer-desc {
+      font-size: 0.88rem;
+      opacity: 0.88;
+      max-width: 540px;
+      margin: 0 auto 14px;
+    }
+
+    /* Completely hidden in plain sight as normal copyright text */
+    .footer-copy {
+      font-size: 0.82rem;
+      color: rgba(235, 216, 174, 0.72);
+      user-select: none;
+      -webkit-user-select: none;
+      cursor: default;
+      display: inline-block;
+      padding: 4px 8px;
+    }
+
+    /* Modals (Lightbox, Access Gate, Admin Panel) */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(30, 12, 10, 0.74);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1000;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--cream);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 420px;
+      padding: 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      position: relative;
+      max-height: 92vh;
+      overflow-y: auto;
+      animation: popIn 0.2s ease-out;
+    }
+
+    .modal-card.admin-wide {
+      max-width: 840px;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-header h3 {
+      color: var(--maroon);
+      font-size: 1.24rem;
+    }
+
+    .close-btn {
+      background: var(--sand);
+      border: 1px solid var(--border);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      line-height: 1;
+      color: var(--maroon);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    .close-btn:hover {
+      background: var(--maroon);
+      color: #FFF;
+    }
+
+    /* Form Controls inside Modals */
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--maroon);
+      margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      background: #FFF;
+      color: var(--text-dark);
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: var(--terracotta);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--maroon), var(--terracotta));
+      color: #FFF;
+      border: none;
+      border-radius: 10px;
+      padding: 11px 18px;
+      font-family: inherit;
+      font-size: 0.93rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: opacity 0.2s;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.93;
+    }
+
+    .btn-secondary {
+      background: var(--sand);
+      color: var(--maroon);
+      border: 1px solid var(--gold);
+      border-radius: 9px;
+      padding: 9px 14px;
+      font-family: inherit;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .error-msg {
+      color: var(--danger);
+      font-size: 0.82rem;
+      margin-top: 6px;
+      display: none;
+    }
+
+    /* Admin Dashboard Sections */
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 20px;
+    }
+
+    .admin-box {
+      background: #FFF;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .admin-box h4 {
+      color: var(--maroon);
+      margin-bottom: 12px;
+      font-size: 1.02rem;
+      border-bottom: 1px dashed var(--border);
+      padding-bottom: 6px;
+    }
+
+    .preview-thumb {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-top: 8px;
+      display: none;
+      background: var(--sand);
+    }
+
+    .admin-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 410px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .admin-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--cream);
+    }
+
+    .admin-item img {
+      width: 52px;
+      height: 52px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: var(--sand);
+    }
+
+    .admin-item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .admin-item-info h5 {
+      font-size: 0.88rem;
+      color: var(--text-dark);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .admin-item-info span {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .del-btn {
+      background: #FDECEA;
+      color: var(--danger);
+      border: 1px solid #F5C2C0;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .del-btn:hover {
+      background: var(--danger);
+      color: #FFF;
+    }
+
+    .wa-settings-bar {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+      margin-bottom: 18px;
+      background: var(--sand);
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--gold);
+      flex-wrap: wrap;
+    }
+
+    .wa-settings-bar .form-group {
+      flex: 1;
+      min-width: 210px;
+      margin-bottom: 0;
+    }
+
+    /* Image Lightbox */
+    .lightbox-img {
+      width: 100%;
+      max-height: 68vh;
+      object-fit: contain;
+      border-radius: 10px;
+      background: var(--sand);
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--maroon-dark);
+      color: #FFF;
+      border: 1px solid var(--gold);
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 500;
+      z-index: 2000;
+      opacity: 0;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .admin-grid {
+        grid-template-columns: 1fr;
+      }
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .product-body {
+        padding: 11px 12px 13px;
+      }
+      .product-title {
+        font-size: 0.94rem;
+      }
+      .product-price {
+        font-size: 1.12rem;
+      }
+      .wa-btn {
+        font-size: 0.8rem;
+        padding: 9px 10px;
+      }
+      .header-badge {
+        display: none;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Traditional Top Ribbon -->
+  <div class="alpona-ribbon"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 3C14 7 16 9 16 12C16 14.5 14.2 16.5 12 16.5C9.8 16.5 8 14.5 8 12C8 9 10 7 12 3Z" fill="#EBD8AE"/>
+            <path d="M12 16.5C15.5 16.5 19 14 20 10C17 10 14.8 11.5 13.5 13.5" stroke="#EBD8AE" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M12 16.5C8.5 16.5 5 14 4 10C7 10 9.2 11.5 10.5 13.5" stroke="#EBD8AE" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M7 19H17" stroke="#C89B3C" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Saaj Gochh</h1>
+          <span>Timeless Bengal Artistry for Your Home</span>
+        </div>
+      </a>
+
+      <div class="header-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        Handcrafted &amp; Curated Quality
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="hero-pill">Festive &amp; Heritage Collection</span>
+      <h2>Bring Home the Soul of Bengali Craftsmanship</h2>
+      <p>
+        From handloom Jamdani sarees and terracotta wall accents to classic brassware and ethnic jewelry — shop authentic curated treasures and order directly on WhatsApp.
+      </p>
+      <a href="#catalog" class="hero-cta">
+        Explore Collection
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+          <path d="M12 5v14M5 12l7 7 7-7"/>
+        </svg>
+      </a>
+
+      <div class="trust-strip">
+        <div class="trust-item">Authentic Artisanal Designs</div>
+        <div class="trust-item">Pan-India Home Delivery</div>
+        <div class="trust-item">Instant WhatsApp Ordering</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Catalog Section -->
+  <main id="catalog">
+    <div class="alpona-divider">
+      <span class="line"></span>
+      <h2 class="section-heading">Our Signature Collection</h2>
+      <span class="line"></span>
+    </div>
+    <p class="section-sub">Select your favorite piece and tap the WhatsApp button to place an instant order</p>
+
+    <!-- Search & Category Filter -->
+    <div class="controls-wrap">
+      <div class="search-box">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search items (e.g., Saree, Terracotta, Brass)..." />
+      </div>
+      <div class="category-bar" id="categoryBar"></div>
+    </div>
+
+    <!-- Dynamic Product Grid -->
+    <section class="product-grid" id="productGrid" aria-live="polite"></section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-brand">Saaj Gochh</div>
+    <p class="footer-desc">
+      Celebrating Bengali culture through handcrafted textiles, timeless home decor, and unique gifts. Reach out on WhatsApp for inquiries or bulk festive orders.
+    </p>
+    <!-- Completely disguised stealth trigger: 5 rapid taps opens password gate -->
+    <span class="footer-copy" id="stealthGate">© 2026 Saaj Gochh. All rights reserved.</span>
+  </footer>
+
+  <!-- Lightbox Modal for Product Image Zoom -->
+  <div class="modal-backdrop" id="lightboxModal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="lightboxTitle">Product Preview</h3>
+        <button class="close-btn" id="closeLightbox" aria-label="Close">&times;</button>
+      </div>
+      <img id="lightboxImg" class="lightbox-img" src="" alt="" />
+    </div>
+  </div>
+
+  <!-- Discreet Password Modal -->
+  <div class="modal-backdrop" id="pinModal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Authorized Access</h3>
+        <button class="close-btn" id="closePinModal" aria-label="Close">&times;</button>
+      </div>
+      <form id="pinForm">
+        <div class="form-group">
+          <label for="pinInput">Enter Access Password</label>
+          <input type="password" id="pinInput" inputmode="numeric" placeholder="Enter password" autocomplete="off" required />
+          <div class="error-msg" id="pinError">Incorrect password. Please try again.</div>
+        </div>
+        <button type="submit" class="btn-primary">Unlock</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Hidden Admin Panel Modal -->
+  <div class="modal-backdrop" id="adminModal" role="dialog" aria-modal="true">
+    <div class="modal-card admin-wide">
+      <div class="modal-header">
+        <h3>Saaj Gochh Inventory Manager</h3>
+        <button class="close-btn" id="closeAdminModal" aria-label="Close">&times;</button>
+      </div>
+
+      <!-- WhatsApp Number Configuration -->
+      <div class="wa-settings-bar">
+        <div class="form-group">
+          <label for="waNumberInput">WhatsApp Business Number (with country code, e.g., 919876543210)</label>
+          <input type="text" id="waNumberInput" placeholder="919876543210" />
+        </div>
+        <button type="button" class="btn-secondary" id="saveWaBtn">Save Number</button>
+      </div>
+
+      <div class="admin-grid">
+        <!-- Add New Product Form -->
+        <div class="admin-box">
+          <h4>Add New Product</h4>
+          <form id="addProductForm">
+            <div class="form-group">
+              <label for="prodTitle">Product Title</label>
+              <input type="text" id="prodTitle" placeholder="e.g., Handloom Dhakai Jamdani Saree" required />
+            </div>
+
+            <div class="form-group">
+              <label for="prodPrice">Price (₹)</label>
+              <input type="number" id="prodPrice" min="1" placeholder="e.g., 850" required />
+            </div>
+
+            <div class="form-group">
+              <label for="prodCategory">Category</label>
+              <select id="prodCategory" required>
+                <option value="Sarees & Apparel">Sarees &amp; Apparel</option>
+                <option value="Home Decor">Home Decor</option>
+                <option value="Jewelry & Craft">Jewelry &amp; Craft</option>
+                <option value="Festive Gifts">Festive Gifts</option>
+                <option value="Others">Others</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="prodImage">Image URL (Meesho / Imgur / Direct Link)</label>
+              <input type="url" id="prodImage" placeholder="https://..." required />
+              <img id="imgPreview" class="preview-thumb" alt="Image preview" />
+            </div>
+
+            <button type="submit" class="btn-primary">+ Publish Product</button>
+          </form>
+        </div>
+
+        <!-- Existing Products List -->
+        <div class="admin-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <h4 style="margin-bottom:0; border:none; padding:0;">Live Products (<span id="adminCount">0</span>)</h4>
+            <button type="button" class="btn-secondary" id="resetDemoBtn" style="font-size:0.75rem; padding:5px 10px;">Restore Defaults</button>
+          </div>
+          <div class="admin-list" id="adminProductList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (() => {
+      // =========================================================
+      // CONFIGURATION
+      // =========================================================
+      const DEFAULT_WHATSAPP_NUMBER = "919876543210"; // Country code + 10-digit number
+      const ADMIN_PASSWORD = String.fromCharCode(48,51,50,50,48,50,54,51,50,56,49); // 03220263281
+      const STORAGE_KEYS = {
+        PRODUCTS: "saajgochh_products_v1",
+        WA_NUMBER: "saajgochh_wa_v1"
+      };
+
+      // Helper to generate artistic SVG artwork data-URIs for default demo items
+      function makeArtSVG(bg1, bg2, accent, label, motif) {
+        const svg = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="${bg1}"/>
+                <stop offset="100%" stop-color="${bg2}"/>
+              </linearGradient>
+            </defs>
+            <rect width="500" height="500" fill="url(#g)"/>
+            <rect x="22" y="22" width="456" height="456" rx="18" fill="none" stroke="${accent}" stroke-width="3" stroke-dasharray="10 6" opacity="0.65"/>
+            <circle cx="250" cy="215" r="108" fill="rgba(255,255,255,0.12)" stroke="${accent}" stroke-width="2.5"/>
+            ${motif}
+            <text x="250" y="395" text-anchor="middle" fill="#FFFDF8" font-family="Georgia, serif" font-size="25" font-weight="bold">${label}</text>
+            <text x="250" y="426" text-anchor="middle" fill="${accent}" font-family="sans-serif" font-size="13" letter-spacing="3">SAAJ GOCHH</text>
+          </svg>
+        `;
+        return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+      }
+
+      const FALLBACK_IMG = makeArtSVG(
+        "#6D1A22", "#B84A2F", "#EBD8AE", "Artisanal Treasure",
+        `<path d="M250 140 C275 185 295 205 295 232 A45 45 0 1 1 205 232 C205 205 225 185 250 140 Z" fill="#EBD8AE" opacity="0.9"/>`
+      );
+
+      // Default Demo Products (loaded automatically on first visit)
+      const DEFAULT_PRODUCTS = [
+        {
+          id: "demo-1",
+          title: "Handwoven Red-Border White Dhakai Jamdani Saree",
+          price: 1250,
+          category: "Sarees & Apparel",
+          image: makeArtSVG(
+            "#7D1B24", "#B84A2F", "#F2D79B", "Dhakai Jamdani",
+            `<path d="M180 155 Q250 130 320 155 L340 275 Q250 295 160 275 Z" fill="#FFF8EE" stroke="#C89B3C" stroke-width="4"/>
+             <path d="M168 255 Q250 275 332 255" stroke="#9B1B27" stroke-width="14" fill="none"/>
+             <circle cx="250" cy="205" r="14" fill="#C89B3C"/>`
+          )
+        },
+        {
+          id: "demo-2",
+          title: "Hand-Painted Terracotta Alpona Wall Hanging",
+          price: 450,
+          category: "Home Decor",
+          image: makeArtSVG(
+            "#9E3B24", "#5A1F16", "#F4D58D", "Terracotta Wall Art",
+            `<circle cx="250" cy="215" r="72" fill="#C9593B" stroke="#F4D58D" stroke-width="4"/>
+             <circle cx="250" cy="215" r="42" fill="none" stroke="#FFFDF8" stroke-width="3" stroke-dasharray="6 6"/>
+             <path d="M250 160 L265 200 L305 215 L265 230 L250 270 L235 230 L195 215 L235 200 Z" fill="#F4D58D"/>`
+          )
+        },
+        {
+          id: "demo-3",
+          title: "Dokra & Oxidized Traditional Jhumka Necklace Set",
+          price: 380,
+          category: "Jewelry & Craft",
+          image: makeArtSVG(
+            "#4A151B", "#8D3B24", "#E6C27A", "Dokra Jewelry Set",
+            `<path d="M190 165 Q250 265 310 165" fill="none" stroke="#E6C27A" stroke-width="7" stroke-linecap="round"/>
+             <circle cx="250" cy="222" r="22" fill="#E6C27A"/>
+             <circle cx="215" cy="204" r="10" fill="#E6C27A"/>
+             <circle cx="285" cy="204" r="10" fill="#E6C27A"/>`
+          )
+        },
+        {
+          id: "demo-4",
+          title: "Nakshi Kantha Embroidered Cotton Cushion Covers (Set of 2)",
+          price: 520,
+          category: "Home Decor",
+          image: makeArtSVG(
+            "#6A2E20", "#B85D3B", "#FBE4B4", "Nakshi Kantha",
+            `<rect x="180" y="145" width="140" height="140" rx="16" fill="#FBF7F0" stroke="#C89B3C" stroke-width="5"/>
+             <rect x="200" y="165" width="100" height="100" rx="8" fill="none" stroke="#B84A2F" stroke-width="3" stroke-dasharray="6 4"/>
+             <circle cx="250" cy="215" r="24" fill="#6D1A22"/>`
+          )
+        },
+        {
+          id: "demo-5",
+          title: "Pure Brass Mangal Diya & Dhunuchi Festive Gift Set",
+          price: 690,
+          category: "Festive Gifts",
+          image: makeArtSVG(
+            "#5B141B", "#9A4A1C", "#FFD97D", "Brass Festive Set",
+            `<ellipse cx="250" cy="245" rx="68" ry="22" fill="#D4AF37"/>
+             <path d="M210 240 Q250 285 290 240 Z" fill="#B68B22"/>
+             <path d="M250 155 C265 182 272 200 250 218 C228 200 235 182 250 155 Z" fill="#FFD97D"/>`
+          )
+        },
+        {
+          id: "demo-6",
+          title: "Shantiniketan Batik Print Pure Cotton Kurta",
+          price: 790,
+          category: "Sarees & Apparel",
+          image: makeArtSVG(
+            "#82311E", "#4E1016", "#F3D38C", "Batik Cotton Kurta",
+            `<path d="M205 150 L295 150 L325 200 L298 220 L290 205 L290 285 L210 285 L210 205 L202 220 L175 200 Z" fill="#FBF7F0" stroke="#C89B3C" stroke-width="4"/>
+             <line x1="250" y1="150" x2="250" y2="220" stroke="#6D1A22" stroke-width="4"/>`
+          )
+        }
+      ];
+
+      // =========================================================
+      // STATE & STORAGE HELPERS
+      // =========================================================
+      let activeCategory = "All";
+      let searchQuery = "";
+
+      function getProducts() {
+        const raw = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
+        if (raw === null) {
+          localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(DEFAULT_PRODUCTS));
+          return [...DEFAULT_PRODUCTS];
+        }
+        try {
+          const parsed = JSON.parse(raw);
+          return Array.isArray(parsed) ? parsed : [];
+        } catch {
+          return [];
+        }
+      }
+
+      function saveProducts(list) {
+        localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(list));
+      }
+
+      function getWhatsAppNumber() {
+        return localStorage.getItem(STORAGE_KEYS.WA_NUMBER) || DEFAULT_WHATSAPP_NUMBER;
+      }
+
+      function saveWhatsAppNumber(num) {
+        const cleaned = num.replace(/\D/g, "");
+        localStorage.setItem(STORAGE_KEYS.WA_NUMBER, cleaned || DEFAULT_WHATSAPP_NUMBER);
+      }
+
+      function escapeHTML(str) {
+        const div = document.createElement("div");
+        div.textContent = str == null ? "" : String(str);
+        return div.innerHTML;
+      }
+
+      function showToast(msg) {
+        const toast = document.getElementById("toast");
+        toast.textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(window._toastTimer);
+        window._toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+      }
+
+      // =========================================================
+      // FRONTEND RENDERING
+      // =========================================================
+      const productGrid = document.getElementById("productGrid");
+      const categoryBar = document.getElementById("categoryBar");
+      const searchInput = document.getElementById("searchInput");
+
+      function renderCategories(products) {
+        const cats = ["All", ...new Set(products.map(p => p.category).filter(Boolean))];
+        if (!cats.includes(activeCategory)) activeCategory = "All";
+
+        categoryBar.innerHTML = cats.map(cat => `
+          <button type="button" class="cat-btn ${cat === activeCategory ? "active" : ""}" data-cat="${escapeHTML(cat)}">
+            ${escapeHTML(cat)}
+          </button>
+        `).join("");
+
+        categoryBar.querySelectorAll(".cat-btn").forEach(btn => {
+          btn.addEventListener("click", () => {
+            activeCategory = btn.getAttribute("data-cat");
+            renderStore();
+          });
+        });
+      }
+
+      function buildWhatsAppLink(product) {
+        const waNum = getWhatsAppNumber();
+        const message =
+          `Hello! I would like to order this product from Saaj Gochh:\n\n` +
+          `• Product: ${product.title}\n` +
+          `• Category: ${product.category}\n` +
+          `• Price: ₹${product.price}\n\n` +
+          `Please share delivery and payment details.`;
+        return `https://wa.me/${waNum}?text=${encodeURIComponent(message)}`;
+      }
+
+      function renderStore() {
+        const allProducts = getProducts();
+        renderCategories(allProducts);
+
+        const filtered = allProducts.filter(p => {
+          const matchCat = activeCategory === "All" || p.category === activeCategory;
+          const q = searchQuery.trim().toLowerCase();
+          const matchSearch = !q ||
+            p.title.toLowerCase().includes(q) ||
+            (p.category && p.category.toLowerCase().includes(q));
+          return matchCat && matchSearch;
+        });
+
+        if (filtered.length === 0) {
+          productGrid.innerHTML = `
+            <div class="empty-state">
+              <p style="font-size:1.05rem; color:var(--maroon); font-weight:600; margin-bottom:6px;">
+                No matching products found!
+              </p>
+              <p>Try selecting another category or clearing your search filter.</p>
+            </div>
+          `;
+          return;
+        }
+
+        productGrid.innerHTML = filtered.map(product => {
+          const waUrl = buildWhatsAppLink(product);
+          return `
+            <article class="product-card">
+              <div class="product-img-wrap" data-zoom-title="${escapeHTML(product.title)}" data-zoom-img="${escapeHTML(product.image)}">
+                <img src="${escapeHTML(product.image)}" alt="${escapeHTML(product.title)}" loading="lazy" onerror="this.onerror=null; this.src='${FALLBACK_IMG}';" />
+                <span class="category-tag">${escapeHTML(product.category)}</span>
+              </div>
+              <div class="product-body">
+                <h3 class="product-title">${escapeHTML(product.title)}</h3>
+                <div class="price-row">
+                  <span class="product-price">₹${Number(product.price).toLocaleString("en-IN")}</span>
+                  <span class="price-note">In Stock</span>
+                </div>
+                <a class="wa-btn" href="${waUrl}" target="_blank" rel="noopener noreferrer">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12.031 2c-5.516 0-9.969 4.453-9.969 9.969 0 1.766.469 3.484 1.344 5l-1.406 5.141 5.266-1.375c1.469.797 3.109 1.219 4.766 1.219 5.516 0 9.969-4.453 9.969-9.969S17.547 2 12.031 2zm5.813 14.125c-.25.703-1.438 1.344-2 1.422-.516.078-1.172.109-1.906-.125-.453-.141-1.031-.328-1.766-.641-3.078-1.328-5.094-4.438-5.25-4.641-.156-.203-1.25-1.656-1.25-3.156s.781-2.25 1.063-2.563c.281-.313.609-.391.813-.391.203 0 .406.016.578.016.188 0 .438-.078.688.516.25.609.859 2.094.938 2.25.078.156.125.344.016.547-.094.203-.156.328-.313.516-.156.188-.328.406-.469.547-.156.156-.313.328-.141.641.188.313.813 1.344 1.75 2.172 1.203 1.078 2.219 1.406 2.531 1.563.313.156.5.125.688-.078.188-.203.781-.906.984-1.219.203-.313.422-.266.703-.156.281.109 1.797.844 2.109 1 .313.156.516.234.594.359.078.125.078.734-.172 1.438z"/>
+                  </svg>
+                  Order on WhatsApp
+                </a>
+              </div>
+            </article>
+          `;
+        }).join("");
+
+        // Attach Image Lightbox Zoom
+        productGrid.querySelectorAll(".product-img-wrap").forEach(box => {
+          box.addEventListener("click", () => {
+            document.getElementById("lightboxTitle").textContent = box.getAttribute("data-zoom-title");
+            const imgEl = document.getElementById("lightboxImg");
+            imgEl.src = box.getAttribute("data-zoom-img");
+            imgEl.onerror = () => { imgEl.src = FALLBACK_IMG; };
+            document.getElementById("lightboxModal").classList.add("open");
+          });
+        });
+      }
+
+      searchInput.addEventListener("input", (e) => {
+        searchQuery = e.target.value;
+        renderStore();
+      });
+
+      // =========================================================
+      // LIGHTBOX MODAL CLOSE
+      // =========================================================
+      const lightboxModal = document.getElementById("lightboxModal");
+      document.getElementById("closeLightbox").addEventListener("click", () => lightboxModal.classList.remove("open"));
+      lightboxModal.addEventListener("click", (e) => {
+        if (e.target === lightboxModal) lightboxModal.classList.remove("open");
+      });
+
+      // =========================================================
+      // STEALTH ADMIN TRIGGER
+      // 1) Tap footer copyright text 5 times rapidly (Mobile & Desktop)
+      // 2) Or press Ctrl + Shift + A (Desktop)
+      // =========================================================
+      const pinModal = document.getElementById("pinModal");
+      const pinForm = document.getElementById("pinForm");
+      const pinInput = document.getElementById("pinInput");
+      const pinError = document.getElementById("pinError");
+      const adminModal = document.getElementById("adminModal");
+
+      function openPinModal() {
+        pinInput.value = "";
+        pinError.style.display = "none";
+        pinModal.classList.add("open");
+        setTimeout(() => pinInput.focus(), 80);
+      }
+
+      let tapCount = 0;
+      let tapTimer = null;
+      document.getElementById("stealthGate").addEventListener("click", () => {
+        tapCount++;
+        clearTimeout(tapTimer);
+        if (tapCount >= 5) {
+          tapCount = 0;
+          openPinModal();
+        } else {
+          tapTimer = setTimeout(() => { tapCount = 0; }, 1800);
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.ctrlKey && e.shiftKey && (e.key === "A" || e.key === "a")) {
+          e.preventDefault();
+          openPinModal();
+        }
+      });
+
+      document.getElementById("closePinModal").addEventListener("click", () => pinModal.classList.remove("open"));
+      pinModal.addEventListener("click", (e) => {
+        if (e.target === pinModal) pinModal.classList.remove("open");
+      });
+
+      pinForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (pinInput.value.trim() === ADMIN_PASSWORD) {
+          pinModal.classList.remove("open");
+          openAdminDashboard();
+        } else {
+          pinError.style.display = "block";
+          pinInput.value = "";
+          pinInput.focus();
+        }
+      });
+
+      // =========================================================
+      // ADMIN PANEL LOGIC
+      // =========================================================
+      const addProductForm = document.getElementById("addProductForm");
+      const adminProductList = document.getElementById("adminProductList");
+      const adminCount = document.getElementById("adminCount");
+      const prodImageInput = document.getElementById("prodImage");
+      const imgPreview = document.getElementById("imgPreview");
+      const waNumberInput = document.getElementById("waNumberInput");
+
+      function openAdminDashboard() {
+        waNumberInput.value = getWhatsAppNumber();
+        renderAdminList();
+        adminModal.classList.add("open");
+      }
+
+      document.getElementById("closeAdminModal").addEventListener("click", () => adminModal.classList.remove("open"));
+      adminModal.addEventListener("click", (e) => {
+        if (e.target === adminModal) adminModal.classList.remove("open");
+      });
+
+      document.getElementById("saveWaBtn").addEventListener("click", () => {
+        const val = waNumberInput.value.trim();
+        if (!val || val.replace(/\D/g, "").length < 10) {
+          showToast("Please enter a valid 10–12 digit WhatsApp number");
+          return;
+        }
+        saveWhatsAppNumber(val);
+        waNumberInput.value = getWhatsAppNumber();
+        renderStore();
+        showToast("WhatsApp number updated!");
+      });
+
+      prodImageInput.addEventListener("input", () => {
+        const url = prodImageInput.value.trim();
+        if (url) {
+          imgPreview.src = url;
+          imgPreview.style.display = "block";
+          imgPreview.onerror = () => { imgPreview.style.display = "none"; };
+        } else {
+          imgPreview.style.display = "none";
+        }
+      });
+
+      addProductForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const title = document.getElementById("prodTitle").value.trim();
+        const price = Number(document.getElementById("prodPrice").value);
+        const category = document.getElementById("prodCategory").value;
+        const image = prodImageInput.value.trim();
+
+        if (!title || !price || price <= 0 || !image) {
+          showToast("Please fill in all fields accurately");
+          return;
+        }
+
+        const newProduct = {
+          id: "prod-" + Date.now(),
+          title,
+          price,
+          category,
+          image
+        };
+
+        const products = getProducts();
+        products.unshift(newProduct);
+        saveProducts(products);
+
+        addProductForm.reset();
+        imgPreview.style.display = "none";
+        renderAdminList();
+        renderStore();
+        showToast("New product published!");
+      });
+
+      function renderAdminList() {
+        const products = getProducts();
+        adminCount.textContent = products.length;
+
+        if (products.length === 0) {
+          adminProductList.innerHTML = `<p style="color:var(--text-muted); font-size:0.86rem; text-align:center; padding:20px;">No products yet. Add a new item using the form.</p>`;
+          return;
+        }
+
+        adminProductList.innerHTML = products.map(p => `
+          <div class="admin-item">
+            <img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.title)}" onerror="this.onerror=null; this.src='${FALLBACK_IMG}';" />
+            <div class="admin-item-info">
+              <h5>${escapeHTML(p.title)}</h5>
+              <span>${escapeHTML(p.category)} • ₹${Number(p.price).toLocaleString("en-IN")}</span>
+            </div>
+            <button type="button" class="del-btn" data-del-id="${escapeHTML(p.id)}">Delete</button>
+          </div>
+        `).join("");
+
+        adminProductList.querySelectorAll(".del-btn").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const id = btn.getAttribute("data-del-id");
+            const updated = getProducts().filter(item => item.id !== id);
+            saveProducts(updated);
+            renderAdminList();
+            renderStore();
+            showToast("Product deleted");
+          });
+        });
+      }
+
+      document.getElementById("resetDemoBtn").addEventListener("click", () => {
+        saveProducts(DEFAULT_PRODUCTS);
+        renderAdminList();
+        renderStore();
+        showToast("Default products restored");
+      });
+
+      // Initial Boot
+      renderStore();
+    })();
+  </script>
+</body>
+</html>
