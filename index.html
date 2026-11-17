@@ -862,6 +862,12 @@
       opacity: 0.93;
     }
 
+    .btn-primary:disabled,
+    .btn-secondary:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
     .btn-secondary {
       background: var(--sand);
       color: var(--maroon);
@@ -1060,6 +1066,71 @@
       border-color: var(--terracotta);
     }
 
+    /* Smart Auto-Image Studio Bar inside Admin */
+    .auto-studio-bar {
+      background: #FFF9EE;
+      border: 1px solid var(--gold);
+      border-radius: 10px;
+      padding: 9px 11px;
+      margin-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .auto-studio-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .auto-studio-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--maroon);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .auto-studio-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .auto-studio-controls select {
+      flex: 1;
+      min-width: 160px;
+      padding: 6px 9px;
+      font-size: 0.78rem;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      background: #FFF;
+      color: var(--text-dark);
+    }
+
+    .auto-enhance-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.77rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .auto-enhance-toggle input {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--maroon);
+    }
+
     /* Gallery Upload Dropzone inside Admin */
     .gallery-upload-box {
       border: 2px dashed var(--gold);
@@ -1106,8 +1177,8 @@
 
     .admin-photo-tile {
       position: relative;
-      width: 58px;
-      height: 58px;
+      width: 68px;
+      height: 68px;
       border-radius: 8px;
       overflow: hidden;
       border: 1.5px solid var(--gold);
@@ -1121,21 +1192,36 @@
       display: block;
     }
 
-    .remove-photo-btn {
+    .remove-photo-btn,
+    .rotate-photo-btn {
       position: absolute;
-      top: 2px;
-      right: 2px;
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       border: none;
-      background: rgba(198, 40, 40, 0.92);
       color: #FFF;
       font-size: 12px;
       line-height: 1;
       cursor: pointer;
       display: grid;
       place-items: center;
+    }
+
+    .remove-photo-btn {
+      top: 2px;
+      right: 2px;
+      background: rgba(198, 40, 40, 0.92);
+    }
+
+    .rotate-photo-btn {
+      bottom: 2px;
+      left: 2px;
+      background: rgba(44, 24, 16, 0.85);
+      font-size: 11px;
+    }
+
+    .rotate-photo-btn:hover {
+      background: var(--maroon);
     }
 
     .url-inline-row {
@@ -1160,7 +1246,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      max-height: 560px;
+      max-height: 580px;
       overflow-y: auto;
       padding-right: 4px;
     }
@@ -1582,9 +1668,30 @@
               </label>
             </div>
 
-            <!-- Direct Gallery Multi-Photo Upload (Max 10) -->
+            <!-- Direct Gallery Multi-Photo Upload + Auto Crop & Enhance -->
             <div class="form-group">
-              <label>Upload Photos from Gallery (<span id="photoCounterLabel">0 / 10</span>)</label>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; gap:8px;">
+                <label style="margin-bottom:0;">Photos (<span id="photoCounterLabel">0 / 10</span>)</label>
+                <button type="button" class="btn-secondary" id="reprocessAllBtn" style="font-size:0.72rem; padding:3px 9px; display:none;">&#10024; Auto-Fix All</button>
+              </div>
+
+              <!-- Smart Auto Image Studio Options -->
+              <div class="auto-studio-bar">
+                <div class="auto-studio-row">
+                  <span class="auto-studio-badge">&#10024; Smart Auto-Crop &amp; Studio Edit: ON</span>
+                  <label class="auto-enhance-toggle">
+                    <input type="checkbox" id="autoEnhanceChk" checked />
+                    <span>Auto-Enhance</span>
+                  </label>
+                </div>
+                <div class="auto-studio-controls">
+                  <select id="autoCropModeSelect" title="Choose how the site auto-crops your photos">
+                    <option value="smart-full">Smart Full Fit (100% Product Visible, Zero Cut)</option>
+                    <option value="square-fill">Square Fill Crop (Zoom &amp; Center Subject)</option>
+                  </select>
+                </div>
+              </div>
+
               <label class="gallery-upload-box" for="prodGalleryInput">
                 <input type="file" id="prodGalleryInput" accept="image/*" multiple />
                 <div class="gallery-upload-title">
@@ -1595,14 +1702,14 @@
                   </svg>
                   <span id="uploadPromptText">Choose Photos from Gallery</span>
                 </div>
-                <div class="gallery-upload-sub">Select up to 10 photos per item (auto-optimized)</div>
+                <div class="gallery-upload-sub">Auto-crops margins, centers product &amp; enhances clarity (max 10)</div>
               </label>
 
               <div class="admin-photo-grid" id="adminPhotoGrid"></div>
 
-              <!-- Optional URL Adder -->
+              <!-- URL Adder (Also Auto-Cropped & Edited!) -->
               <div class="url-inline-row">
-                <input type="url" id="prodImageUrl" placeholder="Or paste an image URL (Meesho / Imgur)..." />
+                <input type="url" id="prodImageUrl" placeholder="Or paste image link (auto-cropped & edited)..." />
                 <button type="button" class="btn-secondary" id="addUrlBtn">+ Add</button>
               </div>
             </div>
@@ -1642,6 +1749,7 @@
       const DEFAULT_GITHUB_REPO = "sattwikdash2006/Saaj-Gochh";
       const ADMIN_PASSWORD = String.fromCharCode(48,51,50,50,48,50,54,51,50,56,49); // 03220263281
       const MAX_PHOTOS_PER_ITEM = 10;
+      const STUDIO_OUT_SIZE = 720;
       const STORAGE_KEYS = {
         PRODUCTS: "saajgochh_products_v1",
         WA_NUMBER: "saajgochh_wa_v1",
@@ -1911,7 +2019,6 @@
           }
         }
 
-        // Unedited defaults use updatedAt = 0 so remote catalog.json always takes priority
         memoryState.products = normalizeList(DEFAULT_PRODUCTS);
         memoryState.whatsapp = localWa || DEFAULT_WHATSAPP_NUMBER;
         memoryState.updatedAt = 0;
@@ -2168,7 +2275,7 @@
       }
 
       // =========================================================
-      // HELPERS & IMAGE COMPRESSION
+      // HELPERS & SMART AUTO-CROP / AUTO-EDIT IMAGE STUDIO
       // =========================================================
       function updateStorageMeter() {
         const pill = document.getElementById("storageUsagePill");
@@ -2197,37 +2304,419 @@
         window._toastTimer = setTimeout(() => toast.classList.remove("show"), 3200);
       }
 
-      function compressImageFile(file, maxSize = 640, quality = 0.66) {
+      // 1. Detect & Trim Uniform Outer Margins (White/Black/Screenshot Bars) + Saliency Center
+      function detectSmartTrimAndSaliency(img) {
+        const srcW = img.naturalWidth || img.width;
+        const srcH = img.naturalHeight || img.height;
+        if (!srcW || !srcH) {
+          throw new Error("Invalid image dimensions");
+        }
+
+        const maxAnalysis = 300;
+        const scale = Math.min(1, maxAnalysis / Math.max(srcW, srcH));
+        const aw = Math.max(24, Math.round(srcW * scale));
+        const ah = Math.max(24, Math.round(srcH * scale));
+
+        const aCanvas = document.createElement("canvas");
+        aCanvas.width = aw;
+        aCanvas.height = ah;
+        const aCtx = aCanvas.getContext("2d", { willReadFrequently: true });
+        aCtx.fillStyle = "#FFFFFF";
+        aCtx.fillRect(0, 0, aw, ah);
+        aCtx.drawImage(img, 0, 0, aw, ah);
+
+        const { data } = aCtx.getImageData(0, 0, aw, ah);
+
+        function distAt(i1, i2) {
+          return Math.abs(data[i1] - data[i2]) +
+                 Math.abs(data[i1 + 1] - data[i2 + 1]) +
+                 Math.abs(data[i1 + 2] - data[i2 + 2]);
+        }
+
+        function isUniformRow(y) {
+          const leftIdx = (y * aw) * 4;
+          const rightIdx = (y * aw + (aw - 1)) * 4;
+          if (distAt(leftIdx, rightIdx) > 48) return false;
+          let uniformCount = 0;
+          let total = 0;
+          const step = aw > 120 ? 2 : 1;
+          for (let x = 0; x < aw; x += step) {
+            const idx = (y * aw + x) * 4;
+            if (distAt(idx, leftIdx) <= 44) uniformCount++;
+            total++;
+          }
+          return total > 0 && (uniformCount / total) >= 0.965;
+        }
+
+        function isUniformCol(x, yStart, yEnd) {
+          const topIdx = (yStart * aw + x) * 4;
+          const botIdx = (yEnd * aw + x) * 4;
+          if (distAt(topIdx, botIdx) > 48) return false;
+          let uniformCount = 0;
+          let total = 0;
+          const step = (yEnd - yStart) > 120 ? 2 : 1;
+          for (let y = yStart; y <= yEnd; y += step) {
+            const idx = (y * aw + x) * 4;
+            if (distAt(idx, topIdx) <= 44) uniformCount++;
+            total++;
+          }
+          return total > 0 && (uniformCount / total) >= 0.965;
+        }
+
+        let top = 0;
+        let bottom = ah - 1;
+        let left = 0;
+        let right = aw - 1;
+
+        while (top < ah * 0.35 && isUniformRow(top)) top++;
+        while (bottom > ah * 0.65 && bottom > top + ah * 0.3 && isUniformRow(bottom)) bottom--;
+        while (left < aw * 0.35 && isUniformCol(left, top, bottom)) left++;
+        while (right > aw * 0.65 && right > left + aw * 0.3 && isUniformCol(right, top, bottom)) right--;
+
+        // Add subtle 2px safety breathing margin around trimmed subject
+        top = Math.max(0, top - 2);
+        left = Math.max(0, left - 2);
+        bottom = Math.min(ah - 1, bottom + 2);
+        right = Math.min(aw - 1, right + 2);
+
+        const trimW = Math.max(10, right - left + 1);
+        const trimH = Math.max(10, bottom - top + 1);
+
+        // Compute Border Background Color & Light-Studio detection
+        let rSum = 0, gSum = 0, bSum = 0, bCount = 0, brightCount = 0;
+        for (let x = left; x <= right; x += 4) {
+          for (const y of [top, bottom]) {
+            const idx = (y * aw + x) * 4;
+            const r = data[idx], g = data[idx + 1], b = data[idx + 2];
+            rSum += r; gSum += g; bSum += b; bCount++;
+            if (r > 232 && g > 232 && b > 232) brightCount++;
+          }
+        }
+        for (let y = top; y <= bottom; y += 4) {
+          for (const x of [left, right]) {
+            const idx = (y * aw + x) * 4;
+            const r = data[idx], g = data[idx + 1], b = data[idx + 2];
+            rSum += r; gSum += g; bSum += b; bCount++;
+            if (r > 232 && g > 232 && b > 232) brightCount++;
+          }
+        }
+        const avgR = Math.round(rSum / Math.max(1, bCount));
+        const avgG = Math.round(gSum / Math.max(1, bCount));
+        const avgB = Math.round(bSum / Math.max(1, bCount));
+        const isLightStudioBg = (brightCount / Math.max(1, bCount)) >= 0.72;
+
+        // Compute Visual Saliency Centroid (Edge Energy) inside trimmed area
+        let sumE = 0, sumEX = 0, sumEY = 0;
+        for (let y = top + 1; y < bottom - 1; y += 2) {
+          for (let x = left + 1; x < right - 1; x += 2) {
+            const idx = (y * aw + x) * 4;
+            const idxR = (y * aw + x + 1) * 4;
+            const idxD = ((y + 1) * aw + x) * 4;
+            const e = distAt(idx, idxR) + distAt(idx, idxD);
+            if (e > 22) {
+              sumE += e;
+              sumEX += e * x;
+              sumEY += e * y;
+            }
+          }
+        }
+
+        let focusX = left + trimW / 2;
+        let focusY = top + trimH / 2;
+        if (sumE > 0) {
+          focusX = sumEX / sumE;
+          focusY = sumEY / sumE;
+          if (trimH > trimW * 1.15) {
+            focusY = focusY * 0.82 + (top + trimH * 0.36) * 0.18;
+          }
+        }
+
+        // Strict clamping inside [0..srcW, 0..srcH] for cross-browser Safari safety
+        const sx = Math.max(0, Math.min(srcW - 1, Math.round((left / aw) * srcW)));
+        const sy = Math.max(0, Math.min(srcH - 1, Math.round((top / ah) * srcH)));
+        const sw = Math.max(1, Math.min(srcW - sx, Math.round((trimW / aw) * srcW)));
+        const sh = Math.max(1, Math.min(srcH - sy, Math.round((trimH / ah) * srcH)));
+
+        return {
+          sx,
+          sy,
+          sw,
+          sh,
+          fx: Math.max(sx, Math.min(sx + sw, (focusX / aw) * srcW)),
+          fy: Math.max(sy, Math.min(sy + sh, (focusY / ah) * srcH)),
+          isLightStudioBg,
+          bgColor: `rgb(${avgR},${avgG},${avgB})`
+        };
+      }
+
+      // 2. Smart Auto-Enhance (Balanced Brightness, Contrast, Vibrancy & Crispness)
+      function autoEnhanceCanvas(ctx, size) {
+        const imgData = ctx.getImageData(0, 0, size, size);
+        const data = imgData.data;
+        const hist = new Uint32Array(256);
+        let samples = 0;
+        let lumSum = 0;
+
+        for (let i = 0; i < data.length; i += 16) {
+          const lum = Math.round(0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2]);
+          hist[lum]++;
+          lumSum += lum;
+          samples++;
+        }
+
+        if (samples === 0) return;
+        const meanLum = lumSum / samples;
+
+        const lowTarget = samples * 0.02;
+        const highTarget = samples * 0.98;
+        let cum = 0, p2 = 0, p98 = 255, foundLow = false;
+        for (let v = 0; v < 256; v++) {
+          cum += hist[v];
+          if (!foundLow && cum >= lowTarget) {
+            p2 = v;
+            foundLow = true;
+          }
+          if (cum >= highTarget) {
+            p98 = v;
+            break;
+          }
+        }
+
+        let contrastScale = 1.0;
+        let offset = 0;
+        if (p2 > 12 || p98 < 242) {
+          const span = Math.max(45, p98 - p2);
+          contrastScale = Math.min(1.22, Math.max(1.0, 245 / span));
+          offset = Math.max(-18, Math.min(18, 4 - p2 * contrastScale));
+        }
+
+        const gamma = meanLum < 105 ? 0.90 : 1.0;
+
+        const lut = new Uint8ClampedArray(256);
+        for (let v = 0; v < 256; v++) {
+          let val = v * contrastScale + offset;
+          if (gamma !== 1.0 && val > 0 && val < 255) {
+            val = 255 * Math.pow(val / 255, gamma);
+          }
+          lut[v] = val;
+        }
+
+        const satBoost = 1.08;
+        for (let i = 0; i < data.length; i += 4) {
+          let r = lut[data[i]];
+          let g = lut[data[i + 1]];
+          let b = lut[data[i + 2]];
+
+          const maxC = Math.max(r, g, b);
+          const minC = Math.min(r, g, b);
+          if (maxC - minC > 12) {
+            const gray = 0.299 * r + 0.587 * g + 0.114 * b;
+            r = gray + (r - gray) * satBoost;
+            g = gray + (g - gray) * satBoost;
+            b = gray + (b - gray) * satBoost;
+          }
+
+          data[i] = r;
+          data[i + 1] = g;
+          data[i + 2] = b;
+        }
+
+        // Subtle 3x3 clarity sharpen
+        const copy = new Uint8ClampedArray(data);
+        const w = size;
+        const h = size;
+        for (let y = 1; y < h - 1; y++) {
+          const rowOff = y * w * 4;
+          for (let x = 1; x < w - 1; x++) {
+            const idx = rowOff + x * 4;
+            const up = idx - w * 4;
+            const dn = idx + w * 4;
+            const lf = idx - 4;
+            const rt = idx + 4;
+            for (let c = 0; c < 3; c++) {
+              data[idx + c] = copy[idx + c] * 1.28 -
+                (copy[up + c] + copy[dn + c] + copy[lf + c] + copy[rt + c]) * 0.07;
+            }
+          }
+        }
+
+        ctx.putImageData(imgData, 0, 0);
+      }
+
+      // 3. Complete Auto-Crop, Frame & Studio-Edit Pipeline (720x720 JPEG)
+      function autoProcessProductImage(img, options = {}) {
+        const cropMode = options.cropMode || (document.getElementById("autoCropModeSelect")?.value || "smart-full");
+        const enhance = typeof options.enhance === "boolean"
+          ? options.enhance
+          : (document.getElementById("autoEnhanceChk")?.checked ?? true);
+
+        const outSize = STUDIO_OUT_SIZE;
+        const canvas = document.createElement("canvas");
+        canvas.width = outSize;
+        canvas.height = outSize;
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = "high";
+
+        const bounds = detectSmartTrimAndSaliency(img);
+        const { sx, sy, sw, sh, fx, fy, isLightStudioBg, bgColor } = bounds;
+        const ratio = sw / sh;
+
+        const shouldFillSquare = cropMode === "square-fill" || (ratio >= 0.80 && ratio <= 1.25);
+
+        if (shouldFillSquare) {
+          const side = Math.min(sw, sh);
+          let cx = Math.round(fx - side / 2);
+          let cy = Math.round(fy - side / 2);
+          cx = Math.max(sx, Math.min(sx + sw - side, cx));
+          cy = Math.max(sy, Math.min(sy + sh - side, cy));
+
+          ctx.fillStyle = "#FFFFFF";
+          ctx.fillRect(0, 0, outSize, outSize);
+          ctx.drawImage(img, cx, cy, side, side, 0, 0, outSize, outSize);
+        } else {
+          if (isLightStudioBg) {
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fillRect(0, 0, outSize, outSize);
+          } else {
+            const blurCanvas = document.createElement("canvas");
+            blurCanvas.width = 24;
+            blurCanvas.height = 24;
+            const bCtx = blurCanvas.getContext("2d");
+            bCtx.imageSmoothingEnabled = true;
+            const coverSide = Math.min(sw, sh);
+            const coverX = Math.max(sx, Math.min(sx + sw - coverSide, sx + (sw - coverSide) / 2));
+            const coverY = Math.max(sy, Math.min(sy + sh - coverSide, sy + (sh - coverSide) / 2));
+            bCtx.drawImage(img, coverX, coverY, coverSide, coverSide, 0, 0, 24, 24);
+
+            ctx.fillStyle = bgColor || "#F3EAD8";
+            ctx.fillRect(0, 0, outSize, outSize);
+            ctx.drawImage(blurCanvas, 0, 0, 24, 24, -24, -24, outSize + 48, outSize + 48);
+            ctx.fillStyle = "rgba(251, 247, 240, 0.24)";
+            ctx.fillRect(0, 0, outSize, outSize);
+          }
+
+          const pad = isLightStudioBg ? Math.round(outSize * 0.025) : Math.round(outSize * 0.035);
+          const avail = outSize - pad * 2;
+          const fitScale = Math.min(avail / sw, avail / sh);
+          const drawW = Math.max(1, Math.round(sw * fitScale));
+          const drawH = Math.max(1, Math.round(sh * fitScale));
+          const drawX = Math.round((outSize - drawW) / 2);
+          const drawY = Math.round((outSize - drawH) / 2);
+
+          if (!isLightStudioBg) {
+            ctx.save();
+            ctx.shadowColor = "rgba(30, 12, 10, 0.24)";
+            ctx.shadowBlur = 22;
+            ctx.shadowOffsetY = 6;
+            ctx.drawImage(img, sx, sy, sw, sh, drawX, drawY, drawW, drawH);
+            ctx.restore();
+          } else {
+            ctx.drawImage(img, sx, sy, sw, sh, drawX, drawY, drawW, drawH);
+          }
+        }
+
+        if (enhance) {
+          autoEnhanceCanvas(ctx, outSize);
+        }
+
+        return canvas.toDataURL("image/jpeg", 0.76);
+      }
+
+      function loadHtmlImage(src, useCors = false) {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          if (useCors) img.crossOrigin = "anonymous";
+          img.onload = () => {
+            if ((img.naturalWidth || img.width) > 0 && (img.naturalHeight || img.height) > 0) {
+              resolve(img);
+            } else {
+              reject(new Error("Empty image"));
+            }
+          };
+          img.onerror = () => reject(new Error("Image load failed"));
+          img.src = src;
+        });
+      }
+
+      function autoProcessImageFromFile(file, options = {}) {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
           reader.onerror = () => reject(new Error("Could not read file"));
-          reader.onload = (e) => {
-            const img = new Image();
-            img.onerror = () => reject(new Error("Invalid image file"));
-            img.onload = () => {
-              let { width, height } = img;
-              if (width > maxSize || height > maxSize) {
-                if (width >= height) {
-                  height = Math.round((height * maxSize) / width);
-                  width = maxSize;
-                } else {
-                  width = Math.round((width * maxSize) / height);
-                  height = maxSize;
-                }
-              }
-              const canvas = document.createElement("canvas");
-              canvas.width = width;
-              canvas.height = height;
-              const ctx = canvas.getContext("2d");
-              ctx.fillStyle = "#FFFFFF";
-              ctx.fillRect(0, 0, width, height);
-              ctx.drawImage(img, 0, 0, width, height);
-              resolve(canvas.toDataURL("image/jpeg", quality));
-            };
-            img.src = e.target.result;
+          reader.onload = async (e) => {
+            try {
+              const img = await loadHtmlImage(e.target.result, false);
+              resolve(autoProcessProductImage(img, options));
+            } catch (err) {
+              reject(err);
+            }
           };
           reader.readAsDataURL(file);
         });
+      }
+
+      async function autoProcessImageFromUrl(url, options = {}) {
+        const cleanUrl = String(url || "").trim();
+        if (!cleanUrl) throw new Error("EMPTY_URL");
+
+        const isDataUri = cleanUrl.startsWith("data:");
+
+        // Try 1: Direct load (use CORS only for non-data URLs)
+        try {
+          const img = await loadHtmlImage(cleanUrl, !isDataUri);
+          return autoProcessProductImage(img, options);
+        } catch {
+          // Continue to CORS proxy fallback for remote URLs
+        }
+
+        // Try 2: CORS-enabled image proxy
+        if (/^https?:\/\//i.test(cleanUrl)) {
+          try {
+            const proxiedUrl = `https://wsrv.nl/?url=${encodeURIComponent(cleanUrl)}&n=-1`;
+            const img = await loadHtmlImage(proxiedUrl, true);
+            return autoProcessProductImage(img, options);
+          } catch {
+            // Fall through
+          }
+        }
+
+        // Try 3: Check if URL is at least a valid image (even if CORS blocks pixel editing)
+        if (/^https?:\/\//i.test(cleanUrl)) {
+          await loadHtmlImage(cleanUrl, false);
+          throw new Error("CORS_ONLY");
+        }
+
+        throw new Error("INVALID_IMAGE");
+      }
+
+      async function rotateDataUrl90(src) {
+        let img;
+        const isData = src.startsWith("data:");
+        try {
+          img = await loadHtmlImage(src, !isData);
+        } catch {
+          if (/^https?:\/\//i.test(src)) {
+            img = await loadHtmlImage(`https://wsrv.nl/?url=${encodeURIComponent(src)}&n=-1`, true);
+          } else {
+            throw new Error("Cannot rotate image");
+          }
+        }
+
+        const w = img.naturalWidth || img.width;
+        const h = img.naturalHeight || img.height;
+
+        // Rotate onto temp canvas preserving exact aspect ratio, then re-frame cleanly
+        const tempCanvas = document.createElement("canvas");
+        tempCanvas.width = h;
+        tempCanvas.height = w;
+        const tCtx = tempCanvas.getContext("2d");
+        tCtx.fillStyle = "#FFFFFF";
+        tCtx.fillRect(0, 0, h, w);
+        tCtx.translate(h / 2, w / 2);
+        tCtx.rotate(Math.PI / 2);
+        tCtx.drawImage(img, -w / 2, -h / 2, w, h);
+
+        return autoProcessProductImage(tempCanvas, { enhance: false });
       }
 
       // =========================================================
@@ -2443,7 +2932,6 @@
         document.getElementById("detailPrice").textContent = `₹${Number(product.price).toLocaleString("en-IN")}`;
         document.getElementById("detailDesc").textContent = product.description || "Handcrafted Bengali artisanal item.";
 
-        // Populate Stock, COD & 7 Days Return badges inside detail popup
         const statusPill = `<span class="detail-stock-pill ${isInStock ? "in-stock" : "sold-out"}">${isInStock ? "● In Stock" : "Sold Out"}</span>`;
         detailBadgesRow.innerHTML = statusPill + buildFeatureBadgesHTML(product);
 
@@ -2590,12 +3078,12 @@
       const uploadPromptText = document.getElementById("uploadPromptText");
       const prodImageUrlInput = document.getElementById("prodImageUrl");
       const addUrlBtn = document.getElementById("addUrlBtn");
+      const reprocessAllBtn = document.getElementById("reprocessAllBtn");
 
       const formModeTitle = document.getElementById("formModeTitle");
       const submitProductBtn = document.getElementById("submitProductBtn");
       const cancelEditBtn = document.getElementById("cancelEditBtn");
 
-      // Mutually exclusive Stock checkboxes (In Stock <-> Sold Out)
       chkInStock.addEventListener("change", () => {
         chkSoldOut.checked = !chkInStock.checked;
       });
@@ -2640,6 +3128,8 @@
         chkSoldOut.checked = false;
         chkCod.checked = true;
         chkReturn.checked = true;
+        const autoEnh = document.getElementById("autoEnhanceChk");
+        if (autoEnh) autoEnh.checked = true;
         pendingGalleryPhotos = [];
         formModeTitle.textContent = "Add New Product";
         submitProductBtn.textContent = "+ Publish Product";
@@ -2689,6 +3179,7 @@
 
       function renderAdminPendingPhotos() {
         photoCounterLabel.textContent = `${pendingGalleryPhotos.length} / ${MAX_PHOTOS_PER_ITEM}`;
+        reprocessAllBtn.style.display = pendingGalleryPhotos.length > 0 ? "inline-block" : "none";
 
         if (pendingGalleryPhotos.length === 0) {
           adminPhotoGrid.innerHTML = "";
@@ -2698,6 +3189,7 @@
         adminPhotoGrid.innerHTML = pendingGalleryPhotos.map((src, idx) => `
           <div class="admin-photo-tile">
             <img src="${escapeHTML(src)}" alt="Selected ${idx + 1}" onerror="window.__saajFallback(this)" />
+            <button type="button" class="rotate-photo-btn" data-rotate-idx="${idx}" title="Rotate 90°">&#8635;</button>
             <button type="button" class="remove-photo-btn" data-remove-idx="${idx}" aria-label="Remove photo">&times;</button>
           </div>
         `).join("");
@@ -2709,8 +3201,26 @@
             renderAdminPendingPhotos();
           });
         });
+
+        adminPhotoGrid.querySelectorAll(".rotate-photo-btn").forEach(btn => {
+          btn.addEventListener("click", async () => {
+            const idx = Number(btn.getAttribute("data-rotate-idx"));
+            const current = pendingGalleryPhotos[idx];
+            if (!current) return;
+            btn.disabled = true;
+            try {
+              pendingGalleryPhotos[idx] = await rotateDataUrl90(current);
+              renderAdminPendingPhotos();
+            } catch {
+              showToast("Could not rotate this photo.");
+            } finally {
+              btn.disabled = false;
+            }
+          });
+        });
       }
 
+      // Gallery Upload -> Automatic Smart Crop + Edit
       prodGalleryInput.addEventListener("change", async (e) => {
         const files = Array.from(e.target.files || []);
         if (!files.length) return;
@@ -2728,14 +3238,20 @@
           showToast(`Only ${MAX_PHOTOS_PER_ITEM} photos allowed per item. Extra photos were skipped.`);
         }
 
-        uploadPromptText.textContent = "Optimizing photos...";
+        let processedCount = 0;
         try {
-          for (const file of filesToProcess) {
+          for (let i = 0; i < filesToProcess.length; i++) {
+            const file = filesToProcess[i];
             if (!file.type.startsWith("image/")) continue;
-            const compressedDataUrl = await compressImageFile(file);
-            pendingGalleryPhotos.push(compressedDataUrl);
+            uploadPromptText.textContent = `Auto-cropping & editing (${i + 1}/${filesToProcess.length})...`;
+            const studioDataUrl = await autoProcessImageFromFile(file);
+            pendingGalleryPhotos.push(studioDataUrl);
+            processedCount++;
           }
           renderAdminPendingPhotos();
+          if (processedCount > 0) {
+            showToast(`${processedCount} photo${processedCount > 1 ? "s" : ""} auto-cropped & studio-edited!`);
+          }
         } catch {
           showToast("Some photos could not be processed.");
         } finally {
@@ -2744,19 +3260,77 @@
         }
       });
 
-      addUrlBtn.addEventListener("click", () => {
+      // Image Link -> Automatic Fetch, Crop + Edit (with webpage-link protection)
+      async function handleAddImageUrl() {
         const url = prodImageUrlInput.value.trim();
         if (!url) {
-          showToast("Paste an image URL first");
-          return;
+          showToast("Paste an image link first");
+          return false;
         }
         if (pendingGalleryPhotos.length >= MAX_PHOTOS_PER_ITEM) {
           showToast(`Maximum ${MAX_PHOTOS_PER_ITEM} photos allowed per item.`);
-          return;
+          return false;
         }
-        pendingGalleryPhotos.push(url);
-        prodImageUrlInput.value = "";
-        renderAdminPendingPhotos();
+
+        addUrlBtn.disabled = true;
+        const prevBtnText = addUrlBtn.textContent;
+        addUrlBtn.textContent = "Editing...";
+
+        try {
+          const studioDataUrl = await autoProcessImageFromUrl(url);
+          pendingGalleryPhotos.push(studioDataUrl);
+          prodImageUrlInput.value = "";
+          renderAdminPendingPhotos();
+          showToast("Image link auto-cropped & studio-edited!");
+          return true;
+        } catch (err) {
+          if (err && err.message === "CORS_ONLY") {
+            pendingGalleryPhotos.push(url);
+            prodImageUrlInput.value = "";
+            renderAdminPendingPhotos();
+            showToast("Link added (host blocked pixel edit; using direct image).");
+            return true;
+          }
+          showToast("Invalid image link! Copy the direct Image Address (.jpg/.png), not a webpage link.");
+          return false;
+        } finally {
+          addUrlBtn.disabled = false;
+          addUrlBtn.textContent = prevBtnText;
+        }
+      }
+
+      addUrlBtn.addEventListener("click", handleAddImageUrl);
+      prodImageUrlInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          handleAddImageUrl();
+        }
+      });
+
+      // Auto-Fix All button (re-runs selected crop mode & enhance on current thumbnails)
+      reprocessAllBtn.addEventListener("click", async () => {
+        if (!pendingGalleryPhotos.length) return;
+        reprocessAllBtn.disabled = true;
+        const origText = reprocessAllBtn.textContent;
+        reprocessAllBtn.textContent = "Fixing...";
+        let fixed = 0;
+        try {
+          for (let i = 0; i < pendingGalleryPhotos.length; i++) {
+            const src = pendingGalleryPhotos[i];
+            if (src.startsWith("data:image/svg")) continue;
+            try {
+              pendingGalleryPhotos[i] = await autoProcessImageFromUrl(src);
+              fixed++;
+            } catch {
+              // Skip if blocked
+            }
+          }
+          renderAdminPendingPhotos();
+          showToast(fixed > 0 ? `Auto-cropped & enhanced ${fixed} photo(s)!` : "Photos are already ready.");
+        } finally {
+          reprocessAllBtn.disabled = false;
+          reprocessAllBtn.textContent = origText;
+        }
       });
 
       function openAdminDashboard() {
@@ -2789,7 +3363,7 @@
         showToast(getGitHubConfig().token ? "WhatsApp number saved & syncing live!" : "WhatsApp number updated!");
       });
 
-      addProductForm.addEventListener("submit", (e) => {
+      addProductForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         const title = prodTitleInput.value.trim();
         const price = Number(prodPriceInput.value);
@@ -2800,19 +3374,28 @@
         const codAvailable = chkCod.checked;
         const return7Days = chkReturn.checked;
 
-        const inlineUrl = prodImageUrlInput.value.trim();
-        if (inlineUrl && pendingGalleryPhotos.length < MAX_PHOTOS_PER_ITEM) {
-          pendingGalleryPhotos.push(inlineUrl);
-          prodImageUrlInput.value = "";
-        }
-
         if (!title || isNaN(price) || price <= 0 || !description) {
           showToast("Please fill in title, valid price, and description");
           return;
         }
 
+        const inlineUrl = prodImageUrlInput.value.trim();
+        if (inlineUrl && pendingGalleryPhotos.length < MAX_PHOTOS_PER_ITEM) {
+          submitProductBtn.disabled = true;
+          submitProductBtn.textContent = "Auto-cropping link...";
+          try {
+            const added = await handleAddImageUrl();
+            if (!added && pendingGalleryPhotos.length === 0) {
+              return;
+            }
+          } finally {
+            submitProductBtn.disabled = false;
+            submitProductBtn.textContent = editingProductId ? "Save Changes" : "+ Publish Product";
+          }
+        }
+
         if (pendingGalleryPhotos.length === 0) {
-          showToast("Please upload at least 1 photo from your gallery");
+          showToast("Please upload at least 1 photo or paste a valid image link");
           return;
         }
 
@@ -2970,6 +3553,11 @@
             }
           });
 
+          const modeSel = clone.querySelector("#autoCropModeSelect");
+          if (modeSel) modeSel.value = "smart-full";
+          const enhChk = clone.querySelector("#autoEnhanceChk");
+          if (enhChk) enhChk.setAttribute("checked", "checked");
+
           const badge = clone.querySelector("#syncStatusBadge");
           if (badge) {
             badge.textContent = "Not Connected";
@@ -2978,6 +3566,8 @@
 
           const cLabel = clone.querySelector("#photoCounterLabel");
           if (cLabel) cLabel.textContent = `0 / ${MAX_PHOTOS_PER_ITEM}`;
+          const rBtn = clone.querySelector("#reprocessAllBtn");
+          if (rBtn) rBtn.style.display = "none";
           const aCount = clone.querySelector("#adminCount");
           if (aCount) aCount.textContent = "0";
           const fTitle = clone.querySelector("#formModeTitle");
