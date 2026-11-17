@@ -796,6 +796,58 @@
       border-color: var(--terracotta);
     }
 
+    /* Auto Category Badge & Re-Detect Row */
+    .cat-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 5px;
+    }
+
+    .cat-label-row label {
+      margin-bottom: 0;
+    }
+
+    .auto-cat-badge {
+      font-size: 0.71rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #FFF6E5;
+      color: #8A5300;
+      border: 1px solid #F0D298;
+      transition: all 0.2s ease;
+    }
+
+    .auto-cat-badge.detected {
+      background: var(--success-bg);
+      color: var(--success-text);
+      border-color: #A8DAB5;
+    }
+
+    .auto-cat-badge.scanning {
+      background: #EEF6FF;
+      color: #175CD3;
+      border-color: #B2DDFF;
+    }
+
+    .cat-select-wrap {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .cat-select-wrap select {
+      flex: 1;
+    }
+
+    .cat-select-wrap.ai-flash select {
+      border-color: var(--whatsapp);
+      box-shadow: 0 0 0 3px rgba(30, 142, 62, 0.16);
+    }
+
     /* Advanced Admin Checkboxes Grid */
     .checkbox-section-label {
       display: block;
@@ -1629,14 +1681,20 @@
             </div>
 
             <div class="form-group">
-              <label for="prodCategory">Category</label>
-              <select id="prodCategory" required>
-                <option value="Sarees & Apparel">Sarees &amp; Apparel</option>
-                <option value="Home Decor">Home Decor</option>
-                <option value="Jewelry & Craft">Jewelry &amp; Craft</option>
-                <option value="Festive Gifts">Festive Gifts</option>
-                <option value="Others">Others</option>
-              </select>
+              <div class="cat-label-row">
+                <label for="prodCategory">Category</label>
+                <span class="auto-cat-badge" id="autoCatBadge">&#10024; AI Auto-Detect</span>
+              </div>
+              <div class="cat-select-wrap" id="catSelectWrap">
+                <select id="prodCategory" required>
+                  <option value="Sarees & Apparel">Sarees &amp; Apparel</option>
+                  <option value="Home Decor">Home Decor</option>
+                  <option value="Jewelry & Craft">Jewelry &amp; Craft</option>
+                  <option value="Festive Gifts">Festive Gifts</option>
+                  <option value="Others">Others</option>
+                </select>
+                <button type="button" class="btn-secondary" id="reDetectCatBtn" style="display:none; padding:8px 10px; font-size:0.76rem; white-space:nowrap;" title="Re-scan photo to auto-select category">&#10024; Auto</button>
+              </div>
             </div>
 
             <div class="form-group">
@@ -1668,7 +1726,7 @@
               </label>
             </div>
 
-            <!-- Direct Gallery Multi-Photo Upload + Auto Crop & Enhance -->
+            <!-- Direct Gallery Multi-Photo Upload + Auto Crop, Enhance & AI Category -->
             <div class="form-group">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; gap:8px;">
                 <label style="margin-bottom:0;">Photos (<span id="photoCounterLabel">0 / 10</span>)</label>
@@ -1678,7 +1736,7 @@
               <!-- Smart Auto Image Studio Options -->
               <div class="auto-studio-bar">
                 <div class="auto-studio-row">
-                  <span class="auto-studio-badge">&#10024; Smart Auto-Crop &amp; Studio Edit: ON</span>
+                  <span class="auto-studio-badge">&#10024; Auto-Crop, Edit &amp; Category AI: ON</span>
                   <label class="auto-enhance-toggle">
                     <input type="checkbox" id="autoEnhanceChk" checked />
                     <span>Auto-Enhance</span>
@@ -1702,14 +1760,14 @@
                   </svg>
                   <span id="uploadPromptText">Choose Photos from Gallery</span>
                 </div>
-                <div class="gallery-upload-sub">Auto-crops margins, centers product &amp; enhances clarity (max 10)</div>
+                <div class="gallery-upload-sub">Auto-crops, enhances &amp; detects category from photo (max 10)</div>
               </label>
 
               <div class="admin-photo-grid" id="adminPhotoGrid"></div>
 
-              <!-- URL Adder (Also Auto-Cropped & Edited!) -->
+              <!-- URL Adder (Also Auto-Cropped, Edited & Category-Detected!) -->
               <div class="url-inline-row">
-                <input type="url" id="prodImageUrl" placeholder="Or paste image link (auto-cropped & edited)..." />
+                <input type="url" id="prodImageUrl" placeholder="Or paste image link (auto-cropped & category-detected)..." />
                 <button type="button" class="btn-secondary" id="addUrlBtn">+ Add</button>
               </div>
             </div>
@@ -2304,7 +2362,7 @@
         window._toastTimer = setTimeout(() => toast.classList.remove("show"), 3200);
       }
 
-      // 1. Detect & Trim Uniform Outer Margins (White/Black/Screenshot Bars) + Saliency Center
+      // 1. Detect & Trim Uniform Outer Margins + Visual Saliency
       function detectSmartTrimAndSaliency(img) {
         const srcW = img.naturalWidth || img.width;
         const srcH = img.naturalHeight || img.height;
@@ -2373,7 +2431,6 @@
         while (left < aw * 0.35 && isUniformCol(left, top, bottom)) left++;
         while (right > aw * 0.65 && right > left + aw * 0.3 && isUniformCol(right, top, bottom)) right--;
 
-        // Add subtle 2px safety breathing margin around trimmed subject
         top = Math.max(0, top - 2);
         left = Math.max(0, left - 2);
         bottom = Math.min(ah - 1, bottom + 2);
@@ -2382,7 +2439,6 @@
         const trimW = Math.max(10, right - left + 1);
         const trimH = Math.max(10, bottom - top + 1);
 
-        // Compute Border Background Color & Light-Studio detection
         let rSum = 0, gSum = 0, bSum = 0, bCount = 0, brightCount = 0;
         for (let x = left; x <= right; x += 4) {
           for (const y of [top, bottom]) {
@@ -2405,7 +2461,6 @@
         const avgB = Math.round(bSum / Math.max(1, bCount));
         const isLightStudioBg = (brightCount / Math.max(1, bCount)) >= 0.72;
 
-        // Compute Visual Saliency Centroid (Edge Energy) inside trimmed area
         let sumE = 0, sumEX = 0, sumEY = 0;
         for (let y = top + 1; y < bottom - 1; y += 2) {
           for (let x = left + 1; x < right - 1; x += 2) {
@@ -2431,7 +2486,6 @@
           }
         }
 
-        // Strict clamping inside [0..srcW, 0..srcH] for cross-browser Safari safety
         const sx = Math.max(0, Math.min(srcW - 1, Math.round((left / aw) * srcW)));
         const sy = Math.max(0, Math.min(srcH - 1, Math.round((top / ah) * srcH)));
         const sw = Math.max(1, Math.min(srcW - sx, Math.round((trimW / aw) * srcW)));
@@ -2521,7 +2575,6 @@
           data[i + 2] = b;
         }
 
-        // Subtle 3x3 clarity sharpen
         const copy = new Uint8ClampedArray(data);
         const w = size;
         const h = size;
@@ -2620,7 +2673,10 @@
           autoEnhanceCanvas(ctx, outSize);
         }
 
-        return canvas.toDataURL("image/jpeg", 0.76);
+        return {
+          dataUrl: canvas.toDataURL("image/jpeg", 0.76),
+          aspectRatio: ratio
+        };
       }
 
       function loadHtmlImage(src, useCors = false) {
@@ -2661,7 +2717,6 @@
 
         const isDataUri = cleanUrl.startsWith("data:");
 
-        // Try 1: Direct load (use CORS only for non-data URLs)
         try {
           const img = await loadHtmlImage(cleanUrl, !isDataUri);
           return autoProcessProductImage(img, options);
@@ -2669,7 +2724,6 @@
           // Continue to CORS proxy fallback for remote URLs
         }
 
-        // Try 2: CORS-enabled image proxy
         if (/^https?:\/\//i.test(cleanUrl)) {
           try {
             const proxiedUrl = `https://wsrv.nl/?url=${encodeURIComponent(cleanUrl)}&n=-1`;
@@ -2680,7 +2734,6 @@
           }
         }
 
-        // Try 3: Check if URL is at least a valid image (even if CORS blocks pixel editing)
         if (/^https?:\/\//i.test(cleanUrl)) {
           await loadHtmlImage(cleanUrl, false);
           throw new Error("CORS_ONLY");
@@ -2705,7 +2758,6 @@
         const w = img.naturalWidth || img.width;
         const h = img.naturalHeight || img.height;
 
-        // Rotate onto temp canvas preserving exact aspect ratio, then re-frame cleanly
         const tempCanvas = document.createElement("canvas");
         tempCanvas.width = h;
         tempCanvas.height = w;
@@ -2716,7 +2768,253 @@
         tCtx.rotate(Math.PI / 2);
         tCtx.drawImage(img, -w / 2, -h / 2, w, h);
 
-        return autoProcessProductImage(tempCanvas, { enhance: false });
+        return autoProcessProductImage(tempCanvas, { enhance: false }).dataUrl;
+      }
+
+      // =========================================================
+      // ON-DEVICE AI VISION AUTO-CATEGORY DETECTOR
+      // =========================================================
+      let aiModelPromise = null;
+      let loadedMobileNet = null;
+
+      function loadScriptWithTimeout(src, timeoutMs = 15000) {
+        return new Promise((resolve, reject) => {
+          const existing = document.querySelector(`script[src="${src}"]`);
+          if (existing) {
+            if (existing.dataset.loaded === "1") {
+              resolve();
+              return;
+            }
+            // Remove stale/failed script tag before retrying cleanly
+            existing.remove();
+          }
+
+          const script = document.createElement("script");
+          script.src = src;
+          script.async = true;
+          script.setAttribute("data-runtime-ai", "1");
+
+          const timer = setTimeout(() => {
+            script.remove();
+            reject(new Error("Script timeout"));
+          }, timeoutMs);
+
+          script.onload = () => {
+            clearTimeout(timer);
+            script.dataset.loaded = "1";
+            resolve();
+          };
+          script.onerror = () => {
+            clearTimeout(timer);
+            script.remove();
+            reject(new Error("Script load failed"));
+          };
+          document.head.appendChild(script);
+        });
+      }
+
+      function ensureCategoryModel() {
+        if (loadedMobileNet) return Promise.resolve(loadedMobileNet);
+        if (aiModelPromise) return aiModelPromise;
+
+        aiModelPromise = (async () => {
+          try {
+            if (typeof window.tf === "undefined") {
+              await loadScriptWithTimeout("https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js", 15000);
+            }
+            if (typeof window.mobilenet === "undefined") {
+              await loadScriptWithTimeout("https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.1/dist/mobilenet.min.js", 15000);
+            }
+            if (window.tf && typeof window.tf.ready === "function") {
+              await window.tf.ready();
+            }
+            if (window.mobilenet && typeof window.mobilenet.load === "function") {
+              // alpha: 0.5 loads ~4x faster on mobile networks while remaining accurate
+              const model = await Promise.race([
+                window.mobilenet.load({ version: 2, alpha: 0.5 }),
+                new Promise((_, rej) => setTimeout(() => rej(new Error("Model load timeout")), 18000))
+              ]);
+              loadedMobileNet = model;
+              return model;
+            }
+            aiModelPromise = null;
+            return null;
+          } catch {
+            aiModelPromise = null;
+            return null;
+          }
+        })();
+
+        return aiModelPromise;
+      }
+
+      const CATEGORY_RULES = {
+        "Sarees & Apparel": [
+          "sari", "sarong", "gown", "kimono", "abaya", "overskirt", "hoopskirt", "miniskirt",
+          "vestment", "cloak", "poncho", "stole", "shawl", "cardigan", "sweater", "sweatshirt",
+          "jersey", "trench coat", "suit", "apron", "pajama", "velvet", "wool", "silk",
+          "academic gown", "fur coat", "feather boa", "lab coat", "jean", "jeans", "brassiere",
+          "maillot", "bikini", "handkerchief", "wig", "bridegroom", "mannequin", "bow tie",
+          "windsor tie", "skirt", "dress", "shirt", "blouse", "kurta", "kurti", "saree",
+          "jamdani", "dupatta", "lehenga", "tant", "tussar", "cotton", "apparel", "garment"
+        ],
+        "Home Decor": [
+          "vase", "pot", "flowerpot", "pitcher", "jug", "urn", "jar", "amphora",
+          "pillow", "cushion", "quilt", "doormat", "prayer rug", "carpet", "tapestry",
+          "curtain", "window shade", "lampshade", "table lamp", "wall clock", "analog clock",
+          "plate", "platter", "bowl", "teapot", "coffeepot", "basket", "wicker",
+          "sculpture", "totem", "mask", "mosaic", "tray", "mortar", "water jug",
+          "earthenware", "terracotta", "clay", "pottery", "wall", "decor", "alpona",
+          "kantha", "frame", "mirror", "bedspread", "blanket", "rug"
+        ],
+        "Jewelry & Craft": [
+          "necklace", "chain", "bead", "beads", "pearl", "buckle", "safety pin", "hair slide",
+          "hairpin", "hook", "padlock", "medallion", "medal", "coin", "watch",
+          "pocket watch", "hourglass", "crown", "tiara", "ring", "rings", "bracelet", "bangle",
+          "earring", "earrings", "pendant", "brooch", "jhumka", "choker", "dokra", "oxidized",
+          "jewel", "jewelry", "jewellery", "purse", "handbag", "wallet", "knot",
+          "thimble", "ocarina", "maraca", "whistle", "gong", "craft", "anklet"
+        ],
+        "Festive Gifts": [
+          "candle", "candlestick", "oil lamp", "lantern", "goblet", "chalice",
+          "trophy", "cauldron", "brass", "altar", "monastery", "shrine", "bell",
+          "church", "chest", "coffer", "box", "crate", "carton", "hamper",
+          "chocolate", "confectionery", "cake", "sweet", "gift", "present",
+          "ornament", "balloon", "ribbon", "bow", "matchstick", "lighter",
+          "diya", "dhunuchi", "puja", "festive", "idol", "incense"
+        ]
+      };
+
+      // Precompile exact word-boundary regexes so "wallet" never matches "wall" or "suitcase" matches "suit"
+      const CATEGORY_REGEX_RULES = {};
+      for (const [cat, words] of Object.entries(CATEGORY_RULES)) {
+        CATEGORY_REGEX_RULES[cat] = words.map(kw => {
+          const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+          return new RegExp(`\\b${escaped}\\b`, "i");
+        });
+      }
+
+      function analyzeVisualHeuristics(canvasOrImg) {
+        const w = 64, h = 64;
+        const c = document.createElement("canvas");
+        c.width = w;
+        c.height = h;
+        const ctx = c.getContext("2d", { willReadFrequently: true });
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(0, 0, w, h);
+        ctx.drawImage(canvasOrImg, 0, 0, w, h);
+        const { data } = ctx.getImageData(0, 0, w, h);
+
+        let warmTerracotta = 0, metallicGold = 0, darkSilver = 0, colorfulFabric = 0, validPixels = 0;
+        for (let i = 0; i < data.length; i += 4) {
+          const r = data[i], g = data[i + 1], b = data[i + 2];
+          if (r > 240 && g > 240 && b > 240) continue;
+          validPixels++;
+          if (r > 130 && g > 50 && g < 135 && b < 90 && (r - b) > 55) warmTerracotta++;
+          if (r > 165 && g > 125 && b < 95 && (r - b) > 65) metallicGold++;
+          if (Math.abs(r - g) < 16 && Math.abs(g - b) < 16 && r > 60 && r < 185) darkSilver++;
+          if (Math.max(r, g, b) - Math.min(r, g, b) > 55) colorfulFabric++;
+        }
+        const denom = Math.max(1, validPixels);
+        return {
+          terracottaRatio: warmTerracotta / denom,
+          goldRatio: metallicGold / denom,
+          silverRatio: darkSilver / denom,
+          colorRatio: colorfulFabric / denom
+        };
+      }
+
+      async function detectCategoryFromImage(imageSrc, sourceHint = "", aspectRatio = 1) {
+        const scores = {
+          "Sarees & Apparel": 0,
+          "Home Decor": 0,
+          "Jewelry & Craft": 0,
+          "Festive Gifts": 0
+        };
+
+        // 1. Filename / URL / Title exact word-boundary hints (replacing _ and - with spaces for clean matching)
+        const normalizedHint = `${sourceHint || ""} ${document.getElementById("prodTitle")?.value || ""}`
+          .replace(/[_-]+/g, " ");
+
+        for (const [cat, regexList] of Object.entries(CATEGORY_REGEX_RULES)) {
+          for (const rx of regexList) {
+            if (rx.test(normalizedHint)) {
+              scores[cat] += 0.45;
+            }
+          }
+        }
+
+        // 2. Run On-Device MobileNet Vision Classification on clean dataUrl
+        let visionPredictions = [];
+        let visualStats = null;
+
+        if (imageSrc && imageSrc.startsWith("data:image/")) {
+          try {
+            const imgEl = await loadHtmlImage(imageSrc, false);
+            const canvas224 = document.createElement("canvas");
+            canvas224.width = 224;
+            canvas224.height = 224;
+            const ctx224 = canvas224.getContext("2d");
+            ctx224.fillStyle = "#FFFFFF";
+            ctx224.fillRect(0, 0, 224, 224);
+            ctx224.drawImage(imgEl, 0, 0, 224, 224);
+
+            visualStats = analyzeVisualHeuristics(canvas224);
+
+            const model = await ensureCategoryModel();
+            if (model) {
+              visionPredictions = await model.classify(canvas224, 7);
+              for (const pred of visionPredictions) {
+                const label = pred.className || "";
+                const prob = Number(pred.probability || 0);
+                for (const [cat, regexList] of Object.entries(CATEGORY_REGEX_RULES)) {
+                  let matched = false;
+                  for (const rx of regexList) {
+                    if (rx.test(label)) {
+                      matched = true;
+                      break;
+                    }
+                  }
+                  if (matched) {
+                    scores[cat] += prob * 1.4;
+                  }
+                }
+              }
+            }
+          } catch {
+            // Fall through to heuristic scoring
+          }
+        }
+
+        // 3. Gentle Aspect Ratio & Color Tone priors
+        if (aspectRatio < 0.78) {
+          scores["Sarees & Apparel"] += 0.14;
+        }
+        if (visualStats) {
+          if (visualStats.terracottaRatio > 0.22) scores["Home Decor"] += 0.14;
+          if (visualStats.goldRatio > 0.18) scores["Festive Gifts"] += 0.12;
+          if (visualStats.silverRatio > 0.24) scores["Jewelry & Craft"] += 0.14;
+          if (visualStats.colorRatio > 0.48 && aspectRatio <= 1.05) scores["Sarees & Apparel"] += 0.10;
+        }
+
+        let bestCat = "Others";
+        let bestScore = 0;
+        for (const [cat, score] of Object.entries(scores)) {
+          if (score > bestScore) {
+            bestScore = score;
+            bestCat = cat;
+          }
+        }
+
+        if (bestScore < 0.11) {
+          bestCat = "Others";
+        }
+
+        return {
+          category: bestCat,
+          confidence: bestScore,
+          topLabel: visionPredictions[0]?.className ? visionPredictions[0].className.split(",")[0] : ""
+        };
       }
 
       // =========================================================
@@ -2728,6 +3026,11 @@
       let pendingGalleryPhotos = [];
       let editingProductId = null;
       let activeModalProductId = null;
+      let userManuallyPickedCategory = false;
+      let lastSourceHint = "";
+      let lastAspectRatio = 1;
+      let formSessionToken = 0;
+      let activeMediaTasks = 0;
 
       const productGrid = document.getElementById("productGrid");
       const categoryBar = document.getElementById("categoryBar");
@@ -3065,6 +3368,9 @@
       const prodTitleInput = document.getElementById("prodTitle");
       const prodPriceInput = document.getElementById("prodPrice");
       const prodCategorySelect = document.getElementById("prodCategory");
+      const autoCatBadge = document.getElementById("autoCatBadge");
+      const catSelectWrap = document.getElementById("catSelectWrap");
+      const reDetectCatBtn = document.getElementById("reDetectCatBtn");
       const prodDescInput = document.getElementById("prodDesc");
 
       const chkInStock = document.getElementById("chkInStock");
@@ -3083,6 +3389,76 @@
       const formModeTitle = document.getElementById("formModeTitle");
       const submitProductBtn = document.getElementById("submitProductBtn");
       const cancelEditBtn = document.getElementById("cancelEditBtn");
+
+      function beginMediaTask() {
+        activeMediaTasks++;
+        submitProductBtn.disabled = true;
+      }
+
+      function endMediaTask() {
+        activeMediaTasks = Math.max(0, activeMediaTasks - 1);
+        if (activeMediaTasks === 0) {
+          submitProductBtn.disabled = false;
+        }
+      }
+
+      function setAutoCatBadge(text, stateClass = "") {
+        if (!autoCatBadge) return;
+        autoCatBadge.textContent = text;
+        autoCatBadge.className = "auto-cat-badge" + (stateClass ? " " + stateClass : "");
+      }
+
+      async function runAutoCategorySelection(imageSrc, sourceHint = "", aspectRatio = 1, forceOverride = false) {
+        if (!imageSrc) return;
+        if (userManuallyPickedCategory && !forceOverride) return;
+
+        const sessionAtStart = formSessionToken;
+        setAutoCatBadge("Analyzing photo...", "scanning");
+        try {
+          const result = await detectCategoryFromImage(imageSrc, sourceHint, aspectRatio);
+          // Abort if user reset/canceled/switched product while AI was analyzing
+          if (sessionAtStart !== formSessionToken) return;
+          if (userManuallyPickedCategory && !forceOverride) return;
+
+          if (result && result.category) {
+            const exists = Array.from(prodCategorySelect.options).some(opt => opt.value === result.category);
+            if (exists) {
+              prodCategorySelect.value = result.category;
+              catSelectWrap.classList.add("ai-flash");
+              setTimeout(() => catSelectWrap.classList.remove("ai-flash"), 900);
+              const detailNote = result.topLabel ? ` (${result.topLabel})` : "";
+              setAutoCatBadge(`AI: ${result.category}${detailNote}`, "detected");
+              reDetectCatBtn.style.display = "inline-block";
+              return;
+            }
+          }
+          setAutoCatBadge("AI Auto-Detect", "");
+        } catch {
+          if (sessionAtStart === formSessionToken) {
+            setAutoCatBadge("AI Auto-Detect", "");
+          }
+        }
+      }
+
+      prodCategorySelect.addEventListener("change", () => {
+        userManuallyPickedCategory = true;
+        setAutoCatBadge("Manual Selection", "");
+        if (pendingGalleryPhotos.length > 0) {
+          reDetectCatBtn.style.display = "inline-block";
+        }
+      });
+
+      reDetectCatBtn.addEventListener("click", async () => {
+        if (!pendingGalleryPhotos.length) return;
+        userManuallyPickedCategory = false;
+        reDetectCatBtn.disabled = true;
+        try {
+          await runAutoCategorySelection(pendingGalleryPhotos[0], lastSourceHint, lastAspectRatio, true);
+          showToast(`Category auto-selected: ${prodCategorySelect.value}`);
+        } finally {
+          reDetectCatBtn.disabled = false;
+        }
+      });
 
       chkInStock.addEventListener("change", () => {
         chkSoldOut.checked = !chkInStock.checked;
@@ -3122,7 +3498,11 @@
       });
 
       function resetAdminForm() {
+        formSessionToken++;
         editingProductId = null;
+        userManuallyPickedCategory = false;
+        lastSourceHint = "";
+        lastAspectRatio = 1;
         addProductForm.reset();
         chkInStock.checked = true;
         chkSoldOut.checked = false;
@@ -3134,12 +3514,18 @@
         formModeTitle.textContent = "Add New Product";
         submitProductBtn.textContent = "+ Publish Product";
         cancelEditBtn.style.display = "none";
+        reDetectCatBtn.style.display = "none";
+        setAutoCatBadge("✨ AI Auto-Detect", "");
         renderAdminPendingPhotos();
         renderAdminList();
       }
 
       function startEditingProduct(product) {
+        formSessionToken++;
         editingProductId = product.id;
+        userManuallyPickedCategory = true;
+        lastSourceHint = product.title || "";
+        lastAspectRatio = 1;
         prodTitleInput.value = product.title || "";
         prodPriceInput.value = product.price || "";
         prodDescInput.value = product.description || "";
@@ -3166,6 +3552,8 @@
         formModeTitle.textContent = "Edit Product";
         submitProductBtn.textContent = "Save Changes";
         cancelEditBtn.style.display = "inline-block";
+        setAutoCatBadge("Saved Category", "");
+        reDetectCatBtn.style.display = pendingGalleryPhotos.length > 0 ? "inline-block" : "none";
 
         renderAdminPendingPhotos();
         renderAdminList();
@@ -3180,6 +3568,7 @@
       function renderAdminPendingPhotos() {
         photoCounterLabel.textContent = `${pendingGalleryPhotos.length} / ${MAX_PHOTOS_PER_ITEM}`;
         reprocessAllBtn.style.display = pendingGalleryPhotos.length > 0 ? "inline-block" : "none";
+        reDetectCatBtn.style.display = pendingGalleryPhotos.length > 0 ? "inline-block" : "none";
 
         if (pendingGalleryPhotos.length === 0) {
           adminPhotoGrid.innerHTML = "";
@@ -3220,7 +3609,7 @@
         });
       }
 
-      // Gallery Upload -> Automatic Smart Crop + Edit
+      // Gallery Upload -> Automatic Smart Crop, Studio Edit & AI Category Detection
       prodGalleryInput.addEventListener("change", async (e) => {
         const files = Array.from(e.target.files || []);
         if (!files.length) return;
@@ -3238,29 +3627,50 @@
           showToast(`Only ${MAX_PHOTOS_PER_ITEM} photos allowed per item. Extra photos were skipped.`);
         }
 
+        const sessionAtStart = formSessionToken;
         let processedCount = 0;
+        let firstNewSrc = null;
+        let firstAspect = 1;
+        let firstName = "";
+
+        beginMediaTask();
         try {
           for (let i = 0; i < filesToProcess.length; i++) {
             const file = filesToProcess[i];
             if (!file.type.startsWith("image/")) continue;
             uploadPromptText.textContent = `Auto-cropping & editing (${i + 1}/${filesToProcess.length})...`;
-            const studioDataUrl = await autoProcessImageFromFile(file);
-            pendingGalleryPhotos.push(studioDataUrl);
+            const result = await autoProcessImageFromFile(file);
+            if (sessionAtStart !== formSessionToken) return;
+            pendingGalleryPhotos.push(result.dataUrl);
+            if (!firstNewSrc) {
+              firstNewSrc = result.dataUrl;
+              firstAspect = result.aspectRatio;
+              firstName = file.name || "";
+            }
             processedCount++;
           }
           renderAdminPendingPhotos();
-          if (processedCount > 0) {
-            showToast(`${processedCount} photo${processedCount > 1 ? "s" : ""} auto-cropped & studio-edited!`);
+
+          if (firstNewSrc) {
+            lastSourceHint = firstName;
+            lastAspectRatio = firstAspect;
+            uploadPromptText.textContent = "Detecting category from photo...";
+            await runAutoCategorySelection(firstNewSrc, firstName, firstAspect, false);
+          }
+
+          if (processedCount > 0 && sessionAtStart === formSessionToken) {
+            showToast(`Auto-cropped & category set to "${prodCategorySelect.value}"!`);
           }
         } catch {
           showToast("Some photos could not be processed.");
         } finally {
           uploadPromptText.textContent = "Choose Photos from Gallery";
           prodGalleryInput.value = "";
+          endMediaTask();
         }
       });
 
-      // Image Link -> Automatic Fetch, Crop + Edit (with webpage-link protection)
+      // Image Link -> Automatic Fetch, Crop, Studio Edit & AI Category Detection
       async function handleAddImageUrl() {
         const url = prodImageUrlInput.value.trim();
         if (!url) {
@@ -3272,23 +3682,37 @@
           return false;
         }
 
+        const sessionAtStart = formSessionToken;
         addUrlBtn.disabled = true;
         const prevBtnText = addUrlBtn.textContent;
-        addUrlBtn.textContent = "Editing...";
+        addUrlBtn.textContent = "Analyzing...";
+        beginMediaTask();
 
         try {
-          const studioDataUrl = await autoProcessImageFromUrl(url);
-          pendingGalleryPhotos.push(studioDataUrl);
+          const result = await autoProcessImageFromUrl(url);
+          if (sessionAtStart !== formSessionToken) return false;
+          pendingGalleryPhotos.push(result.dataUrl);
           prodImageUrlInput.value = "";
           renderAdminPendingPhotos();
-          showToast("Image link auto-cropped & studio-edited!");
+
+          lastSourceHint = url;
+          lastAspectRatio = result.aspectRatio;
+          await runAutoCategorySelection(result.dataUrl, url, result.aspectRatio, false);
+
+          if (sessionAtStart === formSessionToken) {
+            showToast(`Image ready & category set to "${prodCategorySelect.value}"!`);
+          }
           return true;
         } catch (err) {
-          if (err && err.message === "CORS_ONLY") {
+          if (err && err.message === "CORS_ONLY" && sessionAtStart === formSessionToken) {
             pendingGalleryPhotos.push(url);
             prodImageUrlInput.value = "";
             renderAdminPendingPhotos();
-            showToast("Link added (host blocked pixel edit; using direct image).");
+            lastSourceHint = url;
+            await runAutoCategorySelection(url, url, 1, false);
+            if (sessionAtStart === formSessionToken) {
+              showToast(`Link added & category set to "${prodCategorySelect.value}".`);
+            }
             return true;
           }
           showToast("Invalid image link! Copy the direct Image Address (.jpg/.png), not a webpage link.");
@@ -3296,6 +3720,7 @@
         } finally {
           addUrlBtn.disabled = false;
           addUrlBtn.textContent = prevBtnText;
+          endMediaTask();
         }
       }
 
@@ -3307,29 +3732,39 @@
         }
       });
 
-      // Auto-Fix All button (re-runs selected crop mode & enhance on current thumbnails)
+      // Auto-Fix All button (re-runs selected crop mode, enhance & category detect)
       reprocessAllBtn.addEventListener("click", async () => {
         if (!pendingGalleryPhotos.length) return;
+        const sessionAtStart = formSessionToken;
         reprocessAllBtn.disabled = true;
         const origText = reprocessAllBtn.textContent;
         reprocessAllBtn.textContent = "Fixing...";
+        beginMediaTask();
         let fixed = 0;
         try {
           for (let i = 0; i < pendingGalleryPhotos.length; i++) {
             const src = pendingGalleryPhotos[i];
             if (src.startsWith("data:image/svg")) continue;
             try {
-              pendingGalleryPhotos[i] = await autoProcessImageFromUrl(src);
+              const res = await autoProcessImageFromUrl(src);
+              if (sessionAtStart !== formSessionToken) return;
+              pendingGalleryPhotos[i] = res.dataUrl;
+              if (i === 0) lastAspectRatio = res.aspectRatio;
               fixed++;
             } catch {
               // Skip if blocked
             }
           }
+          if (sessionAtStart !== formSessionToken) return;
           renderAdminPendingPhotos();
+          if (pendingGalleryPhotos[0]) {
+            await runAutoCategorySelection(pendingGalleryPhotos[0], lastSourceHint, lastAspectRatio, false);
+          }
           showToast(fixed > 0 ? `Auto-cropped & enhanced ${fixed} photo(s)!` : "Photos are already ready.");
         } finally {
           reprocessAllBtn.disabled = false;
           reprocessAllBtn.textContent = origText;
+          endMediaTask();
         }
       });
 
@@ -3344,6 +3779,9 @@
         renderAdminPendingPhotos();
         renderAdminList();
         adminModal.classList.add("open");
+
+        // Preload on-device Vision AI model silently in background
+        ensureCategoryModel();
       }
 
       document.getElementById("closeAdminModal").addEventListener("click", () => adminModal.classList.remove("open"));
@@ -3365,6 +3803,11 @@
 
       addProductForm.addEventListener("submit", async (e) => {
         e.preventDefault();
+        if (activeMediaTasks > 0) {
+          showToast("Please wait, photos are still being processed...");
+          return;
+        }
+
         const title = prodTitleInput.value.trim();
         const price = Number(prodPriceInput.value);
         const category = prodCategorySelect.value;
@@ -3382,14 +3825,14 @@
         const inlineUrl = prodImageUrlInput.value.trim();
         if (inlineUrl && pendingGalleryPhotos.length < MAX_PHOTOS_PER_ITEM) {
           submitProductBtn.disabled = true;
-          submitProductBtn.textContent = "Auto-cropping link...";
+          submitProductBtn.textContent = "Analyzing link...";
           try {
             const added = await handleAddImageUrl();
             if (!added && pendingGalleryPhotos.length === 0) {
               return;
             }
           } finally {
-            submitProductBtn.disabled = false;
+            if (activeMediaTasks === 0) submitProductBtn.disabled = false;
             submitProductBtn.textContent = editingProductId ? "Save Changes" : "+ Publish Product";
           }
         }
@@ -3399,13 +3842,14 @@
           return;
         }
 
+        const finalCategory = prodCategorySelect.value || category;
         const products = [...getProducts()];
         const isEditing = Boolean(editingProductId);
 
         const productPayload = {
           title,
           price,
-          category,
+          category: finalCategory,
           description,
           inStock,
           codAvailable,
@@ -3426,7 +3870,7 @@
 
         saveProducts(products, true);
 
-        if (activeCategory !== "All" && activeCategory !== category) {
+        if (activeCategory !== "All" && activeCategory !== finalCategory) {
           activeCategory = "All";
         }
         if (searchQuery) {
@@ -3520,7 +3964,7 @@
         showToast("Default products restored");
       });
 
-      // Download clean standalone index.html (never includes your private GitHub token)
+      // Download clean standalone index.html (never includes private token or runtime AI scripts)
       document.getElementById("downloadSiteBtn").addEventListener("click", () => {
         try {
           const payload = {
@@ -3533,6 +3977,7 @@
 
           const clone = document.documentElement.cloneNode(true);
 
+          clone.querySelectorAll('script[data-runtime-ai="1"]').forEach(s => s.remove());
           clone.querySelectorAll(".modal-backdrop").forEach(m => m.classList.remove("open"));
           const toastEl = clone.querySelector("#toast");
           if (toastEl) {
@@ -3553,10 +3998,21 @@
             }
           });
 
+          const catSel = clone.querySelector("#prodCategory");
+          if (catSel) catSel.selectedIndex = 0;
+
           const modeSel = clone.querySelector("#autoCropModeSelect");
           if (modeSel) modeSel.value = "smart-full";
           const enhChk = clone.querySelector("#autoEnhanceChk");
           if (enhChk) enhChk.setAttribute("checked", "checked");
+
+          const catBadge = clone.querySelector("#autoCatBadge");
+          if (catBadge) {
+            catBadge.textContent = "✨ AI Auto-Detect";
+            catBadge.className = "auto-cat-badge";
+          }
+          const reDetectBtn = clone.querySelector("#reDetectCatBtn");
+          if (reDetectBtn) reDetectBtn.style.display = "none";
 
           const badge = clone.querySelector("#syncStatusBadge");
           if (badge) {
