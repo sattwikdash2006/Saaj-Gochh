@@ -1589,6 +1589,170 @@
       margin-top: 2px;
     }
 
+    .meesho-importer-card {
+      background: #FFF9EE;
+      border: 1.5px solid var(--gold);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 14px;
+    }
+
+    .meesho-importer-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .meesho-importer-head strong {
+      font-size: 0.88rem;
+      color: var(--maroon);
+    }
+
+    .meesho-zero-pill {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--success-bg);
+      color: var(--success-text);
+      border: 1px solid #A8DAB5;
+    }
+
+    .meesho-import-row {
+      display: flex;
+      gap: 6px;
+      align-items: stretch;
+      margin-bottom: 8px;
+    }
+
+    .meesho-import-row textarea {
+      flex: 1;
+      min-height: 44px;
+      max-height: 96px;
+      padding: 7px 10px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      background: #FFF;
+      color: var(--text-dark);
+      resize: vertical;
+      outline: none;
+    }
+
+    .meesho-import-row textarea:focus {
+      border-color: var(--terracotta);
+    }
+
+    .meesho-margin-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.76rem;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .meesho-margin-bar input[type="number"] {
+      width: 66px;
+      padding: 4px 7px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 0.78rem;
+      background: #FFF;
+    }
+
+    .meesho-margin-bar select {
+      padding: 4px 7px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 0.76rem;
+      background: #FFF;
+    }
+
+    .meesho-auto-pub-lbl {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 600;
+      color: var(--maroon);
+      cursor: pointer;
+      margin-left: auto;
+    }
+
+    .meesho-auto-pub-lbl input {
+      accent-color: var(--maroon);
+    }
+
+    .meesho-status-note {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 8px;
+      display: none;
+    }
+
+    .meesho-status-note.visible {
+      display: block;
+    }
+
+    .meesho-status-note.ok {
+      color: var(--success-text);
+      font-weight: 600;
+    }
+
+    .meesho-status-note.warn {
+      color: #8A5300;
+    }
+
+    .meesho-bookmarklet-box {
+      border-top: 1px dashed var(--gold);
+      padding-top: 8px;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .meesho-bookmarklet-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 7px;
+      margin: 6px 0;
+    }
+
+    .meesho-bookmarklet-actions input {
+      flex: 1;
+      min-width: 170px;
+      padding: 5px 8px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      font-size: 0.75rem;
+      background: #FFF;
+      color: var(--text-dark);
+    }
+
+    .bookmarklet-drag-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: linear-gradient(135deg, var(--maroon), var(--terracotta));
+      color: #FFF !important;
+      text-decoration: none;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 6px 11px;
+      border-radius: 8px;
+      border: 1px solid var(--gold);
+      cursor: grab;
+      white-space: nowrap;
+    }
+
     .admin-top-panels {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -2482,6 +2646,43 @@
       <div class="admin-grid">
         <!-- Add / Edit Product Form -->
         <div class="admin-box">
+          <div class="meesho-importer-card">
+            <div class="meesho-importer-head">
+              <strong>⚡ Meesho Quick Importer</strong>
+              <span class="meesho-zero-pill">100% Client-Side • Zero Server</span>
+            </div>
+
+            <div class="meesho-import-row">
+              <textarea id="meeshoImportInput" placeholder="Paste Meesho product link OR Meesho Share text / details..."></textarea>
+              <button type="button" class="btn-secondary" id="meeshoImportBtn" style="white-space:nowrap;">Import</button>
+            </div>
+
+            <div class="meesho-margin-bar">
+              <span>Auto Margin:</span>
+              <input type="number" id="meeshoMarginVal" min="0" step="any" value="0" title="Profit margin added to imported Meesho price">
+              <select id="meeshoMarginType" aria-label="Margin type">
+                <option value="flat">+₹ Flat</option>
+                <option value="pct">+% Percent</option>
+              </select>
+              <label class="meesho-auto-pub-lbl" title="Automatically publish to homepage if Title, Price &amp; Photos are extracted and GitHub is connected">
+                <input type="checkbox" id="meeshoAutoPublishChk">
+                <span>Auto-Publish</span>
+              </label>
+            </div>
+
+            <div class="meesho-status-note" id="meeshoImportStatus"></div>
+
+            <div class="meesho-bookmarklet-box">
+              <div><strong>1-Click Meesho Bookmarklet</strong> (Best when Meesho blocks links — runs directly inside your Meesho tab):</div>
+              <div class="meesho-bookmarklet-actions">
+                <input type="url" id="meeshoStoreUrlInput" placeholder="https://sattwikdash2006.github.io/Saaj-Gochh/" title="Your live Saaj Gochh website URL">
+                <a class="bookmarklet-drag-btn" id="meeshoBookmarkletLink" href="#">📌 Send to Saaj Gochh</a>
+                <button type="button" class="btn-secondary" id="copyBookmarkletBtn" style="padding:5px 9px; font-size:0.74rem;">Copy Code</button>
+              </div>
+              <div>Drag <strong>📌 Send to Saaj Gochh</strong> to your bookmarks bar (or Copy Code into a mobile Chrome bookmark), open any Meesho product page, and tap it to auto-fill &amp; publish here!</div>
+            </div>
+          </div>
+
           <h4 id="formModeTitle">Add New Product</h4>
           <form id="addProductForm">
             <div class="form-group">
@@ -2629,7 +2830,11 @@
         UPDATED_AT: "saajgochh_updated_at_v1",
         GH_REPO: "saajgochh_gh_repo_v1",
         GH_TOKEN: "saajgochh_gh_token_v1",
-        GH_BRANCH: "saajgochh_gh_branch_v1"
+        GH_BRANCH: "saajgochh_gh_branch_v1",
+        MEESHO_MARGIN_VAL: "saajgochh_meesho_margin_val_v1",
+        MEESHO_MARGIN_TYPE: "saajgochh_meesho_margin_type_v1",
+        MEESHO_AUTO_PUB: "saajgochh_meesho_autopub_v1",
+        STORE_URL: "saajgochh_store_url_v1"
       };
 
       // Helper to generate artistic SVG artwork data-URIs for default demo items
@@ -4876,11 +5081,19 @@
         if (e.target === pinModal) pinModal.classList.remove("open");
       });
 
+      let pendingMeeshoImportPayload = null;
+
       pinForm.addEventListener("submit", (e) => {
         e.preventDefault();
         if (pinInput.value.trim() === ADMIN_PASSWORD) {
+          try { window.sessionStorage.setItem("saajgochh_admin_unlocked", "1"); } catch {}
           pinModal.classList.remove("open");
           openAdminDashboard();
+          if (pendingMeeshoImportPayload) {
+            const payload = pendingMeeshoImportPayload;
+            pendingMeeshoImportPayload = null;
+            applyImportedMeeshoPayload(payload);
+          }
         } else {
           pinError.style.display = "block";
           pinInput.value = "";
@@ -5330,11 +5543,425 @@
         waNumberInput.value = getWhatsAppNumber();
         updateStorageMeter();
         updateMigrationBanner();
+        initMeeshoImporterUI();
         renderAdminPendingPhotos();
         renderAdminList();
         adminModal.classList.add("open");
 
         ensureCategoryModel();
+      }
+
+      // =========================================================
+      // 100% CLIENT-SIDE MEESHO IMPORTER & 1-CLICK BOOKMARKLET
+      // =========================================================
+      const meeshoImportInput = document.getElementById("meeshoImportInput");
+      const meeshoImportBtn = document.getElementById("meeshoImportBtn");
+      const meeshoMarginVal = document.getElementById("meeshoMarginVal");
+      const meeshoMarginType = document.getElementById("meeshoMarginType");
+      const meeshoAutoPublishChk = document.getElementById("meeshoAutoPublishChk");
+      const meeshoImportStatus = document.getElementById("meeshoImportStatus");
+      const meeshoStoreUrlInput = document.getElementById("meeshoStoreUrlInput");
+      const meeshoBookmarkletLink = document.getElementById("meeshoBookmarkletLink");
+      const copyBookmarkletBtn = document.getElementById("copyBookmarkletBtn");
+
+      function setMeeshoStatus(msg, tone = "") {
+        if (!meeshoImportStatus) return;
+        if (!msg) {
+          meeshoImportStatus.textContent = "";
+          meeshoImportStatus.className = "meesho-status-note";
+          return;
+        }
+        meeshoImportStatus.textContent = msg;
+        meeshoImportStatus.className = "meesho-status-note visible" + (tone ? " " + tone : "");
+      }
+
+      function getDefaultStoreUrlForBookmarklet() {
+        const saved = safeGetItem(STORAGE_KEYS.STORE_URL);
+        if (saved) return saved;
+        const loc = window.location;
+        if (loc.protocol !== "file:" && !/run\.app$|localhost|127\.0\.0\.1/i.test(loc.hostname)) {
+          return loc.origin + loc.pathname;
+        }
+        const repo = getGitHubConfig().repo || DEFAULT_GITHUB_REPO;
+        const parts = repo.split("/");
+        if (parts.length === 2 && parts[0] && parts[1]) {
+          return `https://${parts[0].toLowerCase()}.github.io/${parts[1]}/`;
+        }
+        return loc.origin + loc.pathname;
+      }
+
+      function buildMeeshoBookmarkletHref(targetStoreUrl) {
+        const cleanTarget = String(targetStoreUrl || "").trim().split("#")[0].split("?")[0] || getDefaultStoreUrlForBookmarklet();
+        const code = `(function(){try{var d=document,t='',p=0,desc='',imgs=[];function addImg(u){if(!u||typeof u!=='string')return;u=u.trim().replace(/^http:\\/\\//i,'https://');if(!/^https?:\\/\\//i.test(u))return;if(/meesho\\.com/i.test(u)&&/images\\/products/i.test(u)){u=u.replace(/_(64|128|256)\\.(jpe?g|png|webp)/i,'_512.$2');}if(!/(favicon|logo|icon|avatar|placeholder|badge|1x1)/i.test(u)&&imgs.indexOf(u)===-1)imgs.push(u);}var ld=d.querySelectorAll('script[type="application/ld+json"]');for(var i=0;i<ld.length;i++){try{var j=JSON.parse(ld[i].textContent);var arr=Array.isArray(j)?j:[j];for(var k=0;k<arr.length;k++){var o=arr[k];if(o&&o['@type']==='Product'){t=t||o.name||'';desc=desc||o.description||'';if(o.offers){var off=Array.isArray(o.offers)?o.offers[0]:o.offers;if(off&&off.price)p=p||Number(off.price);}if(Array.isArray(o.image))o.image.forEach(addImg);else addImg(o.image);}}}catch(e){}}var nd=d.getElementById('__NEXT_DATA__');if(nd){try{var nextObj=JSON.parse(nd.textContent);var walk=function(n,depth){if(!n||typeof n!=='object'||depth>8)return;if(!t&&(n.product_name||n.name)&&n.price)t=n.product_name||n.name;if(!p&&(n.discounted_price||n.price||n.mrp))p=Number(n.discounted_price||n.price||n.mrp)||0;if(!desc&&(n.description||n.details))desc=typeof n.description==='string'?n.description:(typeof n.details==='string'?n.details:'');if(Array.isArray(n.images)){n.images.forEach(function(im){addImg(typeof im==='string'?im:(im&&im.url));});}Object.keys(n).forEach(function(k){walk(n[k],depth+1);});};walk(nextObj,0);}catch(e){}}if(!t){var ogT=d.querySelector('meta[property="og:title"]');t=(ogT&&ogT.content)||(d.querySelector('h1')&&d.querySelector('h1').innerText)||d.title.split('|')[0]||'';}if(!p){var pm=d.querySelector('meta[property="product:price:amount"]');if(pm&&pm.content)p=Number(pm.content)||0;if(!p){var els=d.querySelectorAll('h4,h5,span,div');for(var m=0;m<els.length;m++){var tx=(els[m].innerText||'').trim();var mt=tx.match(/^₹\\s*([0-9,]{2,6})$/);if(mt){p=Number(mt[1].replace(/,/g,''));break;}}}}if(!desc){var md=d.querySelector('meta[name="description"]');desc=(md&&md.content)||'';}var ogI=d.querySelector('meta[property="og:image"]');if(ogI)addImg(ogI.content);d.querySelectorAll('img').forEach(function(im){var s=im.currentSrc||im.src||'';if(/images\\.meesho\\.com\\/images\\/products/i.test(s)||((im.naturalWidth||0)>=250&&/^https:/i.test(s)))addImg(s);});var payload={title:String(t).trim(),price:p||0,description:String(desc).trim(),images:imgs.slice(0,10),sourceUrl:location.href};var enc=btoa(unescape(encodeURIComponent(JSON.stringify(payload))));var dest=${JSON.stringify(cleanTarget)}+'#saaj-import='+encodeURIComponent(enc);var w=window.open(dest,'_blank');if(!w)location.href=dest;}catch(err){alert('Could not read product: '+err.message);}})();`;
+        return "javascript:" + code;
+      }
+
+      function refreshBookmarkletUI() {
+        if (!meeshoStoreUrlInput || !meeshoBookmarkletLink) return;
+        const url = meeshoStoreUrlInput.value.trim() || getDefaultStoreUrlForBookmarklet();
+        meeshoBookmarkletLink.href = buildMeeshoBookmarkletHref(url);
+      }
+
+      function initMeeshoImporterUI() {
+        if (!meeshoMarginVal) return;
+        const savedVal = safeGetItem(STORAGE_KEYS.MEESHO_MARGIN_VAL);
+        const savedType = safeGetItem(STORAGE_KEYS.MEESHO_MARGIN_TYPE);
+        const savedAuto = safeGetItem(STORAGE_KEYS.MEESHO_AUTO_PUB);
+        if (savedVal !== null) meeshoMarginVal.value = savedVal;
+        if (savedType) meeshoMarginType.value = savedType;
+        if (savedAuto !== null) meeshoAutoPublishChk.checked = savedAuto === "1";
+
+        meeshoStoreUrlInput.value = getDefaultStoreUrlForBookmarklet();
+        refreshBookmarkletUI();
+      }
+
+      function computePriceWithMargin(basePrice) {
+        const raw = Number(basePrice);
+        if (!raw || isNaN(raw) || raw <= 0) return "";
+        const mVal = Number(meeshoMarginVal?.value ?? safeGetItem(STORAGE_KEYS.MEESHO_MARGIN_VAL) ?? 0) || 0;
+        const mType = meeshoMarginType?.value || safeGetItem(STORAGE_KEYS.MEESHO_MARGIN_TYPE) || "flat";
+        if (mVal <= 0) return Math.round(raw);
+        if (mType === "pct") {
+          return Math.round(raw * (1 + mVal / 100));
+        }
+        return Math.round(raw + mVal);
+      }
+
+      function extractTitleFromMeeshoSlug(urlStr) {
+        try {
+          const u = new URL(urlStr);
+          const parts = u.pathname.split("/").filter(Boolean);
+          const pIdx = parts.indexOf("p");
+          const slug = pIdx > 0 ? parts[pIdx - 1] : parts[0];
+          if (slug && slug.length > 3 && !/^s$/i.test(slug)) {
+            return slug
+              .replace(/[-_]+/g, " ")
+              .replace(/\b\w/g, c => c.toUpperCase())
+              .trim();
+          }
+        } catch {}
+        return "";
+      }
+
+      function parseMeeshoTextPayload(rawText) {
+        const text = String(rawText || "").trim();
+        const urlMatches = text.match(/https?:\/\/[^\s"'<>()]+/gi) || [];
+        const imageUrls = [];
+        let pageUrl = "";
+
+        for (const u of urlMatches) {
+          if (/images\.meesho\.com|\.(jpe?g|png|webp)(\?|$)/i.test(u)) {
+            const upgraded = u.replace(/_(64|128|256)\.(jpe?g|png|webp)/i, "_512.$2");
+            if (!imageUrls.includes(upgraded)) imageUrls.push(upgraded);
+          } else if (/meesho\.com/i.test(u) && !pageUrl) {
+            pageUrl = u;
+          }
+        }
+
+        let price = 0;
+        const pricePatterns = [
+          /(?:₹|Rs\.?|INR)\s*([0-9][0-9,]*(?:\.[0-9]{1,2})?)/i,
+          /(?:Price|Special Price|Offer Price)\s*[:\-]\s*(?:₹|Rs\.?)?\s*([0-9][0-9,]*)/i
+        ];
+        for (const rx of pricePatterns) {
+          const m = text.match(rx);
+          if (m && m[1]) {
+            price = Number(m[1].replace(/,/g, ""));
+            if (price > 0) break;
+          }
+        }
+
+        const lines = text
+          .split(/\r?\n/)
+          .map(l => l.trim())
+          .filter(l => l && !/^https?:\/\//i.test(l));
+
+        let title = "";
+        const nameLine = lines.find(l => /^Name\s*[:\-]\s*/i.test(l));
+        if (nameLine) {
+          title = nameLine.replace(/^Name\s*[:\-]\s*/i, "").trim();
+        } else {
+          const candidate = lines.find(l =>
+            l.length >= 6 &&
+            !/^(₹|Rs\.?|Price|Check out|Shop|Download Meesho|Use code)/i.test(l)
+          );
+          if (candidate) title = candidate.slice(0, 140);
+        }
+
+        if (!title && pageUrl) {
+          title = extractTitleFromMeeshoSlug(pageUrl);
+        }
+
+        const cleanedDescLines = lines.filter(l => !/^https?:\/\//i.test(l) && !/meesho\.com/i.test(l));
+        const description = cleanedDescLines.join("\n").trim();
+
+        return {
+          title,
+          price,
+          description: description || (title ? `${title}\nCountry of Origin: India` : ""),
+          images: imageUrls.slice(0, MAX_PHOTOS_PER_ITEM),
+          sourceUrl: pageUrl
+        };
+      }
+
+      async function tryClientSideFetchMeeshoUrl(meeshoUrl) {
+        const candidates = [
+          `https://r.jina.ai/${meeshoUrl}`,
+          `https://api.allorigins.win/raw?url=${encodeURIComponent(meeshoUrl)}`
+        ];
+
+        for (const endpoint of candidates) {
+          const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+          const timer = controller ? setTimeout(() => controller.abort(), 8500) : null;
+          try {
+            const res = await fetch(endpoint, controller ? { signal: controller.signal } : {});
+            if (timer) clearTimeout(timer);
+            if (!res.ok) continue;
+            const body = await res.text();
+            if (!body || body.length < 150) continue;
+            if (/Access Denied|Just a moment|cf-browser-verification|Attention Required/i.test(body)) continue;
+
+            // Check if HTML or Markdown
+            const foundImgs = [];
+            const imgMatches = body.match(/https?:\/\/images\.meesho\.com\/images\/products\/[^\s"'<>)]+/gi) || [];
+            for (const im of imgMatches) {
+              const highRes = im.replace(/_(64|128|256)\.(jpe?g|png|webp)/i, "_512.$2");
+              if (!foundImgs.includes(highRes)) foundImgs.push(highRes);
+            }
+
+            let title = "";
+            const ogTitle = body.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i) ||
+                            body.match(/Title:\s*([^\n]+)/i);
+            if (ogTitle && ogTitle[1]) {
+              title = ogTitle[1].replace(/\|.*$/, "").trim();
+            }
+
+            let price = 0;
+            const priceMatch = body.match(/"price"\s*:\s*"?([0-9]+)"?/i) ||
+                               body.match(/₹\s*([0-9][0-9,]{1,6})/);
+            if (priceMatch && priceMatch[1]) {
+              price = Number(priceMatch[1].replace(/,/g, ""));
+            }
+
+            let description = "";
+            const ogDesc = body.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)["']/i);
+            if (ogDesc && ogDesc[1]) {
+              description = ogDesc[1].trim();
+            }
+
+            if (title || foundImgs.length > 0 || price > 0) {
+              return {
+                title: title || extractTitleFromMeeshoSlug(meeshoUrl),
+                price,
+                description: description || title || "",
+                images: foundImgs.slice(0, MAX_PHOTOS_PER_ITEM),
+                sourceUrl: meeshoUrl
+              };
+            }
+          } catch {
+            if (timer) clearTimeout(timer);
+          }
+        }
+        return null;
+      }
+
+      async function applyImportedMeeshoPayload(payload) {
+        if (!payload || typeof payload !== "object") return;
+        resetAdminForm();
+
+        const title = String(payload.title || "").trim();
+        const finalPrice = computePriceWithMargin(payload.price);
+        const desc = String(payload.description || "").trim() || (title ? `${title}\nCountry of Origin: India` : "");
+        const imgUrls = Array.isArray(payload.images) ? payload.images.slice(0, MAX_PHOTOS_PER_ITEM) : [];
+
+        if (title) prodTitleInput.value = title;
+        if (finalPrice) prodPriceInput.value = String(finalPrice);
+        if (desc) prodDescInput.value = desc;
+
+        if (imgUrls.length === 0) {
+          setMeeshoStatus(
+            title
+              ? "Title/details filled! Upload or paste the product photo link below."
+              : "Could not read product details from that link.",
+            "warn"
+          );
+          return;
+        }
+
+        const sessionAtStart = formSessionToken;
+        beginMediaTask();
+        setMeeshoStatus(`Importing ${imgUrls.length} Meesho photo(s)...`, "");
+
+        let firstNewSrc = null;
+        let firstAspect = 1;
+
+        try {
+          for (let i = 0; i < imgUrls.length; i++) {
+            const url = imgUrls[i];
+            setMeeshoStatus(`Cropping & enhancing photo ${i + 1}/${imgUrls.length}...`, "");
+            try {
+              const res = await autoProcessImageFromUrl(url);
+              if (sessionAtStart !== formSessionToken) return;
+              pendingGalleryPhotos.push(res.dataUrl);
+              if (!firstNewSrc) {
+                firstNewSrc = res.dataUrl;
+                firstAspect = res.aspectRatio;
+              }
+            } catch (err) {
+              if (err && err.message === "CORS_ONLY" && sessionAtStart === formSessionToken) {
+                pendingGalleryPhotos.push(url);
+                if (!firstNewSrc) firstNewSrc = url;
+              }
+            }
+          }
+
+          if (sessionAtStart !== formSessionToken) return;
+          renderAdminPendingPhotos();
+
+          if (firstNewSrc) {
+            lastSourceHint = title || imgUrls[0];
+            lastAspectRatio = firstAspect;
+            await runAutoCategorySelection(firstNewSrc, lastSourceHint, firstAspect, false);
+          }
+
+          const readyToAutoPublish =
+            Boolean(meeshoAutoPublishChk?.checked) &&
+            Boolean(title) &&
+            Number(finalPrice) > 0 &&
+            pendingGalleryPhotos.length > 0 &&
+            Boolean(getGitHubConfig().token);
+
+          if (readyToAutoPublish) {
+            setMeeshoStatus("Auto-publishing imported item to store...", "ok");
+            endMediaTask();
+            addProductForm.requestSubmit();
+            return;
+          }
+
+          setMeeshoStatus(
+            `Imported ${pendingGalleryPhotos.length} photo(s) & details! Review price/category and click "+ Publish Product".`,
+            "ok"
+          );
+          showToast("Meesho product imported into form!");
+        } finally {
+          if (activeMediaTasks > 0) endMediaTask();
+        }
+      }
+
+      if (meeshoMarginVal) {
+        meeshoMarginVal.addEventListener("input", () => {
+          safeSetItem(STORAGE_KEYS.MEESHO_MARGIN_VAL, meeshoMarginVal.value);
+        });
+      }
+      if (meeshoMarginType) {
+        meeshoMarginType.addEventListener("change", () => {
+          safeSetItem(STORAGE_KEYS.MEESHO_MARGIN_TYPE, meeshoMarginType.value);
+        });
+      }
+      if (meeshoAutoPublishChk) {
+        meeshoAutoPublishChk.addEventListener("change", () => {
+          safeSetItem(STORAGE_KEYS.MEESHO_AUTO_PUB, meeshoAutoPublishChk.checked ? "1" : "0");
+        });
+      }
+      if (meeshoStoreUrlInput) {
+        meeshoStoreUrlInput.addEventListener("input", () => {
+          safeSetItem(STORAGE_KEYS.STORE_URL, meeshoStoreUrlInput.value.trim());
+          refreshBookmarkletUI();
+        });
+      }
+      if (meeshoBookmarkletLink) {
+        meeshoBookmarkletLink.addEventListener("click", (e) => {
+          e.preventDefault();
+          showToast("Drag this button to your Bookmarks Bar (or click Copy Code for mobile)!");
+        });
+      }
+      if (copyBookmarkletBtn) {
+        copyBookmarkletBtn.addEventListener("click", async () => {
+          const href = meeshoBookmarkletLink?.href || buildMeeshoBookmarkletHref(meeshoStoreUrlInput?.value);
+          try {
+            await navigator.clipboard.writeText(href);
+            showToast("Bookmarklet copied! Paste it as a Bookmark URL in your browser.");
+          } catch {
+            showToast("Could not copy automatically — long-press or drag the button instead.");
+          }
+        });
+      }
+
+      if (meeshoImportBtn) {
+        meeshoImportBtn.addEventListener("click", async () => {
+          const raw = (meeshoImportInput?.value || "").trim();
+          if (!raw) {
+            showToast("Paste a Meesho product link or Share text first");
+            return;
+          }
+
+          const singleUrlMatch = raw.match(/^(https?:\/\/[^\s]+)$/i);
+          if (singleUrlMatch && /meesho\.com/i.test(singleUrlMatch[1])) {
+            meeshoImportBtn.disabled = true;
+            meeshoImportBtn.textContent = "Fetching...";
+            setMeeshoStatus("Trying to fetch Meesho product info...", "");
+            try {
+              const fetched = await tryClientSideFetchMeeshoUrl(singleUrlMatch[1]);
+              if (fetched && (fetched.images.length > 0 || fetched.price > 0)) {
+                meeshoImportInput.value = "";
+                await applyImportedMeeshoPayload(fetched);
+              } else {
+                const slugTitle = extractTitleFromMeeshoSlug(singleUrlMatch[1]);
+                if (slugTitle) prodTitleInput.value = slugTitle;
+                setMeeshoStatus(
+                  "Meesho blocked remote fetch (Cloudflare). Use the 1-Click Bookmarklet on the Meesho page, or paste Meesho Share/Product text here!",
+                  "warn"
+                );
+                showToast("Meesho blocked direct fetch — use the Bookmarklet or paste Share text.");
+              }
+            } finally {
+              meeshoImportBtn.disabled = false;
+              meeshoImportBtn.textContent = "Import";
+            }
+            return;
+          }
+
+          const parsed = parseMeeshoTextPayload(raw);
+          if (!parsed.title && !parsed.price && parsed.images.length === 0) {
+            showToast("Could not detect Meesho product info from that text.");
+            return;
+          }
+          meeshoImportInput.value = "";
+          await applyImportedMeeshoPayload(parsed);
+        });
+      }
+
+      function checkIncomingMeeshoHash() {
+        const hash = window.location.hash || "";
+        const prefix = "#saaj-import=";
+        if (!hash.startsWith(prefix)) return;
+
+        const encoded = hash.slice(prefix.length);
+        try {
+          window.history.replaceState(null, "", window.location.pathname + window.location.search);
+        } catch {
+          window.location.hash = "";
+        }
+
+        try {
+          const jsonStr = decodeURIComponent(escape(atob(decodeURIComponent(encoded))));
+          const payload = JSON.parse(jsonStr);
+          if (!payload || typeof payload !== "object") return;
+
+          let isUnlocked = false;
+          try { isUnlocked = window.sessionStorage.getItem("saajgochh_admin_unlocked") === "1"; } catch {}
+
+          if (adminModal.classList.contains("open") || isUnlocked) {
+            openAdminDashboard();
+            applyImportedMeeshoPayload(payload);
+          } else {
+            pendingMeeshoImportPayload = payload;
+            openPinModal();
+            showToast("Enter admin password to import Meesho product!");
+          }
+        } catch {
+          showToast("Could not decode imported Meesho product.");
+        }
       }
 
       document.getElementById("closeAdminModal").addEventListener("click", () => adminModal.classList.remove("open"));
@@ -5595,7 +6222,8 @@
 
           [
             "#searchInput", "#adminSearchInput", "#pinInput", "#prodTitle", "#prodPrice",
-            "#prodDesc", "#prodImageUrl", "#waNumberInput", "#prodGalleryInput", "#ghRepoInput", "#ghTokenInput"
+            "#prodDesc", "#prodImageUrl", "#waNumberInput", "#prodGalleryInput", "#ghRepoInput", "#ghTokenInput",
+            "#meeshoImportInput", "#meeshoStoreUrlInput"
           ].forEach(sel => {
             const el = clone.querySelector(sel);
             if (el) {
@@ -5603,6 +6231,11 @@
               el.removeAttribute("value");
             }
           });
+          const mStatus = clone.querySelector("#meeshoImportStatus");
+          if (mStatus) {
+            mStatus.textContent = "";
+            mStatus.className = "meesho-status-note";
+          }
 
           const clearSBtn = clone.querySelector("#clearSearchBtn");
           if (clearSBtn) clearSBtn.classList.remove("visible");
@@ -5724,6 +6357,8 @@
       initCatalogState();
       renderStore();
       fetchRemoteCatalog();
+      checkIncomingMeeshoHash();
+      window.addEventListener("hashchange", checkIncomingMeeshoHash);
     })();
   </script>
 
