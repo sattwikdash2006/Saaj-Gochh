@@ -2173,6 +2173,22 @@
     }
 
     /* Responsive Adjustments */
+    /* Keep the mobile filter drawer independent from scroll-reveal transforms. */
+    @media (max-width: 900px) {
+      .fk-sidebar {
+        opacity: 1;
+        visibility: visible;
+      }
+      .fk-sidebar:not(.mobile-open) {
+        transform: translateX(-105%);
+        pointer-events: none;
+      }
+      .fk-sidebar.mobile-open {
+        transform: translateX(0);
+        pointer-events: auto;
+      }
+    }
+
     @media (max-width: 900px) {
       .header-badge {
         display: none;
@@ -6505,7 +6521,7 @@
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!reducedMotion) document.body.classList.add('has-scroll-motion');
 
-  const revealTargets = '.store-banner-head, .fk-sidebar, .fk-toolbar-card, .product-card, footer';
+  const revealTargets = '.store-banner-head, .fk-toolbar-card, .product-card, footer';
   const observer = ('IntersectionObserver' in window) ? new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
