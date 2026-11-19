@@ -2327,9 +2327,85 @@
       .has-scroll-motion .scroll-reveal { opacity: 1; transform: none; }
     }
 
-  </style>
+  
+
+    /* Signature opening: Saaj Gochh heritage intro */
+    .sg-intro {
+      position: fixed; inset: 0; z-index: 5000; display: grid; place-items: center;
+      overflow: hidden; color: #f8eedb; isolation: isolate;
+      background: radial-gradient(ellipse at 50% 43%, rgba(128,55,43,.48), transparent 38%),
+                  radial-gradient(ellipse at 50% 100%, rgba(193,137,54,.14), transparent 48%),
+                  linear-gradient(145deg, #241012 0%, #40171b 48%, #210d10 100%);
+      opacity: 1; visibility: visible; transition: opacity .95s cubic-bezier(.22,.75,.2,1), visibility .95s;
+    }
+    .sg-intro::before, .sg-intro::after {
+      content: ""; position: absolute; width: min(76vw, 690px); aspect-ratio: 1; border: 1px solid rgba(220,181,111,.18);
+      border-radius: 50%; left: 50%; top: 46%; transform: translate(-50%,-50%); z-index: -1;
+      box-shadow: 0 0 0 18px rgba(220,181,111,.025), 0 0 0 42px rgba(220,181,111,.018), inset 0 0 70px rgba(220,181,111,.035);
+      animation: sg-orbit 22s linear infinite;
+    }
+    .sg-intro::after { width: min(58vw, 520px); border-style: dashed; border-color: rgba(220,181,111,.13); animation-direction: reverse; animation-duration: 34s; }
+    .sg-intro.is-leaving { opacity: 0; visibility: hidden; pointer-events: none; }
+    .sg-intro-inner { width: min(92vw, 560px); text-align: center; padding: 42px 20px 34px; position: relative; }
+    .sg-intro-kicker { color: #d8b979; font: 600 10px/1.5 Arial,sans-serif; letter-spacing: .42em; text-transform: uppercase; opacity: 0; animation: sg-rise .8s .25s forwards; }
+    .sg-intro-emblem { width: 116px; height: 116px; margin: 25px auto 20px; position: relative; display: grid; place-items: center; opacity: 0; transform: scale(.72) rotate(-18deg); animation: sg-emblem 1.25s .35s cubic-bezier(.2,.8,.2,1) forwards; }
+    .sg-intro-emblem::before, .sg-intro-emblem::after { content:""; position:absolute; inset: 4px; border: 1px solid rgba(226,190,122,.8); border-radius: 34% 66% 34% 66%; transform: rotate(45deg); }
+    .sg-intro-emblem::after { inset: 13px; border-color: rgba(226,190,122,.42); transform: rotate(0deg); border-radius: 50%; }
+    .sg-intro-emblem svg { width: 54px; height: 54px; filter: drop-shadow(0 0 16px rgba(226,190,122,.4)); }
+    .sg-intro-name { margin: 0; color: #fff4df; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(43px, 8vw, 68px); font-weight: 500; letter-spacing: .045em; line-height: 1.05; opacity: 0; transform: translateY(18px); animation: sg-rise 1s .85s forwards; text-shadow: 0 5px 32px rgba(0,0,0,.28); }
+    .sg-intro-tagline { margin: 13px 0 0; color: #dfc99f; font: 500 10px/1.7 Arial,sans-serif; letter-spacing: .25em; text-transform: uppercase; opacity: 0; animation: sg-rise .9s 1.15s forwards; }
+    .sg-intro-rule { width: 0; height: 1px; margin: 29px auto 18px; background: linear-gradient(90deg, transparent, #d9b46e, transparent); animation: sg-rule 1s 1.35s forwards; }
+    .sg-intro-loading { display: flex; align-items: center; justify-content: center; gap: 10px; color: rgba(241,222,187,.68); font: 9px Arial,sans-serif; letter-spacing: .28em; text-transform: uppercase; opacity: 0; animation: sg-rise .7s 1.4s forwards; }
+    .sg-intro-loading::before, .sg-intro-loading::after { content:"✦"; color: #d8b979; font-size: 9px; animation: sg-twinkle 1.4s ease-in-out infinite; }
+    .sg-intro-loading::after { animation-delay: .7s; }
+    .sg-intro-track { width: 128px; height: 2px; margin: 17px auto 0; background: rgba(230,201,150,.17); overflow: hidden; opacity: 0; animation: sg-rise .7s 1.45s forwards; }
+    .sg-intro-track span { display:block; width: 42%; height:100%; background: linear-gradient(90deg, #b87942, #f0d59a, #b87942); box-shadow: 0 0 12px #e4bf79; animation: sg-load 2.1s .25s cubic-bezier(.4,0,.2,1) forwards; }
+    .sg-intro-skip { position: absolute; right: max(22px, env(safe-area-inset-right)); bottom: max(22px, env(safe-area-inset-bottom)); padding: 10px 15px; border: 1px solid rgba(226,190,122,.34); border-radius: 30px; color: #e8d6b5; background: rgba(255,255,255,.035); font: 10px Arial,sans-serif; letter-spacing: .16em; cursor: pointer; transition: background .25s, border-color .25s; }
+    .sg-intro-skip:hover { background: rgba(226,190,122,.12); border-color: #d8b979; }
+    .sg-petal { position:absolute; top:-12vh; color:rgba(226,190,122,.42); font-size:17px; pointer-events:none; animation: sg-fall linear infinite; }
+    .sg-petal:nth-child(1) { left:12%; animation-duration:11s; animation-delay:-4s; }
+    .sg-petal:nth-child(2) { left:29%; font-size:12px; animation-duration:14s; animation-delay:-9s; }
+    .sg-petal:nth-child(3) { left:72%; font-size:20px; animation-duration:12s; animation-delay:-6s; }
+    .sg-petal:nth-child(4) { left:88%; font-size:13px; animation-duration:15s; animation-delay:-2s; }
+    @keyframes sg-rise { to { opacity:1; transform:translateY(0); } }
+    @keyframes sg-emblem { to { opacity:1; transform:scale(1) rotate(0); } }
+    @keyframes sg-orbit { to { transform:translate(-50%,-50%) rotate(360deg); } }
+    @keyframes sg-rule { to { width:190px; } }
+    @keyframes sg-load { to { transform:translateX(250%); } }
+    @keyframes sg-twinkle { 50% { opacity:.3; transform:scale(.7); } }
+    @keyframes sg-fall { to { transform:translate3d(35px,115vh,0) rotate(250deg); opacity:0; } }
+    @media (prefers-reduced-motion: reduce) {
+      .sg-intro, .sg-intro *, .sg-intro::before, .sg-intro::after { animation:none !important; transition:none !important; }
+      .sg-intro-kicker, .sg-intro-emblem, .sg-intro-name, .sg-intro-tagline, .sg-intro-loading, .sg-intro-track { opacity:1; transform:none; }
+      .sg-intro-rule { width:190px; }
+    }
+</style>
 <script src="/_aistudio-iframe.js?v=29045eb3"></script></head>
 <body>
+
+  <!-- Saaj Gochh signature opening -->
+  <div class="sg-intro" id="sgIntro" role="dialog" aria-label="Welcome to Saaj Gochh" aria-modal="true">
+    <span class="sg-petal" aria-hidden="true">✧</span><span class="sg-petal" aria-hidden="true">✦</span>
+    <span class="sg-petal" aria-hidden="true">✧</span><span class="sg-petal" aria-hidden="true">✦</span>
+    <div class="sg-intro-inner">
+      <div class="sg-intro-kicker">A celebration of Bengal</div>
+      <div class="sg-intro-emblem" aria-hidden="true">
+        <svg viewBox="0 0 64 64" fill="none">
+          <path d="M32 5C39 17 45 22 45 32C45 40 39.5 46 32 46C24.5 46 19 40 19 32C19 22 25 17 32 5Z" stroke="#E8CB91" stroke-width="1.7"/>
+          <path d="M32 45C42 45 51 38 55 28C46 28 39 32 34 39M32 45C22 45 13 38 9 28C18 28 25 32 30 39" stroke="#D8B979" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M22 54H42M27 49H37" stroke="#E8CB91" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="32" cy="32" r="27" stroke="#D8B979" stroke-opacity=".35" stroke-dasharray="1.5 4"/>
+        </svg>
+      </div>
+      <h1 class="sg-intro-name">Saaj Gochh</h1>
+      <p class="sg-intro-tagline">Timeless Bengal Artistry for Your Home</p>
+      <div class="sg-intro-rule"></div>
+      <div class="sg-intro-loading">Curating something beautiful</div>
+      <div class="sg-intro-track" aria-hidden="true"><span></span></div>
+    </div>
+    <button class="sg-intro-skip" id="sgIntroSkip" type="button">SKIP INTRO ↗</button>
+  </div>
+
 
   <!-- Traditional Top Ribbon -->
   <div class="alpona-ribbon"></div>
@@ -6479,4 +6555,25 @@
 })();
 </script>
 
+
+<script>
+(() => {
+  const intro = document.getElementById('sgIntro');
+  const skip = document.getElementById('sgIntroSkip');
+  if (!intro) return;
+  let closed = false;
+  const closeIntro = () => {
+    if (closed) return;
+    closed = true;
+    intro.classList.add('is-leaving');
+    window.setTimeout(() => intro.remove(), 1000);
+  };
+  if (skip) skip.addEventListener('click', closeIntro);
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !closed) closeIntro();
+  });
+  const delay = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 500 : 3400;
+  window.setTimeout(closeIntro, delay);
+})();
+</script>
 </body></html>
