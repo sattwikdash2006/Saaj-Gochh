@@ -3125,17 +3125,13 @@
       }
 
       function safeSetItem(key, value) {
+        // Never delete the previous saved value when storage is full.
+        // A failed write should leave the last good catalog intact.
         try {
           window.localStorage.setItem(key, value);
           return true;
         } catch {
-          try {
-            window.localStorage.removeItem(key);
-            window.localStorage.setItem(key, value);
-            return true;
-          } catch {
-            return false;
-          }
+          return false;
         }
       }
 
@@ -3334,7 +3330,7 @@
         if (shouldSyncRemote) {
           queueGitHubSync(false);
         }
-        return true;
+        return saved;
       }
 
       function getWhatsAppNumber() {
@@ -4856,7 +4852,7 @@
             return `
               <article class="product-card ${isInStock ? "" : "is-sold-out"}">
                 <div class="product-img-wrap" data-open-id="${escapeHTML(product.id)}">
-                  <img src="${escapeHTML(coverImg)}" alt="${escapeHTML(product.title)}" loading="lazy" onerror="window.__saajFallback(this)" />
+                  <img src="${escapeHTML(coverImg)}" alt="${escapeHTML(product.title)}" loading="lazy" decoding="async" onerror="window.__saajFallback(this)" />
                   <span class="category-tag">${escapeHTML(product.category)}</span>
                   <span class="stock-badge ${isInStock ? "in-stock" : "sold-out"}">
                     ${isInStock ? "● In Stock" : "Sold Out"}
