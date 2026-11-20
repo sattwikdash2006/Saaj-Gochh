@@ -2761,7 +2761,7 @@
         <div class="wa-settings-bar">
           <div class="wa-settings-inner">
             <div class="form-group">
-              <label for="waNumberInput">WhatsApp Number (with country code)</label>
+              <label for="waNumberInput">WhatsApp Number (country code optional)</label>
               <input type="text" id="waNumberInput" placeholder="919876543210">
             </div>
             <button type="button" class="btn-secondary" id="saveWaBtn">Save Number</button>
@@ -2857,8 +2857,8 @@
             </div>
             <div class="form-group">
               <label for="prodWhatsApp">Product-specific WhatsApp Number (Optional)</label>
-              <input type="tel" id="prodWhatsApp" inputmode="numeric" placeholder="Leave blank to use the default WhatsApp number">
-              <small style="display:block; color:var(--text-muted); margin-top:4px;">Add a different WhatsApp number for this item only. Otherwise, the site's default number will be used.</small>
+              <input type="tel" id="prodWhatsApp" inputmode="numeric" placeholder="Enter 10-digit number (country code optional)">
+              <small style="display:block; color:var(--text-muted); margin-top:4px;">Add a different WhatsApp number for this item only. Country code is optional (India +91 is added automatically). Otherwise, the site's default number will be used.</small>
             </div>
 
             <!-- Advanced Stock & Service Availability Checkboxes -->
@@ -3156,6 +3156,19 @@
         }
       }
 
+      // Normalize Indian WhatsApp numbers: accept 10 digits, 0-prefixed 10 digits,
+      // or numbers already prefixed with 91 / +91. Store digits only for wa.me.
+      function normalizeWhatsAppNumber(value) {
+        let digits = String(value || "").replace(/\D/g, "");
+        if (!digits) return "";
+        if (digits.startsWith("0091")) digits = digits.slice(4);
+        else if (digits.startsWith("91") && digits.length === 12) digits = digits.slice(2);
+        else if (digits.startsWith("0") && digits.length === 11) digits = digits.slice(1);
+        if (digits.length === 10) return "91" + digits;
+        if (digits.length === 12 && digits.startsWith("91")) return digits;
+        return digits;
+      }
+
       function normalizeProduct(raw) {
         if (!raw || typeof raw !== "object") return null;
         const title = String(raw.title || "").trim();
@@ -3179,7 +3192,7 @@
           inStock: typeof raw.inStock === "boolean" ? raw.inStock : true,
           codAvailable: typeof raw.codAvailable === "boolean" ? raw.codAvailable : false,
           return7Days: typeof raw.return7Days === "boolean" ? raw.return7Days : false,
-          whatsapp: String(raw.whatsapp || raw.whatsappNumber || "").replace(/\D/g, ""),
+          whatsapp: normalizeWhatsAppNumber(raw.whatsapp || raw.whatsappNumber || ""),
           images: imgs
         };
       }
@@ -3193,7 +3206,7 @@
         if (!snapshot || typeof snapshot !== "object" || !Array.isArray(snapshot.products)) return false;
         const cleanProducts = normalizeList(snapshot.products);
         const snapUpdatedAt = Number(snapshot.updatedAt || Date.now());
-        const snapWa = String(snapshot.whatsapp || DEFAULT_WHATSAPP_NUMBER);
+        const snapWa = normalizeWhatsAppNumber(snapshot.whatsapp || DEFAULT_WHATSAPP_NUMBER) || normalizeWhatsAppNumber(DEFAULT_WHATSAPP_NUMBER);
 
         memoryState.products = cleanProducts;
         memoryState.whatsapp = snapWa;
@@ -3356,11 +3369,11 @@
       }
 
       function getWhatsAppNumber() {
-        return memoryState.whatsapp || DEFAULT_WHATSAPP_NUMBER;
+        return normalizeWhatsAppNumber(memoryState.whatsapp || DEFAULT_WHATSAPP_NUMBER) || normalizeWhatsAppNumber(DEFAULT_WHATSAPP_NUMBER);
       }
 
       function saveWhatsAppNumber(num, shouldSyncRemote = true) {
-        const cleaned = String(num || "").replace(/\D/g, "") || DEFAULT_WHATSAPP_NUMBER;
+        const cleaned = normalizeWhatsAppNumber(num) || normalizeWhatsAppNumber(DEFAULT_WHATSAPP_NUMBER);
         memoryState.whatsapp = cleaned;
         memoryState.updatedAt = Date.now();
 
@@ -4786,7 +4799,7 @@
       // FRONTEND RENDERING
       // =========================================================
       function buildWhatsAppLink(product, numberOverride = "") {
-        const productWa = String(product.whatsapp || product.whatsappNumber || "").replace(/\D/g, "");
+        const productWa = normalizeWhatsAppNumber(product.whatsapp || product.whatsappNumber || "");
         const waNum = numberOverride || productWa || getWhatsAppNumber();
         const extras = [];
         if (product.codAvailable) extras.push("COD Available");
@@ -4803,8 +4816,8 @@
       }
 
       function openProductOrderWhatsApps(product) {
-        const productWa = String(product.whatsapp || product.whatsappNumber || "").replace(/\D/g, "");
-        const defaultWa = String(getWhatsAppNumber() || "").replace(/\D/g, "");
+        const productWa = normalizeWhatsAppNumber(product.whatsapp || product.whatsappNumber || "");
+        const defaultWa = normalizeWhatsAppNumber(getWhatsAppNumber());
         const destinations = [];
 
         // Always send the order flow to the site's default WhatsApp number.
@@ -6146,11 +6159,12 @@
 
       document.getElementById("saveWaBtn").addEventListener("click", () => {
         const val = waNumberInput.value.trim();
-        if (!val || val.replace(/\D/g, "").length < 10) {
-          showToast("Please enter a valid 10–12 digit WhatsApp number");
+        const normalizedVal = normalizeWhatsAppNumber(val);
+        if (!val || !/^91\d{10}$/.test(normalizedVal)) {
+          showToast("Please enter a valid Indian mobile number (10 digits; country code optional)");
           return;
         }
-        saveWhatsAppNumber(val, true);
+        saveWhatsAppNumber(normalizedVal, true);
         waNumberInput.value = getWhatsAppNumber();
         renderStore();
         showToast(getGitHubConfig().token ? "WhatsApp number saved & syncing live!" : "WhatsApp number updated!");
@@ -6246,7 +6260,7 @@
           inStock,
           codAvailable,
           return7Days,
-          whatsapp: prodWhatsAppInput.value.trim().replace(/\D/g, ""),
+          whatsapp: normalizeWhatsAppNumber(prodWhatsAppInput.value.trim()),
           images: finalImages
         };
 
