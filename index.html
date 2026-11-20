@@ -4806,21 +4806,16 @@
         const productWa = String(product.whatsapp || product.whatsappNumber || "").replace(/\D/g, "");
         const defaultWa = String(getWhatsAppNumber() || "").replace(/\D/g, "");
         const destinations = [];
-        if (productWa) destinations.push({ label: "Product WhatsApp", url: buildWhatsAppLink(product, productWa) });
-        if (defaultWa && defaultWa !== productWa) destinations.push({ label: "Default WhatsApp", url: buildWhatsAppLink(product, defaultWa) });
+
+        // Always send the order flow to the site's default WhatsApp number.
+        if (defaultWa) destinations.push(buildWhatsAppLink(product, defaultWa));
+        // If a product-specific number exists and differs, open that chat as well.
+        if (productWa && productWa !== defaultWa) destinations.push(buildWhatsAppLink(product, productWa));
         if (!destinations.length) return;
 
-        // Open one user-initiated tab, then let the user choose each WhatsApp chat.
-        // This avoids browsers blocking the second popup from the same click.
-        const chooser = window.open("about:blank", "_blank");
-        if (!chooser) {
-          alert("Your browser blocked the order tab. Please allow pop-ups for this website and try again.");
-          return;
-        }
-        const links = destinations.map(item => `<a class="chat-link" href="${item.url.replace(/&/g, "&amp;").replace(/\"/g, "&quot;")}" target="_blank" rel="noopener noreferrer">Open ${item.label}</a>`).join("");
-        chooser.document.open();
-        chooser.document.write(`<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Choose WhatsApp</title><style>body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#222;padding:24px;max-width:520px;margin:auto}h2{margin-top:0}.chat-link{display:block;text-decoration:none;background:#16883d;color:white;padding:15px 18px;border-radius:10px;margin:12px 0;font-weight:600;text-align:center}.note{color:#666;font-size:14px}</style></head><body><h2>Choose where to send this order</h2><p class="note">Tap each button to open the same order message in WhatsApp.</p>${links}</body></html>`);
-        chooser.document.close();
+        // One order button: open both destinations directly in the same click handler.
+        // Browsers may still restrict multiple tabs, but no extra chooser page is shown.
+        destinations.forEach(url => window.open(url, "_blank", "noopener,noreferrer"));
       }
 
       function buildFeatureBadgesHTML(product) {
