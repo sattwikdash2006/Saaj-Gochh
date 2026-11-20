@@ -5163,16 +5163,18 @@
       async function shareProduct(product) {
         const shareUrl = new URL(window.location.href);
         shareUrl.searchParams.set("product", product.id);
-        const shareText = `${product.title}\nPrice: ₹${Number(product.price).toLocaleString("en-IN")}\n${product.description || "Handcrafted Bengali artisanal item."}`;
-        const payload = { title: product.title, text: shareText, url: shareUrl.toString() };
+        shareUrl.hash = "";
+        const productLink = shareUrl.toString();
+        // Share ONLY the product URL. No title, price, description, or other text.
         try {
-          if (navigator.share) await navigator.share(payload);
-          else if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`); alert("Product details and link copied!"); }
-          else window.prompt("Copy product link:", shareUrl.toString());
+          if (navigator.share) await navigator.share({ url: productLink });
+          else if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(productLink); alert("Product link copied!"); }
+          else window.prompt("Copy product link:", productLink);
         } catch (err) {
-          if (err?.name !== "AbortError") { try { await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`); alert("Product link copied!"); } catch (_) {} }
+          if (err?.name !== "AbortError") { try { await navigator.clipboard.writeText(productLink); alert("Product link copied!"); } catch (_) {} }
         }
       }
+
 
       function openProductDetailModal(product) {
         activeModalProductId = product.id;
