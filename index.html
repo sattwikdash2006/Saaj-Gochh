@@ -2855,6 +2855,11 @@
               <label for="prodDesc">Product Description</label>
               <textarea id="prodDesc" placeholder="Describe fabric, size, dimensions, material, or care instructions..." required=""></textarea>
             </div>
+            <div class="form-group">
+              <label for="prodWhatsApp">Product-specific WhatsApp Number (Optional)</label>
+              <input type="tel" id="prodWhatsApp" inputmode="numeric" placeholder="Leave blank to use the default WhatsApp number">
+              <small style="display:block; color:var(--text-muted); margin-top:4px;">Add a different WhatsApp number for this item only. Otherwise, the site's default number will be used.</small>
+            </div>
 
             <!-- Advanced Stock & Service Availability Checkboxes -->
             <span class="checkbox-section-label">Availability &amp; Customer Options (Shown Directly on Store)</span>
@@ -3174,6 +3179,7 @@
           inStock: typeof raw.inStock === "boolean" ? raw.inStock : true,
           codAvailable: typeof raw.codAvailable === "boolean" ? raw.codAvailable : false,
           return7Days: typeof raw.return7Days === "boolean" ? raw.return7Days : false,
+          whatsapp: String(raw.whatsapp || raw.whatsappNumber || "").replace(/\D/g, ""),
           images: imgs
         };
       }
@@ -4774,7 +4780,8 @@
       // FRONTEND RENDERING
       // =========================================================
       function buildWhatsAppLink(product) {
-        const waNum = getWhatsAppNumber();
+        const productWa = String(product.whatsapp || product.whatsappNumber || "").replace(/\D/g, "");
+        const waNum = productWa || getWhatsAppNumber();
         const extras = [];
         if (product.codAvailable) extras.push("COD Available");
         if (product.return7Days) extras.push("7 Days Return");
@@ -5256,6 +5263,7 @@
       const catSelectWrap = document.getElementById("catSelectWrap");
       const reDetectCatBtn = document.getElementById("reDetectCatBtn");
       const prodDescInput = document.getElementById("prodDesc");
+      const prodWhatsAppInput = document.getElementById("prodWhatsApp");
 
       const chkInStock = document.getElementById("chkInStock");
       const chkSoldOut = document.getElementById("chkSoldOut");
@@ -5433,6 +5441,7 @@
         prodTitleInput.value = product.title || "";
         prodPriceInput.value = product.price || "";
         prodDescInput.value = product.description || "";
+        prodWhatsAppInput.value = product.whatsapp || "";
         prodImageUrlInput.value = "";
 
         const isInStock = product.inStock !== false;
@@ -6206,6 +6215,7 @@
           inStock,
           codAvailable,
           return7Days,
+          whatsapp: prodWhatsAppInput.value.trim().replace(/\D/g, ""),
           images: finalImages
         };
 
