@@ -984,6 +984,8 @@
       box-shadow: 0 4px 12px rgba(30, 142, 62, 0.22);
     }
 
+    .share-product-btn { width:100%; background:#fff; color:var(--maroon); border:1px solid var(--gold); border-radius:10px; padding:9px 12px; font-family:inherit; font-size:.86rem; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:7px; margin-top:7px; }
+    .share-product-btn:hover { background:var(--sand); }
     .wa-btn:hover {
       background: var(--whatsapp-hover);
       transform: translateY(-1px);
@@ -2692,6 +2694,7 @@
       <a class="wa-btn" id="detailWaBtn" href="#" target="_blank" rel="noopener noreferrer">
         Order This Item on WhatsApp
       </a>
+      <button type="button" class="share-product-btn" id="detailShareBtn">↗ Share Product</button>
     </div>
   </div>
 
@@ -4944,6 +4947,7 @@
                   ` : `
                     <button type="button" class="wa-btn sold-out-btn" disabled>Currently Sold Out</button>
                   `}
+                  <button type="button" class="share-product-btn" data-share-product-id="${escapeHTML(product.id)}">↗ Share Product</button>
                 </div>
               </article>
             `;
@@ -4955,6 +4959,14 @@
               const id = el.getAttribute("data-order-product-id");
               const product = getProducts().find(item => item.id === id);
               if (product) openProductOrderWhatsApps(product);
+            });
+          });
+
+          productGrid.querySelectorAll("[data-share-product-id]").forEach(el => {
+            el.addEventListener("click", async event => {
+              event.stopPropagation();
+              const product = getProducts().find(item => item.id === el.getAttribute("data-share-product-id"));
+              if (product) await shareProduct(product);
             });
           });
 
@@ -5148,6 +5160,20 @@
         });
       }
 
+      async function shareProduct(product) {
+        const shareUrl = new URL(window.location.href);
+        shareUrl.searchParams.set("product", product.id);
+        const shareText = `${product.title}\nPrice: ₹${Number(product.price).toLocaleString("en-IN")}\n${product.description || "Handcrafted Bengali artisanal item."}`;
+        const payload = { title: product.title, text: shareText, url: shareUrl.toString() };
+        try {
+          if (navigator.share) await navigator.share(payload);
+          else if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`); alert("Product details and link copied!"); }
+          else window.prompt("Copy product link:", shareUrl.toString());
+        } catch (err) {
+          if (err?.name !== "AbortError") { try { await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`); alert("Product link copied!"); } catch (_) {} }
+        }
+      }
+
       function openProductDetailModal(product) {
         activeModalProductId = product.id;
         currentGalleryImages = getProductImages(product);
@@ -5216,6 +5242,10 @@
       }, { passive: true });
 
       document.getElementById("closeLightbox").addEventListener("click", closeProductDetailModal);
+      document.getElementById("detailShareBtn").addEventListener("click", () => {
+        const product = getProducts().find(item => item.id === activeModalProductId);
+        if (product) shareProduct(product);
+      });
       lightboxModal.addEventListener("click", (e) => {
         if (e.target === lightboxModal) closeProductDetailModal();
       });
@@ -6546,6 +6576,11 @@
       // Initial Boot
       initCatalogState();
       renderStore();
+      const sharedProductId = new URLSearchParams(window.location.search).get("product");
+      if (sharedProductId) {
+        const sharedProduct = getProducts().find(item => item.id === sharedProductId);
+        if (sharedProduct) openProductDetailModal(sharedProduct);
+      }
       fetchRemoteCatalog();
       checkIncomingMeeshoHash();
       window.addEventListener("hashchange", checkIncomingMeeshoHash);
