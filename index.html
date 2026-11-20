@@ -1097,6 +1097,10 @@
       display: flex;
     }
 
+    #ownerPinModal {
+      z-index: 1200;
+    }
+
     .modal-card {
       background: var(--cream);
       border: 2px solid var(--gold);
@@ -2775,25 +2779,6 @@
     </div>
   </div>
 
-  <!-- Owner PIN Modal (Protects Default WhatsApp Number) -->
-  <div class="modal-backdrop" id="ownerPinModal" role="dialog" aria-modal="true">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3>Owner PIN Verification</h3>
-        <button class="close-btn" id="closeOwnerPinModal" aria-label="Close">×</button>
-      </div>
-      <form id="ownerPinForm">
-        <div class="form-group">
-          <label for="ownerPinInput">Enter Owner PIN</label>
-          <input type="password" id="ownerPinInput" inputmode="numeric" placeholder="Enter separate Owner PIN" autocomplete="off" required="">
-          <small style="display:block; color:var(--text-muted); margin-top:5px;">Only the store owner can unlock and change the permanent default WhatsApp number.</small>
-          <div class="error-msg" id="ownerPinError" style="display: none;">Incorrect Owner PIN. Please try again.</div>
-        </div>
-        <button type="submit" class="btn-primary">Verify &amp; Unlock Default Number</button>
-      </form>
-    </div>
-  </div>
-
   <!-- Hidden Admin Panel Modal -->
   <div class="modal-backdrop" id="adminModal" role="dialog" aria-modal="true">
     <div class="modal-card admin-wide">
@@ -3037,6 +3022,25 @@
           <div class="admin-list" id="adminProductList"></div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Owner PIN Modal (Protects Default WhatsApp Number) -->
+  <div class="modal-backdrop" id="ownerPinModal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Owner PIN Verification</h3>
+        <button class="close-btn" id="closeOwnerPinModal" aria-label="Close">×</button>
+      </div>
+      <form id="ownerPinForm">
+        <div class="form-group">
+          <label for="ownerPinInput">Enter Owner PIN</label>
+          <input type="password" id="ownerPinInput" inputmode="numeric" placeholder="Enter separate Owner PIN" autocomplete="off" required="">
+          <small style="display:block; color:var(--text-muted); margin-top:5px;">Only the store owner can unlock and change the permanent default WhatsApp number.</small>
+          <div class="error-msg" id="ownerPinError" style="display: none;">Incorrect Owner PIN. Please try again.</div>
+        </div>
+        <button type="submit" class="btn-primary">Verify &amp; Unlock Default Number</button>
+      </form>
     </div>
   </div>
 
