@@ -3930,14 +3930,14 @@
               <label for="prodDesc">Product Description</label>
               <textarea id="prodDesc" placeholder="Describe fabric, size, dimensions, material, or care instructions..." required=""></textarea>
 \n            <div class="sg-ai-builder" id="sgAiDescBuilder">
-              <div class="sg-ai-builder-head">✨ Smart Product Details Builder</div>
-              <p>তথ্যগুলো থেকে browser-এ সুন্দর section ও bullet তৈরি করবে। শুধু দেওয়া তথ্য ব্যবহার করে—অজানা বৈশিষ্ট্য বানাবে না।</p>
+              <div class="sg-ai-builder-head">✨ Smart Product Description Builder</div>
+              <p>Organizes the details you enter into clear sections and bullet points. It only uses the information provided and does not invent unknown product features.</p>
               <div class="sg-ai-builder-actions">
-                <button type="button" class="sg-ai-generate" id="sgAiGenerateBtn">✨ সাজিয়ে তৈরি করুন</button>
-                <button type="button" class="sg-ai-apply" id="sgAiApplyBtn" disabled>এই description ব্যবহার করুন</button>
+                <button type="button" class="sg-ai-generate" id="sgAiGenerateBtn">✨ Generate Description</button>
+                <button type="button" class="sg-ai-apply" id="sgAiApplyBtn" disabled>Apply Description</button>
               </div>
               <div class="sg-ai-preview" id="sgAiDescPreview" aria-live="polite"></div>
-              <p class="sg-ai-note">নোট: এটি বর্তমানে browser-এর local smart formatter; external AI/API নয়। প্রকাশের আগে তথ্য যাচাই করুন।</p>
+              <p class="sg-ai-note">Note: This is currently a local browser-based formatter, not connected to an external AI/API. Please verify details before publishing.</p>
             </div>\n            </div>
             <div class="form-group">
               <label for="prodWhatsApp">Product-specific WhatsApp Number (Optional)</label>
@@ -8746,7 +8746,7 @@
   };
   generateBtn.addEventListener('click', () => {
     const raw = input.value.trim();
-    if(!raw){ input.focus(); alert('আগে Product Description box-এ কিছু তথ্য লিখুন।'); return; }
+    if(!raw){ input.focus(); alert('Please enter some product details in the Product Description box first.'); return; }
     const lines = raw.split(/\n+/).map(clean).filter(Boolean);
     const sections = {};
     lines.forEach(line => {
