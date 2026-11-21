@@ -3387,6 +3387,17 @@
 @media (prefers-reduced-motion:reduce) {
   .product-card.sg-tilt-enabled, .product-img-wrap.sg-peel::before, .product-img-wrap.sg-peel::after { transition:none !important; }
 }
+\n/* AI Product Description Builder */
+.sg-ai-builder{margin-top:10px;border:1px solid rgba(181,140,62,.42);border-radius:14px;padding:12px;background:linear-gradient(135deg,rgba(247,241,226,.72),rgba(255,255,255,.9));}
+.sg-ai-builder-head{display:flex;align-items:center;gap:8px;font-weight:800;color:var(--maroon,#6b1f2a);margin-bottom:5px;}
+.sg-ai-builder p{font-size:.82rem;line-height:1.5;margin:4px 0 10px;color:var(--text-muted,#666);}
+.sg-ai-builder-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px;}
+.sg-ai-builder-actions button{border-radius:9px;padding:9px 12px;font-weight:700;cursor:pointer;}
+.sg-ai-generate{background:var(--maroon,#6b1f2a);color:white;border:0;}
+.sg-ai-apply{background:#fff;color:var(--maroon,#6b1f2a);border:1px solid rgba(181,140,62,.6);}
+.sg-ai-preview{display:none;white-space:pre-wrap;border-radius:10px;padding:11px;background:#fff;margin-top:10px;max-height:320px;overflow:auto;font-size:.86rem;line-height:1.55;}
+.sg-ai-note{font-size:.75rem!important;color:#946d2d!important;margin-top:8px!important;}
+@media(prefers-reduced-motion:reduce){.sg-ai-builder *{transition:none!important}}
 </style>
 </head>
 <body>
@@ -3918,7 +3929,16 @@
             <div class="form-group">
               <label for="prodDesc">Product Description</label>
               <textarea id="prodDesc" placeholder="Describe fabric, size, dimensions, material, or care instructions..." required=""></textarea>
-            </div>
+\n            <div class="sg-ai-builder" id="sgAiDescBuilder">
+              <div class="sg-ai-builder-head">✨ Smart Product Details Builder</div>
+              <p>তথ্যগুলো থেকে browser-এ সুন্দর section ও bullet তৈরি করবে। শুধু দেওয়া তথ্য ব্যবহার করে—অজানা বৈশিষ্ট্য বানাবে না।</p>
+              <div class="sg-ai-builder-actions">
+                <button type="button" class="sg-ai-generate" id="sgAiGenerateBtn">✨ সাজিয়ে তৈরি করুন</button>
+                <button type="button" class="sg-ai-apply" id="sgAiApplyBtn" disabled>এই description ব্যবহার করুন</button>
+              </div>
+              <div class="sg-ai-preview" id="sgAiDescPreview" aria-live="polite"></div>
+              <p class="sg-ai-note">নোট: এটি বর্তমানে browser-এর local smart formatter; external AI/API নয়। প্রকাশের আগে তথ্য যাচাই করুন।</p>
+            </div>\n            </div>
             <div class="form-group">
               <label for="prodWhatsApp">Product-specific WhatsApp Number (Optional)</label>
               <input type="tel" id="prodWhatsApp" inputmode="numeric" placeholder="Enter 10-digit number (country code optional)">
@@ -8702,4 +8722,50 @@
   updateParallax();
 })();
 </script>
+\n<script>
+/* Smart Product Details Builder: local formatting only; does not invent facts or call an AI service. */
+(() => {
+  const input = document.getElementById('prodDesc');
+  const titleInput = document.getElementById('prodTitle');
+  const preview = document.getElementById('sgAiDescPreview');
+  const generateBtn = document.getElementById('sgAiGenerateBtn');
+  const applyBtn = document.getElementById('sgAiApplyBtn');
+  if (!input || !preview || !generateBtn || !applyBtn) return;
+  let generated = '';
+  const clean = s => s.replace(/^\\s*[-*•]+\\s*/, '').trim();
+  const toTitle = s => s.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/\\b\\w/g, c => c.toUpperCase());
+  const classify = line => {
+    const l=line.toLowerCase();
+    if(/fabric|material|cotton|silk|rayon|linen|polyester|wool|metal|wood|clay/.test(l)) return 'Material & Fabric';
+    if(/size|chest|waist|length|dimension|weight|measure|fit/.test(l)) return 'Size & Measurements';
+    if(/care|wash|clean|maintenance|iron|dry/.test(l)) return 'Care Instructions';
+    if(/color|colour|shade|pattern|print|design|motif|style/.test(l)) return 'Design & Appearance';
+    if(/origin|made in|country|handmade|handcrafted|craft/.test(l)) return 'Craft & Origin';
+    if(/pack|combo|quantity|set of|piece|pcs/.test(l)) return 'Package Details';
+    return 'Product Details';
+  };
+  generateBtn.addEventListener('click', () => {
+    const raw = input.value.trim();
+    if(!raw){ input.focus(); alert('আগে Product Description box-এ কিছু তথ্য লিখুন।'); return; }
+    const lines = raw.split(/\n+/).map(clean).filter(Boolean);
+    const sections = {};
+    lines.forEach(line => {
+      const match=line.match(/^([^:]{2,45}):\\s*(.+)$/);
+      const label=match?toTitle(match[1]):classify(line);
+      const value=match?match[2]:line;
+      (sections[label]||(sections[label]=[])).push(value);
+    });
+    const title=(titleInput?.value||'Product').trim();
+    let out='PRODUCT OVERVIEW\\n'+title+'\\n\\n';
+    Object.entries(sections).forEach(([heading,values])=>{
+      out+=heading.toUpperCase()+'\\n';
+      values.forEach(v=>out+='• '+v+'\\n');
+      out+='\\n';
+    });
+    out+='INFORMATION NOTE\\nThe details above are based on the information provided by the seller. Please contact us if you need clarification on any specification.\\n';
+    generated=out.trim(); preview.textContent=generated; preview.style.display='block'; applyBtn.disabled=false;
+  });
+  applyBtn.addEventListener('click', () => { if(!generated)return; input.value=generated; input.dispatchEvent(new Event('input',{bubbles:true})); input.dispatchEvent(new Event('change',{bubbles:true})); input.focus(); });
+})();
+</script>\n
 </body></html>
