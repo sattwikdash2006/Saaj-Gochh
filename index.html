@@ -102619,9 +102619,28 @@ function normalizeWhatsAppNumber(raw) {
 	if (digits.length === 10) return `91${digits}`;
 	return digits;
 }
+var ASSET_KEYWORD_TO_DEFAULT_INDEX = [
+	["product_jamdani_saree", 0],
+	["product_dokra_craft", 1],
+	["product_smartphone_pro", 2],
+	["product_wireless_audio", 3],
+	["product_kitchen_espresso", 4],
+	["product_skincare_serum", 5]
+];
+function upgradeDevAssetImages(images, productId) {
+	return images.map((src) => {
+		if (!src || src.startsWith("data:") || /^https?:\/\//i.test(src)) return src;
+		if (src.includes("src/assets/images/")) {
+			const byId = productId ? DEFAULT_PRODUCTS.find((d) => d.id === productId)?.images[0] : void 0;
+			if (byId && byId.startsWith("data:")) return byId;
+			for (const [kw, idx] of ASSET_KEYWORD_TO_DEFAULT_INDEX) if (src.includes(kw) && DEFAULT_PRODUCTS[idx]?.images[0]?.startsWith("data:")) return DEFAULT_PRODUCTS[idx].images[0];
+		}
+		return src;
+	});
+}
 function normalizeProduct(raw, idx = 0) {
 	const { category, subcategory } = normalizeLegacyCategory(raw.category || "", raw.subcategory, raw.title || "");
-	const images = Array.isArray(raw.images) && raw.images.length > 0 ? raw.images : [];
+	const images = upgradeDevAssetImages(Array.isArray(raw.images) && raw.images.length > 0 ? raw.images : [], raw.id);
 	return {
 		id: raw.id || `prod-${Date.now()}-${idx}`,
 		title: String(raw.title || "Untitled Product").trim(),
@@ -103747,7 +103766,2690 @@ var AdminConsoleModal = ({ open, products, defaultWhatsApp, onClose, onSaveProdu
 					return;
 				}
 				const builtHtml = await res.text();
-				const dataScriptTag = `<script id="saaj-embedded-data" type="application/json">{"updatedAt":1795251256885,"whatsapp":"918670234616","products":[{"id":"sg-jamdani-01","title":"Handwoven Red-Border White Dhakai Jamdani Saree","price":2450,"category":"Fashion & Apparel","subcategory":"Women's Sarees & Ethnic Wear","description":"Authentic Bengal handloom Dhakai Jamdani saree crafted with fine unbleached cotton and crimson-gold geometric pallu motifs. Ideal for Pujo, weddings, and festive occasions. Length: 5.5m with unstitched blouse piece.","images":["/src/assets/images/product_jamdani_saree_1795250299552.jpg"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"sari, handloom textile","aiConfidence":94,"createdAt":1795200000000},{"id":"sg-dokra-02","title":"Bikna Dokra Brass Devi Idol & Glazed Terracotta Vase Set","price":1680,"category":"Jewellery & Artisanal Craft","subcategory":"Dokra & Brass Handicrafts","description":"Lost-wax cast Dokra brass figurine paired with a wheel-thrown glazed terracotta vessel by Bankura artisans. Museum-grade heritage accent for living rooms and study consoles.","images":["/src/assets/images/product_dokra_craft_1795250299445.jpg"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"brass sculpture, earthenware vase","aiConfidence":91,"createdAt":1795190000000},{"id":"sg-mobile-03","title":"Aura X5 Pro 5G Smartphone (8GB RAM, 256GB Obsidian Matte)","price":24999,"category":"Mobiles & Tablets","subcategory":"Smartphones (5G & 4G)","description":"6.7-inch 120Hz AMOLED display, 50MP OIS triple camera, 5000mAh battery with 67W fast charging, and sleek matte obsidian glass back. Sealed Indian retail unit with 1-year warranty.","images":["/src/assets/images/product_smartphone_pro_1795250299441.jpg"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"cellular telephone","aiConfidence":97,"createdAt":1795180000000},{"id":"sg-audio-04","title":"Aether Studio ANC Wireless Headphones — Brushed Bronze","price":4290,"category":"Electronics & Audio","subcategory":"Headphones & True Wireless Earbuds","description":"Hybrid Active Noise Cancellation up to 42dB, 40mm dynamic acoustic drivers, espresso memory-foam ear cushions, and 50-hour battery life over USB-C and Bluetooth 5.3.","images":["/src/assets/images/product_wireless_audio_1795250299522.jpg"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"headphones, audio headset","aiConfidence":95,"createdAt":1795170000000},{"id":"sg-kitchen-05","title":"Precision Matte Gooseneck Electric Tea & Pour-Over Kettle","price":2890,"category":"Kitchen & Dining","subcategory":"Tea Sets, Kettles & Coffee Makers","description":"Variable temperature PID gooseneck kettle (1000ml) with walnut handle and matching stoneware tea cup pair. Crafted for Darjeeling first flush and specialty pour-over brewing.","images":["/src/assets/images/product_kitchen_espresso_1795250299446.jpg"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"teapot, coffeepot","aiConfidence":92,"createdAt":1795160000000},{"id":"sg-beauty-06","title":"Marigold & Rosehip Botanical Radiance Facial Serum (30ml)","price":695,"category":"Beauty & Personal Care","subcategory":"Skincare, Serums & Moisturizers","description":"Cold-pressed rosehip oil infused with Bengal marigold extract, squalane, and vitamin C ester in UV-protected amber glass. Paraben-free, dermatologically tested daily glow serum.","images":["/src/assets/images/product_skincare_serum_1795250299699.jpg"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"lotion, oil bottle","aiConfidence":89,"createdAt":1795150000000},{"id":"sg-kurta-07","title":"Animal Motif Digital Printed Cotton Blend Kurta For Men","price":447,"category":"Fashion & Apparel","subcategory":"Men's Kurtas & Ethnic","description":"Breathable rayon-cotton blend men's kurta with artisanal folk motif digital print, Mandarin collar, and full sleeves. Available in M, L, XL, and XXL.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%234E1016%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%238C2D36%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M250%20120%20L225%20145%20L240%20245%20L360%20245%20L375%20145%20L350%20120%20L325%20135%20L275%20135%20Z%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%225%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3EMen's%20Printed%20Kurta%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23EBD8AE%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"manual","createdAt":1795140000000},{"id":"sg-home-08","title":"Shantiniketan Kantha-Stitched Cotton Cushion Cover (Set of 5)","price":899,"category":"Home & Furniture","subcategory":"Bedsheets, Kantha Quilts & Curtains","description":"Hand-embroidered Kantha stitch cushion covers (16x16 in) crafted by rural women artisans of Birbhum. Concealed brass zipper, pure breathable cotton canvas.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23B84A2F%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%236D1A22%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23F3EAD8%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23F3EAD8%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%22245%22%20y%3D%22130%22%20width%3D%22110%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%224%22%2F%3E%3Cpath%20d%3D%22M260%20145%20L340%20225%20M340%20145%20L260%20225%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222.5%22%20stroke-dasharray%3D%226%204%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3EKantha%20Cushion%20Set%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23F3EAD8%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"cushion, pillow","aiConfidence":87,"createdAt":1795130000000},{"id":"sg-grocery-09","title":"Darjeeling First Flush Loose Leaf Tea & Sundarban Honey Duo","price":740,"category":"Grocery & Gourmet Food","subcategory":"Darjeeling Tea, Coffee & Beverages","description":"Single-estate Makaibari spring-harvest Darjeeling tea (150g tin) paired with raw wildflower Sundarban forest honey (350g glass jar).","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%232F5233%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%233D6B4F%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M250%20165%20C250%20135%20350%20135%20350%20165%20L340%20225%20C335%20240%20265%20240%20260%20225%20Z%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%224%22%2F%3E%3Cpath%20d%3D%22M350%20175%20C375%20175%20375%20205%20345%20205%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%224%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3EDarjeeling%20Tea%20%26%20Honey%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23EBD8AE%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":false,"classificationSource":"ai","aiDetectedLabel":"tea, honey jar","aiConfidence":85,"createdAt":1795120000000},{"id":"sg-festive-10","title":"Brass Panchapradip Diya & Pujo Dhunuchi Gift Box","price":1150,"category":"Festive, Puja & Gifts","subcategory":"Diyas, Dhunuchi & Oil Lamps","description":"Solid Moradabadi & Bengal brass five-wick Panchapradip oil lamp paired with traditional wooden-handle dhunuchi in a velvet-lined festive gift box.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%238F5B14%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23C89B3C%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M300%20120%20C312%20142%20316%20155%20300%20170%20C284%20155%20288%20142%20300%20120%20Z%22%20fill%3D%22%23FFFDF8%22%2F%3E%3Cpath%20d%3D%22M240%20190%20Q300%20245%20360%20190%20Z%22%20fill%3D%22none%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%224%22%2F%3E%3Cline%20x1%3D%22270%22%20y1%3D%22225%22%20x2%3D%22330%22%20y2%3D%22225%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%224%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3EBrass%20Diya%20%26%20Dhunuchi%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"oil lamp, brass","aiConfidence":90,"createdAt":1795110000000},{"id":"sg-books-11","title":"Gitabitan Complete Collector's Hardbound Edition + Brass Bookmark","price":580,"category":"Books, Music & Stationery","subcategory":"Fiction, Poetry & Bengali Classics","description":"Archival acid-free paper collector's edition of Rabindranath Tagore's Gitabitan with gold-foil spine lettering and handcrafted brass alpona bookmark.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23482B59%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%236D1A22%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%22255%22%20y%3D%22125%22%20width%3D%2290%22%20height%3D%22120%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%224%22%2F%3E%3Cline%20x1%3D%22272%22%20y1%3D%22125%22%20x2%3D%22272%22%20y2%3D%22245%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222.5%22%2F%3E%3Cline%20x1%3D%22286%22%20y1%3D%22160%22%20x2%3D%22328%22%20y2%3D%22160%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%223%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3EGitabitan%20Collector's%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23EBD8AE%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"manual","createdAt":1795100000000},{"id":"sg-sports-12","title":"Eco Cork & Natural Rubber Alignment Yoga Mat (6mm)","price":1390,"category":"Sports, Fitness & Outdoors","subcategory":"Yoga Mats & Meditation Cushions","description":"Antimicrobial Portuguese cork top layer bonded to high-grip natural tree rubber base with laser-etched alignment lines and cotton carry strap.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23155E34%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23257A4B%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%22235%22%20y%3D%22155%22%20width%3D%22130%22%20height%3D%2255%22%20rx%3D%2222%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%224%22%2F%3E%3Ccircle%20cx%3D%22262%22%20cy%3D%22182%22%20r%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%223%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3ECork%20Yoga%20Mat%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23EBD8AE%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"yoga mat","aiConfidence":84,"createdAt":1795090000000},{"id":"sg-toys-13","title":"Natungram Hand-Painted Wooden Owl & Folk Toy Pair","price":495,"category":"Toys, Baby Care & Kids","subcategory":"Soft Toys, Plush & Traditional Dolls","description":"Non-toxic natural vegetable-dyed gamhar wood owl figurines carved by Natungram sutradhar artisans. Safe, smooth finish for kids' rooms and collectors.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%239A4416%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23C89B3C%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22300%22%20cy%3D%22185%22%20rx%3D%2244%22%20ry%3D%2256%22%20fill%3D%22none%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%224%22%2F%3E%3Ccircle%20cx%3D%22284%22%20cy%3D%22168%22%20r%3D%2210%22%20fill%3D%22none%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%223%22%2F%3E%3Ccircle%20cx%3D%22316%22%20cy%3D%22168%22%20r%3D%2210%22%20fill%3D%22none%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%223%22%2F%3E%3Cpolygon%20points%3D%22295%2C180%20305%2C180%20300%2C192%22%20fill%3D%22%23FFFDF8%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3ENatungram%20Wooden%20Owl%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":false,"codAvailable":false,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"wooden toy, doll","aiConfidence":82,"createdAt":1795080000000},{"id":"sg-appliances-14","title":"NutriBlend 750W Copper-Motor Mixer Grinder (3 Stainless Jars)","price":3499,"category":"TVs & Home Appliances","subcategory":"Microwaves, Mixers & Juicers","description":"Heavy-duty 750W 100% copper motor with 3 food-grade 304 stainless steel jars for wet masala, dry spice grinding, and smoothies. Overload protector included.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23334155%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231E293B%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%22265%22%20y%3D%22130%22%20width%3D%2270%22%20height%3D%2265%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%224%22%2F%3E%3Cpath%20d%3D%22M258%20195%20L342%20195%20L350%20240%20L250%20240%20Z%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%224%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3E750W%20Mixer%20Grinder%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23EBD8AE%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"manual","createdAt":1795070000000},{"id":"sg-health-15","title":"Dr. Care Digital Upper-Arm Blood Pressure Monitor with Memory","price":1590,"category":"Health & Wellness","subcategory":"BP Monitors, Thermometers & Oximeters","description":"Clinically validated oscillometric BP monitor with dual-user 120-reading memory, irregular heartbeat detector, large backlit LCD, and USB-C power option.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230F766E%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23115E59%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%22245%22%20y%3D%22135%22%20width%3D%22110%22%20height%3D%2295%22%20rx%3D%2212%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%224%22%2F%3E%3Cpolyline%20points%3D%22262%2C185%20280%2C185%20290%2C158%20302%2C205%20314%2C175%20338%2C175%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%223.5%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3EDigital%20BP%20Monitor%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23EBD8AE%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"medical monitor, scale","aiConfidence":88,"createdAt":1795060000000},{"id":"sg-auto-16","title":"Apex Dual-Channel Full HD Dashcam & Tire Inflator Combo","price":3990,"category":"Automotive & Tools","subcategory":"Car Electronics, Mats & Care","description":"170-degree wide-angle 1080p car dashcam with night vision paired with a compact 12V digital auto-cutout tire inflator.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%231E293B%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%230F172A%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23C89B3C%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23C89B3C%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%22245%22%20y%3D%22145%22%20width%3D%22110%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22none%22%20stroke%3D%22%23C89B3C%22%20stroke-width%3D%224%22%2F%3E%3Ccircle%20cx%3D%22300%22%20cy%3D%22181%22%20r%3D%2220%22%20fill%3D%22none%22%20stroke%3D%22%23C89B3C%22%20stroke-width%3D%223.5%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3EDashcam%20%26%20Inflator%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23C89B3C%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"car mirror, camera","aiConfidence":81,"createdAt":1795050000000}]}</script>
+				const dataScriptTag = `<script id="saaj-embedded-data" type="application/json">${safeJson}<\/script>`;
+				const bodyStart = builtHtml.lastIndexOf("<body");
+				const headPart = bodyStart >= 0 ? builtHtml.slice(0, bodyStart) : "";
+				const bodyPart = bodyStart >= 0 ? builtHtml.slice(bodyStart) : builtHtml;
+				const scriptPattern = /* @__PURE__ */ new RegExp("<script\\s+id=[\"']saaj-embedded-data[\"'][^>]*>[\\s\\S]*?<\\/script>", "i");
+				finalHtml = headPart + (scriptPattern.test(bodyPart) ? bodyPart.replace(scriptPattern, () => dataScriptTag) : bodyPart.replace("</body>", () => `${dataScriptTag}\n</body>`));
+			} else {
+				const clone = document.documentElement.cloneNode(true);
+				const rootEl = clone.querySelector("#root");
+				if (rootEl) rootEl.innerHTML = "";
+				let dataEl = clone.querySelector("#saaj-embedded-data");
+				if (!dataEl) {
+					dataEl = document.createElement("script");
+					dataEl.setAttribute("id", "saaj-embedded-data");
+					dataEl.setAttribute("type", "application/json");
+					(clone.querySelector("body") || clone).appendChild(dataEl);
+				}
+				dataEl.textContent = safeJson;
+				finalHtml = `<!doctype html>\n${clone.outerHTML}`;
+			}
+			const blob = new Blob([finalHtml], { type: "text/html;charset=utf-8" });
+			const url = URL.createObjectURL(blob);
+			const a = document.createElement("a");
+			a.href = url;
+			a.download = "index.html";
+			document.body.appendChild(a);
+			a.click();
+			a.remove();
+			setTimeout(() => URL.revokeObjectURL(url), 1500);
+			onShowToast("Downloaded single index.html with all code, AI engine, photos & latest products!");
+		} catch {
+			onShowToast("Failed to build single-file HTML export.");
+		} finally {
+			setIsExportingHtml(false);
+		}
+	};
+	if (!open) return null;
+	if (!isUnlocked) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "fixed inset-0 z-50 bg-[#1E0C0A]/75 backdrop-blur-xs flex items-center justify-center p-4",
+		onClick: onClose,
+		role: "dialog",
+		"aria-modal": "true",
+		"aria-label": "Admin Console Access",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			onClick: (e) => e.stopPropagation(),
+			className: "bg-[#FBF7F0] border-2 border-[#C89B3C] rounded-2xl w-full max-w-md p-6 shadow-2xl",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center justify-between pb-3 mb-4 border-b border-[#E6D9C3]",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+					className: "font-display text-xl font-bold text-[#6D1A22]",
+					children: "Authorized Access"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					type: "button",
+					onClick: onClose,
+					"aria-label": "Close",
+					className: "w-8 h-8 rounded-full bg-[#F3EAD8] border border-[#E6D9C3] text-[#6D1A22] grid place-items-center cursor-pointer",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "w-4 h-4" })
+				})]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+				onSubmit: handlePinUnlock,
+				className: "space-y-4",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
+						htmlFor: "adminPinInput",
+						className: "block text-xs font-bold text-[#6D1A22] mb-1.5",
+						children: "Enter Access Password"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+						id: "adminPinInput",
+						type: "password",
+						inputMode: "numeric",
+						autoComplete: "off",
+						autoFocus: true,
+						value: pinInput,
+						onChange: (e) => setPinInput(e.target.value),
+						placeholder: "Enter password",
+						required: true,
+						className: "w-full px-3.5 py-2.5 rounded-lg bg-white border border-[#E6D9C3] text-sm focus:outline-none focus:border-[#B84A2F]"
+					}),
+					pinError && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-xs font-semibold text-[#C62828] mt-1.5",
+						children: "Incorrect password. Please try again."
+					})
+				] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					type: "submit",
+					className: "w-full py-2.5 rounded-lg bg-[#6D1A22] hover:bg-[#4E1016] text-white text-sm font-semibold transition-colors cursor-pointer",
+					children: "Unlock Admin Console"
+				})]
+			})]
+		})
+	});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "fixed inset-0 z-50 bg-[#1E0C0A]/75 backdrop-blur-xs flex items-center justify-center p-3 md:p-5",
+		onClick: onClose,
+		role: "dialog",
+		"aria-modal": "true",
+		"aria-label": "Saaj Gochh Admin Console",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			onClick: (e) => e.stopPropagation(),
+			className: "bg-[#FBF7F0] border-2 border-[#C89B3C] rounded-2xl w-full max-w-6xl max-h-[93vh] flex flex-col shadow-2xl overflow-hidden",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "px-5 py-3.5 bg-[#FFFBF3] border-b border-[#E6D9C3] flex flex-wrap items-center justify-between gap-3",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+					className: "font-display text-xl font-bold text-[#6D1A22]",
+					children: "Saaj Gochh Admin Console"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-xs text-[#6E564B]",
+					children: "15 Flipkart Categories · 87 Subcategories · Browser AI Vision & Real-Time Analytics"
+				})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex items-center gap-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "inline-flex p-1 rounded-lg bg-[#F3EAD8] border border-[#E6D9C3]",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+								type: "button",
+								onClick: () => setActiveTab("inventory"),
+								className: `inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${activeTab === "inventory" ? "bg-white text-[#6D1A22] shadow-xs" : "text-[#6E564B] hover:text-[#2C1810]"}`,
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(PackagePlus, { className: "w-3.5 h-3.5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Inventory & AI Uploader" })]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+								type: "button",
+								onClick: () => setActiveTab("analytics"),
+								className: `inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${activeTab === "analytics" ? "bg-white text-[#6D1A22] shadow-xs" : "text-[#6E564B] hover:text-[#2C1810]"}`,
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartColumn, { className: "w-3.5 h-3.5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Category Analytics" })]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+								type: "button",
+								onClick: () => setActiveTab("settings"),
+								className: `inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${activeTab === "settings" ? "bg-white text-[#6D1A22] shadow-xs" : "text-[#6E564B] hover:text-[#2C1810]"}`,
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Settings, { className: "w-3.5 h-3.5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Sync & Settings" })]
+							})
+						]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						onClick: onClose,
+						"aria-label": "Close Admin Console",
+						className: "w-8 h-8 rounded-full bg-[#F3EAD8] border border-[#E6D9C3] text-[#6D1A22] hover:bg-[#6D1A22] hover:text-white grid place-items-center cursor-pointer",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "w-4 h-4" })
+					})]
+				})]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex-1 overflow-y-auto p-4 md:p-6",
+				children: [
+					activeTab === "analytics" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CategoryAnalyticsDashboard, {
+						products,
+						onEditProduct: handleStartEdit,
+						onJumpToStoreCategory: (main, sub) => {
+							onJumpToStoreCategory(main, sub);
+							onClose();
+						}
+					}),
+					activeTab === "settings" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "grid grid-cols-1 md:grid-cols-2 gap-4",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "bg-white border border-[#E6D9C3] rounded-xl p-5 space-y-3",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex items-center justify-between",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+										className: "font-display text-base font-bold text-[#6D1A22]",
+										children: "Default WhatsApp Number"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "text-xs font-semibold text-[#6E564B] flex items-center gap-1",
+										children: ownerUnlocked ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(LockOpen, { className: "w-3.5 h-3.5 text-[#137333]" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: "text-[#137333]",
+											children: "Unlocked"
+										})] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Lock, { className: "w-3.5 h-3.5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Locked · Owner PIN" })] })
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+									type: "tel",
+									value: waDraft,
+									onChange: (e) => setWaDraft(e.target.value),
+									disabled: !ownerUnlocked,
+									className: "w-full px-3 py-2 rounded-lg border border-[#E6D9C3] bg-[#FBF7F0] disabled:opacity-70 font-mono text-sm"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "flex flex-wrap gap-2",
+									children: !ownerUnlocked ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+										type: "button",
+										onClick: () => setOwnerPinPromptOpen(true),
+										className: "px-3.5 py-2 rounded-lg bg-[#F3EAD8] border border-[#C89B3C] text-[#6D1A22] text-xs font-semibold cursor-pointer",
+										children: "Unlock with Owner PIN"
+									}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+										type: "button",
+										onClick: () => {
+											const clean = normalizeWhatsAppNumber(waDraft);
+											if (!/^\d{10,15}$/.test(clean)) {
+												onShowToast("Enter a valid 10-15 digit mobile number.");
+												return;
+											}
+											onUpdateDefaultWhatsApp(clean);
+											setOwnerUnlocked(false);
+											onShowToast("Default WhatsApp updated & locked!");
+										},
+										className: "px-3.5 py-2 rounded-lg bg-[#6D1A22] text-white text-xs font-semibold cursor-pointer",
+										children: "Save & Lock"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+										type: "button",
+										onClick: () => setOwnerUnlocked(false),
+										className: "px-3.5 py-2 rounded-lg bg-white border border-[#E6D9C3] text-xs font-semibold cursor-pointer",
+										children: "Cancel"
+									})] })
+								}),
+								ownerPinPromptOpen && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+									onSubmit: handleOwnerPinVerify,
+									className: "pt-3 border-t border-[#E6D9C3] space-y-2",
+									children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
+											className: "block text-xs font-semibold text-[#6D1A22]",
+											children: "Enter Owner PIN"
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "flex gap-2",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+												type: "password",
+												inputMode: "numeric",
+												value: ownerPinInput,
+												onChange: (e) => setOwnerPinInput(e.target.value),
+												placeholder: "Enter Owner PIN",
+												className: "flex-1 px-3 py-1.5 rounded-lg border border-[#E6D9C3] text-xs"
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+												type: "submit",
+												className: "px-3 py-1.5 rounded-lg bg-[#6D1A22] text-white text-xs font-semibold cursor-pointer",
+												children: "Verify"
+											})]
+										}),
+										ownerPinErr && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+											className: "text-xs text-[#C62828]",
+											children: "Incorrect Owner PIN."
+										})
+									]
+								})
+							]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "bg-white border border-[#E6D9C3] rounded-xl p-5 space-y-3",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex items-center justify-between",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+										className: "font-display text-base font-bold text-[#6D1A22]",
+										children: "Catalog Backup & GitHub Config"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+										className: "font-mono text-xs text-[#6E564B] tabular-nums",
+										children: [
+											"Storage: ",
+											estimateStorageUsagePct(),
+											"%"
+										]
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "grid grid-cols-1 sm:grid-cols-2 gap-2.5",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
+										className: "block text-xs font-semibold text-[#6E564B] mb-1",
+										children: "GitHub Repo"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+										type: "text",
+										value: ghRepo,
+										onChange: (e) => setGhRepo(e.target.value),
+										placeholder: "username/repo",
+										className: "w-full px-3 py-2 rounded-lg border border-[#E6D9C3] text-xs"
+									})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
+										className: "block text-xs font-semibold text-[#6E564B] mb-1",
+										children: "Personal Access Token"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+										type: "password",
+										value: ghToken,
+										onChange: (e) => setGhToken(e.target.value),
+										placeholder: "github_pat_...",
+										className: "w-full px-3 py-2 rounded-lg border border-[#E6D9C3] text-xs"
+									})] })]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex flex-wrap gap-2 pt-1",
+									children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+											type: "button",
+											onClick: handleDownloadSingleHtml,
+											disabled: isExportingHtml,
+											className: "inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#6D1A22] hover:bg-[#4E1016] disabled:opacity-60 text-white text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap shrink-0",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FileCode2, { className: "w-3.5 h-3.5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: isExportingHtml ? "Packaging index.html..." : "Download Single index.html (GitHub Ready)" })]
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+											type: "button",
+											onClick: () => {
+												saveGitHubConfig(ghRepo, ghToken);
+												onShowToast("GitHub sync credentials saved locally.");
+											},
+											className: "px-3.5 py-2 rounded-lg bg-[#F3EAD8] border border-[#C89B3C] text-[#6D1A22] text-xs font-semibold cursor-pointer whitespace-nowrap shrink-0",
+											children: "Save Sync Config"
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+											type: "button",
+											onClick: handleExportCatalogJson,
+											className: "inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white border border-[#E6D9C3] text-[#6D1A22] hover:bg-[#FFFBF3] text-xs font-semibold cursor-pointer whitespace-nowrap shrink-0",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Download, { className: "w-3.5 h-3.5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Export Catalog JSON" })]
+										})
+									]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+									className: "text-[11px] text-[#6E564B] leading-relaxed",
+									children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "GitHub Pages Single-File Mode:" }),
+										" Downloads one standalone",
+										" ",
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("code", {
+											className: "font-mono font-semibold text-[#6D1A22]",
+											children: "index.html"
+										}),
+										" ",
+										"file containing the entire storefront, browser AI classifier, product images, and your latest",
+										" ",
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: "tabular-nums font-semibold",
+											children: products.length
+										}),
+										" products baked in. Upload that single file directly to your GitHub repo."
+									]
+								})
+							]
+						})]
+					}),
+					activeTab === "inventory" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "grid grid-cols-1 lg:grid-cols-12 gap-5 items-start",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "lg:col-span-7 bg-white border border-[#E6D9C3] rounded-xl p-4 md:p-5 space-y-4",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "bg-[#FFFBF3] border border-[#E6D9C3] rounded-xl p-3.5 space-y-2.5",
+									children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "flex items-center justify-between gap-2",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												className: "text-xs font-bold text-[#6D1A22]",
+												children: "Meesho Quick Importer (Client-Side)"
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												className: "text-[11px] text-[#6E564B]",
+												children: "Auto-fills & triggers AI category tracking"
+											})]
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "flex gap-2",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("textarea", {
+												rows: 2,
+												value: meeshoInput,
+												onChange: (e) => setMeeshoInput(e.target.value),
+												placeholder: "Paste Meesho share text or product link...",
+												className: "flex-1 px-3 py-2 rounded-lg border border-[#E6D9C3] bg-white text-xs resize-none focus:outline-none focus:border-[#B84A2F]"
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+												type: "button",
+												onClick: handleMeeshoImport,
+												className: "px-3.5 py-2 rounded-lg bg-[#6D1A22] text-white text-xs font-semibold shrink-0 cursor-pointer",
+												children: "Import"
+											})]
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "flex items-center gap-2 text-xs text-[#6E564B]",
+											children: [
+												/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Margin:" }),
+												/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+													type: "number",
+													min: 0,
+													value: meeshoMarginVal,
+													onChange: (e) => setMeeshoMarginVal(e.target.value),
+													className: "w-20 px-2 py-1 rounded border border-[#E6D9C3] bg-white text-xs font-mono"
+												}),
+												/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("select", {
+													value: meeshoMarginType,
+													onChange: (e) => setMeeshoMarginType(e.target.value),
+													className: "px-2 py-1 rounded border border-[#E6D9C3] bg-white text-xs",
+													children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+														value: "flat",
+														children: "+₹ Flat"
+													}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+														value: "pct",
+														children: "+% Percent"
+													})]
+												})
+											]
+										})
+									]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex items-center justify-between border-b border-[#E6D9C3] pb-2",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+										className: "font-display text-lg font-bold text-[#6D1A22]",
+										children: editingId ? "Edit Product" : "Add New Product"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+										className: "text-[11px] font-mono text-[#6E564B]",
+										children: [
+											"Vision Model:",
+											" ",
+											aiStatus === "ready" ? "MobileNet v2 Ready" : aiStatus === "loading" ? "Loading TensorFlow.js..." : aiStatus === "error" ? "Heuristic Mode" : "Standby"
+										]
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+									onSubmit: handleSubmitProduct,
+									className: "space-y-4",
+									children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "space-y-2.5",
+											children: [
+												/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+													className: "flex flex-wrap items-center justify-between gap-2",
+													children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+														className: "text-xs font-bold text-[#6D1A22]",
+														children: [
+															"Product Photos (",
+															photos.length,
+															" / ",
+															10,
+															")"
+														]
+													}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+														className: "flex items-center gap-3 text-xs",
+														children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+															className: "flex items-center gap-1.5 text-[#2C1810] cursor-pointer",
+															children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+																type: "checkbox",
+																checked: autoEnhance,
+																onChange: (e) => setAutoEnhance(e.target.checked),
+																className: "accent-[#6D1A22]"
+															}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Auto-Enhance" })]
+														}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("select", {
+															value: cropMode,
+															onChange: (e) => setCropMode(e.target.value),
+															className: "px-2 py-1 rounded border border-[#E6D9C3] bg-white text-xs",
+															children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+																value: "smart-full",
+																children: "Smart Full Fit"
+															}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+																value: "square-fill",
+																children: "Square Fill Crop"
+															})]
+														})]
+													})]
+												}),
+												/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+													className: "block border-2 border-dashed border-[#C89B3C] bg-[#FFFDF9] hover:bg-[#FFF6E8] rounded-xl p-4 text-center cursor-pointer transition-colors",
+													children: [
+														/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+															ref: fileInputRef,
+															type: "file",
+															accept: "image/*",
+															multiple: true,
+															onChange: (e) => handleFileUpload(e.target.files),
+															className: "hidden"
+														}),
+														/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Upload, { className: "w-5 h-5 text-[#6D1A22] mx-auto mb-1" }),
+														/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+															className: "text-xs font-semibold text-[#6D1A22]",
+															children: "Upload Product Photos (Browser AI auto-tracks category)"
+														}),
+														/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+															className: "text-[11px] text-[#6E564B]",
+															children: "Auto-crops, enhances & runs MobileNet v2 vision inference locally"
+														})
+													]
+												}),
+												/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+													className: "flex gap-2",
+													children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+														type: "url",
+														value: imageUrlInput,
+														onChange: (e) => setImageUrlInput(e.target.value),
+														placeholder: "Or paste image URL (auto-analyzed by browser AI)...",
+														className: "flex-1 px-3 py-2 rounded-lg border border-[#E6D9C3] text-xs"
+													}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+														type: "button",
+														onClick: handleAddImageUrl,
+														className: "px-3 py-2 rounded-lg bg-[#F3EAD8] border border-[#C89B3C] text-[#6D1A22] text-xs font-semibold cursor-pointer",
+														children: "+ Add URL"
+													})]
+												}),
+												photos.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+													className: "grid grid-cols-5 sm:grid-cols-6 gap-2",
+													children: photos.map((src, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+														className: "relative aspect-square rounded-lg overflow-hidden border border-[#E6D9C3] bg-[#F3EAD8]",
+														children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+															src,
+															alt: `Upload ${idx + 1}`,
+															className: "w-full h-full object-cover"
+														}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+															type: "button",
+															onClick: () => setPhotos((prev) => prev.filter((_, i) => i !== idx)),
+															className: "absolute top-1 right-1 w-5 h-5 rounded-full bg-[#2C1810]/80 text-white grid place-items-center text-[10px] cursor-pointer",
+															children: "×"
+														})]
+													}, idx))
+												})
+											]
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "bg-[#FFFBF3] border border-[#C89B3C] rounded-xl p-3.5 space-y-3",
+											children: [
+												/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+													className: "flex flex-wrap items-center justify-between gap-2",
+													children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+														className: "flex items-center gap-2",
+														children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Cpu, { className: "w-4 h-4 text-[#6D1A22]" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+															className: "text-xs font-bold text-[#6D1A22]",
+															children: "Category Assignment"
+														})]
+													}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+														className: "flex items-center gap-2",
+														children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+															className: "inline-flex p-0.5 rounded-lg bg-[#F3EAD8] border border-[#E6D9C3]",
+															children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+																type: "button",
+																onClick: () => {
+																	setSelectionMode("auto");
+																	if (photos[0]) runAIVisionScan(photos[0], lastSourceHintRef.current, lastAspectRef.current, true);
+																},
+																className: `px-2.5 py-1 rounded-md text-[11px] font-semibold cursor-pointer ${selectionMode === "auto" ? "bg-[#6D1A22] text-white" : "text-[#6E564B]"}`,
+																children: "AI Auto-Select"
+															}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+																type: "button",
+																onClick: () => setSelectionMode("manual"),
+																className: `px-2.5 py-1 rounded-md text-[11px] font-semibold cursor-pointer ${selectionMode === "manual" ? "bg-[#B84A2F] text-white" : "text-[#6E564B]"}`,
+																children: "Manual Select"
+															})]
+														}), photos.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+															type: "button",
+															disabled: isScanningImage,
+															onClick: () => runAIVisionScan(photos[0], lastSourceHintRef.current, lastAspectRef.current, true),
+															className: "inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-white border border-[#C89B3C] text-[#6D1A22] text-[11px] font-semibold hover:bg-[#F3EAD8] cursor-pointer disabled:opacity-60",
+															children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(RefreshCw, { className: `w-3 h-3 ${isScanningImage ? "animate-spin" : ""}` }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: isScanningImage ? "Tracking..." : "Re-Scan Photo" })]
+														})]
+													})]
+												}),
+												(isScanningImage || aiResult) && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+													className: "bg-white border border-[#E6D9C3] rounded-lg px-3 py-2 text-xs space-y-1",
+													children: isScanningImage ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+														className: "flex items-center gap-2 text-[#B84A2F] font-semibold",
+														children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Sparkles, { className: "w-3.5 h-3.5 animate-pulse" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Tracking image features with TensorFlow.js MobileNet..." })]
+													}) : aiResult && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+														className: "flex flex-wrap items-center justify-between gap-2",
+														children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+															className: "font-semibold text-[#137333]",
+															children: [
+																"AI Matched: ",
+																aiResult.category,
+																" → ",
+																aiResult.subcategory
+															]
+														}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+															className: "font-mono text-[11px] font-semibold text-[#6D1A22] tabular-nums",
+															children: [aiResult.confidence, "% confidence"]
+														})]
+													}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+														className: "text-[11px] text-[#6E564B]",
+														children: [
+															"Visual cue: ",
+															aiResult.visualCue,
+															aiResult.topPredictions.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+																" ",
+																"· Tracked objects:",
+																" ",
+																/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+																	className: "font-mono",
+																	children: aiResult.topPredictions.map((p) => `${p.label} (${p.probability}%)`).join(", ")
+																})
+															] })
+														]
+													})] })
+												}),
+												/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+													className: "grid grid-cols-1 sm:grid-cols-2 gap-3",
+													children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
+														htmlFor: "adminMainCategory",
+														className: "block text-[11px] font-bold text-[#6D1A22] mb-1",
+														children: "Main Category (15 Flipkart Departments)"
+													}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("select", {
+														id: "adminMainCategory",
+														value: category,
+														onChange: (e) => {
+															const nextMain = e.target.value;
+															setCategory(nextMain);
+															const subs = getSubcategoriesForMain(nextMain);
+															setSubcategory(subs[0] || "");
+															setSelectionMode("manual");
+														},
+														className: "w-full px-3 py-2 rounded-lg border border-[#E6D9C3] bg-white text-xs font-medium text-[#2C1810]",
+														children: FLIPKART_CATEGORIES.map((c) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+															value: c.name,
+															children: c.name
+														}, c.id))
+													})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
+														htmlFor: "adminSubcategory",
+														className: "block text-[11px] font-bold text-[#6D1A22] mb-1",
+														children: "Subcategory"
+													}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("select", {
+														id: "adminSubcategory",
+														value: subcategory,
+														onChange: (e) => {
+															setSubcategory(e.target.value);
+															setSelectionMode("manual");
+														},
+														className: "w-full px-3 py-2 rounded-lg border border-[#E6D9C3] bg-white text-xs font-medium text-[#2C1810]",
+														children: availableSubcategories.map((subName) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+															value: subName,
+															children: subName
+														}, subName))
+													})] })]
+												})
+											]
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "grid grid-cols-1 sm:grid-cols-3 gap-3",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												className: "sm:col-span-2",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
+													className: "block text-xs font-bold text-[#6D1A22] mb-1",
+													children: "Product Title"
+												}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+													type: "text",
+													required: true,
+													value: title,
+													onChange: (e) => setTitle(e.target.value),
+													placeholder: "e.g., Handloom Dhakai Jamdani Saree",
+													className: "w-full px-3 py-2 rounded-lg border border-[#E6D9C3] text-sm"
+												})]
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
+												className: "block text-xs font-bold text-[#6D1A22] mb-1",
+												children: "Price (₹)"
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+												type: "number",
+												required: true,
+												min: 1,
+												value: price,
+												onChange: (e) => setPrice(e.target.value),
+												placeholder: "e.g., 1450",
+												className: "w-full px-3 py-2 rounded-lg border border-[#E6D9C3] text-sm font-mono"
+											})] })]
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
+											className: "block text-xs font-bold text-[#6D1A22] mb-1",
+											children: "Product Description"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("textarea", {
+											required: true,
+											rows: 3,
+											value: description,
+											onChange: (e) => setDescription(e.target.value),
+											placeholder: "Describe specs, material, dimensions, or care instructions...",
+											className: "w-full px-3 py-2 rounded-lg border border-[#E6D9C3] text-sm"
+										})] }),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "grid grid-cols-1 sm:grid-cols-2 gap-3 items-end",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
+												className: "block text-xs font-bold text-[#6D1A22] mb-1",
+												children: "Product-Specific WhatsApp (Optional)"
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+												type: "tel",
+												value: prodWhatsApp,
+												onChange: (e) => setProdWhatsApp(e.target.value),
+												placeholder: "10-digit number (optional)",
+												className: "w-full px-3 py-2 rounded-lg border border-[#E6D9C3] text-xs font-mono"
+											})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												className: "flex flex-wrap gap-3 text-xs font-semibold text-[#2C1810]",
+												children: [
+													/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+														className: "flex items-center gap-1.5 cursor-pointer",
+														children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+															type: "checkbox",
+															checked: inStock,
+															onChange: (e) => setInStock(e.target.checked),
+															className: "accent-[#6D1A22]"
+														}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "In Stock" })]
+													}),
+													/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+														className: "flex items-center gap-1.5 cursor-pointer",
+														children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+															type: "checkbox",
+															checked: codAvailable,
+															onChange: (e) => setCodAvailable(e.target.checked),
+															className: "accent-[#6D1A22]"
+														}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "COD" })]
+													}),
+													/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+														className: "flex items-center gap-1.5 cursor-pointer",
+														children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+															type: "checkbox",
+															checked: return7Days,
+															onChange: (e) => setReturn7Days(e.target.checked),
+															className: "accent-[#6D1A22]"
+														}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "7d Return" })]
+													})
+												]
+											})]
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "flex items-center gap-2 pt-1",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+												type: "submit",
+												disabled: isScanningImage,
+												className: "flex-1 py-2.5 px-4 rounded-lg bg-[#6D1A22] hover:bg-[#4E1016] text-white text-sm font-semibold transition-colors cursor-pointer disabled:opacity-60",
+												children: editingId ? "Save Changes" : "+ Publish Product"
+											}), editingId && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+												type: "button",
+												onClick: resetForm,
+												className: "py-2.5 px-4 rounded-lg bg-[#F3EAD8] border border-[#E6D9C3] text-[#6D1A22] text-sm font-semibold cursor-pointer",
+												children: "Cancel"
+											})]
+										})
+									]
+								})
+							]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "lg:col-span-5 bg-white border border-[#E6D9C3] rounded-xl p-4 space-y-3",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex items-center justify-between gap-2",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h4", {
+										className: "font-display text-base font-bold text-[#6D1A22] tabular-nums",
+										children: [
+											"Live Inventory (",
+											products.length,
+											")"
+										]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+										type: "button",
+										onClick: () => {
+											onRestoreDefaults();
+											resetForm();
+											onShowToast("Default Flipkart-scale catalog restored.");
+										},
+										className: "px-2.5 py-1 rounded-lg bg-[#F3EAD8] border border-[#E6D9C3] text-xs font-semibold text-[#6D1A22] hover:bg-[#EBD8AE] cursor-pointer",
+										children: "Restore Defaults"
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "relative",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Search, { className: "w-3.5 h-3.5 text-[#6E564B] absolute left-3 top-1/2 -translate-y-1/2" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+										type: "text",
+										value: adminSearch,
+										onChange: (e) => setAdminSearch(e.target.value),
+										placeholder: "Filter inventory by title or category...",
+										className: "w-full pl-8 pr-3 py-2 rounded-lg border border-[#E6D9C3] text-xs"
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "space-y-2 max-h-[600px] overflow-y-auto pr-1",
+									children: filteredAdminProducts.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: `p-2.5 rounded-xl border flex items-center gap-3 ${editingId === item.id ? "bg-[#FFF6E8] border-[#6D1A22]" : "bg-[#FFFDF9] border-[#E6D9C3]"}`,
+										children: [
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+												src: item.images[0] || FALLBACK_IMG,
+												alt: item.title,
+												referrerPolicy: "no-referrer",
+												onError: (e) => {
+													e.currentTarget.src = FALLBACK_IMG;
+												},
+												className: "w-12 h-12 rounded-lg object-cover border border-[#E6D9C3] shrink-0"
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												className: "flex-1 min-w-0",
+												children: [
+													/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+														className: "text-xs font-semibold text-[#2C1810] truncate",
+														children: item.title
+													}),
+													/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+														className: "text-[11px] text-[#6E564B] truncate",
+														children: [
+															item.category,
+															" · ",
+															item.subcategory
+														]
+													}),
+													/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+														className: "text-[11px] font-mono tabular-nums text-[#6D1A22] font-semibold mt-0.5",
+														children: [
+															"₹",
+															Number(item.price).toLocaleString("en-IN"),
+															" ·",
+															" ",
+															/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+																className: item.inStock !== false ? "text-[#137333]" : "text-[#C62828]",
+																children: item.inStock !== false ? "In Stock" : "Sold Out"
+															}),
+															item.classificationSource === "ai" && " · AI Tagged",
+															item.classificationSource === "manual" && " · Manual"
+														]
+													})
+												]
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												className: "flex flex-col gap-1 shrink-0",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+													type: "button",
+													onClick: () => handleStartEdit(item),
+													className: "px-2.5 py-1 rounded bg-[#F3EAD8] border border-[#C89B3C] text-[#6D1A22] text-[11px] font-semibold cursor-pointer",
+													children: "Edit"
+												}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+													type: "button",
+													onClick: () => {
+														onDeleteProduct(item.id);
+														if (editingId === item.id) resetForm();
+														onShowToast("Product deleted & analytics updated.");
+													},
+													className: "px-2.5 py-1 rounded bg-[#FDECEA] border border-[#F5C2C0] text-[#C62828] text-[11px] font-semibold cursor-pointer inline-flex items-center justify-center",
+													"aria-label": `Delete ${item.title}`,
+													children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash2, { className: "w-3 h-3" })
+												})]
+											})
+										]
+									}, item.id))
+								})
+							]
+						})]
+					})
+				]
+			})]
+		})
+	});
+};
+// src/components/CategoryStrip.tsx
+var CategoryStrip = ({ products, selectedMainCategories, selectedSubcategories, expandedStripCategory, onSelectMainCategory, onToggleSubcategory }) => {
+	const activeMain = expandedStripCategory || (selectedMainCategories.length === 1 ? selectedMainCategories[0] : null);
+	const activeDef = activeMain ? getMainCategoryDef(activeMain) : void 0;
+	const mainCounts = /* @__PURE__ */ new Map();
+	const subCounts = /* @__PURE__ */ new Map();
+	for (const p of products) {
+		mainCounts.set(p.category, (mainCounts.get(p.category) || 0) + 1);
+		subCounts.set(`${p.category}|||${p.subcategory}`, (subCounts.get(`${p.category}|||${p.subcategory}`) || 0) + 1);
+	}
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "bg-[#FFFDF9] border-b border-[#E6D9C3]",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "max-w-[1360px] mx-auto px-4 md:px-6 py-2.5",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center gap-2 overflow-x-auto no-scrollbar",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					onClick: () => onSelectMainCategory(null),
+					className: `inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold border transition-colors whitespace-nowrap shrink-0 cursor-pointer ${selectedMainCategories.length === 0 && selectedSubcategories.length === 0 && !activeMain ? "bg-[#6D1A22] text-white border-[#6D1A22]" : "bg-white text-[#2C1810] border-[#E6D9C3] hover:border-[#B84A2F] hover:text-[#6D1A22]"}`,
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Layers, { className: "w-3.5 h-3.5" }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "All Categories" }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "opacity-80 tabular-nums",
+							children: [
+								"(",
+								products.length,
+								")"
+							]
+						})
+					]
+				}), FLIPKART_CATEGORIES.map((cat) => {
+					const count = mainCounts.get(cat.name) || 0;
+					const isSelected = selectedMainCategories.includes(cat.name);
+					const isExpanded = activeMain === cat.name;
+					return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						onClick: () => onSelectMainCategory(cat.name),
+						className: `inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors whitespace-nowrap shrink-0 cursor-pointer ${isSelected || isExpanded ? "bg-[#6D1A22] text-white border-[#6D1A22]" : "bg-white text-[#2C1810] border-[#E6D9C3] hover:border-[#B84A2F] hover:text-[#6D1A22]"}`,
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: cat.shortLabel }),
+							count > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "opacity-75 tabular-nums",
+								children: [
+									"(",
+									count,
+									")"
+								]
+							}),
+							isExpanded ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, { className: "w-3.5 h-3.5 opacity-85" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronRight, { className: "w-3 h-3 opacity-60" })
+						]
+					}, cat.id);
+				})]
+			})
+		}), activeDef && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "bg-[#F3EAD8]/65 border-t border-[#E6D9C3]/80",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "max-w-[1360px] mx-auto px-4 md:px-6 py-2 flex items-center gap-2 overflow-x-auto no-scrollbar",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+					className: "text-xs font-bold text-[#6D1A22] whitespace-nowrap shrink-0 pr-2 border-r border-[#C89B3C]/50",
+					children: [activeDef.name, ":"]
+				}), activeDef.subcategories.map((sub) => {
+					const count = subCounts.get(`${activeDef.name}|||${sub.name}`) || 0;
+					const active = selectedSubcategories.includes(sub.name);
+					return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						onClick: () => onToggleSubcategory(activeDef.name, sub.name),
+						className: `px-3 py-1 rounded-md text-xs font-medium border transition-colors whitespace-nowrap shrink-0 cursor-pointer ${active ? "bg-[#B84A2F] text-white border-[#B84A2F]" : "bg-white/90 text-[#2C1810] border-[#E6D9C3] hover:border-[#6D1A22] hover:text-[#6D1A22]"}`,
+						children: [sub.name, count > 0 ? ` (${count})` : ""]
+					}, sub.id);
+				})]
+			})
+		})]
+	});
+};
+// src/components/CompareBar.tsx
+var CompareBar = ({ items, onRemove, onClear, onOpenModal }) => {
+	if (items.length === 0) return null;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		role: "region",
+		"aria-label": "Product Comparison Tray",
+		className: "fixed bottom-4 left-1/2 -translate-x-1/2 z-40 bg-[#4E1016] text-[#FFFDF8] border border-[#C89B3C] rounded-2xl px-4 py-2.5 shadow-2xl flex items-center gap-3 max-w-[calc(100vw-24px)]",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "flex items-center gap-2",
+			children: items.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "relative w-10 h-10 rounded-lg border border-[#C89B3C] bg-[#F3EAD8] shrink-0",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+					src: item.images[0] || FALLBACK_IMG,
+					alt: item.title,
+					referrerPolicy: "no-referrer",
+					className: "w-full h-full object-cover rounded-md"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					type: "button",
+					onClick: () => onRemove(item.id),
+					"aria-label": `Remove ${item.title} from comparison`,
+					className: "absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-[#6D1A22] border border-[#C89B3C] text-white grid place-items-center cursor-pointer",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "w-2.5 h-2.5" })
+				})]
+			}, item.id))
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "flex items-center gap-2.5 shrink-0",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+				type: "button",
+				onClick: onClear,
+				className: "text-xs font-semibold text-[#EBD8AE] underline cursor-pointer",
+				children: "Clear"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+				type: "button",
+				onClick: onOpenModal,
+				className: "px-3.5 py-2 rounded-lg bg-[#C89B3C] hover:bg-[#DFB65D] text-[#4E1016] text-xs font-bold whitespace-nowrap tabular-nums cursor-pointer",
+				children: [
+					"Compare (",
+					items.length,
+					")"
+				]
+			})]
+		})]
+	});
+};
+// src/components/CompareModal.tsx
+var CompareModal = ({ open, items, defaultWhatsApp, onClose, onRemove, onSelectProduct }) => {
+	if (!open || items.length === 0) return null;
+	const minPrice = Math.min(...items.map((p) => Number(p.price)));
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "fixed inset-0 z-50 bg-[#1E0C0A]/75 backdrop-blur-xs flex items-center justify-center p-4",
+		onClick: onClose,
+		role: "dialog",
+		"aria-modal": "true",
+		"aria-label": "Compare Products",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			onClick: (e) => e.stopPropagation(),
+			className: "bg-[#FBF7F0] border-2 border-[#C89B3C] rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-5 md:p-6 shadow-2xl",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center justify-between pb-3 mb-4 border-b border-[#E6D9C3]",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h3", {
+					className: "font-display text-xl font-bold text-[#6D1A22]",
+					children: [
+						"Compare Products (",
+						items.length,
+						")"
+					]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					type: "button",
+					onClick: onClose,
+					"aria-label": "Close comparison",
+					className: "w-8 h-8 rounded-full bg-[#F3EAD8] border border-[#E6D9C3] text-[#6D1A22] hover:bg-[#6D1A22] hover:text-white grid place-items-center cursor-pointer",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "w-4 h-4" })
+				})]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "overflow-x-auto border border-[#E6D9C3] rounded-xl bg-white",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("table", {
+					className: "w-full border-collapse min-w-[540px] text-sm",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("tr", {
+						className: "border-b border-[#E6D9C3]",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("th", {
+							className: "w-36 bg-[#FFFBF3] text-left p-3 text-xs font-bold uppercase tracking-wide text-[#6D1A22] border-r border-[#E6D9C3]",
+							children: "Product"
+						}), items.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("th", {
+							className: "p-4 text-center bg-[#FFFDF9] border-r last:border-r-0 border-[#E6D9C3] min-w-[180px]",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+									src: item.images[0] || FALLBACK_IMG,
+									alt: item.title,
+									referrerPolicy: "no-referrer",
+									onClick: () => {
+										onSelectProduct(item);
+										onClose();
+									},
+									className: "w-24 h-24 object-cover rounded-lg border border-[#E6D9C3] mx-auto mb-2 cursor-pointer"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									onClick: () => {
+										onSelectProduct(item);
+										onClose();
+									},
+									className: "font-display text-sm font-semibold text-[#2C1810] line-clamp-2 mb-2 cursor-pointer hover:text-[#6D1A22]",
+									children: item.title
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+									type: "button",
+									onClick: () => onRemove(item.id),
+									className: "text-xs font-semibold text-[#6D1A22] bg-[#F3EAD8] border border-[#E6D9C3] px-2.5 py-0.5 rounded-md cursor-pointer",
+									children: "Remove"
+								})
+							]
+						}, item.id))]
+					}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("tbody", {
+						className: "divide-y divide-[#E6D9C3] text-xs",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("tr", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("th", {
+								className: "bg-[#FFFBF3] text-left p-3 font-bold text-[#6D1A22] border-r border-[#E6D9C3]",
+								children: "Price"
+							}), items.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("td", {
+								className: "p-3 border-r last:border-r-0 border-[#E6D9C3]",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+									className: "text-base font-bold text-[#6D1A22] tabular-nums",
+									children: ["₹", Number(item.price).toLocaleString("en-IN")]
+								}), Number(item.price) === minPrice && items.length > 1 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "ml-2 text-[11px] font-bold text-[#137333]",
+									children: "Best Value"
+								})]
+							}, item.id))] }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("tr", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("th", {
+								className: "bg-[#FFFBF3] text-left p-3 font-bold text-[#6D1A22] border-r border-[#E6D9C3]",
+								children: "Category"
+							}), items.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("td", {
+								className: "p-3 border-r last:border-r-0 border-[#E6D9C3] text-[#2C1810]",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "font-semibold",
+									children: item.category
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "text-[#6E564B]",
+									children: item.subcategory
+								})]
+							}, item.id))] }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("tr", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("th", {
+								className: "bg-[#FFFBF3] text-left p-3 font-bold text-[#6D1A22] border-r border-[#E6D9C3]",
+								children: "Availability"
+							}), items.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("td", {
+								className: "p-3 border-r last:border-r-0 border-[#E6D9C3]",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: item.inStock !== false ? "text-[#137333] font-semibold" : "text-[#C62828] font-semibold",
+									children: item.inStock !== false ? "In Stock" : "Sold Out"
+								})
+							}, item.id))] }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("tr", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("th", {
+								className: "bg-[#FFFBF3] text-left p-3 font-bold text-[#6D1A22] border-r border-[#E6D9C3]",
+								children: "Delivery & Return"
+							}), items.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("td", {
+								className: "p-3 border-r last:border-r-0 border-[#E6D9C3] text-[#6E564B]",
+								children: [
+									item.codAvailable ? "COD Available" : "Prepaid",
+									" ·",
+									" ",
+									item.return7Days ? "7-Day Return" : "Final Sale"
+								]
+							}, item.id))] }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("tr", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("th", {
+								className: "bg-[#FFFBF3] text-left p-3 font-bold text-[#6D1A22] border-r border-[#E6D9C3]",
+								children: "Description"
+							}), items.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("td", {
+								className: "p-3 border-r last:border-r-0 border-[#E6D9C3] text-[#6E564B] leading-relaxed",
+								children: [item.description.slice(0, 140), item.description.length > 140 ? "..." : ""]
+							}, item.id))] }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("tr", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("th", {
+								className: "bg-[#FFFBF3] text-left p-3 font-bold text-[#6D1A22] border-r border-[#E6D9C3]",
+								children: "Order"
+							}), items.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("td", {
+								className: "p-3 border-r last:border-r-0 border-[#E6D9C3]",
+								children: item.inStock !== false ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+									href: buildWhatsAppLink(item, defaultWhatsApp),
+									target: "_blank",
+									rel: "noopener noreferrer",
+									className: "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1E8E3E] text-white font-semibold",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageCircle, { className: "w-3.5 h-3.5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Order" })]
+								}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-[#6E564B]",
+									children: "Unavailable"
+								})
+							}, item.id))] })
+						]
+					})]
+				})
+			})]
+		})
+	});
+};
+// src/components/FilterSidebar.tsx
+var FilterSidebar = ({ products, filterState, catalogMaxPrice, mobileOpen, onCloseMobile, onToggleMainCategory, onToggleSubcategory, onSetPriceRange, onToggleMaterial, onToggleFlag, onClearAll }) => {
+	const [expandedMains, setExpandedMains] = (0, import_react.useState)(() => /* @__PURE__ */ new Set([
+		"Fashion & Apparel",
+		"Jewellery & Artisanal Craft",
+		"Mobiles & Tablets",
+		"Electronics & Audio"
+	]));
+	const [showAllCats, setShowAllCats] = (0, import_react.useState)(true);
+	const [collapsedSections, setCollapsedSections] = (0, import_react.useState)({});
+	const toggleMainExpand = (name) => {
+		setExpandedMains((prev) => {
+			const next = new Set(prev);
+			if (next.has(name)) next.delete(name);
+			else next.add(name);
+			return next;
+		});
+	};
+	const toggleSection = (key) => {
+		setCollapsedSections((prev) => ({
+			...prev,
+			[key]: !prev[key]
+		}));
+	};
+	const mainCounts = /* @__PURE__ */ new Map();
+	const subCounts = /* @__PURE__ */ new Map();
+	for (const p of products) {
+		mainCounts.set(p.category, (mainCounts.get(p.category) || 0) + 1);
+		subCounts.set(`${p.category}|||${p.subcategory}`, (subCounts.get(`${p.category}|||${p.subcategory}`) || 0) + 1);
+	}
+	const ceil = Math.max(2e3, Math.ceil(catalogMaxPrice / 500) * 500);
+	const currentMin = filterState.priceMin ?? 0;
+	const currentMax = filterState.priceMax ?? ceil;
+	const leftPct = Math.min(100, currentMin / ceil * 100);
+	const rightPct = Math.min(100, currentMax / ceil * 100);
+	const codCount = products.filter((p) => p.codAvailable).length;
+	const returnCount = products.filter((p) => p.return7Days).length;
+	const inStockCount = products.filter((p) => p.inStock !== false).length;
+	const visibleCategories = showAllCats ? FLIPKART_CATEGORIES : FLIPKART_CATEGORIES.slice(0, 7);
+	const content = /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "bg-white border border-[#E6D9C3] rounded-xl shadow-[0_4px_14px_rgba(109,26,34,0.06)] overflow-hidden flex flex-col max-h-full",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "px-4 py-3.5 border-b border-[#E6D9C3] bg-[#FFFBF3] flex items-center justify-between",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center gap-2 text-sm font-bold text-[#6D1A22]",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SlidersHorizontal, { className: "w-4 h-4" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Filters" })]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center gap-3",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					type: "button",
+					onClick: onClearAll,
+					className: "text-xs font-bold text-[#B84A2F] hover:underline cursor-pointer",
+					children: "Clear All"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					type: "button",
+					onClick: onCloseMobile,
+					"aria-label": "Close filters",
+					className: "lg:hidden w-7 h-7 rounded-full bg-[#F3EAD8] text-[#6D1A22] grid place-items-center cursor-pointer",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "w-4 h-4" })
+				})]
+			})]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "overflow-y-auto flex-1 divide-y divide-[#E6D9C3]",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					onClick: () => toggleSection("categories"),
+					className: "w-full px-4 py-3 flex items-center justify-between text-xs font-bold tracking-wide text-[#2C1810] hover:bg-[#FFFBF3] cursor-pointer",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+						"Categories (",
+						FLIPKART_CATEGORIES.length,
+						")"
+					] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, { className: `w-4 h-4 text-[#6E564B] transition-transform ${collapsedSections["categories"] ? "-rotate-90" : ""}` })]
+				}), !collapsedSections["categories"] && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "px-3 pb-3 space-y-1",
+					children: [visibleCategories.map((main) => {
+						const count = mainCounts.get(main.name) || 0;
+						const isMainChecked = filterState.mainCategories.includes(main.name);
+						const isExpanded = expandedMains.has(main.name) || isMainChecked || main.subcategories.some((s) => filterState.subcategories.includes(s.name));
+						return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "rounded-lg",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center justify-between gap-1.5 py-1 px-1 hover:bg-[#FBF7F0] rounded-md",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+									className: "flex items-center gap-2 min-w-0 flex-1 cursor-pointer text-xs font-semibold text-[#2C1810]",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+										type: "checkbox",
+										checked: isMainChecked,
+										onChange: () => onToggleMainCategory(main.name),
+										className: "w-3.5 h-3.5 accent-[#6D1A22] rounded shrink-0 cursor-pointer"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "truncate",
+										children: main.name
+									})]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex items-center gap-1 shrink-0",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+										className: "text-[11px] text-[#6E564B] tabular-nums",
+										children: [
+											"(",
+											count,
+											")"
+										]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+										type: "button",
+										onClick: () => toggleMainExpand(main.name),
+										"aria-label": `Toggle ${main.name} subcategories`,
+										className: "p-0.5 text-[#6E564B] hover:text-[#6D1A22] cursor-pointer",
+										children: isExpanded ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, { className: "w-3.5 h-3.5" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronRight, { className: "w-3.5 h-3.5" })
+									})]
+								})]
+							}), isExpanded && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "pl-5 pr-1 py-1 space-y-1 border-l border-[#E6D9C3] ml-2.5",
+								children: main.subcategories.map((sub) => {
+									const sCount = subCounts.get(`${main.name}|||${sub.name}`) || 0;
+									const isSubChecked = filterState.subcategories.includes(sub.name);
+									return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+										className: "flex items-center justify-between gap-1.5 text-[11px] text-[#6E564B] hover:text-[#2C1810] cursor-pointer py-0.5",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+											className: "flex items-center gap-1.5 min-w-0",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+												type: "checkbox",
+												checked: isSubChecked,
+												onChange: () => onToggleSubcategory(main.name, sub.name),
+												className: "w-3 h-3 accent-[#B84A2F] shrink-0 cursor-pointer"
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												className: "truncate",
+												children: sub.name
+											})]
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: "tabular-nums shrink-0",
+											children: sCount > 0 ? sCount : "0"
+										})]
+									}, sub.id);
+								})
+							})]
+						}, main.id);
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						onClick: () => setShowAllCats((v) => !v),
+						className: "w-full text-left px-1 pt-1 text-xs font-semibold text-[#B84A2F] hover:underline cursor-pointer",
+						children: showAllCats ? "Show fewer categories" : `Show all ${FLIPKART_CATEGORIES.length} categories`
+					})]
+				})] }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					onClick: () => toggleSection("price"),
+					className: "w-full px-4 py-3 flex items-center justify-between text-xs font-bold tracking-wide text-[#2C1810] hover:bg-[#FFFBF3] cursor-pointer",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Price Range" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, { className: `w-4 h-4 text-[#6E564B] transition-transform ${collapsedSections["price"] ? "-rotate-90" : ""}` })]
+				}), !collapsedSections["price"] && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "px-4 pb-4 space-y-3",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center justify-between text-xs font-bold text-[#6D1A22] tabular-nums",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: ["₹", currentMin.toLocaleString("en-IN")] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: currentMax >= ceil ? `₹${ceil.toLocaleString("en-IN")}+` : `₹${currentMax.toLocaleString("en-IN")}` })]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "relative h-6 flex items-center",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute left-0 right-0 h-1.5 rounded-full bg-[#E8DEC8]" }),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "absolute h-1.5 rounded-full bg-gradient-to-r from-[#6D1A22] to-[#B84A2F]",
+									style: {
+										left: `${leftPct}%`,
+										width: `${Math.max(2, rightPct - leftPct)}%`
+									}
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+									type: "range",
+									min: 0,
+									max: ceil,
+									step: 100,
+									value: currentMin,
+									onChange: (e) => {
+										const nextMin = Math.min(Number(e.target.value), currentMax - 100);
+										onSetPriceRange(nextMin <= 0 ? null : nextMin, filterState.priceMax);
+									},
+									"aria-label": "Minimum price",
+									className: "dual-range-input absolute inset-0 w-full h-6 z-10"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+									type: "range",
+									min: 0,
+									max: ceil,
+									step: 100,
+									value: currentMax,
+									onChange: (e) => {
+										const nextMax = Math.max(Number(e.target.value), currentMin + 100);
+										onSetPriceRange(filterState.priceMin, nextMax >= ceil ? null : nextMax);
+									},
+									"aria-label": "Maximum price",
+									className: "dual-range-input absolute inset-0 w-full h-6 z-20"
+								})
+							]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "flex flex-wrap gap-1.5",
+							children: [
+								{
+									label: "Under ₹500",
+									min: null,
+									max: 500
+								},
+								{
+									label: "₹500 – ₹1,500",
+									min: 500,
+									max: 1500
+								},
+								{
+									label: "₹1,500 – ₹5,000",
+									min: 1500,
+									max: 5e3
+								},
+								{
+									label: "Above ₹5,000",
+									min: 5e3,
+									max: null
+								}
+							].map((preset) => {
+								const active = filterState.priceMin === preset.min && filterState.priceMax === preset.max;
+								return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+									type: "button",
+									onClick: () => onSetPriceRange(preset.min, preset.max),
+									className: `px-2 py-1 rounded text-[11px] font-semibold border transition-colors cursor-pointer ${active ? "bg-[#6D1A22] text-white border-[#6D1A22]" : "bg-[#FBF7F0] text-[#2C1810] border-[#E6D9C3] hover:border-[#B84A2F]"}`,
+									children: preset.label
+								}, preset.label);
+							})
+						})
+					]
+				})] }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					onClick: () => toggleSection("materials"),
+					className: "w-full px-4 py-3 flex items-center justify-between text-xs font-bold tracking-wide text-[#2C1810] hover:bg-[#FFFBF3] cursor-pointer",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Craft & Attributes" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, { className: `w-4 h-4 text-[#6E564B] transition-transform ${collapsedSections["materials"] ? "-rotate-90" : ""}` })]
+				}), !collapsedSections["materials"] && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "px-4 pb-3 space-y-2",
+					children: MATERIAL_ATTRIBUTES.map((attr) => {
+						const count = products.filter((p) => attr.regex.test(`${p.title} ${p.description} ${p.category} ${p.subcategory}`)).length;
+						if (count === 0) return null;
+						return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+							className: "flex items-center justify-between gap-2 text-xs text-[#2C1810] cursor-pointer",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "flex items-center gap-2 min-w-0",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+									type: "checkbox",
+									checked: filterState.materials.includes(attr.id),
+									onChange: () => onToggleMaterial(attr.id),
+									className: "w-3.5 h-3.5 accent-[#6D1A22] shrink-0 cursor-pointer"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "truncate",
+									children: attr.label
+								})]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "text-[11px] text-[#6E564B] tabular-nums",
+								children: [
+									"(",
+									count,
+									")"
+								]
+							})]
+						}, attr.id);
+					})
+				})] }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					onClick: () => toggleSection("delivery"),
+					className: "w-full px-4 py-3 flex items-center justify-between text-xs font-bold tracking-wide text-[#2C1810] hover:bg-[#FFFBF3] cursor-pointer",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Delivery & Availability" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, { className: `w-4 h-4 text-[#6E564B] transition-transform ${collapsedSections["delivery"] ? "-rotate-90" : ""}` })]
+				}), !collapsedSections["delivery"] && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "px-4 pb-4 space-y-2",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+							className: "flex items-center justify-between gap-2 text-xs text-[#2C1810] cursor-pointer",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "flex items-center gap-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+									type: "checkbox",
+									checked: filterState.codOnly,
+									onChange: () => onToggleFlag("codOnly"),
+									className: "w-3.5 h-3.5 accent-[#6D1A22] cursor-pointer"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Cash on Delivery (COD)" })]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "text-[11px] text-[#6E564B] tabular-nums",
+								children: [
+									"(",
+									codCount,
+									")"
+								]
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+							className: "flex items-center justify-between gap-2 text-xs text-[#2C1810] cursor-pointer",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "flex items-center gap-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+									type: "checkbox",
+									checked: filterState.return7Only,
+									onChange: () => onToggleFlag("return7Only"),
+									className: "w-3.5 h-3.5 accent-[#6D1A22] cursor-pointer"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "7 Days Easy Return" })]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "text-[11px] text-[#6E564B] tabular-nums",
+								children: [
+									"(",
+									returnCount,
+									")"
+								]
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+							className: "flex items-center justify-between gap-2 text-xs text-[#2C1810] cursor-pointer",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "flex items-center gap-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+									type: "checkbox",
+									checked: filterState.inStockOnly,
+									onChange: () => onToggleFlag("inStockOnly"),
+									className: "w-3.5 h-3.5 accent-[#6D1A22] cursor-pointer"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Exclude Out of Stock" })]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "text-[11px] text-[#6E564B] tabular-nums",
+								children: [
+									"(",
+									inStockCount,
+									")"
+								]
+							})]
+						})
+					]
+				})] })
+			]
+		})]
+	});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("aside", {
+		className: "hidden lg:block sticky top-[132px] max-h-[calc(100vh-148px)]",
+		children: content
+	}), mobileOpen && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "fixed inset-0 z-50 lg:hidden flex",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "fixed inset-0 bg-[#1E0C0A]/60 backdrop-blur-xs",
+			onClick: onCloseMobile
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "relative z-10 w-[min(330px,88vw)] h-full bg-[#FBF7F0] p-3 flex flex-col",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "flex-1 overflow-hidden",
+				children: content
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+				type: "button",
+				onClick: onCloseMobile,
+				className: "mt-3 w-full py-2.5 rounded-lg bg-[#6D1A22] text-white text-sm font-semibold cursor-pointer",
+				children: "Apply Filters"
+			})]
+		})]
+	})] });
+};
+// src/components/Header.tsx
+var Header = ({ searchQuery, onSearchChange, products, wishlistCount, onOpenWishlist, onSelectProduct, onSelectMainCategory }) => {
+	const [dropdownOpen, setDropdownOpen] = (0, import_react.useState)(false);
+	const [activeIndex, setActiveIndex] = (0, import_react.useState)(-1);
+	const containerRef = (0, import_react.useRef)(null);
+	const inputRef = (0, import_react.useRef)(null);
+	const trimmed = searchQuery.trim().toLowerCase();
+	const matches = trimmed ? products.filter((p) => p.title.toLowerCase().includes(trimmed) || p.category.toLowerCase().includes(trimmed) || p.subcategory.toLowerCase().includes(trimmed) || p.description.toLowerCase().includes(trimmed)).slice(0, 6) : [];
+	(0, import_react.useEffect)(() => {
+		const onDocClick = (e) => {
+			if (containerRef.current && !containerRef.current.contains(e.target)) setDropdownOpen(false);
+		};
+		document.addEventListener("mousedown", onDocClick);
+		return () => document.removeEventListener("mousedown", onDocClick);
+	}, []);
+	const handleKeyDown = (e) => {
+		if (!dropdownOpen || matches.length === 0) return;
+		if (e.key === "ArrowDown") {
+			e.preventDefault();
+			setActiveIndex((prev) => (prev + 1) % matches.length);
+		} else if (e.key === "ArrowUp") {
+			e.preventDefault();
+			setActiveIndex((prev) => prev <= 0 ? matches.length - 1 : prev - 1);
+		} else if (e.key === "Enter" && activeIndex >= 0 && matches[activeIndex]) {
+			e.preventDefault();
+			onSelectProduct(matches[activeIndex]);
+			setDropdownOpen(false);
+		} else if (e.key === "Escape") setDropdownOpen(false);
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
+		className: "sticky top-0 z-40 bg-[#FBF7F0]/95 backdrop-blur-md border-b border-[#E6D9C3] shadow-[0_2px_10px_rgba(109,26,34,0.06)]",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "alpona-ribbon",
+			"aria-hidden": "true"
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "max-w-[1360px] mx-auto px-4 md:px-6 py-3 flex flex-wrap md:flex-nowrap items-center justify-between gap-4 md:gap-8",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+					href: "#top",
+					onClick: (e) => {
+						e.preventDefault();
+						window.scrollTo({
+							top: 0,
+							behavior: "smooth"
+						});
+					},
+					className: "font-display text-2xl font-bold tracking-tight text-[#6D1A22] whitespace-nowrap shrink-0",
+					children: "Saaj Gochh"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					ref: containerRef,
+					className: "relative flex-1 min-w-[220px] max-w-2xl order-3 md:order-2 basis-full md:basis-auto",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Search, { className: "w-4 h-4 text-[#6D1A22] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+							ref: inputRef,
+							type: "text",
+							value: searchQuery,
+							onChange: (e) => {
+								onSearchChange(e.target.value);
+								setDropdownOpen(true);
+								setActiveIndex(-1);
+							},
+							onFocus: () => {
+								if (searchQuery.trim()) setDropdownOpen(true);
+							},
+							onKeyDown: handleKeyDown,
+							placeholder: "Search sarees, smartphones, dokra, appliances, beauty...",
+							"aria-label": "Search products across all categories",
+							className: "w-full pl-10 pr-10 py-2.5 text-sm bg-white border border-[#E6D9C3] rounded-lg text-[#2C1810] placeholder:text-[#6E564B]/70 focus:outline-none focus:border-[#B84A2F] focus:ring-2 focus:ring-[#B84A2F]/15 transition-colors"
+						}),
+						searchQuery && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							type: "button",
+							onClick: () => {
+								onSearchChange("");
+								setDropdownOpen(false);
+								inputRef.current?.focus();
+							},
+							"aria-label": "Clear search",
+							className: "absolute right-2.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-[#F3EAD8] text-[#6D1A22] grid place-items-center hover:bg-[#EBD8AE] transition-colors cursor-pointer",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "w-3.5 h-3.5" })
+						}),
+						dropdownOpen && trimmed && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "absolute left-0 right-0 top-[calc(100%+6px)] bg-[#FFFDF9] border border-[#C89B3C] rounded-xl shadow-[0_16px_36px_rgba(78,16,22,0.16)] z-50 overflow-hidden max-h-96 overflow-y-auto",
+							children: matches.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "p-4 text-center text-sm text-[#6E564B]",
+								children: [
+									"No products matching “",
+									searchQuery,
+									"”"
+								]
+							}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [matches.map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+								type: "button",
+								onClick: () => {
+									onSelectProduct(item);
+									setDropdownOpen(false);
+								},
+								className: `w-full flex items-center gap-3 px-3.5 py-2.5 text-left border-b border-[#E6D9C3]/70 last:border-b-0 transition-colors cursor-pointer ${idx === activeIndex ? "bg-[#F3EAD8]" : "hover:bg-[#F3EAD8]/70"}`,
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+										src: item.images[0] || FALLBACK_IMG,
+										alt: item.title,
+										referrerPolicy: "no-referrer",
+										onError: (e) => {
+											e.currentTarget.src = FALLBACK_IMG;
+										},
+										className: "w-11 h-11 rounded-lg object-cover border border-[#E6D9C3] bg-[#F3EAD8] shrink-0"
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "flex-1 min-w-0",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+											className: "text-sm font-semibold text-[#2C1810] truncate",
+											children: item.title
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "text-xs text-[#6E564B] truncate",
+											children: [
+												item.category,
+												" · ",
+												item.subcategory
+											]
+										})]
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+										className: "text-sm font-bold text-[#6D1A22] tabular-nums shrink-0",
+										children: ["₹", Number(item.price).toLocaleString("en-IN")]
+									})
+								]
+							}, item.id)), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+								type: "button",
+								onClick: () => {
+									if (matches[0]) onSelectMainCategory(matches[0].category);
+									setDropdownOpen(false);
+								},
+								className: "w-full px-3.5 py-2.5 bg-[#FFF6E8] hover:bg-[#EBD8AE]/50 text-xs font-semibold text-[#6D1A22] flex items-center justify-between cursor-pointer",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Explore all matches in storefront" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "→" })]
+							})] })
+						})
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex items-center gap-2.5 order-2 md:order-3 shrink-0",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						onClick: onOpenWishlist,
+						className: "inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white border border-[#C89B3C] text-[#6D1A22] text-sm font-semibold hover:bg-[#F3EAD8] transition-colors whitespace-nowrap shrink-0 cursor-pointer",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Heart, { className: "w-4 h-4" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "hidden sm:inline",
+								children: "Saved"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "tabular-nums text-xs font-bold px-1.5 py-0.5 rounded bg-[#F3EAD8] text-[#6D1A22]",
+								children: wishlistCount
+							})
+						]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "hidden lg:inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#F3EAD8] border border-[#C89B3C] text-[#6D1A22] text-xs font-semibold whitespace-nowrap shrink-0",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleCheck, { className: "w-4 h-4 text-[#B84A2F]" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Handcrafted & Curated Quality" })]
+					})]
+				})
+			]
+		})]
+	});
+};
+// src/components/ProductCard.tsx
+var ProductCard = ({ product, defaultWhatsApp, isWishlisted, isCompared, onOpenDetail, onToggleWishlist, onToggleCompare, onShare }) => {
+	const isInStock = product.inStock !== false;
+	const primaryImage = product.images[0] || FALLBACK_IMG;
+	const waHref = buildWhatsAppLink(product, defaultWhatsApp);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
+		className: "bg-white border border-[#E6D9C3] rounded-xl overflow-hidden shadow-[0_4px_14px_rgba(109,26,34,0.06)] hover:-translate-y-0.5 hover:shadow-[0_10px_28px_rgba(109,26,34,0.12)] hover:border-[#C89B3C] transition-all duration-200 flex flex-col",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			onClick: () => onOpenDetail(product),
+			className: "relative w-full aspect-[4/3] bg-[#F3EAD8] overflow-hidden cursor-pointer group",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+					src: primaryImage,
+					alt: product.title,
+					referrerPolicy: "no-referrer",
+					onError: (e) => {
+						e.currentTarget.src = FALLBACK_IMG;
+					},
+					className: `w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03] ${!isInStock ? "opacity-70 grayscale-[30%]" : ""}`
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: `absolute bottom-2.5 left-2.5 text-[11px] font-bold px-2.5 py-0.5 rounded-md border ${isInStock ? "bg-[#E6F4EA]/95 text-[#137333] border-[#A8DAB5]" : "bg-[#C62828] text-white border-[#FFCDD2]"}`,
+					children: isInStock ? "In Stock" : "Sold Out"
+				}),
+				product.images.length > 1 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+					className: "absolute bottom-2.5 right-2.5 bg-[#2C1810]/75 text-[#FFFDF8] text-[11px] font-semibold px-2 py-0.5 rounded-md tabular-nums",
+					children: ["1 / ", product.images.length]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					type: "button",
+					onClick: (e) => {
+						e.stopPropagation();
+						onToggleWishlist(product.id);
+					},
+					"aria-label": isWishlisted ? "Remove from Saved" : "Save item",
+					className: `absolute top-2.5 right-2.5 w-8 h-8 rounded-full border grid place-items-center transition-colors cursor-pointer ${isWishlisted ? "bg-[#6D1A22] border-[#6D1A22] text-white" : "bg-[#FFFDF9]/95 border-[#C89B3C] text-[#6D1A22] hover:bg-white"}`,
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Heart, {
+						className: "w-4 h-4",
+						fill: isWishlisted ? "currentColor" : "none"
+					})
+				})
+			]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "p-4 flex flex-col flex-1 gap-2",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "text-xs text-[#6E564B] truncate",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "font-semibold text-[#6D1A22]",
+							children: product.category
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							"aria-hidden": "true",
+							children: " · "
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: product.subcategory })
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+					onClick: () => onOpenDetail(product),
+					className: "font-display text-base font-semibold text-[#2C1810] leading-snug line-clamp-2 cursor-pointer hover:text-[#6D1A22] transition-colors",
+					children: product.title
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					onClick: () => onOpenDetail(product),
+					className: "text-xs text-[#6E564B] line-clamp-2 leading-relaxed cursor-pointer",
+					children: product.description
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "text-[11px] text-[#6E564B] flex items-center gap-1.5 flex-wrap",
+					children: [
+						product.codAvailable && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "COD Available" }),
+						product.codAvailable && product.return7Days && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							"aria-hidden": "true",
+							children: "·"
+						}),
+						product.return7Days && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "7-Day Return" })
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mt-auto pt-2 border-t border-[#E6D9C3]/60 flex items-baseline justify-between gap-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						className: "text-lg font-bold text-[#6D1A22] tabular-nums",
+						children: ["₹", Number(product.price).toLocaleString("en-IN")]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						onClick: () => onToggleCompare(product.id),
+						className: `inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-md border transition-colors cursor-pointer ${isCompared ? "bg-[#6D1A22] text-white border-[#6D1A22]" : "bg-[#FBF7F0] text-[#2C1810] border-[#E6D9C3] hover:border-[#6D1A22]"}`,
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeftRight, { className: "w-3 h-3" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: isCompared ? "Comparing" : "Compare" })]
+					})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex items-center gap-2 pt-1",
+					children: [isInStock ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+						href: waHref,
+						target: "_blank",
+						rel: "noopener noreferrer",
+						className: "flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-[#1E8E3E] hover:bg-[#177331] text-white text-xs font-semibold transition-colors whitespace-nowrap",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageCircle, { className: "w-3.5 h-3.5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Order on WhatsApp" })]
+					}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						disabled: true,
+						className: "flex-1 px-3 py-2 rounded-lg bg-[#E5E0D8] text-[#6B5E57] text-xs font-semibold border border-[#D3C9BA] cursor-not-allowed",
+						children: "Currently Sold Out"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						onClick: () => onShare(product),
+						"aria-label": "Share product link",
+						title: "Share product link",
+						className: "p-2 rounded-lg bg-white border border-[#C89B3C] text-[#6D1A22] hover:bg-[#F3EAD8] transition-colors cursor-pointer",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Share2, { className: "w-3.5 h-3.5" })
+					})]
+				})
+			]
+		})]
+	});
+};
+// src/components/ProductDetailModal.tsx
+var ProductDetailModal = ({ product, defaultWhatsApp, isWishlisted, onClose, onToggleWishlist, onShare }) => {
+	const [slideIdx, setSlideIdx] = (0, import_react.useState)(0);
+	(0, import_react.useEffect)(() => {
+		setSlideIdx(0);
+	}, [product?.id]);
+	(0, import_react.useEffect)(() => {
+		if (!product) return;
+		const onKey = (e) => {
+			if (e.key === "Escape") onClose();
+			if (e.key === "ArrowLeft" && product.images.length > 1) setSlideIdx((i) => (i - 1 + product.images.length) % product.images.length);
+			if (e.key === "ArrowRight" && product.images.length > 1) setSlideIdx((i) => (i + 1) % product.images.length);
+		};
+		window.addEventListener("keydown", onKey);
+		return () => window.removeEventListener("keydown", onKey);
+	}, [product, onClose]);
+	if (!product) return null;
+	const images = product.images.length > 0 ? product.images : [FALLBACK_IMG];
+	const currentImg = images[slideIdx] || images[0];
+	const isInStock = product.inStock !== false;
+	const waHref = buildWhatsAppLink(product, defaultWhatsApp);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "fixed inset-0 z-50 bg-[#1E0C0A]/75 backdrop-blur-xs flex items-center justify-center p-4",
+		onClick: onClose,
+		role: "dialog",
+		"aria-modal": "true",
+		"aria-label": product.title,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			onClick: (e) => e.stopPropagation(),
+			className: "bg-[#FBF7F0] border-2 border-[#C89B3C] rounded-2xl w-full max-w-2xl max-h-[92vh] overflow-y-auto shadow-2xl p-5 md:p-6",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex items-start justify-between gap-4 pb-3 mb-4 border-b border-[#E6D9C3]",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "text-xs text-[#6E564B] mb-1",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "font-semibold text-[#6D1A22]",
+								children: product.category
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								"aria-hidden": "true",
+								children: " · "
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: product.subcategory })
+						]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+						className: "font-display text-xl font-bold text-[#2C1810] leading-snug",
+						children: product.title
+					})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex items-center gap-2 shrink-0",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							type: "button",
+							onClick: () => onToggleWishlist(product.id),
+							"aria-label": "Save to Wishlist",
+							className: `w-9 h-9 rounded-full border grid place-items-center transition-colors cursor-pointer ${isWishlisted ? "bg-[#6D1A22] border-[#6D1A22] text-white" : "bg-[#F3EAD8] border-[#C89B3C] text-[#6D1A22] hover:bg-white"}`,
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Heart, {
+								className: "w-4 h-4",
+								fill: isWishlisted ? "currentColor" : "none"
+							})
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							type: "button",
+							onClick: onClose,
+							"aria-label": "Close product details",
+							className: "w-9 h-9 rounded-full bg-[#F3EAD8] border border-[#E6D9C3] text-[#6D1A22] hover:bg-[#6D1A22] hover:text-white grid place-items-center transition-colors cursor-pointer",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "w-4 h-4" })
+						})]
+					})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "relative bg-[#F3EAD8] border border-[#E6D9C3] rounded-xl overflow-hidden mb-3",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+						src: currentImg,
+						alt: product.title,
+						referrerPolicy: "no-referrer",
+						onError: (e) => {
+							e.currentTarget.src = FALLBACK_IMG;
+						},
+						className: "w-full h-72 md:h-80 object-contain bg-[#FFFDF9]"
+					}), images.length > 1 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							type: "button",
+							onClick: () => setSlideIdx((i) => (i - 1 + images.length) % images.length),
+							"aria-label": "Previous image",
+							className: "absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#2C1810]/75 text-white border border-[#C89B3C] grid place-items-center hover:bg-[#6D1A22] cursor-pointer",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronLeft, { className: "w-4 h-4" })
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							type: "button",
+							onClick: () => setSlideIdx((i) => (i + 1) % images.length),
+							"aria-label": "Next image",
+							className: "absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#2C1810]/75 text-white border border-[#C89B3C] grid place-items-center hover:bg-[#6D1A22] cursor-pointer",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronRight, { className: "w-4 h-4" })
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "absolute bottom-2.5 right-3 bg-[#2C1810]/75 text-white text-xs px-2.5 py-0.5 rounded-full tabular-nums",
+							children: [
+								slideIdx + 1,
+								" / ",
+								images.length
+							]
+						})
+					] })]
+				}),
+				images.length > 1 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "flex gap-2 overflow-x-auto pb-2 mb-3",
+					children: images.map((src, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						onClick: () => setSlideIdx(idx),
+						className: `w-14 h-14 rounded-lg overflow-hidden border-2 shrink-0 cursor-pointer ${idx === slideIdx ? "border-[#6D1A22]" : "border-transparent opacity-70 hover:opacity-100"}`,
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+							src,
+							alt: `Thumbnail ${idx + 1}`,
+							referrerPolicy: "no-referrer",
+							className: "w-full h-full object-cover"
+						})
+					}, idx))
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex flex-wrap items-center justify-between gap-3 mb-3",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						className: "text-2xl font-bold text-[#6D1A22] tabular-nums",
+						children: ["₹", Number(product.price).toLocaleString("en-IN")]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "text-xs text-[#6E564B] flex items-center gap-2 flex-wrap",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: `font-bold ${isInStock ? "text-[#137333]" : "text-[#C62828]"}`,
+								children: isInStock ? "In Stock" : "Sold Out"
+							}),
+							product.codAvailable && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								"aria-hidden": "true",
+								children: "·"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "COD Available" })] }),
+							product.return7Days && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								"aria-hidden": "true",
+								children: "·"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "7 Days Easy Return" })] })
+						]
+					})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "bg-white border border-[#E6D9C3] rounded-xl p-4 text-sm text-[#2C1810] whitespace-pre-line leading-relaxed mb-4 max-h-44 overflow-y-auto",
+					children: product.description || "Handcrafted & curated item."
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex flex-col sm:flex-row gap-2.5",
+					children: [isInStock ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+						href: waHref,
+						target: "_blank",
+						rel: "noopener noreferrer",
+						className: "flex-1 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#1E8E3E] hover:bg-[#177331] text-white text-sm font-semibold transition-colors",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageCircle, { className: "w-4 h-4" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Order This Item on WhatsApp" })]
+					}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						disabled: true,
+						className: "flex-1 py-3 px-4 rounded-xl bg-[#E5E0D8] text-[#6B5E57] text-sm font-semibold border border-[#D3C9BA] cursor-not-allowed",
+						children: "Currently Sold Out"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						onClick: () => onShare(product),
+						className: "inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-white border border-[#C89B3C] text-[#6D1A22] hover:bg-[#F3EAD8] text-sm font-semibold transition-colors cursor-pointer",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Share2, { className: "w-4 h-4" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Share Product" })]
+					})]
+				})
+			]
+		})
+	});
+};
+// src/components/RecentlyViewedShelf.tsx
+var RecentlyViewedShelf = ({ items, onSelectProduct, onClearHistory }) => {
+	if (items.length === 0) return null;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		"aria-label": "Recently Viewed Items",
+		className: "max-w-[1360px] mx-auto px-4 md:px-6 pb-10",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "pt-6 border-t border-[#E6D9C3] flex items-center justify-between gap-4 mb-4",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+				className: "font-display text-xl font-bold text-[#6D1A22]",
+				children: "Recently Viewed"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+				type: "button",
+				onClick: onClearHistory,
+				className: "text-xs font-bold text-[#B84A2F] underline cursor-pointer",
+				children: "Clear History"
+			})]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "flex gap-4 overflow-x-auto pb-2",
+			children: items.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				onClick: () => onSelectProduct(item),
+				className: "flex-none w-44 bg-white border border-[#E6D9C3] rounded-xl overflow-hidden shadow-xs hover:-translate-y-0.5 hover:border-[#C89B3C] transition-all cursor-pointer flex flex-col",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+					src: item.images[0] || FALLBACK_IMG,
+					alt: item.title,
+					referrerPolicy: "no-referrer",
+					onError: (e) => {
+						e.currentTarget.src = FALLBACK_IMG;
+					},
+					className: "w-full aspect-square object-cover bg-[#F3EAD8]"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "p-2.5 flex flex-col flex-1 gap-1",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "text-[11px] text-[#6E564B] truncate",
+							children: item.category
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "font-display text-xs font-semibold text-[#2C1810] line-clamp-2 leading-snug",
+							children: item.title
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "mt-auto text-sm font-bold text-[#6D1A22] tabular-nums",
+							children: ["₹", Number(item.price).toLocaleString("en-IN")]
+						})
+					]
+				})]
+			}, item.id))
+		})]
+	});
+};
+// src/components/WishlistDrawer.tsx
+var WishlistDrawer = ({ open, items, defaultWhatsApp, onClose, onRemove, onClearAll, onSelectProduct }) => {
+	if (!open) return null;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "fixed inset-0 z-50 flex justify-end",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "fixed inset-0 bg-[#1E0C0A]/60 backdrop-blur-xs",
+			onClick: onClose
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("aside", {
+			role: "dialog",
+			"aria-modal": "true",
+			"aria-label": "Saved Items Wishlist",
+			className: "relative z-10 w-[min(410px,92vw)] h-full bg-[#FBF7F0] border-l-2 border-[#C89B3C] shadow-2xl flex flex-col",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "px-4 py-3.5 bg-[#FFFBF3] border-b border-[#E6D9C3] flex items-center justify-between gap-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h3", {
+					className: "font-display text-lg font-bold text-[#6D1A22] tabular-nums",
+					children: [
+						"Saved Items (",
+						items.length,
+						")"
+					]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex items-center gap-3",
+					children: [items.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						onClick: onClearAll,
+						className: "text-xs font-bold text-[#B84A2F] hover:underline cursor-pointer",
+						children: "Clear All"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						onClick: onClose,
+						"aria-label": "Close Saved Items",
+						className: "w-8 h-8 rounded-full bg-[#F3EAD8] border border-[#E6D9C3] text-[#6D1A22] hover:bg-[#6D1A22] hover:text-white grid place-items-center transition-colors cursor-pointer",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "w-4 h-4" })
+					})]
+				})]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "flex-1 overflow-y-auto p-4 space-y-3",
+				children: items.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "text-center py-12 px-4 text-[#6E564B]",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+						className: "font-display text-base font-bold text-[#6D1A22] mb-1",
+						children: "No saved items yet"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-xs leading-relaxed",
+						children: "Tap the heart icon on any product across our Flipkart-scale catalog to save it here for quick comparison or WhatsApp ordering."
+					})]
+				}) : items.map((item) => {
+					const isInStock = item.inStock !== false;
+					const waHref = buildWhatsAppLink(item, defaultWhatsApp);
+					return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "bg-white border border-[#E6D9C3] rounded-xl p-3 flex gap-3 items-start",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+							src: item.images[0] || FALLBACK_IMG,
+							alt: item.title,
+							referrerPolicy: "no-referrer",
+							onClick: () => {
+								onSelectProduct(item);
+								onClose();
+							},
+							onError: (e) => {
+								e.currentTarget.src = FALLBACK_IMG;
+							},
+							className: "w-16 h-16 rounded-lg object-cover border border-[#E6D9C3] bg-[#F3EAD8] shrink-0 cursor-pointer"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex-1 min-w-0",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									onClick: () => {
+										onSelectProduct(item);
+										onClose();
+									},
+									className: "font-display text-sm font-semibold text-[#2C1810] line-clamp-2 cursor-pointer hover:text-[#6D1A22]",
+									children: item.title
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "text-xs text-[#6E564B] truncate mt-0.5",
+									children: item.category
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "text-sm font-bold text-[#6D1A22] tabular-nums mt-1 mb-2",
+									children: ["₹", Number(item.price).toLocaleString("en-IN")]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex items-center gap-2",
+									children: [isInStock ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+										href: waHref,
+										target: "_blank",
+										rel: "noopener noreferrer",
+										className: "inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md bg-[#1E8E3E] hover:bg-[#177331] text-white text-xs font-semibold",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageCircle, { className: "w-3 h-3" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Order" })]
+									}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "text-xs font-semibold text-[#C62828]",
+										children: "Sold Out"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+										type: "button",
+										onClick: () => onRemove(item.id),
+										className: "inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md bg-[#FDECEA] text-[#C62828] border border-[#F5C2C0] text-xs font-semibold cursor-pointer",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash2, { className: "w-3 h-3" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Remove" })]
+									})]
+								})
+							]
+						})]
+					}, item.id);
+				})
+			})]
+		})]
+	});
+};
+// src/App.tsx
+var INITIAL_FILTERS = {
+	search: "",
+	mainCategories: [],
+	subcategories: [],
+	priceMin: null,
+	priceMax: null,
+	materials: [],
+	codOnly: false,
+	return7Only: false,
+	inStockOnly: false,
+	sortBy: "relevance"
+};
+function App() {
+	const [products, setProducts] = (0, import_react.useState)(() => loadProductsFromStorage());
+	const [defaultWhatsApp, setDefaultWhatsApp] = (0, import_react.useState)(() => loadWhatsAppNumber());
+	const [filters, setFilters] = (0, import_react.useState)(INITIAL_FILTERS);
+	const [expandedStripCategory, setExpandedStripCategory] = (0, import_react.useState)(null);
+	const [wishlistIds, setWishlistIds] = (0, import_react.useState)(() => {
+		try {
+			const raw = safeGetItem(STORAGE_KEYS.WISHLIST);
+			const parsed = raw ? JSON.parse(raw) : [];
+			return Array.isArray(parsed) ? parsed : [];
+		} catch {
+			return [];
+		}
+	});
+	const [recentIds, setRecentIds] = (0, import_react.useState)(() => {
+		try {
+			const raw = safeGetItem(STORAGE_KEYS.RECENT_VIEWED);
+			const parsed = raw ? JSON.parse(raw) : [];
+			return Array.isArray(parsed) ? parsed : [];
+		} catch {
+			return [];
+		}
+	});
+	const [compareIds, setCompareIds] = (0, import_react.useState)([]);
+	const [detailProduct, setDetailProduct] = (0, import_react.useState)(null);
+	const [wishlistOpen, setWishlistOpen] = (0, import_react.useState)(false);
+	const [compareModalOpen, setCompareModalOpen] = (0, import_react.useState)(false);
+	const [mobileFilterOpen, setMobileFilterOpen] = (0, import_react.useState)(false);
+	const [mobileSortOpen, setMobileSortOpen] = (0, import_react.useState)(false);
+	const [adminOpen, setAdminOpen] = (0, import_react.useState)(false);
+	const [toastMsg, setToastMsg] = (0, import_react.useState)("");
+	const toastTimerRef = (0, import_react.useRef)(null);
+	const stealthTapRef = (0, import_react.useRef)({
+		count: 0,
+		timer: 0
+	});
+	const showToast = (0, import_react.useCallback)((msg) => {
+		setToastMsg(msg);
+		if (toastTimerRef.current) window.clearTimeout(toastTimerRef.current);
+		toastTimerRef.current = window.setTimeout(() => setToastMsg(""), 2800);
+	}, []);
+	(0, import_react.useEffect)(() => {
+		const sharedId = new URLSearchParams(window.location.search).get("product");
+		if (sharedId) {
+			const found = products.find((p) => p.id === sharedId);
+			if (found) setDetailProduct(found);
+		}
+		const onKeyDown = (e) => {
+			if (e.ctrlKey && e.shiftKey && (e.key === "A" || e.key === "a")) {
+				e.preventDefault();
+				setAdminOpen(true);
+			}
+		};
+		window.addEventListener("keydown", onKeyDown);
+		const onStorage = (e) => {
+			if (e.key === STORAGE_KEYS.PRODUCTS) setProducts(loadProductsFromStorage());
+			if (e.key === STORAGE_KEYS.WA_NUMBER) setDefaultWhatsApp(loadWhatsAppNumber());
+		};
+		window.addEventListener("storage", onStorage);
+		let bc = null;
+		try {
+			bc = new BroadcastChannel("saajgochh_sync_channel");
+			bc.onmessage = () => {
+				setProducts(loadProductsFromStorage());
+				setDefaultWhatsApp(loadWhatsAppNumber());
+			};
+		} catch {
+			bc = null;
+		}
+		return () => {
+			window.removeEventListener("keydown", onKeyDown);
+			window.removeEventListener("storage", onStorage);
+			if (bc) bc.close();
+		};
+	}, []);
+	(0, import_react.useEffect)(() => {
+		safeSetItem(STORAGE_KEYS.WISHLIST, JSON.stringify(wishlistIds));
+	}, [wishlistIds]);
+	(0, import_react.useEffect)(() => {
+		safeSetItem(STORAGE_KEYS.RECENT_VIEWED, JSON.stringify(recentIds));
+	}, [recentIds]);
+	const catalogMaxPrice = (0, import_react.useMemo)(() => {
+		if (products.length === 0) return 5e3;
+		return Math.max(2e3, ...products.map((p) => Number(p.price) || 0));
+	}, [products]);
+	const filteredProducts = (0, import_react.useMemo)(() => {
+		const q = filters.search.trim().toLowerCase();
+		const sorted = [...products.filter((p) => {
+			if (q) {
+				if (!`${p.title} ${p.category} ${p.subcategory} ${p.description}`.toLowerCase().includes(q)) return false;
+			}
+			if (filters.mainCategories.length > 0 || filters.subcategories.length > 0) {
+				const matchesMain = filters.mainCategories.includes(p.category);
+				const matchesSub = filters.subcategories.includes(p.subcategory);
+				if (filters.subcategories.length > 0 && filters.mainCategories.length > 0) {
+					if (!matchesSub && !matchesMain) return false;
+					if (matchesMain && !matchesSub) {
+						if (!filters.subcategories.some((s) => s === p.subcategory) && filters.subcategories.length > 0) {
+							if (products.some((other) => other.category === p.category && filters.subcategories.includes(other.subcategory))) return false;
+						}
+					}
+				} else if (filters.subcategories.length > 0) {
+					if (!matchesSub) return false;
+				} else if (!matchesMain) return false;
+			}
+			if (filters.priceMin !== null && p.price < filters.priceMin) return false;
+			if (filters.priceMax !== null && p.price > filters.priceMax) return false;
+			if (filters.materials.length > 0) {
+				const text = `${p.title} ${p.description} ${p.category} ${p.subcategory}`;
+				if (!filters.materials.some((matId) => {
+					const attr = MATERIAL_ATTRIBUTES.find((m) => m.id === matId);
+					return attr ? attr.regex.test(text) : false;
+				})) return false;
+			}
+			if (filters.codOnly && !p.codAvailable) return false;
+			if (filters.return7Only && !p.return7Days) return false;
+			if (filters.inStockOnly && p.inStock === false) return false;
+			return true;
+		})];
+		if (filters.sortBy === "price-asc") sorted.sort((a, b) => a.price - b.price);
+		else if (filters.sortBy === "price-desc") sorted.sort((a, b) => b.price - a.price);
+		else if (filters.sortBy === "newest") sorted.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+		return sorted;
+	}, [products, filters]);
+	const activeFilterCount = (0, import_react.useMemo)(() => {
+		let count = filters.mainCategories.length + filters.subcategories.length + filters.materials.length;
+		if (filters.search.trim()) count++;
+		if (filters.priceMin !== null || filters.priceMax !== null) count++;
+		if (filters.codOnly) count++;
+		if (filters.return7Only) count++;
+		if (filters.inStockOnly) count++;
+		return count;
+	}, [filters]);
+	const wishlistItems = (0, import_react.useMemo)(() => products.filter((p) => wishlistIds.includes(p.id)), [products, wishlistIds]);
+	const recentItems = (0, import_react.useMemo)(() => recentIds.map((id) => products.find((p) => p.id === id)).filter((p) => Boolean(p)), [products, recentIds]);
+	const compareItems = (0, import_react.useMemo)(() => compareIds.map((id) => products.find((p) => p.id === id)).filter((p) => Boolean(p)), [products, compareIds]);
+	const handleOpenDetail = (product) => {
+		setDetailProduct(product);
+		setRecentIds((prev) => [product.id, ...prev.filter((id) => id !== product.id)].slice(0, 6));
+	};
+	const handleToggleWishlist = (id) => {
+		setWishlistIds((prev) => {
+			const exists = prev.includes(id);
+			showToast(exists ? "Removed from Saved Items" : "Saved to Wishlist");
+			return exists ? prev.filter((item) => item !== id) : [id, ...prev];
+		});
+	};
+	const handleToggleCompare = (id) => {
+		setCompareIds((prev) => {
+			if (prev.includes(id)) return prev.filter((item) => item !== id);
+			if (prev.length >= 3) {
+				showToast("You can compare up to 3 products at once.");
+				return prev;
+			}
+			return [...prev, id];
+		});
+	};
+	const handleShareProduct = async (product) => {
+		const link = buildProductDeepLink(product.id);
+		try {
+			if (navigator.share) {
+				await navigator.share({
+					title: product.title,
+					url: link
+				});
+				return;
+			}
+		} catch {}
+		try {
+			await navigator.clipboard.writeText(link);
+			showToast("Product link copied!");
+		} catch {
+			showToast("Copy link from browser address bar.");
+		}
+	};
+	const handleSelectStripMain = (catName) => {
+		if (!catName) {
+			setExpandedStripCategory(null);
+			setFilters((prev) => ({
+				...prev,
+				mainCategories: [],
+				subcategories: []
+			}));
+			return;
+		}
+		setExpandedStripCategory(catName);
+		setFilters((prev) => ({
+			...prev,
+			mainCategories: [catName],
+			subcategories: []
+		}));
+	};
+	const handleToggleSubcategory = (mainName, subName) => {
+		setExpandedStripCategory(mainName);
+		setFilters((prev) => {
+			const nextSubs = prev.subcategories.includes(subName) ? prev.subcategories.filter((s) => s !== subName) : [...prev.subcategories, subName];
+			const nextMains = prev.mainCategories.includes(mainName) ? prev.mainCategories : [...prev.mainCategories, mainName];
+			return {
+				...prev,
+				mainCategories: nextMains,
+				subcategories: nextSubs
+			};
+		});
+	};
+	const handleToggleSidebarMain = (mainName) => {
+		setFilters((prev) => {
+			const exists = prev.mainCategories.includes(mainName);
+			return {
+				...prev,
+				mainCategories: exists ? prev.mainCategories.filter((c) => c !== mainName) : [...prev.mainCategories, mainName]
+			};
+		});
+	};
+	const handleSaveProduct = (prod, isEdit) => {
+		setProducts((prev) => {
+			const next = isEdit ? prev.map((item) => item.id === prod.id ? prod : item) : [prod, ...prev];
+			saveProductsToStorage(next);
+			return next;
+		});
+	};
+	const handleDeleteProduct = (id) => {
+		setProducts((prev) => {
+			const next = prev.filter((item) => item.id !== id);
+			saveProductsToStorage(next);
+			return next;
+		});
+		setWishlistIds((prev) => prev.filter((x) => x !== id));
+		setCompareIds((prev) => prev.filter((x) => x !== id));
+	};
+	const handleRestoreDefaults = () => {
+		setProducts(DEFAULT_PRODUCTS);
+		saveProductsToStorage(DEFAULT_PRODUCTS);
+		setFilters(INITIAL_FILTERS);
+		setExpandedStripCategory(null);
+	};
+	const handleStealthTap = () => {
+		const ref = stealthTapRef.current;
+		ref.count += 1;
+		if (ref.timer) window.clearTimeout(ref.timer);
+		if (ref.count >= 5) {
+			ref.count = 0;
+			setAdminOpen(true);
+		} else ref.timer = window.setTimeout(() => {
+			ref.count = 0;
+		}, 1800);
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		id: "top",
+		className: "min-h-screen flex flex-col",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Header, {
+				searchQuery: filters.search,
+				onSearchChange: (value) => setFilters((prev) => ({
+					...prev,
+					search: value
+				})),
+				products,
+				wishlistCount: wishlistIds.length,
+				onOpenWishlist: () => setWishlistOpen(true),
+				onSelectProduct: handleOpenDetail,
+				onSelectMainCategory: (cat) => handleSelectStripMain(cat)
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CategoryStrip, {
+				products,
+				selectedMainCategories: filters.mainCategories,
+				selectedSubcategories: filters.subcategories,
+				expandedStripCategory,
+				onSelectMainCategory: handleSelectStripMain,
+				onToggleSubcategory: handleToggleSubcategory
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "lg:hidden bg-[#FFFDF9] border-b border-[#E6D9C3] grid grid-cols-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					onClick: () => setMobileSortOpen(true),
+					className: "py-2.5 px-3 text-xs font-bold text-[#6D1A22] flex items-center justify-center gap-1.5 border-r border-[#E6D9C3] cursor-pointer",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowUpDown, { className: "w-3.5 h-3.5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Sort" })]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					onClick: () => setMobileFilterOpen(true),
+					className: "py-2.5 px-3 text-xs font-bold text-[#6D1A22] flex items-center justify-center gap-1.5 cursor-pointer",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SlidersHorizontal, { className: "w-3.5 h-3.5" }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Filters" }),
+						activeFilterCount > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "px-1.5 py-0.5 rounded-full bg-[#6D1A22] text-white text-[10px] tabular-nums",
+							children: activeFilterCount
+						})
+					]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
+				className: "flex-1 w-full",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+					className: "max-w-[1360px] mx-auto px-4 md:px-6 py-6",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex flex-wrap items-end justify-between gap-3 mb-5",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+							className: "font-display text-2xl md:text-3xl font-bold text-[#6D1A22]",
+							children: "Explore Marketplace"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-sm text-[#6E564B]",
+							children: "Bengali craftsmanship & full Flipkart-scale departments with direct WhatsApp ordering."
+						})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "text-xs text-[#6E564B] tabular-nums",
+							children: [
+								"Showing ",
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", {
+									className: "text-[#6D1A22]",
+									children: filteredProducts.length
+								}),
+								" of",
+								" ",
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", {
+									className: "text-[#6D1A22]",
+									children: products.length
+								}),
+								" products"
+							]
+						})]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "grid grid-cols-1 lg:grid-cols-[276px_minmax(0,1fr)] gap-6 items-start",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FilterSidebar, {
+							products,
+							filterState: filters,
+							catalogMaxPrice,
+							mobileOpen: mobileFilterOpen,
+							onCloseMobile: () => setMobileFilterOpen(false),
+							onToggleMainCategory: handleToggleSidebarMain,
+							onToggleSubcategory: handleToggleSubcategory,
+							onSetPriceRange: (min, max) => setFilters((prev) => ({
+								...prev,
+								priceMin: min,
+								priceMax: max
+							})),
+							onToggleMaterial: (matId) => setFilters((prev) => ({
+								...prev,
+								materials: prev.materials.includes(matId) ? prev.materials.filter((m) => m !== matId) : [...prev.materials, matId]
+							})),
+							onToggleFlag: (flag) => setFilters((prev) => ({
+								...prev,
+								[flag]: !prev[flag]
+							})),
+							onClearAll: () => {
+								setFilters(INITIAL_FILTERS);
+								setExpandedStripCategory(null);
+							}
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "min-w-0 space-y-4",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "bg-white border border-[#E6D9C3] rounded-xl px-4 py-3 shadow-[0_4px_14px_rgba(109,26,34,0.05)] space-y-2.5",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "hidden lg:flex items-center justify-between gap-4 flex-wrap",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "text-sm font-semibold text-[#2C1810] tabular-nums",
+										children: [
+											"Showing ",
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												className: "text-[#6D1A22]",
+												children: filteredProducts.length
+											}),
+											" items"
+										]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "flex items-center gap-2",
+										role: "tablist",
+										"aria-label": "Sort products",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: "text-xs font-bold text-[#6E564B] mr-1",
+											children: "Sort By:"
+										}), [
+											{
+												id: "relevance",
+												label: "Relevance"
+											},
+											{
+												id: "price-asc",
+												label: "Price: Low to High"
+											},
+											{
+												id: "price-desc",
+												label: "Price: High to Low"
+											},
+											{
+												id: "newest",
+												label: "Newest First"
+											}
+										].map((tab) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+											type: "button",
+											onClick: () => setFilters((prev) => ({
+												...prev,
+												sortBy: tab.id
+											})),
+											className: `px-2.5 py-1 text-xs border-b-2 transition-colors cursor-pointer whitespace-nowrap ${filters.sortBy === tab.id ? "border-[#6D1A22] text-[#6D1A22] font-bold" : "border-transparent text-[#6E564B] hover:text-[#6D1A22]"}`,
+											children: tab.label
+										}, tab.id))]
+									})]
+								}), activeFilterCount > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex flex-wrap items-center gap-2 pt-2 lg:border-t lg:border-dashed lg:border-[#E6D9C3]",
+									children: [
+										filters.mainCategories.map((cat) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+											type: "button",
+											onClick: () => handleToggleSidebarMain(cat),
+											className: "inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#F3EAD8] border border-[#C89B3C] text-[#6D1A22] text-xs font-semibold cursor-pointer",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: cat }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "w-3 h-3" })]
+										}, `main-${cat}`)),
+										filters.subcategories.map((sub) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+											type: "button",
+											onClick: () => setFilters((prev) => ({
+												...prev,
+												subcategories: prev.subcategories.filter((s) => s !== sub)
+											})),
+											className: "inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#FFF6E8] border border-[#B84A2F] text-[#B84A2F] text-xs font-semibold cursor-pointer",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: sub }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "w-3 h-3" })]
+										}, `sub-${sub}`)),
+										(filters.priceMin !== null || filters.priceMax !== null) && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+											type: "button",
+											onClick: () => setFilters((prev) => ({
+												...prev,
+												priceMin: null,
+												priceMax: null
+											})),
+											className: "inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#F3EAD8] border border-[#C89B3C] text-[#6D1A22] text-xs font-semibold cursor-pointer",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+												"₹",
+												filters.priceMin ?? 0,
+												" –",
+												" ",
+												filters.priceMax ? `₹${filters.priceMax}` : "Any"
+											] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "w-3 h-3" })]
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+											type: "button",
+											onClick: () => {
+												setFilters(INITIAL_FILTERS);
+												setExpandedStripCategory(null);
+											},
+											className: "text-xs font-bold text-[#B84A2F] underline ml-1 cursor-pointer",
+											children: "Clear All"
+										})
+									]
+								})]
+							}), filteredProducts.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "bg-white border border-dashed border-[#C89B3C] rounded-xl p-12 text-center space-y-3",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+										className: "font-display text-lg font-bold text-[#6D1A22]",
+										children: "No matching products found"
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "text-sm text-[#6E564B] max-w-md mx-auto",
+										children: "Try clearing one of your active category, material, or price filters to discover more items."
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+										type: "button",
+										onClick: () => {
+											setFilters(INITIAL_FILTERS);
+											setExpandedStripCategory(null);
+										},
+										className: "px-4 py-2 rounded-lg bg-[#6D1A22] text-white text-xs font-semibold cursor-pointer",
+										children: "Reset All Filters"
+									})
+								]
+							}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5",
+								children: filteredProducts.map((product) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ProductCard, {
+									product,
+									defaultWhatsApp,
+									isWishlisted: wishlistIds.includes(product.id),
+									isCompared: compareIds.includes(product.id),
+									onOpenDetail: handleOpenDetail,
+									onToggleWishlist: handleToggleWishlist,
+									onToggleCompare: handleToggleCompare,
+									onShare: handleShareProduct
+								}, product.id))
+							})]
+						})]
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(RecentlyViewedShelf, {
+					items: recentItems,
+					onSelectProduct: handleOpenDetail,
+					onClearHistory: () => setRecentIds([])
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("footer", {
+				className: "bg-[#4E1016] text-[#EBD8AE] border-t-3 border-[#C89B3C] py-7 px-4 text-center mt-auto",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "font-display text-xl font-bold text-white mb-1",
+						children: "Saaj Gochh"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-xs opacity-90 max-w-xl mx-auto mb-3",
+						children: "Celebrating Bengali craftsmanship alongside curated everyday essentials. Order directly on WhatsApp."
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						onClick: handleStealthTap,
+						className: "text-xs text-[#EBD8AE]/75 select-none cursor-default",
+						children: "© 2026 Saaj Gochh. All rights reserved."
+					})
+				]
+			}),
+			mobileSortOpen && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "fixed inset-0 z-50 bg-[#1E0C0A]/70 flex items-center justify-center p-4",
+				onClick: () => setMobileSortOpen(false),
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					onClick: (e) => e.stopPropagation(),
+					className: "bg-[#FBF7F0] border-2 border-[#C89B3C] rounded-2xl w-full max-w-xs p-4 space-y-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex items-center justify-between pb-2 border-b border-[#E6D9C3]",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+							className: "font-display text-base font-bold text-[#6D1A22]",
+							children: "Sort By"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							type: "button",
+							onClick: () => setMobileSortOpen(false),
+							className: "w-7 h-7 rounded-full bg-[#F3EAD8] text-[#6D1A22] grid place-items-center",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "w-4 h-4" })
+						})]
+					}), [
+						{
+							id: "relevance",
+							label: "Relevance"
+						},
+						{
+							id: "price-asc",
+							label: "Price -- Low to High"
+						},
+						{
+							id: "price-desc",
+							label: "Price -- High to Low"
+						},
+						{
+							id: "newest",
+							label: "Newest First"
+						}
+					].map((opt) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						onClick: () => {
+							setFilters((prev) => ({
+								...prev,
+								sortBy: opt.id
+							}));
+							setMobileSortOpen(false);
+						},
+						className: `w-full text-left px-3 py-2.5 rounded-lg border text-xs font-semibold flex items-center justify-between ${filters.sortBy === opt.id ? "bg-[#FFF6ED] border-[#6D1A22] text-[#6D1A22]" : "bg-white border-[#E6D9C3] text-[#2C1810]"}`,
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: opt.label }), filters.sortBy === opt.id && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "✓" })]
+					}, opt.id))]
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(WishlistDrawer, {
+				open: wishlistOpen,
+				items: wishlistItems,
+				defaultWhatsApp,
+				onClose: () => setWishlistOpen(false),
+				onRemove: handleToggleWishlist,
+				onClearAll: () => {
+					setWishlistIds([]);
+					showToast("Saved items cleared.");
+				},
+				onSelectProduct: handleOpenDetail
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CompareBar, {
+				items: compareItems,
+				onRemove: handleToggleCompare,
+				onClear: () => setCompareIds([]),
+				onOpenModal: () => setCompareModalOpen(true)
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CompareModal, {
+				open: compareModalOpen,
+				items: compareItems,
+				defaultWhatsApp,
+				onClose: () => setCompareModalOpen(false),
+				onRemove: handleToggleCompare,
+				onSelectProduct: handleOpenDetail
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ProductDetailModal, {
+				product: detailProduct,
+				defaultWhatsApp,
+				isWishlisted: detailProduct ? wishlistIds.includes(detailProduct.id) : false,
+				onClose: () => setDetailProduct(null),
+				onToggleWishlist: handleToggleWishlist,
+				onShare: handleShareProduct
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AdminConsoleModal, {
+				open: adminOpen,
+				products,
+				defaultWhatsApp,
+				onClose: () => setAdminOpen(false),
+				onSaveProduct: handleSaveProduct,
+				onDeleteProduct: handleDeleteProduct,
+				onRestoreDefaults: handleRestoreDefaults,
+				onUpdateDefaultWhatsApp: (num) => {
+					setDefaultWhatsApp(num);
+					saveWhatsAppNumberToStorage(num);
+				},
+				onJumpToStoreCategory: (mainCat, subCat) => {
+					setExpandedStripCategory(mainCat);
+					setFilters((prev) => ({
+						...prev,
+						mainCategories: [mainCat],
+						subcategories: subCat ? [subCat] : []
+					}));
+				},
+				onShowToast: showToast
+			}),
+			toastMsg && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				role: "status",
+				className: "fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] bg-[#4E1016] text-white border border-[#C89B3C] px-5 py-2.5 rounded-full text-xs font-medium shadow-xl max-w-[90vw] text-center",
+				children: toastMsg
+			})
+		]
+	});
+}
+// src/main.tsx
+(0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {}));</script>
     <style rel="stylesheet" crossorigin>/*! tailwindcss v4.3.5 | MIT License | https://tailwindcss.com */
 @layer properties {
   @supports (((-webkit-hyphens: none)) and (not (margin-trim: block))) or ((-moz-orient: inline) and (not (color: rgb(from red r g b)))) {
@@ -106414,7 +109116,7 @@ var AdminConsoleModal = ({ open, products, defaultWhatsApp, onClose, onSaveProdu
   <script src="/_aistudio-iframe.js?v=29045eb3"></script></head>
   <body>
     <div id="root"></div>
-    <script id="saaj-embedded-data" type="application/json"></script>
+    <script id="saaj-embedded-data" type="application/json">{"updatedAt":1795251813789,"whatsapp":"918670234616","products":[{"id":"sg-jamdani-01","title":"Handwoven Red-Border White Dhakai Jamdani Saree","price":2450,"category":"Fashion & Apparel","subcategory":"Women's Sarees & Ethnic Wear","description":"Authentic Bengal handloom Dhakai Jamdani saree crafted with fine unbleached cotton and crimson-gold geometric pallu motifs. Ideal for Pujo, weddings, and festive occasions. Length: 5.5m with unstitched blouse piece.","images":["/src/assets/images/product_jamdani_saree_1795250299552.jpg"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"sari, handloom textile","aiConfidence":94,"createdAt":1795200000000},{"id":"sg-dokra-02","title":"Bikna Dokra Brass Devi Idol & Glazed Terracotta Vase Set","price":1680,"category":"Jewellery & Artisanal Craft","subcategory":"Dokra & Brass Handicrafts","description":"Lost-wax cast Dokra brass figurine paired with a wheel-thrown glazed terracotta vessel by Bankura artisans. Museum-grade heritage accent for living rooms and study consoles.","images":["/src/assets/images/product_dokra_craft_1795250299445.jpg"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"brass sculpture, earthenware vase","aiConfidence":91,"createdAt":1795190000000},{"id":"sg-mobile-03","title":"Aura X5 Pro 5G Smartphone (8GB RAM, 256GB Obsidian Matte)","price":24999,"category":"Mobiles & Tablets","subcategory":"Smartphones (5G & 4G)","description":"6.7-inch 120Hz AMOLED display, 50MP OIS triple camera, 5000mAh battery with 67W fast charging, and sleek matte obsidian glass back. Sealed Indian retail unit with 1-year warranty.","images":["/src/assets/images/product_smartphone_pro_1795250299441.jpg"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"cellular telephone","aiConfidence":97,"createdAt":1795180000000},{"id":"sg-audio-04","title":"Aether Studio ANC Wireless Headphones — Brushed Bronze","price":4290,"category":"Electronics & Audio","subcategory":"Headphones & True Wireless Earbuds","description":"Hybrid Active Noise Cancellation up to 42dB, 40mm dynamic acoustic drivers, espresso memory-foam ear cushions, and 50-hour battery life over USB-C and Bluetooth 5.3.","images":["/src/assets/images/product_wireless_audio_1795250299522.jpg"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"headphones, audio headset","aiConfidence":95,"createdAt":1795170000000},{"id":"sg-kitchen-05","title":"Precision Matte Gooseneck Electric Tea & Pour-Over Kettle","price":2890,"category":"Kitchen & Dining","subcategory":"Tea Sets, Kettles & Coffee Makers","description":"Variable temperature PID gooseneck kettle (1000ml) with walnut handle and matching stoneware tea cup pair. Crafted for Darjeeling first flush and specialty pour-over brewing.","images":["/src/assets/images/product_kitchen_espresso_1795250299446.jpg"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"teapot, coffeepot","aiConfidence":92,"createdAt":1795160000000},{"id":"sg-beauty-06","title":"Marigold & Rosehip Botanical Radiance Facial Serum (30ml)","price":695,"category":"Beauty & Personal Care","subcategory":"Skincare, Serums & Moisturizers","description":"Cold-pressed rosehip oil infused with Bengal marigold extract, squalane, and vitamin C ester in UV-protected amber glass. Paraben-free, dermatologically tested daily glow serum.","images":["/src/assets/images/product_skincare_serum_1795250299699.jpg"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"lotion, oil bottle","aiConfidence":89,"createdAt":1795150000000},{"id":"sg-kurta-07","title":"Animal Motif Digital Printed Cotton Blend Kurta For Men","price":447,"category":"Fashion & Apparel","subcategory":"Men's Kurtas & Ethnic","description":"Breathable rayon-cotton blend men's kurta with artisanal folk motif digital print, Mandarin collar, and full sleeves. Available in M, L, XL, and XXL.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%234E1016%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%238C2D36%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M250%20120%20L225%20145%20L240%20245%20L360%20245%20L375%20145%20L350%20120%20L325%20135%20L275%20135%20Z%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%225%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3EMen's%20Printed%20Kurta%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23EBD8AE%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"manual","createdAt":1795140000000},{"id":"sg-home-08","title":"Shantiniketan Kantha-Stitched Cotton Cushion Cover (Set of 5)","price":899,"category":"Home & Furniture","subcategory":"Bedsheets, Kantha Quilts & Curtains","description":"Hand-embroidered Kantha stitch cushion covers (16x16 in) crafted by rural women artisans of Birbhum. Concealed brass zipper, pure breathable cotton canvas.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23B84A2F%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%236D1A22%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23F3EAD8%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23F3EAD8%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%22245%22%20y%3D%22130%22%20width%3D%22110%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%224%22%2F%3E%3Cpath%20d%3D%22M260%20145%20L340%20225%20M340%20145%20L260%20225%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222.5%22%20stroke-dasharray%3D%226%204%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3EKantha%20Cushion%20Set%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23F3EAD8%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"cushion, pillow","aiConfidence":87,"createdAt":1795130000000},{"id":"sg-grocery-09","title":"Darjeeling First Flush Loose Leaf Tea & Sundarban Honey Duo","price":740,"category":"Grocery & Gourmet Food","subcategory":"Darjeeling Tea, Coffee & Beverages","description":"Single-estate Makaibari spring-harvest Darjeeling tea (150g tin) paired with raw wildflower Sundarban forest honey (350g glass jar).","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%232F5233%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%233D6B4F%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M250%20165%20C250%20135%20350%20135%20350%20165%20L340%20225%20C335%20240%20265%20240%20260%20225%20Z%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%224%22%2F%3E%3Cpath%20d%3D%22M350%20175%20C375%20175%20375%20205%20345%20205%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%224%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3EDarjeeling%20Tea%20%26%20Honey%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23EBD8AE%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":false,"classificationSource":"ai","aiDetectedLabel":"tea, honey jar","aiConfidence":85,"createdAt":1795120000000},{"id":"sg-festive-10","title":"Brass Panchapradip Diya & Pujo Dhunuchi Gift Box","price":1150,"category":"Festive, Puja & Gifts","subcategory":"Diyas, Dhunuchi & Oil Lamps","description":"Solid Moradabadi & Bengal brass five-wick Panchapradip oil lamp paired with traditional wooden-handle dhunuchi in a velvet-lined festive gift box.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%238F5B14%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23C89B3C%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M300%20120%20C312%20142%20316%20155%20300%20170%20C284%20155%20288%20142%20300%20120%20Z%22%20fill%3D%22%23FFFDF8%22%2F%3E%3Cpath%20d%3D%22M240%20190%20Q300%20245%20360%20190%20Z%22%20fill%3D%22none%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%224%22%2F%3E%3Cline%20x1%3D%22270%22%20y1%3D%22225%22%20x2%3D%22330%22%20y2%3D%22225%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%224%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3EBrass%20Diya%20%26%20Dhunuchi%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"oil lamp, brass","aiConfidence":90,"createdAt":1795110000000},{"id":"sg-books-11","title":"Gitabitan Complete Collector's Hardbound Edition + Brass Bookmark","price":580,"category":"Books, Music & Stationery","subcategory":"Fiction, Poetry & Bengali Classics","description":"Archival acid-free paper collector's edition of Rabindranath Tagore's Gitabitan with gold-foil spine lettering and handcrafted brass alpona bookmark.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23482B59%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%236D1A22%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%22255%22%20y%3D%22125%22%20width%3D%2290%22%20height%3D%22120%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%224%22%2F%3E%3Cline%20x1%3D%22272%22%20y1%3D%22125%22%20x2%3D%22272%22%20y2%3D%22245%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222.5%22%2F%3E%3Cline%20x1%3D%22286%22%20y1%3D%22160%22%20x2%3D%22328%22%20y2%3D%22160%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%223%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3EGitabitan%20Collector's%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23EBD8AE%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"manual","createdAt":1795100000000},{"id":"sg-sports-12","title":"Eco Cork & Natural Rubber Alignment Yoga Mat (6mm)","price":1390,"category":"Sports, Fitness & Outdoors","subcategory":"Yoga Mats & Meditation Cushions","description":"Antimicrobial Portuguese cork top layer bonded to high-grip natural tree rubber base with laser-etched alignment lines and cotton carry strap.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23155E34%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23257A4B%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%22235%22%20y%3D%22155%22%20width%3D%22130%22%20height%3D%2255%22%20rx%3D%2222%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%224%22%2F%3E%3Ccircle%20cx%3D%22262%22%20cy%3D%22182%22%20r%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%223%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3ECork%20Yoga%20Mat%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23EBD8AE%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"yoga mat","aiConfidence":84,"createdAt":1795090000000},{"id":"sg-toys-13","title":"Natungram Hand-Painted Wooden Owl & Folk Toy Pair","price":495,"category":"Toys, Baby Care & Kids","subcategory":"Soft Toys, Plush & Traditional Dolls","description":"Non-toxic natural vegetable-dyed gamhar wood owl figurines carved by Natungram sutradhar artisans. Safe, smooth finish for kids' rooms and collectors.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%239A4416%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23C89B3C%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22300%22%20cy%3D%22185%22%20rx%3D%2244%22%20ry%3D%2256%22%20fill%3D%22none%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%224%22%2F%3E%3Ccircle%20cx%3D%22284%22%20cy%3D%22168%22%20r%3D%2210%22%20fill%3D%22none%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%223%22%2F%3E%3Ccircle%20cx%3D%22316%22%20cy%3D%22168%22%20r%3D%2210%22%20fill%3D%22none%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%223%22%2F%3E%3Cpolygon%20points%3D%22295%2C180%20305%2C180%20300%2C192%22%20fill%3D%22%23FFFDF8%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3ENatungram%20Wooden%20Owl%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":false,"codAvailable":false,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"wooden toy, doll","aiConfidence":82,"createdAt":1795080000000},{"id":"sg-appliances-14","title":"NutriBlend 750W Copper-Motor Mixer Grinder (3 Stainless Jars)","price":3499,"category":"TVs & Home Appliances","subcategory":"Microwaves, Mixers & Juicers","description":"Heavy-duty 750W 100% copper motor with 3 food-grade 304 stainless steel jars for wet masala, dry spice grinding, and smoothies. Overload protector included.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23334155%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231E293B%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%22265%22%20y%3D%22130%22%20width%3D%2270%22%20height%3D%2265%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%224%22%2F%3E%3Cpath%20d%3D%22M258%20195%20L342%20195%20L350%20240%20L250%20240%20Z%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%224%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3E750W%20Mixer%20Grinder%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23EBD8AE%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"manual","createdAt":1795070000000},{"id":"sg-health-15","title":"Dr. Care Digital Upper-Arm Blood Pressure Monitor with Memory","price":1590,"category":"Health & Wellness","subcategory":"BP Monitors, Thermometers & Oximeters","description":"Clinically validated oscillometric BP monitor with dual-user 120-reading memory, irregular heartbeat detector, large backlit LCD, and USB-C power option.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230F766E%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23115E59%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%22245%22%20y%3D%22135%22%20width%3D%22110%22%20height%3D%2295%22%20rx%3D%2212%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%224%22%2F%3E%3Cpolyline%20points%3D%22262%2C185%20280%2C185%20290%2C158%20302%2C205%20314%2C175%20338%2C175%22%20fill%3D%22none%22%20stroke%3D%22%23EBD8AE%22%20stroke-width%3D%223.5%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3EDigital%20BP%20Monitor%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23EBD8AE%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"medical monitor, scale","aiConfidence":88,"createdAt":1795060000000},{"id":"sg-auto-16","title":"Apex Dual-Channel Full HD Dashcam & Tire Inflator Combo","price":3990,"category":"Automotive & Tools","subcategory":"Car Electronics, Mats & Care","description":"170-degree wide-angle 1080p car dashcam with night vision paired with a compact 12V digital auto-cutout tire inflator.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%231E293B%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%230F172A%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%22560%22%20height%3D%22410%22%20rx%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%23C89B3C%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%206%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22300%22%20cy%3D%22185%22%20r%3D%2292%22%20fill%3D%22rgba(255%2C255%2C255%2C0.10)%22%20stroke%3D%22%23C89B3C%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%22245%22%20y%3D%22145%22%20width%3D%22110%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22none%22%20stroke%3D%22%23C89B3C%22%20stroke-width%3D%224%22%2F%3E%3Ccircle%20cx%3D%22300%22%20cy%3D%22181%22%20r%3D%2220%22%20fill%3D%22none%22%20stroke%3D%22%23C89B3C%22%20stroke-width%3D%223.5%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22340%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFDF8%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2224%22%20font-weight%3D%22bold%22%3EDashcam%20%26%20Inflator%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22300%22%20y%3D%22370%22%20text-anchor%3D%22middle%22%20fill%3D%22%23C89B3C%22%20font-family%3D%22sans-serif%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"classificationSource":"ai","aiDetectedLabel":"car mirror, camera","aiConfidence":81,"createdAt":1795050000000}]}</script>
   </body>
 </html>
 
