@@ -3917,9 +3917,24 @@
               <div class="cat-select-wrap" id="catSelectWrap">
                 <select id="prodCategory" required="">
                   <option value="Sarees &amp; Apparel">Sarees &amp; Apparel</option>
-                  <option value="Home Decor">Home Decor</option>
+                  <option value="Sarees">Sarees</option>
+                  <option value="Kurtis &amp; Ethnic Wear">Kurtis &amp; Ethnic Wear</option>
+                  <option value="Lehengas &amp; Wedding Wear">Lehengas &amp; Wedding Wear</option>
+                  <option value="Men's Ethnic Wear">Men's Ethnic Wear</option>
+                  <option value="Western Wear">Western Wear</option>
                   <option value="Jewelry &amp; Craft">Jewelry &amp; Craft</option>
+                  <option value="Bags &amp; Wallets">Bags &amp; Wallets</option>
+                  <option value="Footwear">Footwear</option>
+                  <option value="Fashion Accessories">Fashion Accessories</option>
+                  <option value="Home Decor">Home Decor</option>
+                  <option value="Home Textiles">Home Textiles</option>
+                  <option value="Kitchen &amp; Dining">Kitchen &amp; Dining</option>
+                  <option value="Handicrafts &amp; Art">Handicrafts &amp; Art</option>
+                  <option value="Wall Art &amp; Paintings">Wall Art &amp; Paintings</option>
+                  <option value="Festive &amp; Puja Items">Festive &amp; Puja Items</option>
                   <option value="Festive Gifts">Festive Gifts</option>
+                  <option value="Beauty &amp; Personal Care">Beauty &amp; Personal Care</option>
+                  <option value="Kids &amp; Baby">Kids &amp; Baby</option>
                   <option value="Others">Others</option>
                 </select>
                 <button type="button" class="btn-secondary" id="reDetectCatBtn" style="display:none; padding:8px 10px; font-size:0.76rem; white-space:nowrap;" title="Re-scan photo to auto-select category">✨ Auto</button>
@@ -5351,40 +5366,25 @@
       }
 
       const CATEGORY_RULES = {
-        "Sarees & Apparel": [
-          "sari", "sarong", "gown", "kimono", "abaya", "overskirt", "hoopskirt", "miniskirt",
-          "vestment", "cloak", "poncho", "stole", "shawl", "cardigan", "sweater", "sweatshirt",
-          "jersey", "trench coat", "suit", "apron", "pajama", "velvet", "wool", "silk",
-          "academic gown", "fur coat", "feather boa", "lab coat", "jean", "jeans", "brassiere",
-          "maillot", "bikini", "handkerchief", "wig", "bridegroom", "mannequin", "bow tie",
-          "windsor tie", "skirt", "dress", "shirt", "blouse", "kurta", "kurti", "saree",
-          "jamdani", "dupatta", "lehenga", "tant", "tussar", "cotton", "apparel", "garment"
-        ],
-        "Home Decor": [
-          "vase", "pot", "flowerpot", "pitcher", "jug", "urn", "jar", "amphora",
-          "pillow", "cushion", "quilt", "doormat", "prayer rug", "carpet", "tapestry",
-          "curtain", "window shade", "lampshade", "table lamp", "wall clock", "analog clock",
-          "plate", "platter", "bowl", "teapot", "coffeepot", "basket", "wicker",
-          "sculpture", "totem", "mask", "mosaic", "tray", "mortar", "water jug",
-          "earthenware", "terracotta", "clay", "pottery", "wall", "decor", "alpona",
-          "kantha", "frame", "mirror", "bedspread", "blanket", "rug"
-        ],
-        "Jewelry & Craft": [
-          "necklace", "chain", "bead", "beads", "pearl", "buckle", "safety pin", "hair slide",
-          "hairpin", "hook", "padlock", "medallion", "medal", "coin", "watch",
-          "pocket watch", "hourglass", "crown", "tiara", "ring", "rings", "bracelet", "bangle",
-          "earring", "earrings", "pendant", "brooch", "jhumka", "choker", "dokra", "oxidized",
-          "jewel", "jewelry", "jewellery", "purse", "handbag", "wallet", "knot",
-          "thimble", "ocarina", "maraca", "whistle", "gong", "craft", "anklet"
-        ],
-        "Festive Gifts": [
-          "candle", "candlestick", "oil lamp", "lantern", "goblet", "chalice",
-          "trophy", "cauldron", "brass", "altar", "monastery", "shrine", "bell",
-          "church", "chest", "coffer", "box", "crate", "carton", "hamper",
-          "chocolate", "confectionery", "cake", "sweet", "gift", "present",
-          "ornament", "balloon", "ribbon", "bow", "matchstick", "lighter",
-          "diya", "dhunuchi", "puja", "festive", "idol", "incense"
-        ]
+        "Sarees & Apparel": ["apparel", "garment", "clothing", "dress", "shirt", "blouse", "skirt", "saree", "sari", "cotton", "silk", "tussar", "tant", "jamdani", "stole", "shawl", "dupatta"],
+        "Sarees": ["saree", "sari", "jamdani saree", "tant saree", "tussar saree", "silk saree", "cotton saree"],
+        "Kurtis & Ethnic Wear": ["kurti", "kurta", "salwar", "churidar", "anarkali", "dupatta", "ethnic wear", "suit set"],
+        "Lehengas & Wedding Wear": ["lehenga", "bridal", "wedding wear", "ghagra", "gown", "bridesmaid"],
+        "Men's Ethnic Wear": ["men's kurta", "mens kurta", "kurta for men", "sherwani", "dhoti", "panjabi for men", "men ethnic"],
+        "Western Wear": ["jeans", "t-shirt", "tee shirt", "trench coat", "sweater", "cardigan", "western wear", "jacket", "western dress"],
+        "Jewelry & Craft": ["necklace", "chain", "bead", "beads", "pearl", "buckle", "hair slide", "hairpin", "medallion", "crown", "tiara", "ring", "bracelet", "bangle", "earring", "pendant", "brooch", "jhumka", "choker", "jewel", "jewelry", "jewellery", "anklet", "craft", "dokra", "oxidized"],
+        "Bags & Wallets": ["handbag", "bag", "wallet", "purse", "clutch", "tote", "sling bag", "backpack"],
+        "Footwear": ["shoe", "shoes", "sandal", "sandals", "slipper", "heels", "footwear", "juti", "mojari"],
+        "Fashion Accessories": ["bow tie", "tie", "belt", "scarf", "hair accessory", "sunglasses", "accessory", "accessories", "watch"],
+        "Home Decor": ["vase", "pot", "flowerpot", "pitcher", "jug", "urn", "jar", "amphora", "pillow", "cushion", "quilt", "doormat", "prayer rug", "carpet", "tapestry", "curtain", "lampshade", "table lamp", "wall clock", "plate", "platter", "bowl", "teapot", "basket", "sculpture", "mask", "mosaic", "tray", "terracotta", "clay", "pottery", "decor", "alpona", "mirror", "rug"],
+        "Home Textiles": ["bedspread", "blanket", "bedsheet", "bed sheet", "pillow cover", "cushion cover", "table runner", "tablecloth", "kantha quilt", "home textile"],
+        "Kitchen & Dining": ["kitchen", "dining", "cookware", "cutlery", "mug", "cup", "glass", "bottle", "spoon", "serving set", "tea set", "coffeepot"],
+        "Handicrafts & Art": ["handicraft", "handcrafted", "handmade", "artisan", "craftwork", "wood craft", "clay craft", "folk art", "dokra"],
+        "Wall Art & Paintings": ["wall art", "painting", "canvas", "wall hanging", "poster", "art print", "framed art"],
+        "Festive & Puja Items": ["diya", "dhunuchi", "puja", "festive", "idol", "incense", "oil lamp", "candlestick", "lantern", "altar", "shrine", "bell"],
+        "Festive Gifts": ["gift", "present", "ornament", "balloon", "ribbon", "hamper", "chocolate", "cake", "sweet", "trophy", "gift box"],
+        "Beauty & Personal Care": ["beauty", "personal care", "skin care", "skincare", "soap", "lotion", "cream", "perfume", "cosmetic", "makeup"],
+        "Kids & Baby": ["kids", "kid", "baby", "children", "child", "toddler", "infant", "baby wear", "kids wear"]
       };
 
       const CATEGORY_REGEX_RULES = {};
@@ -5426,12 +5426,7 @@
       }
 
       async function detectCategoryFromImage(imageSrc, sourceHint = "", aspectRatio = 1) {
-        const scores = {
-          "Sarees & Apparel": 0,
-          "Home Decor": 0,
-          "Jewelry & Craft": 0,
-          "Festive Gifts": 0
-        };
+        const scores = Object.fromEntries(Object.keys(CATEGORY_REGEX_RULES).map(cat => [cat, 0]));
 
         const normalizedHint = `${sourceHint || ""} ${document.getElementById("prodTitle")?.value || ""}`
           .replace(/[_-]+/g, " ");
