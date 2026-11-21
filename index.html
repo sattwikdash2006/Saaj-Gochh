@@ -3347,6 +3347,46 @@
       .sg-intro-rule { width:190px; }
       .sg-intro.is-leaving { opacity:0; visibility:hidden; }
     }
+
+/* ===== ULTRA PRO INTERACTION LAYER: 3D TILT + PARALLAX PEEL ===== */
+.product-card.sg-tilt-enabled {
+  --sg-tilt-x: 0deg; --sg-tilt-y: 0deg; --sg-lift: 0px;
+  --sg-glow-x: 50%; --sg-glow-y: 50%;
+  transform: perspective(1000px) rotateX(var(--sg-tilt-x)) rotateY(var(--sg-tilt-y)) translateY(var(--sg-lift));
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform .18s ease-out, box-shadow .28s ease, border-color .25s ease;
+  background: radial-gradient(260px circle at var(--sg-glow-x) var(--sg-glow-y), rgba(200,155,60,.13), transparent 60%), var(--card-bg);
+}
+.product-card.sg-tilt-enabled:hover { --sg-lift: -5px; box-shadow: 0 20px 42px rgba(78,16,22,.17); }
+.product-card.sg-tilt-enabled .product-img-wrap { transform: translateZ(24px); overflow: hidden; }
+.product-card.sg-tilt-enabled .product-body { transform: translateZ(12px); }
+.product-img-wrap.sg-peel { isolation: isolate; }
+.product-img-wrap.sg-peel::before {
+  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(125deg, transparent 42%, rgba(255,255,255,.28) 49%, transparent 56%);
+  opacity: 0; transform: translateX(-120%); transition: transform .8s cubic-bezier(.2,.65,.2,1), opacity .3s;
+}
+.product-card:hover .product-img-wrap.sg-peel::before { opacity: 1; transform: translateX(120%); }
+.product-img-wrap.sg-peel::after {
+  content: ''; position: absolute; top: 0; right: 0; z-index: 2; pointer-events: none;
+  width: 0; height: 0; border-style: solid;
+  border-width: 0 0 0 0; border-color: transparent transparent transparent rgba(255,253,249,.92);
+  filter: drop-shadow(-3px 4px 4px rgba(44,24,16,.18)); transition: border-width .35s cubic-bezier(.2,.7,.2,1);
+}
+.product-card:hover .product-img-wrap.sg-peel::after { border-width: 0 0 42px 42px; }
+.product-card.sg-tilt-enabled .product-img-wrap img { transition: transform .35s ease; }
+.product-card:hover.sg-tilt-enabled .product-img-wrap img { transform: scale(1.055) translateY(var(--sg-img-parallax, 0px)); }
+.sg-motion-hint { position:absolute; bottom:48px; right:10px; z-index:2; pointer-events:none; font-size:.65rem; letter-spacing:.04em; padding:3px 8px; border-radius:999px; color:#fff; background:rgba(44,24,16,.55); opacity:0; transition:opacity .25s; backdrop-filter:blur(4px); }
+.product-card:hover .sg-motion-hint { opacity:.72; }
+@media (hover:none), (max-width:768px) {
+  .product-card.sg-tilt-enabled { transform:none !important; transition:box-shadow .2s ease; }
+  .product-card.sg-tilt-enabled:hover { --sg-lift: 0px; }
+  .sg-motion-hint { display:none; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .product-card.sg-tilt-enabled, .product-img-wrap.sg-peel::before, .product-img-wrap.sg-peel::after { transition:none !important; }
+}
 </style>
 </head>
 <body>
@@ -8599,6 +8639,67 @@
   });
   const delay = reducedMotion ? 500 : 3400;
   window.setTimeout(closeIntro, delay);
+})();
+</script>
+
+<script>
+/* Ultra Pro: lightweight card tilt, pointer spotlight, image parallax, and peel accent. */
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const touch = window.matchMedia('(hover: none)').matches;
+  const grid = document.getElementById('productGrid');
+  if (!grid) return;
+  const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
+  const attach = (card) => {
+    if (card.dataset.sgMotionReady) return;
+    card.dataset.sgMotionReady = '1';
+    card.classList.add('sg-tilt-enabled');
+    const imageWrap = card.querySelector('.product-img-wrap');
+    if (imageWrap) {
+      imageWrap.classList.add('sg-peel');
+      if (!imageWrap.querySelector('.sg-motion-hint')) {
+        const hint = document.createElement('span'); hint.className = 'sg-motion-hint';
+        hint.textContent = 'CRAFT DETAIL';; imageWrap.appendChild(hint);
+      }
+    }
+    if (reduce || touch) return;
+    let rect;
+    card.addEventListener('pointerenter', () => { rect = card.getBoundingClientRect(); }, {passive:true});
+    card.addEventListener('pointermove', (e) => {
+      rect = card.getBoundingClientRect();
+      const px = clamp((e.clientX - rect.left) / rect.width, 0, 1);
+      const py = clamp((e.clientY - rect.top) / rect.height, 0, 1);
+      const rx = (0.5 - py) * 8;
+      const ry = (px - 0.5) * 10;
+      card.style.setProperty('--sg-tilt-x', rx.toFixed(2) + 'deg');
+      card.style.setProperty('--sg-tilt-y', ry.toFixed(2) + 'deg');
+      card.style.setProperty('--sg-glow-x', (px * 100).toFixed(1) + '%');
+      card.style.setProperty('--sg-glow-y', (py * 100).toFixed(1) + '%');
+    }, {passive:true});
+    card.addEventListener('pointerleave', () => {
+      card.style.setProperty('--sg-tilt-x', '0deg'); card.style.setProperty('--sg-tilt-y', '0deg');
+      card.style.setProperty('--sg-glow-x', '50%'); card.style.setProperty('--sg-glow-y', '50%');
+    }, {passive:true});
+  };
+  const scan = (scope=document) => scope.querySelectorAll('.product-card').forEach(attach);
+  scan();
+  new MutationObserver(() => scan(grid)).observe(grid, {childList:true, subtree:true});
+  if (reduce || touch) return;
+  let raf = 0;
+  const updateParallax = () => {
+    raf = 0;
+    grid.querySelectorAll('.product-card.sg-tilt-enabled').forEach(card => {
+      const r = card.getBoundingClientRect();
+      if (r.bottom < -100 || r.top > window.innerHeight + 100) return;
+      const img = card.querySelector('.product-img-wrap img');
+      if (!img) return;
+      const offset = clamp((window.innerHeight * .5 - (r.top + r.height*.5)) / window.innerHeight, -1, 1) * 5;
+      img.style.setProperty('--sg-img-parallax', offset.toFixed(1) + 'px');
+    });
+  };
+  window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(updateParallax); }, {passive:true});
+  window.addEventListener('resize', updateParallax, {passive:true});
+  updateParallax();
 })();
 </script>
 </body></html>
