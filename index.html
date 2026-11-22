@@ -4384,7 +4384,78 @@
   <canvas id="sg3dCanvas" aria-hidden="true" width="861" height="454"></canvas>
 
     <!-- Saaj Gochh Ultra Pro Curtain Window Intro -->
-  
+  <div class="sg-intro" id="sgIntro" role="dialog" aria-label="Saaj Gochh welcome introduction" aria-modal="true">
+    <div class="sg-window-light"></div>
+    <div class="sg-window-frame">
+      <span class="sg-window-corner sg-window-corner--tl"></span><span class="sg-window-corner sg-window-corner--tr"></span>
+      <span class="sg-window-corner sg-window-corner--bl"></span><span class="sg-window-corner sg-window-corner--br"></span>
+    </div>
+    <div class="sg-window-cornice"><div class="sg-cornice-pelmet"></div><div class="sg-curtain-rod"><span class="sg-rod-finial sg-rod-finial--left"></span><span class="sg-rod-finial sg-rod-finial--right"></span></div></div>
+    <div class="sg-curtain-rings sg-curtain-rings--left"><i class="sg-curtain-ring"></i><i class="sg-curtain-ring"></i><i class="sg-curtain-ring"></i><i class="sg-curtain-ring"></i><i class="sg-curtain-ring"></i></div>
+    <div class="sg-curtain-rings sg-curtain-rings--right"><i class="sg-curtain-ring"></i><i class="sg-curtain-ring"></i><i class="sg-curtain-ring"></i><i class="sg-curtain-ring"></i><i class="sg-curtain-ring"></i></div>
+    <div class="sg-curtain-sheer sg-curtain-sheer--left"></div><div class="sg-curtain-sheer sg-curtain-sheer--right"></div>
+    <div class="sg-curtain-velvet sg-curtain-velvet--left"></div><div class="sg-curtain-velvet sg-curtain-velvet--right"></div>
+    <div class="sg-tieback sg-tieback--left"></div><div class="sg-tieback sg-tieback--right"></div>
+    <span class="sg-petal">✦</span><span class="sg-petal">✧</span><span class="sg-petal">✦</span><span class="sg-petal">✧</span>
+    <div class="sg-intro-inner">
+      <div class="sg-intro-kicker">A celebration of timeless elegance</div>
+      <div class="sg-intro-emblem" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3c2.3 4.1 4.6 6.1 4.6 9.1a4.6 4.6 0 1 1-9.2 0C7.4 9.1 9.7 7.1 12 3Z" stroke="#e6c17a" stroke-width="1.3"/><path d="M5 17.5c2.2 1.3 4.5 1.9 7 1.9s4.8-.6 7-1.9" stroke="#e6c17a" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+      <h1 class="sg-intro-name">Saaj Gochh</h1><p class="sg-intro-tagline">Grace in every detail · Elegance in every moment</p>
+      <div class="sg-intro-rule"></div><div class="sg-intro-loading">Opening the collection</div><div class="sg-intro-track"><span class="sg-intro-track-fill"></span></div>
+    </div>
+    <button class="sg-intro-skip" type="button" id="sgIntroSkip">Skip intro</button>
+  </div>
+  <style>
+    #sgIntro .sg-curtain-velvet, #sgIntro .sg-curtain-sheer { transition: transform 1.65s cubic-bezier(.72,0,.22,1); }
+    #sgIntro .sg-curtain-velvet--left, #sgIntro .sg-curtain-sheer--left { transform: translateX(0); }
+    #sgIntro .sg-curtain-velvet--right, #sgIntro .sg-curtain-sheer--right { transform: translateX(0); }
+    #sgIntro .sg-intro-kicker, #sgIntro .sg-intro-emblem, #sgIntro .sg-intro-name, #sgIntro .sg-intro-tagline, #sgIntro .sg-intro-loading, #sgIntro .sg-intro-track { transition: opacity .75s ease, transform .75s ease; }
+    #sgIntro .sg-intro-kicker { transform: translateY(12px); }
+    #sgIntro .sg-intro-emblem { transform: scale(.7) rotate(-12deg); }
+    #sgIntro .sg-intro-name { transform: translateY(18px); }
+    #sgIntro .sg-intro-tagline { transform: translateY(10px); }
+    #sgIntro .sg-intro-rule { transition: width .7s ease, opacity .5s; }
+    #sgIntro .sg-intro-track-fill { transition: transform 2.4s cubic-bezier(.65,0,.25,1); transform-origin: left; }
+    #sgIntro.sg-ready .sg-curtain-velvet--left { transform: translateX(-102%); }
+    #sgIntro.sg-ready .sg-curtain-velvet--right { transform: translateX(102%); }
+    #sgIntro.sg-ready .sg-curtain-sheer--left { transform: translateX(-106%); }
+    #sgIntro.sg-ready .sg-curtain-sheer--right { transform: translateX(106%); }
+    #sgIntro.sg-ready .sg-intro-kicker, #sgIntro.sg-ready .sg-intro-emblem, #sgIntro.sg-ready .sg-intro-name, #sgIntro.sg-ready .sg-intro-tagline, #sgIntro.sg-ready .sg-intro-loading, #sgIntro.sg-ready .sg-intro-track { opacity: 1; transform: none; }
+    #sgIntro.sg-ready .sg-intro-rule { width: 196px; opacity: 1; }
+    #sgIntro.sg-ready .sg-intro-track-fill { transform: scaleX(1); }
+    #sgIntro.sg-exit { opacity: 0; transition: opacity .85s ease; }
+    #sgIntro.sg-exit .sg-window-frame { transform: scale(1.05); opacity: 0; transition: transform .85s ease, opacity .85s ease; }
+    @media (prefers-reduced-motion: reduce) { #sgIntro .sg-curtain-velvet, #sgIntro .sg-curtain-sheer, #sgIntro * { transition-duration: .01ms !important; } }
+  </style>
+  <script>
+    (() => {
+      const intro = document.getElementById('sgIntro');
+      if (!intro) return;
+      const skip = document.getElementById('sgIntroSkip');
+      const key = 'saajgochh_intro_seen_v1';
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const close = () => {
+        if (intro.dataset.closed) return;
+        intro.dataset.closed = '1';
+        intro.classList.add('sg-exit');
+        document.documentElement.classList.remove('sg-intro-lock');
+        document.body.classList.remove('sg-intro-lock');
+        try { sessionStorage.setItem(key, '1'); } catch (_) {}
+        window.setTimeout(() => intro.remove(), reduced ? 0 : 900);
+      };
+      let seen = false;
+      try { seen = sessionStorage.getItem(key) === '1'; } catch (_) {}
+      if (seen) { intro.remove(); return; }
+      document.documentElement.classList.add('sg-intro-lock');
+      document.body.classList.add('sg-intro-lock');
+      requestAnimationFrame(() => requestAnimationFrame(() => intro.classList.add('sg-ready')));
+      skip?.addEventListener('click', (e) => { e.stopPropagation(); close(); });
+      intro.addEventListener('click', close);
+      if (reduced) { close(); return; }
+      window.setTimeout(close, 3900);
+    })();
+  </script>
+
 
 
   <!-- Traditional Top Ribbon -->
