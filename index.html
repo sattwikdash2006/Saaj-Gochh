@@ -4406,6 +4406,23 @@
     <button class="sg-intro-skip" type="button" id="sgIntroSkip">Skip intro</button>
   </div>
   <style>
+    /* Premium cinematic intro polish: staggered typography, warm spotlight, slower velvet */
+    #sgIntro { background: radial-gradient(ellipse at 50% 48%, #571c22 0%, #260b10 46%, #100408 100%); }
+    #sgIntro .sg-window-light { opacity: 0; transform: translateX(-50%) scale(.72); transition: opacity 1.35s ease, transform 1.8s cubic-bezier(.2,.7,.2,1); }
+    #sgIntro.sg-ready .sg-window-light { opacity: 1; transform: translateX(-50%) scale(1); }
+    #sgIntro .sg-curtain-velvet, #sgIntro .sg-curtain-sheer { transition: transform 1.9s cubic-bezier(.76,0,.18,1), opacity 1.4s ease; }
+    #sgIntro .sg-intro-kicker { transition-delay: .22s; letter-spacing: .24em; text-transform: uppercase; }
+    #sgIntro .sg-intro-emblem { transition-delay: .42s; }
+    #sgIntro .sg-intro-name { transition-delay: .58s; letter-spacing: .04em; }
+    #sgIntro .sg-intro-tagline { transition-delay: .78s; }
+    #sgIntro .sg-intro-loading, #sgIntro .sg-intro-track { transition-delay: 1s; }
+    #sgIntro .sg-intro-rule { transition-delay: .65s; box-shadow: 0 0 18px rgba(230,193,122,.3); }
+    #sgIntro .sg-window-frame { transition: transform 1.15s cubic-bezier(.2,.7,.2,1), opacity 1s ease; }
+    #sgIntro.sg-ready .sg-window-frame { box-shadow: inset 0 0 0 1px rgba(48,12,16,.9), inset 0 0 0 8px rgba(78,22,27,.45), inset 0 0 0 9px rgba(200,155,60,.35), inset 0 0 70px rgba(14,4,6,.65), 0 0 0 20px rgba(24,7,9,.92), 0 0 55px rgba(200,155,60,.12); }
+    #sgIntro .sg-intro-track-fill { transition-duration: 2.6s; }
+    #sgIntro.sg-exit { opacity: 0; transition: opacity .95s cubic-bezier(.4,0,.2,1); }
+    @media (max-width: 600px) { #sgIntro .sg-intro-kicker { letter-spacing: .14em; } }
+
     #sgIntro .sg-curtain-velvet, #sgIntro .sg-curtain-sheer { transition: transform 1.65s cubic-bezier(.72,0,.22,1); }
     #sgIntro .sg-curtain-velvet--left, #sgIntro .sg-curtain-sheer--left { transform: translateX(0); }
     #sgIntro .sg-curtain-velvet--right, #sgIntro .sg-curtain-sheer--right { transform: translateX(0); }
@@ -4452,7 +4469,7 @@
       skip?.addEventListener('click', (e) => { e.stopPropagation(); close(); });
       intro.addEventListener('click', close);
       if (reduced) { close(); return; }
-      window.setTimeout(close, 3900);
+      window.setTimeout(close, 3600);
     })();
   </script>
 
