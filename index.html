@@ -7959,7 +7959,7 @@
           return;
         }
         const product = getProducts().find(item => item.id === activeModalProductId);
-        if (product) {
+        if (product && !product.affiliateLink) {
           detailWaBtn.href = buildWhatsAppLink(product);
         }
       });
