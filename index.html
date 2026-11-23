@@ -4515,6 +4515,31 @@
     <!-- Saaj Gochh Ultra Pro Curtain Window Intro -->
   <div class="sg-intro" id="sgIntro" role="dialog" aria-label="Saaj Gochh welcome introduction" aria-modal="true">
     <div class="sg-window-light"></div>
+    <!-- Living botanical intro overlay -->
+    <div class="sg-vine-overlay" aria-hidden="true">
+      <svg class="sg-vine-svg" viewBox="0 0 1440 900" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="sgVineGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7b5730"/><stop offset=".48" stop-color="#c8a66a"/><stop offset="1" stop-color="#f0d69a"/></linearGradient>
+          <linearGradient id="sgLeaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a8a66b"/><stop offset=".45" stop-color="#66794c"/><stop offset="1" stop-color="#304a32"/></linearGradient>
+        </defs>
+        <g class="sg-vine-main" fill="none" stroke="url(#sgVineGold)" stroke-width="3.2" stroke-linecap="round">
+          <path class="sg-vine-path sg-vine-left" d="M-20 920 C100 820 48 715 175 630 S260 490 190 390 S130 245 275 160 S355 65 390 -25"/>
+          <path class="sg-vine-path sg-vine-right" d="M1460 920 C1340 820 1392 715 1265 630 S1180 490 1250 390 S1310 245 1165 160 S1085 65 1050 -25"/>
+          <path class="sg-vine-path sg-vine-branch-left" d="M175 630 C280 630 330 705 355 790 M190 390 C305 365 345 300 365 245 M275 160 C205 100 120 90 80 120"/>
+          <path class="sg-vine-path sg-vine-branch-right" d="M1265 630 C1160 630 1110 705 1085 790 M1250 390 C1135 365 1095 300 1075 245 M1165 160 C1235 100 1320 90 1360 120"/>
+        </g>
+        <g class="sg-vine-leaves">
+          <path class="sg-leaf l1" d="M165 630 Q95 565 74 615 Q103 660 165 630Z"/><path class="sg-leaf l2" d="M225 545 Q250 465 300 485 Q286 530 225 545Z"/>
+          <path class="sg-leaf l3" d="M190 390 Q115 345 105 400 Q145 430 190 390Z"/><path class="sg-leaf l4" d="M230 300 Q245 220 300 245 Q285 290 230 300Z"/>
+          <path class="sg-leaf l5" d="M275 160 Q205 95 180 145 Q225 185 275 160Z"/><path class="sg-leaf l6" d="M355 790 Q400 720 450 760 Q420 800 355 790Z"/>
+          <path class="sg-leaf l7" d="M1275 630 Q1345 565 1366 615 Q1337 660 1275 630Z"/><path class="sg-leaf l8" d="M1215 545 Q1190 465 1140 485 Q1154 530 1215 545Z"/>
+          <path class="sg-leaf l9" d="M1250 390 Q1325 345 1335 400 Q1295 430 1250 390Z"/><path class="sg-leaf l10" d="M1210 300 Q1195 220 1140 245 Q1155 290 1210 300Z"/>
+          <path class="sg-leaf l11" d="M1165 160 Q1235 95 1260 145 Q1215 185 1165 160Z"/><path class="sg-leaf l12" d="M1085 790 Q1040 720 990 760 Q1020 800 1085 790Z"/>
+        </g>
+        <g class="sg-vine-blooms"><circle cx="355" cy="245" r="4"/><circle cx="80" cy="120" r="3"/><circle cx="1085" cy="245" r="4"/><circle cx="1360" cy="120" r="3"/></g>
+      </svg>
+    </div>
+
     <div class="sg-window-frame">
       <span class="sg-window-corner sg-window-corner--tl"></span><span class="sg-window-corner sg-window-corner--tr"></span>
       <span class="sg-window-corner sg-window-corner--bl"></span><span class="sg-window-corner sg-window-corner--br"></span>
@@ -11344,5 +11369,81 @@
 
 </script>
 
+
+<style id="sg-cinematic-intro-v2">
+/* Cinematic, modern fabric + warm studio-light treatment */
+#sgIntro {
+  background: radial-gradient(ellipse at 50% 48%, rgba(111,45,46,.34) 0%, rgba(39,10,15,.86) 45%, #090306 100%);
+  backdrop-filter: saturate(115%);
+}
+#sgIntro .sg-window-light {
+  width: min(76vw, 920px); opacity: 0;
+  background: radial-gradient(ellipse at 50% 38%, rgba(255,248,228,.98) 0%, rgba(255,221,164,.62) 19%, rgba(227,169,94,.22) 42%, transparent 72%);
+  filter: blur(12px);
+}
+#sgIntro.sg-ready .sg-window-light { opacity: .96; animation: sg-light-breathe 4.6s ease-in-out both; }
+@keyframes sg-light-breathe { 0%{opacity:0;transform:translateX(-50%) scale(.72)} 38%{opacity:.96} 100%{opacity:.78;transform:translateX(-50%) scale(1.12)} }
+#sgIntro .sg-curtain-velvet {
+  filter: drop-shadow(0 18px 30px rgba(0,0,0,.45));
+  background-blend-mode: normal, soft-light, multiply, normal;
+}
+#sgIntro .sg-curtain-velvet--left {
+  background:
+    linear-gradient(90deg, rgba(8,2,4,.55), transparent 15%, rgba(255,210,150,.12) 29%, rgba(8,2,4,.34) 42%, rgba(255,219,160,.08) 56%, rgba(12,2,5,.48) 72%, rgba(155,57,61,.18) 90%, rgba(7,2,4,.5)),
+    repeating-linear-gradient(90deg, rgba(10,2,5,.46) 0 8px, rgba(129,35,43,.18) 8px 20px, rgba(248,215,170,.08) 20px 27px, rgba(25,4,8,.35) 27px 43px),
+    radial-gradient(ellipse at 90% 40%, rgba(197,91,77,.32), transparent 62%),
+    linear-gradient(145deg, #21080d 0%, #6c1e29 36%, #3d0d16 65%, #180509 100%);
+}
+#sgIntro .sg-curtain-velvet--right {
+  background:
+    linear-gradient(270deg, rgba(8,2,4,.55), transparent 15%, rgba(255,210,150,.12) 29%, rgba(8,2,4,.34) 42%, rgba(255,219,160,.08) 56%, rgba(12,2,5,.48) 72%, rgba(155,57,61,.18) 90%, rgba(7,2,4,.5)),
+    repeating-linear-gradient(90deg, rgba(10,2,5,.46) 0 8px, rgba(129,35,43,.18) 8px 20px, rgba(248,215,170,.08) 20px 27px, rgba(25,4,8,.35) 27px 43px),
+    radial-gradient(ellipse at 10% 40%, rgba(197,91,77,.32), transparent 62%),
+    linear-gradient(215deg, #21080d 0%, #6c1e29 36%, #3d0d16 65%, #180509 100%);
+}
+#sgIntro .sg-curtain-sheer { backdrop-filter: blur(8px); opacity: .82; }
+#sgIntro .sg-curtain-sheer--left { background: repeating-linear-gradient(90deg, rgba(255,245,225,.08) 0 3px, rgba(255,245,225,.025) 3px 14px), linear-gradient(90deg, rgba(42,13,18,.32), rgba(255,241,216,.16), rgba(255,248,230,.28)); }
+#sgIntro .sg-curtain-sheer--right { background: repeating-linear-gradient(90deg, rgba(255,245,225,.08) 0 3px, rgba(255,245,225,.025) 3px 14px), linear-gradient(270deg, rgba(42,13,18,.32), rgba(255,241,216,.16), rgba(255,248,230,.28)); }
+#sgIntro .sg-window-frame { border-color: rgba(241,207,142,.62); box-shadow: inset 0 0 0 1px rgba(48,12,16,.82), inset 0 0 0 7px rgba(78,22,27,.3), inset 0 0 45px rgba(14,4,6,.48), 0 0 24px rgba(222,177,99,.09); }
+#sgIntro .sg-intro-inner { filter: drop-shadow(0 8px 28px rgba(0,0,0,.25)); }
+#sgIntro .sg-intro-name { letter-spacing: .075em; text-shadow: 0 2px 0 rgba(255,236,197,.08), 0 12px 40px rgba(0,0,0,.6); }
+#sgIntro .sg-intro-emblem { filter: drop-shadow(0 0 18px rgba(225,187,112,.22)); }
+#sgIntro .sg-intro-kicker { letter-spacing: .3em; }
+#sgIntro .sg-intro-skip { border-radius: 999px; box-shadow: 0 8px 26px rgba(0,0,0,.28); }
+#sgIntro.sg-ready .sg-curtain-velvet--left { transform: translateX(-112%) rotateY(5deg); }
+#sgIntro.sg-ready .sg-curtain-velvet--right { transform: translateX(112%) rotateY(-5deg); }
+#sgIntro.sg-ready .sg-curtain-sheer--left { transform: translateX(-118%); opacity: 0; }
+#sgIntro.sg-ready .sg-curtain-sheer--right { transform: translateX(118%); opacity: 0; }
+@media (max-width: 640px) {
+  #sgIntro .sg-intro-name { letter-spacing: .035em; }
+  #sgIntro .sg-window-light { width: 94vw; }
+  #sgIntro .sg-intro-inner { padding-inline: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #sgIntro.sg-ready .sg-window-light { animation: none; }
+}
+</style>
+
+
+<style id="sg-living-vine-intro">
+#sgIntro { overflow:hidden; isolation:isolate; background:radial-gradient(ellipse at center, rgba(40,54,34,.46), rgba(12,7,8,.96) 68%); }
+#sgIntro .sg-vine-overlay { position:absolute; inset:0; z-index:2; pointer-events:none; opacity:.92; overflow:hidden; }
+#sgIntro .sg-vine-svg { width:100%; height:100%; display:block; }
+#sgIntro .sg-vine-main path { stroke-dasharray:1450; stroke-dashoffset:1450; animation:sg-vine-grow 3.6s cubic-bezier(.22,.68,.22,1) forwards; }
+#sgIntro .sg-vine-main .sg-vine-left { animation-delay:.15s; } #sgIntro .sg-vine-main .sg-vine-right { animation-delay:.35s; }
+#sgIntro .sg-vine-main .sg-vine-branch-left { animation-delay:1.05s; } #sgIntro .sg-vine-main .sg-vine-branch-right { animation-delay:1.25s; }
+@keyframes sg-vine-grow { to { stroke-dashoffset:0; } }
+#sgIntro .sg-leaf { fill:url(#sgLeaf); stroke:#c7b16d; stroke-width:1.05; transform-box:fill-box; transform-origin:center; opacity:0; filter:drop-shadow(0 3px 5px rgba(0,0,0,.4)); animation:sg-leaf-bloom .7s cubic-bezier(.2,.75,.2,1) forwards, sg-leaf-sway 5.4s ease-in-out infinite 2.1s; }
+#sgIntro .sg-vine-leaves .l1 {animation-delay:1.0s,2.1s} #sgIntro .sg-vine-leaves .l2 {animation-delay:1.35s,2.1s} #sgIntro .sg-vine-leaves .l3 {animation-delay:1.6s,2.1s} #sgIntro .sg-vine-leaves .l4 {animation-delay:1.85s,2.1s} #sgIntro .sg-vine-leaves .l5 {animation-delay:2.05s,2.1s} #sgIntro .sg-vine-leaves .l6 {animation-delay:2.25s,2.1s}
+#sgIntro .sg-vine-leaves .l7 {animation-delay:1.0s,2.1s} #sgIntro .sg-vine-leaves .l8 {animation-delay:1.35s,2.1s} #sgIntro .sg-vine-leaves .l9 {animation-delay:1.6s,2.1s} #sgIntro .sg-vine-leaves .l10 {animation-delay:1.85s,2.1s} #sgIntro .sg-vine-leaves .l11 {animation-delay:2.05s,2.1s} #sgIntro .sg-vine-leaves .l12 {animation-delay:2.25s,2.1s}
+@keyframes sg-leaf-bloom { from {opacity:0; transform:scale(.08) rotate(-30deg)} to {opacity:.94; transform:scale(1) rotate(0)} }
+@keyframes sg-leaf-sway { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(3deg)} }
+#sgIntro .sg-vine-blooms circle { fill:#d9bf79; opacity:0; filter:drop-shadow(0 0 8px rgba(231,196,111,.65)); animation:sg-bud-glow 1s ease-in forwards; }
+@keyframes sg-bud-glow { to {opacity:.75} }
+#sgIntro .sg-vine-overlay { mix-blend-mode:screen; }
+#sgIntro .sg-intro-inner, #sgIntro .sg-intro-skip { z-index:5; position:relative; }
+@media(max-width:650px){ #sgIntro .sg-vine-svg{opacity:.68} #sgIntro .sg-vine-main{stroke-width:4.5} }
+@media(prefers-reduced-motion:reduce){ #sgIntro .sg-vine-main path,#sgIntro .sg-leaf,#sgIntro .sg-vine-blooms circle{animation:none;stroke-dashoffset:0;opacity:.75;transform:none} }
+</style>
 
 </body></html>
