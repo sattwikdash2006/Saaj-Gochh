@@ -6595,6 +6595,8 @@
       }
 
       let lastKnownRawProducts = null;
+      // Protect admin edits made in this browser session from late remote catalog fetches.
+      let localCatalogEditedThisSession = false;
 
       function applyCatalogSnapshot(snapshot) {
         if (!snapshot || typeof snapshot !== "object" || !Array.isArray(snapshot.products)) return false;
@@ -6683,6 +6685,9 @@
           if (!remote || typeof remote !== "object" || !Array.isArray(remote.products)) return;
 
           const remoteUpdatedAt = Number(remote.updatedAt || 1);
+          // If the admin has edited the catalog locally during this session, do not let a
+          // late/stale remote response replace those values (including manually entered prices).
+          if (localCatalogEditedThisSession) return;
           if (remoteUpdatedAt > memoryState.updatedAt) {
             applyCatalogSnapshot(remote);
             renderStore();
@@ -6778,6 +6783,7 @@
       }
 
       function persistCatalogLocally(list) {
+        localCatalogEditedThisSession = true;
         const cleanList = normalizeList(list);
         memoryState.products = cleanList;
         memoryState.updatedAt = Date.now();
@@ -10531,7 +10537,8 @@
         }
 
         const title = prodTitleInput.value.trim();
-        const price = Number(prodPriceInput.value);
+        // Preserve the exact admin-entered price; never apply importer margins or discounts here.
+        const price = Number(String(prodPriceInput.value).trim());
         const category = prodCategorySelect.value;
         const description = prodDescInput.value.trim();
 
