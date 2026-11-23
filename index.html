@@ -6596,6 +6596,7 @@
           codAvailable: typeof raw.codAvailable === "boolean" ? raw.codAvailable : false,
           return7Days: typeof raw.return7Days === "boolean" ? raw.return7Days : false,
           whatsapp: normalizeWhatsAppNumber(raw.whatsapp || raw.whatsappNumber || ""),
+          affiliateLink: typeof raw.affiliateLink === "string" && /^https?:\/\//i.test(raw.affiliateLink.trim()) ? raw.affiliateLink.trim() : "",
           images: imgs
         };
       }
@@ -10559,7 +10560,9 @@
           return;
         }
 
-        const affiliateLink = prodAffiliateLinkInput.value.trim();
+        const enteredAffiliateLink = prodAffiliateLinkInput.value.trim();
+        const existingAffiliateLink = isEditing ? (products.find(p => p.id === editingProductId)?.affiliateLink || "") : "";
+        const affiliateLink = enteredAffiliateLink || existingAffiliateLink;
         if (affiliateLink && !/^https?:\/\//i.test(affiliateLink)) {
           showToast("Affiliate link must start with http:// or https://");
           prodAffiliateLinkInput.focus();
