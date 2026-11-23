@@ -5048,6 +5048,11 @@
               <input type="tel" id="prodWhatsApp" inputmode="numeric" placeholder="Enter 10-digit number (country code optional)">
               <small style="display:block; color:var(--text-muted); margin-top:4px;">Optional: if entered, orders for this product go ONLY to this WhatsApp number. If left empty, orders go to the site's default WhatsApp number.</small>
             </div>
+            <div class="form-group">
+              <label for="prodAffiliateLink">Affiliate / Partner Buy Link (Optional)</label>
+              <input type="url" id="prodAffiliateLink" placeholder="https://partner-site.com/product...">
+              <small style="display:block; color:var(--text-muted); margin-top:4px;">Optional: customers can open this link directly to buy from the partner. Leave empty to keep the usual WhatsApp order button.</small>
+            </div>
 
             <!-- Advanced Stock & Service Availability Checkboxes -->
             <span class="checkbox-section-label">Availability &amp; Customer Options (Shown Directly on Store)</span>
@@ -9018,14 +9023,16 @@
                   <div class="card-compare-row">
                     <button type="button" class="compare-pill-btn ${isCompared ? "active" : ""}" data-compare-id="${escapeHTML(product.id)}" aria-pressed="${isCompared ? "true" : "false"}">${isCompared ? "✓ Comparing" : "+ Compare"}</button>
                   </div>
-                  ${isInStock ? `
+                  ${isInStock ? (product.affiliateLink ? `
+                    <a class="wa-btn" href="${escapeHTML(product.affiliateLink)}" target="_blank" rel="noopener noreferrer">🛍 Buy from Partner</a>
+                  ` : `
                     <a class="wa-btn" href="${waUrl}" target="_blank" rel="noopener noreferrer" data-order-product-id="${escapeHTML(product.id)}">
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                         <path d="M12.031 2c-5.516 0-9.969 4.453-9.969 9.969 0 1.766.469 3.484 1.344 5l-1.406 5.141 5.266-1.375c1.469.797 3.109 1.219 4.766 1.219 5.516 0 9.969-4.453 9.969-9.969S17.547 2 12.031 2zm5.813 14.125c-.25.703-1.438 1.344-2 1.422-.516.078-1.172.109-1.906-.125-.453-.141-1.031-.328-1.766-.641-3.078-1.328-5.094-4.438-5.25-4.641-.156-.203-1.25-1.656-1.25-3.156s.781-2.25 1.063-2.563c.281-.313.609-.391.813-.391.203 0 .406.016.578.016.188 0 .438-.078.688.516.25.609.859 2.094.938 2.25.078.156.125.344.016.547-.094.203-.156.328-.313.516-.156.188-.328.406-.469.547-.156.156-.313.328-.141.641.188.313.813 1.344 1.75 2.172 1.203 1.078 2.219 1.406 2.531 1.563.313.156.5.125.688-.078.188-.203.781-.906.984-1.219.203-.313.422-.266.703-.156.281.109 1.797.844 2.109 1 .313.156.516.234.594.359.078.125.078.734-.172 1.438z"/>
                       </svg>
                       Order on WhatsApp
                     </a>
-                  ` : `
+                  `) : `
                     <button type="button" class="wa-btn sold-out-btn" disabled>Currently Sold Out</button>
                   `}
                   <button type="button" class="share-product-btn" data-share-product-id="${escapeHTML(product.id)}">↗ Share Product</button>
@@ -9389,11 +9396,18 @@
         const statusPill = `<span class="detail-stock-pill ${isInStock ? "in-stock" : "sold-out"}">${isInStock ? "● In Stock" : "Sold Out"}</span>`;
         detailBadgesRow.innerHTML = statusPill + buildFeatureBadgesHTML(product);
 
-        if (isInStock) {
+        if (isInStock && product.affiliateLink) {
+          detailWaBtn.href = product.affiliateLink;
+          detailWaBtn.className = "wa-btn";
+          detailWaBtn.textContent = "🛍 Buy from Partner";
+          detailWaBtn.setAttribute("target", "_blank");
+          detailWaBtn.setAttribute("rel", "noopener noreferrer");
+        } else if (isInStock) {
           detailWaBtn.href = buildWhatsAppLink(product);
           detailWaBtn.className = "wa-btn";
           detailWaBtn.textContent = "Order This Item on WhatsApp";
           detailWaBtn.setAttribute("target", "_blank");
+          detailWaBtn.setAttribute("rel", "noopener noreferrer");
         } else {
           detailWaBtn.href = "#";
           detailWaBtn.className = "wa-btn sold-out-btn";
@@ -9561,6 +9575,7 @@
       const reDetectCatBtn = document.getElementById("reDetectCatBtn");
       const prodDescInput = document.getElementById("prodDesc");
       const prodWhatsAppInput = document.getElementById("prodWhatsApp");
+      const prodAffiliateLinkInput = document.getElementById("prodAffiliateLink");
 
       const chkInStock = document.getElementById("chkInStock");
       const chkSoldOut = document.getElementById("chkSoldOut");
@@ -9740,6 +9755,7 @@
         prodPriceInput.value = product.price || "";
         prodDescInput.value = product.description || "";
         prodWhatsAppInput.value = product.whatsapp || "";
+        prodAffiliateLinkInput.value = product.affiliateLink || "";
         prodImageUrlInput.value = "";
 
         const isInStock = product.inStock !== false;
@@ -10531,6 +10547,13 @@
           return;
         }
 
+        const affiliateLink = prodAffiliateLinkInput.value.trim();
+        if (affiliateLink && !/^https?:\/\//i.test(affiliateLink)) {
+          showToast("Affiliate link must start with http:// or https://");
+          prodAffiliateLinkInput.focus();
+          return;
+        }
+
         const rawProdWa = prodWhatsAppInput.value.trim();
         const normalizedProdWa = normalizeWhatsAppNumber(rawProdWa);
         if (rawProdWa && !/^\d{10,15}$/.test(normalizedProdWa)) {
@@ -10615,6 +10638,7 @@
           codAvailable,
           return7Days,
           whatsapp: normalizedProdWa,
+          affiliateLink,
           images: finalImages
         };
 
@@ -10810,7 +10834,7 @@
 
           [
             "#searchInput", "#adminSearchInput", "#pinInput", "#ownerPinInput", "#prodTitle", "#prodPrice",
-            "#prodDesc", "#prodImageUrl", "#waNumberInput", "#prodWhatsApp", "#prodGalleryInput", "#ghRepoInput", "#ghTokenInput",
+            "#prodDesc", "#prodImageUrl", "#waNumberInput", "#prodWhatsApp", "#prodAffiliateLink", "#prodGalleryInput", "#ghRepoInput", "#ghTokenInput",
             "#meeshoImportInput", "#meeshoStoreUrlInput"
           ].forEach(sel => {
             const el = clone.querySelector(sel);
