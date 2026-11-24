@@ -11850,7 +11850,7 @@ html,body{max-width:100%;overflow-x:hidden!important}*,*::before,*::after{box-si
 }
 </style>
 
-</html>
+
 <!-- Saaj Gochh premium card + button refresh -->
 <style id="saaj-premium-card-refresh">
 :root{--sg-premium-radius:22px;--sg-premium-ink:#281711;--sg-premium-accent:#9b4a32}
@@ -11925,3 +11925,52 @@ html,body{max-width:100%;overflow-x:hidden!important}*,*::before,*::after{box-si
 #lightboxModal #galleryThumbs img{flex:0 0 56px!important;width:56px!important;height:56px!important;object-fit:cover!important}
 @media(max-width:600px){#lightboxModal .modal-card.product-detail-card{padding:14px!important;max-height:94vh!important}#lightboxModal .modal-header{padding-right:78px!important}#lightboxModal #lightboxTitle{font-size:1rem!important}#lightboxModal #lightboxImg{height:260px!important}#lightboxModal .modal-header-actions{gap:6px!important}}
 </style>
+<!-- Final mobile-browser fit and layout stabilization -->
+<style id="saaj-final-mobile-browser-fit">
+html{width:100%;max-width:100%;overflow-x:clip!important;-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+body{width:100%;max-width:100%;margin:0;overflow-x:clip!important;}
+img,svg,video,canvas{max-width:100%;}
+button,input,select,textarea{font:inherit;}
+@media(max-width:768px){
+  body{font-size:15px;}
+  header,nav,.header,.navbar,.site-header{max-width:100vw!important;overflow-x:clip!important;}
+  .nav-container,.header-inner,.header-main,.top-header,.brand,.brand-text,.header-actions{min-width:0!important;max-width:100%!important;}
+  .brand-text h1{font-size:clamp(1.05rem,5vw,1.35rem)!important;overflow-wrap:anywhere;}
+  .search-box,.search-container,.search-bar{width:100%!important;max-width:100%!important;min-width:0!important;}
+  .header-actions>*{max-width:100%;}
+  .quick-cat-strip,.category-bar{width:100%!important;max-width:100vw!important;display:flex!important;overflow-x:auto!important;overflow-y:hidden!important;white-space:nowrap!important;touch-action:pan-x!important;}
+  main,.main-content,.content,.fk-layout,.product-grid,.fk-toolbar-card,.product-card,.product-body{max-width:100%!important;min-width:0!important;}
+  .fk-layout{padding-inline:8px!important;}
+  .product-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+  .product-card{width:100%!important;}
+  .product-img-wrap{aspect-ratio:4/5!important;}
+  .product-img-wrap img{width:100%!important;height:100%!important;object-fit:cover!important;}
+  .product-body{display:flex!important;flex-direction:column!important;}
+  .product-title{overflow-wrap:anywhere!important;}
+  .product-card .price-row{display:flex!important;flex-wrap:wrap!important;align-items:center!important;justify-content:space-between!important;gap:6px!important;}
+  .product-card .product-actions,.product-card .wa-btn-row{display:flex!important;flex-wrap:wrap!important;gap:6px!important;}
+  .product-card .view-details-link,.product-card .compare-pill-btn,.product-card .wa-btn,.product-card .share-product-btn{max-width:100%!important;min-width:0!important;white-space:normal!important;line-height:1.25!important;}
+  #lightboxModal{position:fixed!important;inset:0!important;width:100vw!important;max-width:100vw!important;}
+  #lightboxModal .modal-card.product-detail-card{width:calc(100vw - 16px)!important;max-width:calc(100vw - 16px)!important;max-height:calc(100dvh - 16px)!important;margin:8px!important;}
+  #lightboxModal #galleryStage{width:100%!important;}
+  #lightboxModal #lightboxImg{max-width:100%!important;object-fit:contain!important;}
+  #lightboxModal #galleryThumbs{max-width:100%!important;touch-action:pan-x!important;}
+  #sgMovingCatalog,#sgCategoryRooms{width:100%!important;max-width:100vw!important;overflow-x:hidden!important;}
+  footer{max-width:100vw!important;overflow-x:clip!important;}
+}
+@media(max-width:390px){
+  .product-grid{gap:7px!important;}
+  .product-body{padding:7px!important;}
+  .product-title{font-size:.8rem!important;}
+  .product-price{font-size:.95rem!important;}
+  .product-card .view-details-link,.product-card .compare-pill-btn{font-size:.7rem!important;padding:6px 7px!important;}
+  .card-wishlist-btn{width:32px!important;height:32px!important;min-width:32px!important;}
+  .header-actions{gap:5px!important;}
+}
+@media(max-width:340px){
+  .product-grid{grid-template-columns:minmax(0,1fr)!important;}
+  .product-img-wrap{aspect-ratio:4/3!important;}
+}
+</style>
+
+</html>
