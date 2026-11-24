@@ -11797,3 +11797,12 @@ input:focus,select:focus,textarea:focus{border-color:#8756d5!important;box-shado
 @media(max-width:640px){.product-body{padding:13px!important}.product-card{border-radius:17px!important}.product-title{font-size:1rem!important}}
 @media(prefers-reduced-motion:reduce){.product-card,.product-card img,#sgMovingCatalog .sg-mc-card,#sgMovingCatalog .sg-mc-card img,.wa-btn,.share-product-btn{transition:none!important;transform:none!important}}
 </style>
+
+<!-- Fix invisible category navigation labels -->
+<style id="saaj-category-nav-label-visibility-fix">
+.category-bar{display:flex!important;align-items:center!important;gap:8px!important;overflow-x:auto!important;overflow-y:visible!important;}
+.category-bar .cat-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:0 0 auto!important;min-width:max-content!important;min-height:38px!important;padding:8px 16px!important;font-size:14px!important;line-height:1.2!important;font-weight:700!important;font-family:inherit!important;letter-spacing:normal!important;text-indent:0!important;text-transform:none!important;white-space:nowrap!important;color:#6d1a22!important;background:#fff!important;opacity:1!important;visibility:visible!important;-webkit-text-fill-color:#6d1a22!important;overflow:visible!important;}
+.category-bar .cat-btn.active{color:#fff!important;-webkit-text-fill-color:#fff!important;background:#6d1a22!important;}
+.category-bar .cat-btn:hover{color:#6d1a22!important;-webkit-text-fill-color:#6d1a22!important;background:#fff8f0!important;}
+.category-bar .cat-btn.active:hover{color:#fff!important;-webkit-text-fill-color:#fff!important;background:#6d1a22!important;}
+</style>
