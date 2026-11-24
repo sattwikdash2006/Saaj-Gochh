@@ -11838,3 +11838,20 @@ input:focus,select:focus,textarea:focus{border-color:#8756d5!important;box-shado
 #galleryStage.sg-zoomed #lightboxImg{cursor:grab!important}
 #galleryStage.sg-zoomed #lightboxImg:active{cursor:grabbing!important}
 </style>
+
+<!-- Product detail modal alignment repair -->
+<style id="saaj-product-modal-alignment-repair">
+#lightboxModal .modal-card.product-detail-card{position:relative!important;box-sizing:border-box!important;overflow-y:auto!important;overflow-x:hidden!important}
+#lightboxModal .modal-header{position:relative!important;display:block!important;box-sizing:border-box!important;padding:0 84px 12px 0!important;min-height:44px!important;margin-bottom:14px!important;overflow:visible!important}
+#lightboxModal #lightboxTitle{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;margin:0!important;overflow-wrap:anywhere!important;word-break:normal!important;line-height:1.42!important}
+#lightboxModal .modal-header-actions{position:absolute!important;top:0!important;right:0!important;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-end!important;gap:8px!important;z-index:20!important;margin:0!important}
+#lightboxModal .modal-header-actions button{position:static!important;flex:0 0 34px!important;width:34px!important;height:34px!important;min-width:34px!important;max-width:34px!important;box-sizing:border-box!important;margin:0!important;transform:none!important}
+#lightboxModal #galleryStage{position:relative!important;display:block!important;clear:both!important;overflow:hidden!important;width:100%!important;box-sizing:border-box!important;border-radius:12px!important}
+#lightboxModal #lightboxImg{display:block!important;width:100%!important;height:330px!important;max-width:100%!important;object-fit:contain!important;margin:0 auto!important}
+#lightboxModal .gallery-nav{position:absolute!important;top:50%!important;transform:translateY(-50%)!important;z-index:12!important;display:grid!important;place-items:center!important;width:36px!important;height:36px!important;min-width:36px!important;max-width:36px!important;margin:0!important;border-radius:50%!important}
+#lightboxModal #galleryPrev{left:10px!important;right:auto!important}#lightboxModal #galleryNext{right:10px!important;left:auto!important}
+#lightboxModal #galleryCounter{position:absolute!important;right:10px!important;bottom:8px!important;z-index:12!important}
+#lightboxModal #galleryThumbs{position:relative!important;display:flex!important;align-items:center!important;gap:8px!important;max-width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;clear:both!important;margin:10px 0 12px!important;padding:0 0 6px!important;box-sizing:border-box!important}
+#lightboxModal #galleryThumbs img{flex:0 0 56px!important;width:56px!important;height:56px!important;object-fit:cover!important}
+@media(max-width:600px){#lightboxModal .modal-card.product-detail-card{padding:14px!important;max-height:94vh!important}#lightboxModal .modal-header{padding-right:78px!important}#lightboxModal #lightboxTitle{font-size:1rem!important}#lightboxModal #lightboxImg{height:260px!important}#lightboxModal .modal-header-actions{gap:6px!important}}
+</style>
