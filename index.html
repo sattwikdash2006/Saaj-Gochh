@@ -11559,4 +11559,81 @@
 
 
 
+
+<style id="sgModernMinimalRefresh">
+:root{--sg-modern-radius:18px;--sg-modern-shadow:0 8px 26px rgba(32,24,18,.055)}
+/* Consistent button sizing across the storefront */
+button,.button,.btn,[role="button"],input[type="submit"],input[type="button"]{transition:transform .18s ease,box-shadow .18s ease,background .18s ease,border-color .18s ease}
+button,.button,.btn,input[type="submit"],input[type="button"]{min-height:42px;border-radius:12px!important;padding:10px 16px!important;font-weight:650;letter-spacing:.01em}
+button:hover,.button:hover,.btn:hover,input[type="submit"]:hover,input[type="button"]:hover{transform:translateY(-1px)}
+button:focus-visible,.button:focus-visible,.btn:focus-visible,[role="button"]:focus-visible{outline:2px solid #b8955b;outline-offset:3px}
+.product-card,.product,.card,.category-card,.sg-category-room{border-radius:18px!important;box-shadow:var(--sg-modern-shadow)!important;overflow:hidden}
+.product-card{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.product-card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(32,24,18,.10)!important}
+.product-card img,.product-card .product-img-wrap img{transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.product-card:hover img{transform:scale(1.025)}
+#sgMovingCatalog{max-width:1440px;margin:30px auto 42px;padding:0 clamp(14px,3vw,30px)}
+#sgMovingCatalog .sg-mc-head{align-items:center;margin-bottom:18px}
+#sgMovingCatalog h2{font-size:clamp(1.25rem,2.1vw,1.85rem);font-weight:750;letter-spacing:-.035em;color:var(--text,#24211e)}
+#sgMovingCatalog p{font-size:.9rem;color:var(--text-muted);line-height:1.55}
+#sgMovingCatalog .sg-mc-viewport{border-radius:20px;padding:5px 2px 12px}
+#sgMovingCatalog .sg-mc-track{gap:16px;animation-duration:64s}
+#sgMovingCatalog .sg-mc-card{width:clamp(190px,19vw,250px);flex-basis:clamp(190px,19vw,250px);border:1px solid rgba(40,30,20,.08);border-radius:17px;background:var(--surface,#fff);box-shadow:0 3px 14px rgba(35,24,16,.04);transition:transform .2s ease,box-shadow .2s ease}
+#sgMovingCatalog .sg-mc-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(35,24,16,.09)}
+#sgMovingCatalog .sg-mc-card img{height:clamp(180px,22vw,235px);background:#f5f2ed}
+#sgMovingCatalog .sg-mc-info{padding:13px 14px 15px}
+#sgMovingCatalog .sg-mc-info strong{font-size:.92rem;font-weight:650;min-height:2.4em;line-height:1.4}
+#sgMovingCatalog .sg-mc-info span{font-size:.94rem;color:var(--text,#25221e);font-weight:750}
+#sgCategoryRooms{max-width:1440px;margin:24px auto 42px;padding:0 clamp(14px,3vw,30px);gap:20px}
+.sg-category-room{border:1px solid rgba(40,30,20,.08)!important;border-radius:22px!important;box-shadow:0 4px 18px rgba(35,24,16,.04)!important;background:var(--surface,#fff)}
+.sg-category-room-head{padding:20px 20px 14px}
+.sg-category-room-head h2{font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight:720;letter-spacing:-.025em;color:var(--text,#25221e)}
+.sg-category-room-head p{font-size:.88rem;line-height:1.5}
+.sg-category-room-count{border-color:rgba(40,30,20,.12);background:rgba(40,30,20,.035);color:var(--text-muted);padding:6px 11px;font-size:.76rem}
+.sg-category-room-viewport{padding:0 18px 18px;border-radius:0 0 22px 22px}
+.sg-category-room-track{gap:15px;animation-duration:56s}
+.sg-category-room-item{width:clamp(170px,17vw,215px);flex-basis:clamp(170px,17vw,215px);border:1px solid rgba(40,30,20,.08);border-radius:16px;background:var(--surface,#fff);transition:transform .2s ease,box-shadow .2s ease}
+.sg-category-room-item:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(35,24,16,.08)}
+.sg-category-room-item img{height:clamp(145px,17vw,190px);background:#f5f2ed}
+.sg-category-room-item-info{padding:12px 13px 14px}
+.sg-category-room-item-info strong{font-size:.86rem;font-weight:650;line-height:1.45;min-height:2.45em}
+.sg-category-room-item-info span{font-size:.92rem;color:var(--text,#25221e);font-weight:750}
+/* New category navigation section */
+#sgCategoryDiscover{max-width:1440px;margin:24px auto 18px;padding:0 clamp(14px,3vw,30px)}
+#sgCategoryDiscover .sg-cd-head{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 14px}
+#sgCategoryDiscover h2{margin:0;font-size:clamp(1.25rem,2.1vw,1.8rem);font-weight:750;letter-spacing:-.035em;color:var(--text,#24211e)}
+#sgCategoryDiscover p{margin:5px 0 0;font-size:.9rem;color:var(--text-muted)}
+#sgCategoryDiscover .sg-cd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,175px),1fr));gap:12px}
+#sgCategoryDiscover .sg-cd-tile{appearance:none;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:72px;width:100%;padding:15px 17px!important;border:1px solid rgba(40,30,20,.09)!important;border-radius:16px!important;background:var(--surface,#fff)!important;color:var(--text,#24211e)!important;text-align:left;box-shadow:0 3px 12px rgba(35,24,16,.035);cursor:pointer}
+#sgCategoryDiscover .sg-cd-tile strong{font-size:.92rem;font-weight:680;line-height:1.35}
+#sgCategoryDiscover .sg-cd-tile span{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 8px;border-radius:999px;background:rgba(40,30,20,.05);color:var(--text-muted);font-size:.75rem;font-weight:700}
+#sgCategoryDiscover .sg-cd-tile:hover{border-color:rgba(145,105,58,.28)!important;background:rgba(145,105,58,.035)!important;box-shadow:0 8px 20px rgba(35,24,16,.06)}
+@media(max-width:640px){
+ #sgMovingCatalog .sg-mc-head{align-items:flex-start}
+ #sgMovingCatalog .sg-mc-card{width:180px;flex-basis:180px}
+ #sgMovingCatalog .sg-mc-card img{height:170px}
+ .sg-category-room-head{padding:15px 15px 12px}
+ .sg-category-room-viewport{padding:0 14px 14px}
+ .sg-category-room-item{width:158px;flex-basis:158px}
+ .sg-category-room-item img{height:138px}
+ #sgCategoryDiscover .sg-cd-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ #sgCategoryDiscover .sg-cd-tile{min-height:64px;padding:12px!important;border-radius:13px!important}
+ button,.button,.btn,input[type="submit"],input[type="button"]{min-height:40px;padding:9px 13px!important}
+}
+@media(prefers-reduced-motion:reduce){.product-card,.product-card img,#sgMovingCatalog .sg-mc-card,.sg-category-room-item,button,.button,.btn{transition:none!important;transform:none!important}}
+</style>
+<script id="sgCategoryDiscoverBuild">
+(()=>{
+ const rooms=document.getElementById('sgCategoryRooms');if(!rooms)return;
+ const section=document.createElement('section');section.id='sgCategoryDiscover';section.setAttribute('aria-label','Discover categories');
+ section.innerHTML='<div class="sg-cd-head"><div><h2>Shop by category</h2><p>Explore collections, one category at a time.</p></div></div><div class="sg-cd-grid"></div>';
+ const grid=section.querySelector('.sg-cd-grid');
+ function rebuild(){const roomEls=[...rooms.querySelectorAll('.sg-category-room')];const entries=roomEls.map(room=>{const title=room.querySelector('.sg-category-room-head h2')?.textContent.trim()||'Category';const count=room.querySelector('.sg-category-room-count')?.textContent.match(/\d+/)?.[0]||'0';return {title,count,room}});
+ grid.innerHTML=entries.map((e,i)=>`<button type="button" class="sg-cd-tile" data-jump="${i}"><strong>${e.title.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}</strong><span>${countSafe(e.count)}</span></button>`).join('');grid.querySelectorAll('[data-jump]').forEach(btn=>btn.addEventListener('click',()=>entries[Number(btn.dataset.jump)]?.room.scrollIntoView({behavior:'smooth',block:'start'})));
+ }
+ function countSafe(v){return String(v).replace(/[^0-9]/g,'')||'0'}
+ const main=document.querySelector('main');if(main&&rooms.parentElement===main){main.insertBefore(section,rooms)}else rooms.insertAdjacentElement('beforebegin',section);
+ rebuild();new MutationObserver(()=>rebuild()).observe(rooms,{childList:true,subtree:true});
+})();
+</script>
 </body></html>
