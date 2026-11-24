@@ -6757,6 +6757,17 @@
         const cleanProducts = normalizeList(snapshot.products);
         const snapUpdatedAt = Number(snapshot.updatedAt || Date.now());
         const snapWa = normalizeWhatsAppNumber(snapshot.whatsapp || DEFAULT_WHATSAPP_NUMBER) || normalizeWhatsAppNumber(DEFAULT_WHATSAPP_NUMBER);
+        // Shared admin data: Brand Rooms and selected storefront settings.
+        if (Array.isArray(snapshot.brandRooms)) {
+          try { localStorage.setItem('saajGochhBrandRooms_v1', JSON.stringify(snapshot.brandRooms)); } catch {}
+        }
+        if (snapshot.settings && typeof snapshot.settings === 'object') {
+          const cfg = snapshot.settings;
+          if (cfg.meeshoMarginVal !== undefined) safeSetItem(STORAGE_KEYS.MEESHO_MARGIN_VAL, String(cfg.meeshoMarginVal));
+          if (cfg.meeshoMarginType) safeSetItem(STORAGE_KEYS.MEESHO_MARGIN_TYPE, String(cfg.meeshoMarginType));
+          if (cfg.meeshoAutoPub !== undefined) safeSetItem(STORAGE_KEYS.MEESHO_AUTO_PUB, cfg.meeshoAutoPub ? '1' : '0');
+          if (cfg.storeUrl) safeSetItem(STORAGE_KEYS.STORE_URL, String(cfg.storeUrl));
+        }
 
         memoryState.products = cleanProducts;
         memoryState.whatsapp = snapWa;
@@ -6845,6 +6856,7 @@
           if (remoteUpdatedAt > memoryState.updatedAt) {
             applyCatalogSnapshot(remote);
             renderStore();
+            window.__saajRenderBrandRooms?.();
             if (adminModal.classList.contains("open")) {
               syncWhatsAppAdminUI();
               updateStorageMeter();
@@ -7264,6 +7276,22 @@
         }
       }
 
+      // Expose a narrow bridge so the separately-injected Brand Studio can publish its changes.
+      let sharedSettingsSyncTimer = null;
+      window.__saajTouchAndSync = function() {
+        memoryState.updatedAt = Date.now();
+        safeSetItem(STORAGE_KEYS.UPDATED_AT, String(memoryState.updatedAt));
+        queueGitHubSync(true);
+      };
+      window.__saajQueueSettingsSync = function() {
+        clearTimeout(sharedSettingsSyncTimer);
+        sharedSettingsSyncTimer = setTimeout(() => {
+          memoryState.updatedAt = Date.now();
+          safeSetItem(STORAGE_KEYS.UPDATED_AT, String(memoryState.updatedAt));
+          queueGitHubSync(false);
+        }, 1200);
+      };
+
       async function pushCatalogToGitHub(repo, token) {
         const headers = buildGitHubHeaders(token);
         const branch = await resolveGitHubBranch(repo, token);
@@ -7283,7 +7311,14 @@
         const payloadJson = JSON.stringify({
           updatedAt: memoryState.updatedAt || Date.now(),
           whatsapp: getWhatsAppNumber(),
-          products: getProducts()
+          products: getProducts(),
+          brandRooms: (() => { try { return JSON.parse(localStorage.getItem('saajGochhBrandRooms_v1') || '[]'); } catch { return []; } })(),
+          settings: {
+            meeshoMarginVal: safeGetItem(STORAGE_KEYS.MEESHO_MARGIN_VAL) || '',
+            meeshoMarginType: safeGetItem(STORAGE_KEYS.MEESHO_MARGIN_TYPE) || 'flat',
+            meeshoAutoPub: safeGetItem(STORAGE_KEYS.MEESHO_AUTO_PUB) === '1',
+            storeUrl: safeGetItem(STORAGE_KEYS.STORE_URL) || ''
+          }
         });
         const contentBase64 = utf8ToBase64(payloadJson);
 
@@ -10517,21 +10552,25 @@
       if (meeshoMarginVal) {
         meeshoMarginVal.addEventListener("input", () => {
           safeSetItem(STORAGE_KEYS.MEESHO_MARGIN_VAL, meeshoMarginVal.value);
+          window.__saajQueueSettingsSync?.();
         });
       }
       if (meeshoMarginType) {
         meeshoMarginType.addEventListener("change", () => {
           safeSetItem(STORAGE_KEYS.MEESHO_MARGIN_TYPE, meeshoMarginType.value);
+          window.__saajQueueSettingsSync?.();
         });
       }
       if (meeshoAutoPublishChk) {
         meeshoAutoPublishChk.addEventListener("change", () => {
           safeSetItem(STORAGE_KEYS.MEESHO_AUTO_PUB, meeshoAutoPublishChk.checked ? "1" : "0");
+          window.__saajQueueSettingsSync?.();
         });
       }
       if (meeshoStoreUrlInput) {
         meeshoStoreUrlInput.addEventListener("input", () => {
           safeSetItem(STORAGE_KEYS.STORE_URL, meeshoStoreUrlInput.value.trim());
+          window.__saajQueueSettingsSync?.();
           refreshBookmarkletUI();
         });
       }
@@ -11166,6 +11205,8 @@
         }
       }
       fetchRemoteCatalog();
+      // Static-host live sync: check the shared catalog regularly and on return to tab.
+      setInterval(() => { if (!document.hidden) fetchRemoteCatalog(); }, 30000);
       checkIncomingMeeshoHash();
       window.addEventListener("hashchange", checkIncomingMeeshoHash);
     })();
@@ -11445,5 +11486,62 @@
 @media(max-width:650px){ #sgIntro .sg-vine-svg{opacity:.68} #sgIntro .sg-vine-main{stroke-width:4.5} }
 @media(prefers-reduced-motion:reduce){ #sgIntro .sg-vine-main path,#sgIntro .sg-leaf,#sgIntro .sg-vine-blooms circle{animation:none;stroke-dashoffset:0;opacity:.75;transform:none} }
 </style>
+
+<!-- Saaj Gochh Premium Brand Rooms + Moving Catalog Add-on -->
+<style id="sgBrandStudioAddon">
+#sgBrandShowcase{max-width:1320px;margin:20px auto 28px;padding:0 18px}
+.sg-room-head{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.sg-room-head h2{color:var(--maroon);font-size:clamp(1.25rem,2.4vw,1.85rem)}
+.sg-room-head p{color:var(--text-muted);font-size:.86rem}
+.sg-room-strip{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;scrollbar-width:thin}
+.sg-room-card{min-width:min(78vw,330px);height:210px;position:relative;overflow:hidden;border-radius:18px;border:1px solid var(--gold);scroll-snap-align:start;background:linear-gradient(125deg,#4e1016,#b84a2f 70%,#c89b3c);color:#fff;box-shadow:var(--shadow-md)}
+.sg-room-card:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 25%,rgba(255,220,150,.4),transparent 34%),linear-gradient(90deg,rgba(20,4,8,.78),transparent)}
+.sg-room-card .sg-room-copy{position:absolute;z-index:1;inset:0;padding:22px;display:flex;flex-direction:column;justify-content:end;gap:7px}
+.sg-room-card h3{font-size:1.45rem;color:#fff}.sg-room-card p{font-size:.82rem;max-width:230px;color:#fff;opacity:.9}.sg-room-card button{align-self:flex-start;border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.13);color:white;border-radius:999px;padding:7px 14px;font:inherit;font-weight:700;cursor:pointer;backdrop-filter:blur(8px)}
+.sg-room-card .sg-room-mark{position:absolute;right:22px;top:15px;font:700 3.4rem 'Playfair Display',serif;color:rgba(255,255,255,.18)}
+#sgBrandModal .sg-brand-modal{max-width:900px}.sg-brand-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.sg-brand-form .form-group{margin:0}.sg-brand-form .wide{grid-column:1/-1}.sg-brand-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:14px}.sg-brand-admin-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px}.sg-brand-admin-card h4{color:var(--maroon);margin-bottom:5px}.sg-brand-admin-card p{font-size:.8rem;color:var(--text-muted);margin-bottom:8px}.sg-brand-admin-card button{margin-right:5px;margin-top:4px}
+.sg-brand-ai-output{padding:12px;background:#fff8ed;border:1px dashed var(--gold);border-radius:10px;white-space:pre-wrap;font-size:.86rem;margin-top:10px;display:none}
+@media(max-width:600px){.sg-brand-form{grid-template-columns:1fr}.sg-brand-form .wide{grid-column:auto}.sg-room-card{height:190px;min-width:78vw}}
+</style>
+<section id="sgBrandShowcase" aria-label="Premium brand rooms">
+ <div class="sg-room-head"><div><h2>Explore Brand Rooms</h2><p>Discover curated collections, new edits and artisan stories.</p></div><span class="header-badge">✦ Curated for you</span></div>
+ <div class="sg-room-strip" id="sgBrandRoomStrip">
+  <article class="sg-room-card"><span class="sg-room-mark">01</span><div class="sg-room-copy"><h3>Bengal Heritage</h3><p>Craft, culture and timeless Bengali details.</p><button data-sg-room="Bengal Heritage">Explore room ↗</button></div></article>
+  <article class="sg-room-card" style="background:linear-gradient(125deg,#36382d,#87936c,#c5b28a)"><span class="sg-room-mark">02</span><div class="sg-room-copy"><h3>Loom & Living</h3><p>Quiet textures, natural tones, thoughtful living.</p><button data-sg-room="Loom & Living">Explore room ↗</button></div></article>
+  <article class="sg-room-card" style="background:linear-gradient(125deg,#261b27,#70505d,#bd8b7a)"><span class="sg-room-mark">03</span><div class="sg-room-copy"><h3>Royal Crafts</h3><p>Statement pieces with a refined, regal mood.</p><button data-sg-room="Royal Crafts">Explore room ↗</button></div></article>
+  <article class="sg-room-card" style="background:linear-gradient(125deg,#762e20,#d47b40,#e7bd69)"><span class="sg-room-mark">04</span><div class="sg-room-copy"><h3>Festive Edit</h3><p>Celebration-ready finds and seasonal favorites.</p><button data-sg-room="Festive Edit">Explore room ↗</button></div></article>
+ </div></section>
+<div class="modal-backdrop" id="sgBrandModal" role="dialog" aria-modal="true" aria-label="Brand Studio AI"><div class="modal-card admin-wide sg-brand-modal"><div class="modal-header"><h3>✦ Brand Studio AI</h3><button class="close-btn" id="sgBrandClose" aria-label="Close">×</button></div>
+ <p style="color:var(--text-muted);font-size:.86rem;margin-bottom:12px">Create brand rooms and catalog motion settings. AI runs in your browser when a supported local AI is available; otherwise use the free starter drafts below.</p>
+ <div class="sg-brand-form"><div class="form-group"><label>Brand / Room Name</label><input id="sgBrandName" placeholder="e.g. Bengal Heritage"></div><div class="form-group"><label>Theme Color</label><input id="sgBrandColor" type="color" value="#6d1a22"></div><div class="form-group wide"><label>Brand Story / Style Prompt</label><textarea id="sgBrandStory" placeholder="Describe the brand, products, mood, and audience..."></textarea></div><div class="form-group"><label>Collection Title</label><input id="sgBrandCollection" placeholder="e.g. The Festive Edit"></div><div class="form-group"><label>Catalog Motion</label><select id="sgBrandMotion"><option value="ticker">Slow auto-moving showcase</option><option value="static">Static collection</option><option value="swipe">Swipe-only carousel</option></select></div></div>
+ <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn-primary" id="sgBrandGenerate" style="width:auto">✨ Draft with Browser AI</button><button class="btn-secondary" id="sgBrandSave">Save Brand Room</button><button class="btn-secondary" id="sgBrandExport">Export Brand Rooms</button><label class="btn-secondary" style="cursor:pointer">Import JSON<input id="sgBrandImport" type="file" accept="application/json" hidden></label></div><div class="sg-brand-ai-output" id="sgBrandAiOutput"></div><div class="sg-brand-list" id="sgBrandAdminList"></div></div></div>
+<script id="sgBrandStudioAddonScript">
+(()=>{
+ const KEY='saajGochhBrandRooms_v1', $=id=>document.getElementById(id), modal=$('sgBrandModal'),strip=$('sgBrandRoomStrip');let editingName=null;
+ const syncAll=()=>{try{window.__saajTouchAndSync?.()}catch{}};
+ const read=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch{return []}},write=a=>localStorage.setItem(KEY,JSON.stringify(a));
+ function toastMsg(m){const t=$('toast');if(t){t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}else alert(m)}
+ function open(){modal?.classList.add('open');renderAdmin()}function close(){modal?.classList.remove('open')}
+ function renderAdmin(){const list=$('sgBrandAdminList');if(!list)return;list.innerHTML=read().map((b,i)=>`<div class="sg-brand-admin-card"><h4>${esc(b.name)}</h4><p>${esc(b.collection||'Collection')} · ${esc(b.motion||'ticker')}</p><button class="btn-secondary" data-edit="${i}">Edit</button><button class="btn-secondary" data-delete="${i}">Delete</button></div>`).join('');list.querySelectorAll('[data-edit]').forEach(btn=>btn.onclick=()=>fill(read()[+btn.dataset.edit]));list.querySelectorAll('[data-delete]').forEach(btn=>btn.onclick=()=>{const a=read();a.splice(+btn.dataset.delete,1);write(a);renderAdmin();renderRooms();syncAll()})}
+ function fill(b){editingName=b.name||null;$('sgBrandName').value=b.name||'';$('sgBrandColor').value=b.color||'#6d1a22';$('sgBrandStory').value=b.story||'';$('sgBrandCollection').value=b.collection||'';$('sgBrandMotion').value=b.motion||'ticker'}
+ function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+ function renderRooms(){if(strip)strip.querySelectorAll('.sg-room-card[data-custom-room]').forEach(n=>n.remove());const saved=read();saved.forEach(b=>{const card=document.createElement('article');card.className='sg-room-card';card.dataset.customRoom='1';card.style.background=`linear-gradient(125deg,${b.color||'#4e1016'},#b84a2f)`;card.innerHTML=`<span class="sg-room-mark">✦</span><div class="sg-room-copy"><h3>${esc(b.name)}</h3><p>${esc(b.story||b.collection||'Discover this curated collection.')}</p><button>Explore room ↗</button></div>`;card.querySelector('button').onclick=()=>{const q=b.name;const search=document.querySelector('#searchInput, .search-box input');if(search){search.value=q;search.dispatchEvent(new Event('input',{bubbles:true}));}document.querySelector('#productGrid')?.scrollIntoView({behavior:'smooth'});};strip?.appendChild(card)})}
+ window.__saajRenderBrandRooms=renderRooms;
+ function save(){const name=$('sgBrandName').value.trim();if(!name){toastMsg('Brand name required');return}const b={name,color:$('sgBrandColor').value,story:$('sgBrandStory').value.trim(),collection:$('sgBrandCollection').value.trim(),motion:$('sgBrandMotion').value,updatedAt:new Date().toISOString()};const arr=read(),idx=arr.findIndex(x=>x.name.toLowerCase()===(editingName||name).toLowerCase());if(idx>=0)arr[idx]=b;else arr.push(b);editingName=name;write(arr);renderAdmin();renderRooms();syncAll();toastMsg('Brand Room saved & queued for shared sync');}
+ async function generate(){const name=$('sgBrandName').value.trim()||'New Brand';const brief=$('sgBrandStory').value;const out=$('sgBrandAiOutput');out.style.display='block';out.textContent='Preparing draft…';const prompt=`Write a concise premium ecommerce brand-room concept for ${name}. Brief: ${brief}. Include brand story (2 sentences), collection title, 3 catalog section names, banner headline and short CTA. Keep it authentic and non-hype.`;
+ try{let text='';const ai=window.ai;if(ai?.languageModel?.create){const session=await ai.languageModel.create();text=await session.prompt(prompt);session.destroy?.()}else if(ai?.textGeneration){text=await ai.textGeneration({prompt})}else{throw new Error('Browser AI not available')}out.textContent=text||'No draft returned. Try again.'}catch{out.textContent=`Free starter draft for ${name}\n\nBrand story: A thoughtfully curated collection celebrating distinctive design, craft and everyday elegance. Discover pieces selected for their character, quality and timeless appeal.\n\nCollection: ${$('sgBrandCollection').value.trim()||'The Signature Edit'}\nCatalog sections: New Arrivals · Best Sellers · Curated Essentials\nBanner headline: Discover the art of considered living\nCTA: Explore the collection\n\nNote: A supported browser-local AI is not available in this browser. This is a template draft; no paid API was used.`}}
+ $('sgBrandGenerate').onclick=generate;$('sgBrandSave').onclick=save;$('sgBrandClose').onclick=close;modal?.addEventListener('click',e=>{if(e.target===modal)close()});
+ $('sgBrandExport').onclick=()=>{const blob=new Blob([JSON.stringify(read(),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='saaj-gochh-brand-rooms.json';a.click();URL.revokeObjectURL(a.href)};
+ $('sgBrandImport').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{const data=JSON.parse(await f.text());if(!Array.isArray(data))throw 0;write(data);renderAdmin();renderRooms();syncAll();toastMsg('Brand Rooms imported & queued for shared sync')}catch{toastMsg('Invalid JSON file')}};
+ document.querySelectorAll('[data-sg-room]').forEach(btn=>btn.onclick=()=>{const search=document.querySelector('#searchInput, .search-box input');if(search){search.value=btn.dataset.sgRoom;search.dispatchEvent(new Event('input',{bubbles:true}))}document.querySelector('#productGrid')?.scrollIntoView({behavior:'smooth'})});
+ // Move the premium showroom strip to the top of the storefront main area.
+ const showcase=document.getElementById('sgBrandShowcase');const main=document.querySelector('main');if(showcase&&main)main.insertBefore(showcase,main.firstElementChild);
+ // Insert admin entry button into existing inventory modal.
+ const adminHeader=document.querySelector('#adminModal .modal-header');if(adminHeader&&!$('sgBrandAdminOpen')){const b=document.createElement('button');b.id='sgBrandAdminOpen';b.className='btn-secondary';b.textContent='✦ Brand Studio AI';b.onclick=open;adminHeader.insertBefore(b,adminHeader.querySelector('.close-btn'))}
+ // gentle auto-scroll, pause on hover/focus and honor reduced-motion preference
+ let raf=0;const auto=()=>{if(!strip||matchMedia('(prefers-reduced-motion: reduce)').matches)return;let paused=strip.matches(':hover')||strip.contains(document.activeElement);if(!paused){strip.scrollLeft+=.35;if(strip.scrollLeft+strip.clientWidth>=strip.scrollWidth-1)strip.scrollLeft=0}raf=requestAnimationFrame(auto)};if(strip&&read().some(b=>b.motion==='ticker'))requestAnimationFrame(auto);
+ renderRooms();
+})();
+</script>
 
 </body></html>
