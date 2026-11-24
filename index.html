@@ -11749,6 +11749,22 @@ input:focus,select:focus,textarea:focus{border-color:#8756d5!important;box-shado
 </script>
 <style id="saaj-violet-depth-finishing">#sgMovingCatalog,#sgCategoryRooms,#sgCategoryDiscover{transition:box-shadow .18s linear;box-shadow:0 14px 34px rgba(70,30,130,var(--sg-depth-glow,0))}::selection{background:#d9c4ff;color:#261040}</style>
 
+
+<!-- Saaj visible card actions fix -->
+<style id="saaj-card-buttons-visibility-fix">
+.product-card .product-body{display:flex!important;flex-direction:column!important;align-items:stretch!important;min-width:0!important;overflow:visible!important}
+.product-card .price-row{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important;flex-wrap:wrap!important}
+.product-card .card-compare-row{display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:8px!important;flex-wrap:wrap!important}
+.product-card .view-details-link,.product-card .compare-pill-btn,.product-card .wa-btn,.product-card .share-product-btn{display:inline-flex!important;visibility:visible!important;opacity:1!important;align-items:center!important;justify-content:center!important;position:relative!important;z-index:2!important;max-width:100%!important;white-space:normal!important;text-align:center!important;line-height:1.25!important;cursor:pointer!important}
+.product-card .view-details-link{flex:0 1 auto!important;color:#6d1a22!important;background:#fff7ed!important}
+.product-card .compare-pill-btn{color:#6d1a22!important;background:#fffaf2!important}
+.product-card .compare-pill-btn.active{color:#fff!important;background:linear-gradient(135deg,#6d1a22,#b84a2f)!important}
+.product-card .wa-btn{width:100%!important;box-sizing:border-box!important;color:#fff!important;background:linear-gradient(135deg,#18883d,#21a553)!important}
+.product-card .share-product-btn{color:#6d1a22!important;background:#fffaf2!important}
+.product-card .card-wishlist-btn{display:flex!important;visibility:visible!important;opacity:1!important;align-items:center!important;justify-content:center!important;position:absolute!important;z-index:5!important}
+@media(max-width:640px){.product-card .price-row{gap:7px!important}.product-card .view-details-link,.product-card .compare-pill-btn{font-size:.76rem!important;padding:7px 9px!important}.product-card .wa-btn{min-height:42px!important}}
+</style>
+
 </html>
 <!-- Saaj Gochh premium card + button refresh -->
 <style id="saaj-premium-card-refresh">
