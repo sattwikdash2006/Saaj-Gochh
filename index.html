@@ -11523,13 +11523,21 @@
 @media(prefers-reduced-motion:reduce){.sg-category-room-track{animation:none!important;overflow-x:auto}}
 </style>
 <section id="sgCategoryRooms" aria-label="Category rooms" aria-live="polite"></section>
+<script id="sgCatalogRoomPlacement">
+(()=>{
+ const main=document.querySelector('main'); const grid=document.getElementById('productGrid'); const moving=document.getElementById('sgMovingCatalog'); const rooms=document.getElementById('sgCategoryRooms'); if(!main||!grid)return;
+ // Keep the showcases in the shopping content, not appended at the very bottom of the document.
+ if(moving) grid.insertAdjacentElement('beforebegin',moving);
+ if(rooms) grid.insertAdjacentElement('afterend',rooms);
+})();
+</script>
 <script id="sgCategoryRoomsAutoCatalog">
 (()=>{
  const grid=document.getElementById('productGrid'),host=document.getElementById('sgCategoryRooms');if(!grid||!host)return;
  const esc=v=>String(v||'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
  function products(){return [...grid.querySelectorAll('.product-card')].map(card=>{const img=card.querySelector('.product-img-wrap img'),title=card.querySelector('.product-title'),price=card.querySelector('.product-price'),cat=card.querySelector('.category-tag'),open=card.querySelector('[data-open-id]');if(!img||!title)return null;return {src:img.getAttribute('src')||'',alt:img.getAttribute('alt')||title.textContent.trim(),title:title.textContent.trim(),price:price?.textContent.trim()||'',category:cat?.textContent.trim()||'',id:open?.getAttribute('data-open-id')||title.getAttribute('data-open-id')||''}}).filter(x=>x&&x.category)}
  function render(){const all=products(),cats=[...new Set(all.map(p=>p.category.trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b));host.innerHTML=cats.map((cat,idx)=>{const items=all.filter(p=>p.category.toLowerCase()===cat.toLowerCase());const cards=items.map(p=>`<article class="sg-category-room-item" role="button" tabindex="0" data-category-product="${esc(p.id)}"><img src="${esc(p.src)}" alt="${esc(p.alt)}" loading="lazy"><div class="sg-category-room-item-info"><strong>${esc(p.title)}</strong><span>${esc(p.price)}</span></div></article>`).join('');return `<section class="sg-category-room"><header class="sg-category-room-head"><div><h2>${esc(cat)}</h2><p>Explore products curated in ${esc(cat)}</p></div><span class="sg-category-room-count">${items.length} item${items.length===1?'':'s'}</span></header><div class="sg-category-room-viewport" tabindex="0"><div class="sg-category-room-track" style="animation-duration:${Math.max(24,items.length*4)}s">${cards}${cards}</div></div></section>`}).join('');
- host.querySelectorAll('[data-category-product]').forEach(el=>{const go=()=>{const id=el.dataset.categoryProduct;if(!id)return;const target=grid.querySelector(`[data-open-id="${CSS.escape(id)}"]`);target?.click()};el.addEventListener('click',go);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}})});
+ host.querySelectorAll('[data-category-product]').forEach(el=>{const go=()=>{const id=el.dataset.categoryProduct;if(!id)return;const target=grid.querySelector(`.product-title[data-open-id="${CSS.escape(id)}"]`);target?.click()};el.addEventListener('click',go);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}})});
  }
  let rafQueued=false;const schedule=()=>{if(rafQueued)return;rafQueued=true;requestAnimationFrame(()=>{rafQueued=false;render()})};new MutationObserver(schedule).observe(grid,{childList:true,subtree:true});render();window.__saajRenderCategoryRooms=render;
 })();
@@ -11541,7 +11549,7 @@
  const esc=v=>String(v||'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
  function render(){const cards=[...grid.querySelectorAll('.product-card')];if(!cards.length){section.style.display='none';return}section.style.display='';const items=cards.map(card=>{const img=card.querySelector('.product-img-wrap img'),title=card.querySelector('.product-title'),price=card.querySelector('.product-price'),open=card.querySelector('[data-open-id]');if(!img||!title)return null;return {src:img.getAttribute('src')||'',alt:img.getAttribute('alt')||title.textContent.trim(),title:title.textContent.trim(),price:price?.textContent.trim()||'',id:open?.getAttribute('data-open-id')||title.getAttribute('data-open-id')}}).filter(Boolean);
  track.innerHTML=items.map(x=>`<article class="sg-mc-card" role="button" tabindex="0" data-product-id="${esc(x.id)}"><img src="${esc(x.src)}" alt="${esc(x.alt)}" loading="lazy"><div class="sg-mc-info"><strong>${esc(x.title)}</strong><span>${esc(x.price)}</span></div></article>`).join('');track.innerHTML+=track.innerHTML;
- track.querySelectorAll('.sg-mc-card').forEach(el=>{const go=()=>{const id=el.dataset.productId;if(!id)return;const target=grid.querySelector(`[data-open-id="${CSS.escape(id)}"]`);target?.click();};el.addEventListener('click',go);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});});
+ track.querySelectorAll('.sg-mc-card').forEach(el=>{const go=()=>{const id=el.dataset.productId;if(!id)return;const target=grid.querySelector(`.product-title[data-open-id="${CSS.escape(id)}"]`);target?.click();};el.addEventListener('click',go);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});});
  if(items.length<3)track.style.animationDuration='20s';else track.style.animationDuration=Math.max(30,items.length*3)+'s';
  }
  const mo=new MutationObserver(()=>render());mo.observe(grid,{childList:true,subtree:true});render();
