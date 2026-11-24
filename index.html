@@ -5021,12 +5021,6 @@ button, .btn-primary, .btn-secondary, .wa-btn, .share-product-btn, .cat-btn, .so
 
       <div class="gallery-stage" id="galleryStage">
         <img id="lightboxImg" class="lightbox-img" src="" alt="">
-        <div class="sg-zoom-controls" aria-label="Image zoom controls">
-          <button type="button" id="sgZoomOut" aria-label="Zoom out" title="Zoom out">−</button>
-          <span id="sgZoomLevel" aria-live="polite">100%</span>
-          <button type="button" id="sgZoomIn" aria-label="Zoom in" title="Zoom in">+</button>
-          <button type="button" id="sgZoomReset" aria-label="Reset zoom" title="Reset zoom">↺</button>
-        </div>
         <button type="button" class="gallery-nav prev" id="galleryPrev" aria-label="Previous photo" style="display: none;">‹</button>
         <button type="button" class="gallery-nav next" id="galleryNext" aria-label="Next photo" style="display: none;">›</button>
         <span class="gallery-counter" id="galleryCounter" style="display: none;">1 / 1</span>
@@ -9571,9 +9565,6 @@ button, .btn-primary, .btn-secondary, .wa-btn, .share-product-btn, .cat-btn, .so
         galleryStage.classList.toggle("sg-zoomed", sgZoomScale > 1);
         if (sgZoomLevel) sgZoomLevel.textContent = `${Math.round(sgZoomScale * 100)}%`;
       }
-      document.getElementById("sgZoomIn")?.addEventListener("click", () => setImageZoom(sgZoomScale + 0.25));
-      document.getElementById("sgZoomOut")?.addEventListener("click", () => setImageZoom(sgZoomScale - 0.25));
-      document.getElementById("sgZoomReset")?.addEventListener("click", () => setImageZoom(1));
       lightboxImg?.addEventListener("click", () => setImageZoom(sgZoomScale > 1 ? 1 : 1.5));
       galleryStage?.addEventListener("wheel", (e) => {
         if (!lightboxModal.classList.contains("open")) return;
@@ -11846,8 +11837,4 @@ input:focus,select:focus,textarea:focus{border-color:#8756d5!important;box-shado
 #lightboxImg{transform:scale(1)!important;transform-origin:center center!important;transition:transform .18s ease!important;cursor:zoom-in!important;max-width:100%!important}
 #galleryStage.sg-zoomed #lightboxImg{cursor:grab!important}
 #galleryStage.sg-zoomed #lightboxImg:active{cursor:grabbing!important}
-.sg-zoom-controls{position:absolute!important;left:12px!important;bottom:12px!important;z-index:12!important;display:flex!important;align-items:center!important;gap:5px!important;padding:6px!important;border-radius:999px!important;background:rgba(35,20,24,.88)!important;color:#fff!important;box-shadow:0 5px 18px rgba(0,0,0,.22)!important}
-.sg-zoom-controls button{width:34px!important;height:34px!important;border:1px solid rgba(255,255,255,.3)!important;border-radius:50%!important;background:#fff!important;color:#6d1a22!important;font-size:22px!important;font-weight:700!important;display:grid!important;place-items:center!important;cursor:pointer!important}
-.sg-zoom-controls #sgZoomLevel{min-width:42px!important;text-align:center!important;font-size:12px!important;font-weight:700!important}
-@media(max-width:520px){.sg-zoom-controls{left:8px!important;bottom:8px!important;gap:3px!important;padding:4px!important}.sg-zoom-controls button{width:30px!important;height:30px!important}}
 </style>
