@@ -5021,6 +5021,12 @@ button, .btn-primary, .btn-secondary, .wa-btn, .share-product-btn, .cat-btn, .so
 
       <div class="gallery-stage" id="galleryStage">
         <img id="lightboxImg" class="lightbox-img" src="" alt="">
+        <div class="sg-zoom-controls" aria-label="Image zoom controls">
+          <button type="button" id="sgZoomOut" aria-label="Zoom out" title="Zoom out">−</button>
+          <span id="sgZoomLevel" aria-live="polite">100%</span>
+          <button type="button" id="sgZoomIn" aria-label="Zoom in" title="Zoom in">+</button>
+          <button type="button" id="sgZoomReset" aria-label="Reset zoom" title="Reset zoom">↺</button>
+        </div>
         <button type="button" class="gallery-nav prev" id="galleryPrev" aria-label="Previous photo" style="display: none;">‹</button>
         <button type="button" class="gallery-nav next" id="galleryNext" aria-label="Next photo" style="display: none;">›</button>
         <span class="gallery-counter" id="galleryCounter" style="display: none;">1 / 1</span>
@@ -9556,12 +9562,30 @@ button, .btn-primary, .btn-secondary, .wa-btn, .share-product-btn, .cat-btn, .so
       // =========================================================
       let currentGalleryImages = [];
       let currentSlideIndex = 0;
+      let sgZoomScale = 1;
+      const sgZoomLevel = document.getElementById("sgZoomLevel");
+      function setImageZoom(nextScale) {
+        sgZoomScale = Math.max(1, Math.min(3, nextScale));
+        lightboxImg.style.setProperty("transform", `scale(${sgZoomScale})`, "important");
+        lightboxImg.style.setProperty("transform-origin", "center center", "important");
+        galleryStage.classList.toggle("sg-zoomed", sgZoomScale > 1);
+        if (sgZoomLevel) sgZoomLevel.textContent = `${Math.round(sgZoomScale * 100)}%`;
+      }
+      document.getElementById("sgZoomIn")?.addEventListener("click", () => setImageZoom(sgZoomScale + 0.25));
+      document.getElementById("sgZoomOut")?.addEventListener("click", () => setImageZoom(sgZoomScale - 0.25));
+      document.getElementById("sgZoomReset")?.addEventListener("click", () => setImageZoom(1));
+      lightboxImg?.addEventListener("click", () => setImageZoom(sgZoomScale > 1 ? 1 : 1.5));
+      galleryStage?.addEventListener("wheel", (e) => {
+        if (!lightboxModal.classList.contains("open")) return;
+        e.preventDefault(); setImageZoom(sgZoomScale + (e.deltaY < 0 ? 0.15 : -0.15));
+      }, { passive: false });
 
       function updateGallerySlide(index) {
         if (!currentGalleryImages.length) return;
         currentSlideIndex = (index + currentGalleryImages.length) % currentGalleryImages.length;
 
         delete lightboxImg.dataset.fallbackApplied;
+        setImageZoom(1);
         lightboxImg.src = currentGalleryImages[currentSlideIndex];
         lightboxImg.onerror = () => window.__saajFallback(lightboxImg);
         galleryCounter.textContent = `${currentSlideIndex + 1} / ${currentGalleryImages.length}`;
@@ -11805,4 +11829,25 @@ input:focus,select:focus,textarea:focus{border-color:#8756d5!important;box-shado
 .category-bar .cat-btn.active{color:#fff!important;-webkit-text-fill-color:#fff!important;background:#6d1a22!important;}
 .category-bar .cat-btn:hover{color:#6d1a22!important;-webkit-text-fill-color:#6d1a22!important;background:#fff8f0!important;}
 .category-bar .cat-btn.active:hover{color:#fff!important;-webkit-text-fill-color:#fff!important;background:#6d1a22!important;}
+</style>
+
+<!-- Saaj wishlist heart visibility repair -->
+<style id="saaj-wishlist-heart-visibility-fix">
+.product-card .card-wishlist-btn{color:#8b2635!important;background:#fff!important;display:flex!important;visibility:visible!important;opacity:1!important;align-items:center!important;justify-content:center!important;line-height:0!important;font-size:0!important;overflow:visible!important}
+.product-card .card-wishlist-btn svg{display:block!important;width:22px!important;height:22px!important;min-width:22px!important;min-height:22px!important;visibility:visible!important;opacity:1!important;overflow:visible!important;color:inherit!important}
+.product-card .card-wishlist-btn svg path{stroke:#8b2635!important;stroke-width:2.2!important;fill:none!important}
+.product-card .card-wishlist-btn.saved{background:#8b2635!important;color:#fff!important}
+.product-card .card-wishlist-btn.saved svg path{fill:#fff!important;stroke:#fff!important}
+.product-card .card-wishlist-btn:focus-visible{outline:3px solid #c89b3c!important;outline-offset:2px!important}
+</style>
+
+<style id="saaj-image-zoom-feature">
+#galleryStage{position:relative!important;overflow:hidden!important;touch-action:pan-y pinch-zoom!important}
+#lightboxImg{transform:scale(1)!important;transform-origin:center center!important;transition:transform .18s ease!important;cursor:zoom-in!important;max-width:100%!important}
+#galleryStage.sg-zoomed #lightboxImg{cursor:grab!important}
+#galleryStage.sg-zoomed #lightboxImg:active{cursor:grabbing!important}
+.sg-zoom-controls{position:absolute!important;left:12px!important;bottom:12px!important;z-index:12!important;display:flex!important;align-items:center!important;gap:5px!important;padding:6px!important;border-radius:999px!important;background:rgba(35,20,24,.88)!important;color:#fff!important;box-shadow:0 5px 18px rgba(0,0,0,.22)!important}
+.sg-zoom-controls button{width:34px!important;height:34px!important;border:1px solid rgba(255,255,255,.3)!important;border-radius:50%!important;background:#fff!important;color:#6d1a22!important;font-size:22px!important;font-weight:700!important;display:grid!important;place-items:center!important;cursor:pointer!important}
+.sg-zoom-controls #sgZoomLevel{min-width:42px!important;text-align:center!important;font-size:12px!important;font-weight:700!important}
+@media(max-width:520px){.sg-zoom-controls{left:8px!important;bottom:8px!important;gap:3px!important;padding:4px!important}.sg-zoom-controls button{width:30px!important;height:30px!important}}
 </style>
