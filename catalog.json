@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795532988514,
+  "updatedAt": 1795534767292,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -1407,6 +1407,7 @@
       "codAvailable": true,
       "return7Days": true,
       "whatsappNumber": "917908741893",
+      "affiliateLink": "",
       "featureSummary": [
         {
           "feature": "Material",
