@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795531385166,
+  "updatedAt": 1795531829642,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -243,7 +243,7 @@
         },
         {
           "feature": "Available Sizes",
-          "detail": "XS",
+          "detail": "S",
           "group": "Dimensions & Sizing"
         },
         {
@@ -316,7 +316,7 @@
         },
         {
           "feature": "Available Sizes",
-          "detail": "XS",
+          "detail": "S",
           "group": "Dimensions & Sizing"
         },
         {
@@ -349,7 +349,7 @@
       "featureSummary": [
         {
           "feature": "Available Sizes",
-          "detail": "L",
+          "detail": "S",
           "group": "Dimensions & Sizing"
         },
         {
@@ -965,7 +965,38 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Plastic",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Figurines",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "2",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 8 cm × Height: 6 cm × Breadth: 3 cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Cute Miniature Showpiece, Miniature Girl Figurine, Watermelon Girl Statue, Resin Miniature, Fairy Garden Accessories, Terrarium Decoratio…",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795321392301",
@@ -985,7 +1016,48 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Resin",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Figurines",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Suit For",
+          "detail": "Wedding decoration, festival decoration, festival gifts and wedding party etc.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Package",
+          "detail": "2 pcs as picture shown.",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 5.5 cm × Height: 5.5 cm × Breadth: 2.5 cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Couple Miniature With Umbrella",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795321188221",
@@ -1003,7 +1075,73 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Resin",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Figurines",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Set Of 4 Cute Little Girls",
+          "detail": "Each set includes four charming little girls, each holding a colorful umbrella, adding a playful and delightful vibe to your car interior.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "High-Quality Material",
+          "detail": "Made with durable and lightweight materials, these car ornaments are built to last and will retain their vibrant colors for a long time.",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Multicolor Design",
+          "detail": "The vibrant and cheerful multicolor umbrellas make these ornaments a perfect match for any car style or interior theme. Bring joy to your ride every time you step into your car.",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Easy To Install",
+          "detail": "These cute car accessories are designed for effortless placement on your dashboard, center console, or any other area where you want to add a touch of fun.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Perfect For All Ages",
+          "detail": "Whether you're a young driver or simply young at heart, these cute little girl figurines will brighten your car and make it a more inviting space.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Ideal Gift Idea",
+          "detail": "Looking for the perfect gift for car lovers or anyone who enjoys fun and quirky decor? These cute little girl",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 5.5 cm × Height: 5.5 cm × Breadth: 2.5 cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Car enthusiasts",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Car Dashboard Cute cartoon little girl holding an umbrella car ornaments car interior accessories car center console window decoration (S…",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795320839051",
@@ -1022,7 +1160,33 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Resin",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 2 × Height: 3 × Breadth: 1",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Tom and Jerry Resin Showpiece Set of 4, Cartoon Figures for Home Decor, Desk and Gift",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795320636713",
@@ -1041,7 +1205,58 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Resin",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Artifical Flower",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Pack Of",
+          "detail": "6 Pieces",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Color",
+          "detail": "Multicolor",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Finish",
+          "detail": "Smooth & Premium",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 4 cm × Height: 4 cm × Breadth: 4 cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Decoration",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Set of 6 Cute Penguin Miniature Showpieces, Resin Decorative Figurines for Home Decor, Car Dashboard, Office Desk, Shelf & Table Decorati…",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795320289238",
@@ -1060,7 +1275,33 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Resin",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Figurines",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "China",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 1.5 cm × Height: 1.5 cm × Breadth: 1.5 cm",
+          "group": "Dimensions & Sizing"
+        }
+      ]
     },
     {
       "id": "prod-1795320122219",
@@ -1078,7 +1319,33 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Resin",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Figurines",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "China",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 1.5 cm × Height: 1.5 cm × Breadth: 1.5 cm",
+          "group": "Dimensions & Sizing"
+        }
+      ]
     },
     {
       "id": "prod-1795319615634",
@@ -1095,7 +1362,33 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Resin",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Figurines",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "China",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 10 cm × Height: 17 cm × Breadth: 5 cm",
+          "group": "Dimensions & Sizing"
+        }
+      ]
     },
     {
       "id": "prod-1795319076739",
@@ -1115,7 +1408,38 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Resin",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Others",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 10 Inch × Height: 10 Inch × Breadth: 7.5 Inch",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Family Couple Showpiece",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795276323118",
@@ -1134,7 +1458,43 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Glass",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Color",
+          "detail": "Orange",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 16 Inch × Height: 16 Inch × Breadth: 8 Inch",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Real plants like the daisy",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "The Geometric glass pot, is hollow in design, the line is smooth, the weight is light, and does not fade",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795275942119",
@@ -1153,7 +1513,93 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Wooden",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "All Purpose",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Type",
+          "detail": "Festive Toran",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "2",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Great Material",
+          "detail": "Crafted from high-quality Medium-Densiti Fiberboard (MDF) for durability and stability.",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Print Quality",
+          "detail": "Immerse yourself in the beauty of high-definition prints that bring the artwork to life.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Precision Cutting",
+          "detail": "Meticulously laser-cut to achieve a super fine finish for a sophisticated look.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Lamination For Protection",
+          "detail": "Features hard-bound lamination for added protection and longevity, ensuring the piece stays good over time.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Effortless Maintenance",
+          "detail": "The smooth surface and hard-bound lamination make cleaning a preety with a soft, damp cloth.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Craftsmanship",
+          "detail": "Each wall hanging features meticulous detailing crafted from best-in-class engineered wood, ensuring durability and longevity.",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Unique Bottle Shape Design",
+          "detail": "Elevate your décor with these distinctive bottle-shaped wall hangings, adding a touch of sophistication to any room.",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Versatile Decor Piece",
+          "detail": "Perfect for any space, these wall hangings effortlessly complement various interior styles, from modern to traditional.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Easy To Install",
+          "detail": "With pre-installed slots in their design, these wall hangings are hassle-free to mount, allowing you to effortlessly enhance your walls.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Thoughtful Gift Idea",
+          "detail": "Surprise your loved ones these beautiful wall hangings, ideal for housewarmings, birthdays, or any special occasion.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "High-Quality Craftsmanship",
+          "detail": "Each jharokha is handcrafted by skilled artisan",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 0.5 Inch × Height: 12 Inch × Breadth: 18 Inch",
+          "group": "Dimensions & Sizing"
+        }
+      ]
     },
     {
       "id": "prod-1795275525242",
@@ -1172,7 +1618,43 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Professional Aesthetics",
+          "detail": "The Smart Black Advocate Coat Pen and Pencil Holder feature a sleek black design, exuding a sense of professionalism and refinement. Elevate your desk setup with this stylish and functional accessory.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Efficient Organization",
+          "detail": "Stay organized with designated pockets in the form of an advocate's coat. This holder ensures that your pens and pencils are conveniently within reach, making it easy to locate your essential writing tools whenever you need them.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Durable Plastic Construction",
+          "detail": "Crafted from high-quality plastic, this pen and pencil holder is not only visually appealing but also built to last. The robust construction ensures longevity, making it a reliable addition to your office or home workspace.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Distinctive Legal Touch",
+          "detail": "The holder cleverly mimics the design of an advocate's coat, incorporating subtle legal-themed elements. The attention to detail adds a touch of personality, making it a great conversation starter for legal professionals.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Advocate Pen Stand | Customized Desk Organizer for Advocate / Coat Shape Pen Holder, Clock and Personalized Name (Advocate Pen Stand)",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795274966069",
@@ -1191,7 +1673,33 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Material / Craft",
+          "detail": "Metal",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Home décor and workspace styling",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Elephant Decorative Pen Stand Handcrafted Iron Pen Holder Desk Organizer for Study Table Office Desk Home Decor",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795274516570",
@@ -1210,7 +1718,33 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Material / Craft",
+          "detail": "Metal",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Creating a warm",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Add a touch of artistic charm, festive elegance, and traditional craftsmanship to your home with this beautifully designed handcrafted me…",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795273378667",
@@ -1228,7 +1762,18 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Care & Setup",
+          "detail": "PRODUCT OVERVIEW\\nVaseline Intensive Care Cocoa Glow Body Lotion _ 200 ml\\n\\nCARE INSTRUCTIONS\\n• PRODUCT O…",
+          "group": "Care & Specs"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Please contact us if you need clarification on any specification.\\n\\n\\nINFORMATION NOTE\\nThe details above are based on the information p…",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795253743060",
@@ -1248,7 +1793,53 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Handicraft",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "All Purpose",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Type",
+          "detail": "Festive Toran",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "3",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "EXQUISITE PURE HANDMADE WEAVE",
+          "detail": "Handmade of natural, high quality cotton (made from plants) and designed to exceed your highest expectations! Truly beautiful timeless bohemian style with great accent matches with any modern or conventional style. Sleek plant hanger and matches perfectly with neutral pots and pottery.",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "ATTRACTIVE POT HOLDER",
+          "detail": "Traditional look adds elegance and beauty to your home and garden. It will impress your guests, friends and relatives! Perfect boho décor hanging element and will keep your pets away from your plants.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 10 cm × Height: 75 cm × Breadth: 10 cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "made by Ziydeco",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795242811394",
@@ -1267,7 +1858,13 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Key Highlight",
+          "detail": "PRODUCT OVERVIEW\\nELETREE Rose Water Daily Glow Soothing & Purifying - 100ml (Pack of 2)\\n\\nPACKAGE DETAILS\\n• ELETREE Rose Water Daily G…",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795242422936",
@@ -1286,7 +1883,38 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Brand Name",
+          "detail": "Pond's",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Skin Type",
+          "detail": "All Skin Types",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Flavour",
+          "detail": "No Flavour",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "12682 : Ponds WB Daily Lightening Cream 35 gms",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795242295618",
@@ -1304,7 +1932,53 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Brand Name",
+          "detail": "Pond's",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Brand",
+          "detail": "Pond's",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Flavour",
+          "detail": "No Flavour",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Skin Type",
+          "detail": "All Skin Types",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Type",
+          "detail": "Cream",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Capacity",
+          "detail": "100ml",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "12967 : ponds lgt moist 100ml",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795242110010",
@@ -1322,7 +1996,23 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Type",
+          "detail": "Face Wash",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        }
+      ]
     },
     {
       "id": "prod-1795242007496",
@@ -1341,7 +2031,43 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Capacity",
+          "detail": "300-400ml",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Type",
+          "detail": "Cream",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Skin Type",
+          "detail": "All Skin Types",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Flavour",
+          "detail": "Papaya",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "300",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Concern",
+          "detail": "Acne/Pimple",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        }
+      ]
     },
     {
       "id": "prod-1795241900466",
@@ -1360,7 +2086,58 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Capacity",
+          "detail": "100-200ml",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Type",
+          "detail": "Liquid",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Skin Type",
+          "detail": "All Skin Types",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Flavour",
+          "detail": "Aloe Vera",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Concern",
+          "detail": "No Concern",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Material / Craft",
+          "detail": "Cotton",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Care & Setup",
+          "detail": "6. Directions for use: Pour on a cotton pad and wipe gently on skin",
+          "group": "Care & Specs"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "1. Lacto Calamine Micellar Cleansing Water with Aloe Vera, Green Tea and Niacinamide suitable on acne-prone skin",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795241021040",
@@ -1376,7 +2153,43 @@
       "return7Days": false,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Design & Craftsmanship",
+          "detail": "Features a striking diamond-shaped pendant crafted from classic red-and-white checkered Gamcha fabric bordered with natural braided jute",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Materials",
+          "detail": "Pure cotton Gamcha fabric, eco-friendly natural jute, real cowrie shells (Kori), and a braided black cotton thread cord accented with red and black fabric beads",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Comfort & Fit",
+          "detail": "Extremely lightweight and skin-friendly for all-day wear",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Care Instructions",
+          "detail": "Keep away from water, perfumes, and harsh chemicals",
+          "group": "Care & Specs"
+        },
+        {
+          "feature": "Material / Craft",
+          "detail": "Cotton, Jute",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Package Details",
+          "detail": "Comes With An Adjustable Black Cotton Cord So You Can Easily Customize The Length To Suit Your Neckline",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Add a touch of authentic Bengali heritage and boho-chic charm to your look with this Handmade Gamcha & Cowrie Shell Necklace",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795240567144",
@@ -1395,7 +2208,28 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Drawing",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Make Every Drawing More Creative & Colorful! ✨ Bring out your child's creativity with this Complete Kids Art & Craft Kit, specially desig…",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795240408817",
@@ -1414,7 +2248,43 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Brand",
+          "detail": "Scheibe",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Color",
+          "detail": "Green",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Contains",
+          "detail": "Brush",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Weight",
+          "detail": "100GM",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "More than 10",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "China",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Our 13pcs makeup brushes have plastic handle for easy use",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795240305769",
@@ -1432,7 +2302,33 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Color",
+          "detail": "Black",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Contains",
+          "detail": "Brush",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Weight",
+          "detail": "100GM",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "China",
+          "group": "Package & Origin"
+        }
+      ]
     },
     {
       "id": "prod-1795240193146",
@@ -1451,7 +2347,38 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Color",
+          "detail": "Black",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Contains",
+          "detail": "Brush",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Weight",
+          "detail": "150GM",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Brushes included - Foundation Brush, Eyeshadow Brush, Blush Brush, Concealer Brush and Lip Brush",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795235222492",
@@ -1470,7 +2397,58 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Brand",
+          "detail": "FINZER",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Color",
+          "detail": "Multicolor",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Fabric",
+          "detail": "Cotton",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "5",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Pattern",
+          "detail": "Knitted Design",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Type",
+          "detail": "Regular",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: Ankle length",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Daily wear",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Add a touch of cuteness to your everyday wear with these women’s ankle-length cotton socks",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795231761162",
@@ -1486,7 +2464,48 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Fabric",
+          "detail": "Cotton",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Sleeve Length",
+          "detail": "Long Sleeves",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Pattern",
+          "detail": "Embroidered",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Pack / Combo",
+          "detail": "Single",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "L (Chest Size",
+          "detail": "40 in, Length Size: 42 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XL (Chest Size",
+          "detail": "42 in, Length Size: 43 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XXL (Chest Size",
+          "detail": "44 in, Length Size: 45 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        }
+      ]
     },
     {
       "id": "prod-1795153213921",
@@ -1505,7 +2524,48 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Color",
+          "detail": "Blue",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Fabric",
+          "detail": "Cotton",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Pattern",
+          "detail": "Striped",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Type",
+          "detail": "Regular",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: Ankle length",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "AKF Ankle Length Pure Cotton Ladies Designer Socks (With Designer Elastic) | Pack of 4",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795145260280",
@@ -1530,7 +2590,48 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Color",
+          "detail": "Black",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Fabric",
+          "detail": "Cotton",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "3",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Pattern",
+          "detail": "Solid",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Type",
+          "detail": "Regular",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: Ankle length",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Latest Premium Quality Rich Cotton Short Snaker Socks,Assorted Color ,Pack of 03 Pairs",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795144892428",
@@ -1549,7 +2650,43 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Shape",
+          "detail": "Triangle",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Type",
+          "detail": "Stack",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "Pack Of 2",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Height: 11 Cm × Breadth: 4 Cm × Length: 14 Cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "All seasons",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "This plastic hanging bird feeder is designed to attract and feed birds easily in your balcony, terrace, or garden",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795144546605",
@@ -1568,7 +2705,38 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Wooden",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "Pack Of 2",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Breadth: 8.5 Cm × Height: 40 Cm × Length: 40.5 Cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Care & Setup",
+          "detail": "Elevate your bird-watching experience and attract a variety of species with this essential bird care set",
+          "group": "Care & Specs"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Bamboo Open Feeder for Birds Natural Green to Pale Yellow Bamboo Pack of 02- Natural -Color ,bird food feeders and drinker hanging bird nest",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795111398258",
@@ -1584,7 +2752,53 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Brand Name",
+          "detail": "ROSEFLIX doting vision",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Brand",
+          "detail": "ROSEFLIX doting vision",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "10",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Skin Type",
+          "detail": "All Skin Types",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Type",
+          "detail": "Liquid",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Capacity",
+          "detail": "100gm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Color",
+          "detail": "Combo Of Different Color",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Finish",
+          "detail": "Matte",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        }
+      ]
     },
     {
       "id": "prod-1795111271387",
@@ -1602,7 +2816,38 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Brand",
+          "detail": "ActiveLand",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Color",
+          "detail": "Pink",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Available Sizes",
+          "detail": "Medium",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Elegant Makeup Organizer with Drawers | Vanity Cosmetic Storage Box (Pack Of 1-Pink)",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795111135034",
@@ -1621,7 +2866,48 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Color",
+          "detail": "White",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Available Sizes",
+          "detail": "Medium",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "SPACIOUS DRAWER STORAGE",
+          "detail": "Features a generous drawer that offers ample space to store a variety of beauty products, including skincare bottles, perfumes, lipsticks, and makeup brushes. Keeps your essentials organized, reducing clutter on your vanity. ELEGANT WHITE DESIGN:The sleek white finish gives this cosmetic organizer a modern, chic look, adding a touch of sophistication to any vanity, dressing table, or bathroom countertop. Perfect for any home decor style. INCLUDED MAKEUP SPONGE:Comes with a high-quality makeup sponge to help you achieve a smooth, flawless finish when applying foundation, concealer, or other makeup products. A perfect addition to your beauty toolkit. AMPLE STORAGE SPACE:With dimensions of 36 cm x 27 cm x 17 cm, this organizer provides the right balance of compactness and capacity. Plenty of room to store all your beauty essentials while maintaining a tidy, organized space. VERSATILE ORGANIZER FOR BEAUTY PRODUCTS:",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "China",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions",
+          "detail": "36 cm · 27 cm · 17 cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Storing a wide range of beauty products such as skincare items",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Organize your beauty routine with ease and efficiency",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795110898050",
@@ -1637,7 +2923,43 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Base Metal",
+          "detail": "Alloy",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Plating",
+          "detail": "Gold Plated",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Stone Type",
+          "detail": "Pearls",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Sizing",
+          "detail": "Adjustable",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Type",
+          "detail": "Choker and Earrings",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "3",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        }
+      ]
     },
     {
       "id": "prod-1795110787138",
@@ -1653,7 +2975,48 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Base Metal",
+          "detail": "Brass",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Plating",
+          "detail": "Gold Plated",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Stone Type",
+          "detail": "Cubic Zirconia/American Diamond",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Sizing",
+          "detail": "Adjustable",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Type",
+          "detail": "Necklace and Earrings",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Traditional Rajputi Kundan Work Choker Necklace Earring Set for WomenTraditional Rajputi Kundan Work Choker Necklace Earring Set for Women",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795110671770",
@@ -1672,7 +3035,43 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Base Metal",
+          "detail": "Brass",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Plating",
+          "detail": "Gold Plated",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Stone Type",
+          "detail": "Artificial Stones",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Sizing",
+          "detail": "Adjustable",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Type",
+          "detail": "Choker and Earrings",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        }
+      ]
     },
     {
       "id": "prod-1795106950133",
@@ -1690,7 +3089,43 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Base Metal",
+          "detail": "Alloy",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Plating",
+          "detail": "Gold Plated",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Stone Type",
+          "detail": "Artificial Stones",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Sizing",
+          "detail": "Adjustable",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Type",
+          "detail": "Choker and Earrings",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        }
+      ]
     },
     {
       "id": "prod-1795106375339",
@@ -1709,7 +3144,43 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Base Metal",
+          "detail": "Brass",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Plating",
+          "detail": "Gold Plated",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Stone Type",
+          "detail": "Kundan",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Sizing",
+          "detail": "Adjustable",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Type",
+          "detail": "Necklace and Earrings",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        }
+      ]
     },
     {
       "id": "prod-1795103679145",
@@ -1728,7 +3199,73 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Natural Comfort",
+          "detail": "Jute Bird Nest for Small Birds - Safe Haven for Sparrows, Finches & More Pack of Two",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Material",
+          "detail": "Jute",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Mount Type",
+          "detail": "Hanging",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "Pack Of 2",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Natural And Eco-Friendly",
+          "detail": "Crafted from sustainable jute, this birdhouse offers a natural nesting experience for birds.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Breathable Comfort",
+          "detail": "The woven jute material promotes air circulation and keeps the nest cool during warm weather.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Safe Haven",
+          "detail": "The enclosed design provides a secure feeling for nesting birds and protects them from harsh elements outdoors.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Perfect For Cages",
+          "detail": "This nest is ideal for creating a breeding space for small birds in captivity.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Predator Resistant",
+          "detail": "The sturdy construction discourages larger predators, offering a safe haven for nesting birds.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Breadth: 15 Cm × Height: 20 Cm × Length: 15 Cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Indoor and Outdoor Use:",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Welcome feathered friends to your garden or cage with the charm and comfort of our Natural Jute Bird Nest! This round-shaped nest, handcr…",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795103086451",
@@ -1747,7 +3284,53 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Base Metal",
+          "detail": "Brass & Copper",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Plating",
+          "detail": "Gold Plated",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Stone Type",
+          "detail": "American Diamond",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Sizing",
+          "detail": "Adjustable",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Type",
+          "detail": "Necklace Earrings Maangtika",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Material / Craft",
+          "detail": "Brass",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Premium Quality Brass Necklace Set With Earrings and Maantika For Women & Girls",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795102803123",
@@ -1765,7 +3348,48 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Base Metal",
+          "detail": "Alloy",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Plating",
+          "detail": "Gold Plated",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Stone Type",
+          "detail": "Cubic Zirconia/American Diamond",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Sizing",
+          "detail": "Adjustable",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Type",
+          "detail": "Necklace and Earrings",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "jewellery for women",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795101362479",
@@ -1789,7 +3413,33 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Catalog Name",
+          "detail": "*New Wind Chimes*",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Material",
+          "detail": "Metal",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dispatch",
+          "detail": "2-2 Days",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Breadth: 2 cm × Height: 35 cm × Length: Variable (Product Dependent) cm",
+          "group": "Dimensions & Sizing"
+        }
+      ]
     },
     {
       "id": "prod-1795100553001",
@@ -1812,7 +3462,48 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Metal",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Why You Love This",
+          "detail": "-",
+          "group": "Highlights"
+        },
+        {
+          "feature": "ABOUTE THE PRODUCT",
+          "detail": "-",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Breadth: 1 cm × Height: 35 cm × Length: 5 cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Balcony hanging",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "(35 cm) Owl & Eye Design Evil Eye Wind Chime With Hanging Chain Design | 5 Metal Bells for Balcony & Main Door Hanging",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795099195523",
@@ -1831,7 +3522,48 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Metal",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Ganesh Candle Holder",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Breadth: 3.5 Inch × Height: 11.5 Inch × Length: 6 Inch",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Mandir",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Care & Setup",
+          "detail": "Handcrafted with care using iron and hand-painting techniques, it’s perfect for your home temple, living ro…",
+          "group": "Care & Specs"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Shubh Labh Edition Ganesha Diya Stand – 100% Handmade Iron Decor",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795098951579",
@@ -1850,7 +3582,53 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Base Metal",
+          "detail": "Alloy",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Plating",
+          "detail": "Gold Plated",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Stone Type",
+          "detail": "Pearls",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Sizing",
+          "detail": "Adjustable",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Type",
+          "detail": "Choker and Earrings",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Material / Craft",
+          "detail": "Brass",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Shiv Shakti Supreme was manufacturer this jewellery set Best quality ever and Gold-plated Matt brass drop Temple Style Choker",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1795063628633",
@@ -1868,7 +3646,93 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Brand Name",
+          "detail": "Expandable",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Material",
+          "detail": "Pu",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Casual Backpack",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "External Pocket",
+          "detail": "Zip Pocket",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Laptop Capacity",
+          "detail": "Upto 17 Inch",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Laptop Compartment",
+          "detail": "Padded",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Shoulder Strap Type",
+          "detail": "Yoke-Style",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Available Sizes",
+          "detail": "M",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Volume In Litres",
+          "detail": "24 To 30 Litres",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Water Resistant",
+          "detail": "Yes",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Print Or Pattern Type",
+          "detail": "Typography",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Bag",
+          "detail": ":bagboys::bagbts::bagmens::bagdekhaiye::bagschool::backpacks::backpackformens::backpack::backpackbag::bags::schoolbag::schoolbags::schoolbagforboy::schoolbage::schoolbagblack::schoolbagbacchonke::schoolbagforchild::schoolbagforchildren::kidsschoolbag::kidsbackpacks::kidsbackpack::backpackforschool::girlsbackpack::backpacksforgirl::backpacksforgirls::laptopbackpack::schoolbagforgirls::schoolbagsforboys",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Height: 2 Cm × Length: 40 Cm × Width: 30 Cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Classrooms and boardrooms alike",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "35 L Casual Waterproof Laptop Bag/Backpack for Men Women Boys Girls/Office School College Teens & Students",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794980074471",
@@ -1884,7 +3748,48 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Fabric",
+          "detail": "Silk",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Sleeve Length",
+          "detail": "Long Sleeves",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Pattern",
+          "detail": "Embroidered",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Pack / Combo",
+          "detail": "Single",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "L (Chest Size",
+          "detail": "40 in, Length Size: 40 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XL (Chest Size",
+          "detail": "42 in, Length Size: 42 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XXL (Chest Size",
+          "detail": "44 in, Length Size: 44 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        }
+      ]
     },
     {
       "id": "prod-1794979931423",
@@ -1901,7 +3806,48 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Plastic",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Shape",
+          "detail": "Contemporary",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Type",
+          "detail": "Decorative",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "Pack Of 1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Breadth: 10 Cm × Height: 19 Cm × Length: 10 Cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Home decor",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Decorative Flower Vase for Real & Artificial Flowers for Home Office Decor | Unbreakable Flower Pot for Living Room, Bedroom, Study Table…",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794979767711",
@@ -1920,7 +3866,68 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Marble",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Shape",
+          "detail": "Round",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Flower Type",
+          "detail": "African Mask",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Premium Quality",
+          "detail": "Made from natural white stones, carefully polished for a shiny, smooth surface.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Multipurpose Use",
+          "detail": "Ideal for home decoration, gardens, pathways, vases, planters, and aquariums.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Size & Weight",
+          "detail": "2 KG pack with assorted sizes (approx. 20-40mm).",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Eco-Friendly & Safe",
+          "detail": "Non-toxic, dust-free, and water-resistant pebbles for long-lasting beauty.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Low Maintenance",
+          "detail": "No fading or discoloration; easy to clean and reuse.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Breadth: 10 mm × Height: 15 mm × Length: 20 mm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Enhance the beauty of your space with White Polished Pebbles – a perfect choice for home décor, landscaping, and aquarium decoration",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794979266327",
@@ -1939,7 +3946,38 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Syntethic Leather",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Sole Material",
+          "detail": "TPR",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Pattern",
+          "detail": "Solid",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "IND-3, IND-4, IND-5, IND-6, IND-7, IND-8",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794979141606",
@@ -1957,7 +3995,38 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Patent Leather",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Sole Material",
+          "detail": "Airmix",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Pattern",
+          "detail": "Solid",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "IND-3, IND-4, IND-5, IND-6, IND-7, IND-8",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794978970734",
@@ -1975,7 +4044,38 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Suede",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Sole Material",
+          "detail": "PU",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Pattern",
+          "detail": "Woven Design",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "IND-7, IND-6, IND-8, IND-5, IND-4",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794978832366",
@@ -1992,7 +4092,63 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Fabric",
+          "detail": "Cotton",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Sleeve Length",
+          "detail": "Long Sleeves",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Pattern",
+          "detail": "Embroidered",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Pack / Combo",
+          "detail": "Single",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "M (Chest Size",
+          "detail": "40 in, Length Size: 38 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "L (Chest Size",
+          "detail": "42 in, Length Size: 40 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XL (Chest Size",
+          "detail": "44 in, Length Size: 42 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XXL (Chest Size",
+          "detail": "46 in, Length Size: 44 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XXXL (Chest Size",
+          "detail": "48 in, Length Size: 46 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Beutiful Applique Design cotton kurta for men",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794978395142",
@@ -2008,7 +4164,53 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Fabric",
+          "detail": "Cotton",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Sleeve Length",
+          "detail": "Long Sleeves",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Pattern",
+          "detail": "Solid",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Pack / Combo",
+          "detail": "Single",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "XL (Chest Size",
+          "detail": "42 in, Length Size: 42 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "L (Chest Size",
+          "detail": "40 in, Length Size: 40 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "M (Chest Size",
+          "detail": "38 in, Length Size: 38 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XXL (Chest Size",
+          "detail": "44 in, Length Size: 44 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        }
+      ]
     },
     {
       "id": "prod-1794973985834",
@@ -2027,7 +4229,58 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Fabric",
+          "detail": "Rayon",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Sleeve Length",
+          "detail": "Long Sleeves",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Pattern",
+          "detail": "Printed",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Pack / Combo",
+          "detail": "Single",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "M (Chest Size",
+          "detail": "37 in, Length Size: 40 in, Waist Size: 40 in, Hip Size: 40 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "L (Chest Size",
+          "detail": "38 in, Length Size: 42 in, Waist Size: 42 in, Hip Size: 42 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XL (Chest Size",
+          "detail": "39 in, Length Size: 44 in, Waist Size: 44 in, Hip Size: 44 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XXL (Chest Size",
+          "detail": "41 in, Length Size: 46 in, Waist Size: 46 in, Hip Size: 46 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Kurta for Men | Cotton Kurta for Men Elegant Men Kurta Sets Fashionable Men Kurta Sets",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794973233258",
@@ -2043,7 +4296,38 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 6.5 × Height: 21.5 × Breadth: 16.5",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Material / Craft",
+          "detail": "Wooden, Mdf",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Creating a peaceful and devotional",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "ARYISH ENTERPRISES UNIQUE 3D CUTOUT DECORATIVE FIGURINE DEPICTING JESUS CHRIST STANDING ON WOODEN MDF BASE WITH TEA CANDLE",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794972535714",
@@ -2060,7 +4344,38 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Brass",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Others",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 5 cm × Height: 5 cm × Breadth: 5 cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Antique Gramophone Showpiece for Home Decor, Living Room, gift Vintage Brass Items Wooden showpiece ghar sajao Decorative",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794972274594",
@@ -2078,7 +4393,43 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Brass",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Figurines",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 10 Inch × Height: 1.5 Inch × Breadth: 1.5 Inch",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Adding an antique flair to any room",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Bring a touch of vintage charm to your décor with this classic gramophone showpiece",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794938795889",
@@ -2096,7 +4447,48 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Wooden",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "All Purpose",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Type",
+          "detail": "Festive Toran",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 1 × Height: 16 × Breadth: 16",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Care & Setup",
+          "detail": "Easy to install and long-lasting, they provide a stylish pop of color or pattern on your walls without the …",
+          "group": "Care & Specs"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "These DIY decorative wall art panels are perfect for adding character to any room in your home",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794937854080",
@@ -2114,7 +4506,38 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Metal",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Living Room",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Type",
+          "detail": "Festive Toran",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 6 Inch × Height: 0.5 Inch × Breadth: 2 Inch",
+          "group": "Dimensions & Sizing"
+        }
+      ]
     },
     {
       "id": "prod-1794926560879",
@@ -2133,7 +4556,38 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Plastic",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Artificial Christmas Trees",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "China",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Breadth: 10 cm × Height: 10 cm × Length: 70 cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "These beautiful, lush and lavish Green Christmas trees are tall, more than enough space for lots of decorations",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794925991823",
@@ -2152,7 +4606,38 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Metal",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "2",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Breadth: 6 cm × Height: 6 cm × Length: 12 cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Tealights and small candles",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Antique Hanging Metal Candle Lanterns with LED Candles | Decorative Candle Tealight Holder for Living Room, Balcony, Diwali Decoration, F…",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794925795815",
@@ -2171,7 +4656,38 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Metal",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Breadth: 13 cm × Height: 29 cm × Length: 13 cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Placing candles or diyas and creating a warm",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Bring a premium festive touch to your home with this Golden Decorative Lantern Candle Holder",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794925553015",
@@ -2187,7 +4703,88 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Fabric",
+          "detail": "Velvet",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Sleeve Length",
+          "detail": "Long Sleeves",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Pattern",
+          "detail": "Solid",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "S (Bust Size",
+          "detail": "36 in, Length Size: 50 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "M (Bust Size",
+          "detail": "38 in, Length Size: 50 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "L (Bust Size",
+          "detail": "40 in, Length Size: 50 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XL (Bust Size",
+          "detail": "42 in, Length Size: 50 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XXL (Bust Size",
+          "detail": "44 in, Length Size: 50 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Pleuche Material",
+          "detail": "This dress is made of velvet fabric, it feels very good when you touch the material, soft, comfortable and breathable, lifted your taste.",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Match",
+          "detail": "Suitable with high heels, sandals, earrings, necklaces and other accessories to create a fashionable look to become the brightest star.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Wrap V Neck",
+          "detail": "Wrap v neck design can reveal your charming collarbone, show your beautiful neck line, highlight your ultimate charm.",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Occasion",
+          "detail": "This dress is perfect for parties, birthday, prom, cocktails, weddings, clubs, dates, ceremony, anniversary, dances.",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "A Line Style",
+          "detail": "The A line design covers the flesh and tight waist, which shows your perfect body proportion, visually elongates the legs, making you look tall and thin.\"",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Fashion Dresses for Women Elegantes V-Neck Cross Wrap Swing Velvet Long Sleeve Vintage Cocktail Club Party A-Line Maxi Dress for party wear\"",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794924566215",
@@ -2206,7 +4803,33 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Resin",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Figurines",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 21 cm × Height: 25 cm × Breadth: 17 cm",
+          "group": "Dimensions & Sizing"
+        }
+      ]
     },
     {
       "id": "prod-1794924051247",
@@ -2225,7 +4848,33 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Resin",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Figurines",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 40 cm × Height: 40 cm × Breadth: 25 cm",
+          "group": "Dimensions & Sizing"
+        }
+      ]
     },
     {
       "id": "prod-1794922768479",
@@ -2244,7 +4893,53 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Base Metal",
+          "detail": "Silver",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Plating",
+          "detail": "Silver Plated",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Stone Type",
+          "detail": "American Diamond",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Sizing",
+          "detail": "Choker",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Type",
+          "detail": "Necklace",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "4",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Party",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Silver Plated Diaond Look Choker Necklace Bracelet Ring Earrings Combo Set Pack of 4Silver Choker Set, Diamnd Look Necklace, Single Line …",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794922459400",
@@ -2263,7 +4958,53 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Base Metal",
+          "detail": "Alloy",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Plating",
+          "detail": "Gold Plated",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Stone Type",
+          "detail": "American Diamond",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Sizing",
+          "detail": "Adjustable",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Type",
+          "detail": "As Per Image",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Weddings",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Luxury pearl and crystal jewelry set designed with sparkling floral details, delicate gold accents, and charming bow earrings",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794921407248",
@@ -2282,7 +5023,48 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Base Metal",
+          "detail": "Alloy",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Plating",
+          "detail": "Silver Plated",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Stone Type",
+          "detail": "American Diamond",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Sizing",
+          "detail": "Adjustable",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Type",
+          "detail": "Necklace and Earrings",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Elevate your style with this stunning Handcrafted Floral Necklace Set",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794919296113",
@@ -2300,7 +5082,48 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Base Metal",
+          "detail": "Brass",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Plating",
+          "detail": "Silver Plated",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Stone Type",
+          "detail": "Cubic Zirconia/American Diamond",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Sizing",
+          "detail": "Adjustable",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Type",
+          "detail": "Necklace and Earrings",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Jewellery Set , Necklace",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794918959273",
@@ -2319,7 +5142,38 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "S (Bust Size",
+          "detail": "34 in, Length Size: 23 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "M (Bust Size",
+          "detail": "36 in, Length Size: 24 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "L (Bust Size",
+          "detail": "38 in, Length Size: 24 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XL (Bust Size",
+          "detail": "40 in, Length Size: 25 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XXL (Bust Size",
+          "detail": "42 in, Length Size: 25 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        }
+      ]
     },
     {
       "id": "prod-1794917164849",
@@ -2337,7 +5191,28 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Fabric",
+          "detail": "Polyester",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Sleeve Length",
+          "detail": "Sleeveless",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        }
+      ]
     },
     {
       "id": "prod-1794909299226",
@@ -2353,7 +5228,53 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Base Metal",
+          "detail": "Alloy",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Plating",
+          "detail": "Gold Plated",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Stone Type",
+          "detail": "Artificial Stones & Beads",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Sizing",
+          "detail": "Non-Adjustable",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Available Sizes",
+          "detail": "Free Size",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Weddings",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Elevate your ethnic look with this elegant traditional jewellery set featuring beautifully detailed gold-look designs and classic black-b…",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794909098130",
@@ -2369,7 +5290,13 @@
       "return7Days": false,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Artist",
+          "detail": "Srijani Tripathy",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794908660530",
@@ -2388,7 +5315,48 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Base Metal",
+          "detail": "Alloy",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Plating",
+          "detail": "Gold Plated",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Stone Type",
+          "detail": "Cubic Zirconia/American Diamond",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Sizing",
+          "detail": "Adjustable",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Type",
+          "detail": "Full Bridal Set",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "necklace set for women wedding traditional gold plated jewellery",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794908169194",
@@ -2407,7 +5375,38 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Plastic",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Artificial Christmas Trees",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Breadth: 6.5 cm × Height: 6.5 cm × Length: 25 cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "2 Feet Artificial Christmas Tree with Warm LED Fairy Lights & Free Gift Ornaments | Compact Tabletop Xmas Tree for Home Decor, Office Des…",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794907738386",
@@ -2424,7 +5423,58 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Fabric",
+          "detail": "Crepe",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Sleeve Length",
+          "detail": "Sleeveless",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Pattern",
+          "detail": "Solid",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "S (Bust Size",
+          "detail": "36 in, Length Size: 46 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "M (Bust Size",
+          "detail": "38 in, Length Size: 46 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "L (Bust Size",
+          "detail": "40 in, Length Size: 46 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XL (Bust Size",
+          "detail": "42 in, Length Size: 46 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "WOMEN DRESS WOMEN CREPE DRESS WOMEN DRESSES",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794907549970",
@@ -2440,7 +5490,73 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Fabric",
+          "detail": "Crepe",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Sleeve Length",
+          "detail": "Long Sleeves",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Pattern",
+          "detail": "Checked",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "XS (Bust Size",
+          "detail": "30 in, Length Size: 37 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "S (Bust Size",
+          "detail": "32 in, Length Size: 37 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "M (Bust Size",
+          "detail": "34 in, Length Size: 37 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "L (Bust Size",
+          "detail": "36 in, Length Size: 37 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XL (Bust Size",
+          "detail": "38 in, Length Size: 37 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XXL (Bust Size",
+          "detail": "40 in, Length Size: 37 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XXXL (Bust Size",
+          "detail": "42 in, Length Size: 37 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "New best quality product",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794905783803",
@@ -2456,7 +5572,48 @@
       "return7Days": false,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Pot 1 - Midnight Bloom",
+          "detail": "Royal blue base with cheerful yellow dot flowers.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Pot 2 - Sunshine Flora",
+          "detail": "Crisp white & sunny yellow with big hand-painted blooms.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Pot 3 - Village Tales",
+          "detail": "Classic terracotta with authentic white Warli tribal art - a hut, people & nature.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Artist",
+          "detail": "Srijani Tripathy",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Available Sizes",
+          "detail": "Small table-top ghot (approx 4-5 inch)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Material / Craft",
+          "detail": "Clay, Terracotta",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Your living room",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Mitti Magic - A Splash of Colour on Clay!",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794887180684",
@@ -2476,7 +5633,43 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Resin",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Figurines",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 23 cm × Height: 15 cm × Breadth: 6 cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Decorating your living room",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Mariners Creation Peacock Krishna Flute Hand Showpiece for Home Decor, Elegants Black & Gold Peacock Decorative Statue, Resin Tabletop Sc…",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794886669964",
@@ -2495,7 +5688,43 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Resin",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Figurines",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 25 cm × Height: 20.5 cm × Breadth: 7 cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Living rooms",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Mariners creations Horse Statue Decor – Modern Resin Horse Figurine Sculpture for Shelf, Table, or Desk – Elegants Home Decor Accent for …",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794886039660",
@@ -2514,7 +5743,73 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Wooden",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Painting",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Print Or Pattern Type",
+          "detail": "Floral",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Frame Type",
+          "detail": "Framed",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Paint Type",
+          "detail": "Encaustic",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "3",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Set Of 3 Frames",
+          "detail": "This set includes 3 framed paintings, perfect for creating a cohesive and eye-catching wall display.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Versatile Decor",
+          "detail": "Suitable for living rooms, bedrooms, or any space needing a touch of cultural elegance.",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Large Size",
+          "detail": "The paintings come in a generous size, making them a focal point in any room.",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Ready To Hang",
+          "detail": "Each frame is equipped with hanging hardware, allowing for easy and convenient installation",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 1.5 Inch × Height: 13 Inch × Breadth: 9 Inch",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Floral Wall Painting For living Room Bedroom Decoration Premium Art Framed Wall Painting With Frame For Home Decor",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794884481196",
@@ -2531,7 +5826,33 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Wooden",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "3",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Breadth: 0.5 Inch × Height: 1 Inch × Length: 1 Inch",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Boho Textured Abstract Botanical Wall Painting Frames (Set of 3, A4 Size) - Beige & Olive Green Home Decor",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794884240269",
@@ -2550,7 +5871,43 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Metal",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Acrylic / Decorative Clocks",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "All Purpose",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 4 cm × Height: 24 cm × Breadth: 24 cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Modern Black and Gold Metal Wall Clock for Living Room, Luxury Decorative Analog Clock with Artistic Geometric Design, Contemporary Desig…",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794883999605",
@@ -2569,7 +5926,48 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Metal",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Wall Clocks",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "All Purpose",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Features",
+          "detail": "* Premium artistic floral design * Beautiful golden, silver and blue colour combination * Elegant decorative metal frame * Round dial with clear number markings * Stylish modern and luxurious appearance * Suitable for home and office decoration * Perfect for living room, bedroom and dining room * Attractive gifting option for special occasions Give your empty walls a stylish makeover with this beautiful decorat",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 14 cm × Height: 12 cm × Breadth: 14 cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Premium Decorative Metal Wall Clock for Living Room, Bedroom & Office Enhance the beauty of your home with this elegant and stylish decor…",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794882749293",
@@ -2587,7 +5985,43 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Metal",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Acrylic / Decorative Clocks",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "All Purpose",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 20 Inch × Height: 1 Inch × Breadth: 30 Inch",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Transform your wall into and stylish focal point with this Premium Designer Metal Wall Clock, beautifully designed with artistic combinat…",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794882250405",
@@ -2605,7 +6039,33 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Resin",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Figurines",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 5 cm × Height: 5 cm × Breadth: 5 cm",
+          "group": "Dimensions & Sizing"
+        }
+      ]
     },
     {
       "id": "prod-1794851173697",
@@ -2624,7 +6084,23 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "COD available...7 days easy returns",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794850707913",
@@ -2643,7 +6119,38 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Iron",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Figurines",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "3",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 4 Inch × Height: 7 Inch × Breadth: 4 Inch",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "COD available...7 Days Easy Returns",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "prod-1794850044018",
@@ -2661,7 +6168,43 @@
       "return7Days": true,
       "whatsappNumber": "",
       "affiliateLink": "",
-      "featureSummary": []
+      "featureSummary": [
+        {
+          "feature": "Material",
+          "detail": "Metal",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Type",
+          "detail": "Others",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "2",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: 7 cm × Height: 18 cm × Breadth: 7 cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Giving any room's dcor a decorative touch",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Decorative showpiece container cristal set 2",
+          "group": "Highlights"
+        }
+      ]
     }
   ]
 }
