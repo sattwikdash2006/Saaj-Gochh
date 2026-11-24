@@ -11780,6 +11780,76 @@ input:focus,select:focus,textarea:focus{border-color:#8756d5!important;box-shado
 @media(max-width:640px){.product-card .price-row{gap:7px!important}.product-card .view-details-link,.product-card .compare-pill-btn{font-size:.76rem!important;padding:7px 9px!important}.product-card .wa-btn{min-height:42px!important}}
 </style>
 
+<!-- Saaj Gochh mobile aspect-ratio and responsive polish -->
+<style id="saaj-mobile-ratio-polish">
+html,body{max-width:100%;overflow-x:hidden!important}*,*::before,*::after{box-sizing:border-box}
+@media(max-width:768px){
+  body{width:100%;min-width:0!important}
+  .nav-container,.header-inner,.header-main,.top-header{max-width:100%;min-width:0}
+  .nav-container{flex-wrap:wrap!important}
+  .brand-text h1{line-height:1.15}
+  .search-box{width:100%;min-width:0!important}
+  .header-actions{max-width:100%;flex-wrap:wrap}
+  .quick-cat-strip,.category-bar{max-width:100%;width:100%;overflow-x:auto!important;overscroll-behavior-x:contain;scrollbar-width:none}
+  .quick-cat-strip::-webkit-scrollbar,.category-bar::-webkit-scrollbar{display:none}
+  .category-bar .cat-btn{min-height:40px;padding:8px 14px!important}
+  .sg-hero-3d-stage{width:100%;max-width:100%;margin:12px auto 18px!important;padding-inline:10px!important}
+  .sg-hero-3d-card{grid-template-columns:minmax(0,1fr)!important;width:100%;min-width:0;border-radius:18px!important}
+  .sg-hero-copy{min-width:0;padding:clamp(14px,4vw,22px)!important}
+  .sg-hero-fan-viewport{width:100%;min-width:0;min-height:190px!important;max-height:260px;overflow:hidden}
+  .fk-layout{display:grid!important;grid-template-columns:minmax(0,1fr)!important;width:100%;max-width:100%;padding:0 10px!important;gap:12px!important}
+  .fk-sidebar,.filter-sidebar,.fk-filter-card{width:100%;max-width:100%;min-width:0}
+  .fk-toolbar-card{width:100%;min-width:0;padding:10px!important}
+  .fk-sort-row{gap:8px;min-width:0}
+  .fk-sort-tabs{max-width:100%;min-width:0;scrollbar-width:none}
+  .product-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:clamp(8px,2.5vw,12px)!important;width:100%;min-width:0}
+  .product-card{width:100%;min-width:0!important;max-width:100%;overflow:hidden;border-radius:15px!important}
+  .product-img-wrap{width:100%;aspect-ratio:4/5!important;min-width:0;overflow:hidden}
+  .product-img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+  .product-body{width:100%;min-width:0;padding:clamp(8px,2.5vw,12px)!important;gap:7px!important}
+  .product-title,.product-desc-preview{width:100%;min-width:0;overflow-wrap:anywhere;word-break:normal}
+  .product-title{font-size:clamp(.82rem,3.5vw,.98rem)!important;line-height:1.32!important;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+  .product-price{font-size:clamp(1rem,4vw,1.2rem)!important;line-height:1.2}
+  .feature-badges,.feat-badge{max-width:100%;flex-wrap:wrap}
+  .price-row,.wa-btn-row,.product-actions{display:flex;flex-wrap:wrap;align-items:center;gap:6px;min-width:0}
+  .view-details-link,.compare-pill-btn,.wa-btn,.share-product-btn{max-width:100%;min-width:0;white-space:normal;overflow-wrap:anywhere}
+  .view-details-link,.compare-pill-btn{font-size:.75rem!important;padding:7px 9px!important}
+  .card-wishlist-btn{width:36px!important;height:36px!important;min-width:36px!important}
+  #sgMovingCatalog{max-width:100%;overflow:hidden}
+  #sgMovingCatalog .sg-mc-card{width:min(42vw,180px)!important;flex-basis:min(42vw,180px)!important;min-width:0}
+  #sgMovingCatalog .sg-mc-card img{height:clamp(130px,38vw,175px)!important;object-fit:cover}
+  .sg-category-room-item{width:min(42vw,175px)!important;flex-basis:min(42vw,175px)!important;min-width:0}
+  .sg-category-room-item img{height:clamp(115px,32vw,145px)!important;object-fit:cover}
+  #lightboxModal{padding:8px!important;align-items:center!important;justify-content:center!important}
+  #lightboxModal .modal-card.product-detail-card{width:min(100%,560px)!important;max-width:100%!important;max-height:94dvh!important;height:auto!important;margin:0!important;padding:12px!important;border-radius:16px!important;overflow-y:auto!important}
+  #lightboxModal .modal-header{padding-right:78px!important;min-height:36px!important;margin-bottom:10px!important}
+  #lightboxModal #lightboxTitle{font-size:clamp(.92rem,4vw,1.1rem)!important;line-height:1.35!important}
+  #lightboxModal .modal-header-actions button{width:32px!important;height:32px!important;min-width:32px!important;max-width:32px!important;flex-basis:32px!important}
+  #lightboxModal #galleryStage{aspect-ratio:3/4!important;height:auto!important;max-height:56dvh!important}
+  #lightboxModal #lightboxImg{height:100%!important;max-height:56dvh!important;object-fit:contain!important}
+  #lightboxModal .gallery-nav{width:32px!important;height:32px!important;min-width:32px!important;max-width:32px!important}
+  #lightboxModal #galleryThumbs img{width:52px!important;height:52px!important;flex-basis:52px!important}
+  #lightboxModal .modal-card *{max-width:100%}
+  footer{width:100%;min-width:0}
+}
+@media(max-width:420px){
+  .product-grid{gap:7px!important}
+  .product-card{border-radius:12px!important}
+  .product-body{padding:8px!important}
+  .product-title{font-size:.82rem!important;-webkit-line-clamp:3}
+  .product-price{font-size:1rem!important}
+  .wa-btn,.share-product-btn{font-size:.72rem!important;padding:8px 6px!important}
+  #lightboxModal .modal-card.product-detail-card{padding:10px!important}
+  #lightboxModal #galleryStage{max-height:50dvh!important}
+  #lightboxModal #lightboxImg{max-height:50dvh!important}
+}
+@media(max-width:350px){
+  .product-grid{grid-template-columns:minmax(0,1fr)!important}
+  .product-img-wrap{aspect-ratio:4/3!important}
+  .product-title{font-size:.92rem!important}
+}
+</style>
+
 </html>
 <!-- Saaj Gochh premium card + button refresh -->
 <style id="saaj-premium-card-refresh">
