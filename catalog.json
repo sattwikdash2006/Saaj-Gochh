@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795537660274,
+  "updatedAt": 1795537792731,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -15,6 +15,8 @@
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
+      "whatsappNumber": "",
+      "affiliateLink": "",
       "featureSummary": [
         {
           "feature": "Fabric",
@@ -211,7 +213,7 @@
     {
       "id": "prod-1795526846160",
       "title": "GUESS Set Of 2 Seductive Noir Eau De Toilette- 75 ml & Body Spray- 125 ml",
-      "price": 5355,
+      "price": 7131,
       "category": "Beauty & Personal Care",
       "description": "This Fragrance Combo Contains:\nSeductive Noir Eau De Toilette- 75 ml\nBody Spray- 125 ml\n\nDisclaimer: The Seller is exclusively responsible for the quality, safety, ingredients, and any claims made regarding this product. Myntra does not verify these claims and shall not be held liable for any skin reactions, injuries, or dissatisfaction arising from its use. Users are advised to read all labels, warnings, and directions provided by the seller before use. Consult a dermatologist if you have sensitive skin or allergies.\n\nSpecifications\nFormulation\nSpray\nFragrance\nOriental\nNet Quantity\n2\nNet Quantity Unit\nPieces\nSustainable\nRegular",
       "images": [
@@ -222,7 +224,6 @@
       "inStock": true,
       "codAvailable": true,
       "return7Days": false,
-      "whatsappNumber": "",
       "affiliateLink": "https://myntr.it/4DfIBaI",
       "featureSummary": [
         {
