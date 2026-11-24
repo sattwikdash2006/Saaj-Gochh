@@ -11487,6 +11487,26 @@
 @media(prefers-reduced-motion:reduce){ #sgIntro .sg-vine-main path,#sgIntro .sg-leaf,#sgIntro .sg-vine-blooms circle{animation:none;stroke-dashoffset:0;opacity:.75;transform:none} }
 </style>
 
+
+<style id="sgMovingCatalogStyles">
+#sgMovingCatalog{max-width:1320px;margin:20px auto 34px;padding:0 18px}
+#sgMovingCatalog .sg-mc-head{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+#sgMovingCatalog h2{color:var(--maroon);font-size:clamp(1.2rem,2.3vw,1.8rem);margin:0}
+#sgMovingCatalog p{color:var(--text-muted);font-size:.85rem;margin:4px 0 0}
+#sgMovingCatalog .sg-mc-viewport{overflow:hidden;border-radius:16px}
+#sgMovingCatalog .sg-mc-track{display:flex;gap:14px;width:max-content;will-change:transform;animation:sgCatalogMove 52s linear infinite}
+#sgMovingCatalog .sg-mc-viewport:hover .sg-mc-track,#sgMovingCatalog .sg-mc-viewport:focus-within .sg-mc-track{animation-play-state:paused}
+#sgMovingCatalog .sg-mc-card{width:220px;flex:0 0 220px;overflow:hidden;border:1px solid var(--border);border-radius:14px;background:var(--surface,#fff);box-shadow:var(--shadow-sm);cursor:pointer}
+#sgMovingCatalog .sg-mc-card img{width:100%;height:190px;object-fit:cover;display:block;background:#f7f2ea}
+#sgMovingCatalog .sg-mc-info{padding:10px 12px 12px}
+#sgMovingCatalog .sg-mc-info strong{display:block;color:var(--text);font-size:.92rem;line-height:1.35;min-height:2.45em}
+#sgMovingCatalog .sg-mc-info span{display:block;color:var(--maroon);font-weight:800;margin-top:6px}
+@keyframes sgCatalogMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:600px){#sgMovingCatalog .sg-mc-card{width:170px;flex-basis:170px}#sgMovingCatalog .sg-mc-card img{height:155px}}
+@media(prefers-reduced-motion:reduce){#sgMovingCatalog .sg-mc-track{animation:none!important;overflow-x:auto}}
+</style>
+<section id="sgMovingCatalog" aria-label="Moving product catalog"><div class="sg-mc-head"><div><h2>✦ Curated Moving Catalog</h2><p>Discover the latest pieces from our collection.</p></div><span class="header-badge">Scroll · Discover · Shop</span></div><div class="sg-mc-viewport" tabindex="0"><div class="sg-mc-track" id="sgMovingCatalogTrack"></div></div></section>
+
 <!-- Saaj Gochh Premium Brand Rooms + Moving Catalog Add-on -->
 <style id="sgBrandStudioAddon">
 #sgBrandShowcase{max-width:1320px;margin:20px auto 28px;padding:0 18px}
@@ -11541,6 +11561,20 @@
  // gentle auto-scroll, pause on hover/focus and honor reduced-motion preference
  let raf=0;const auto=()=>{if(!strip||matchMedia('(prefers-reduced-motion: reduce)').matches)return;let paused=strip.matches(':hover')||strip.contains(document.activeElement);if(!paused){strip.scrollLeft+=.35;if(strip.scrollLeft+strip.clientWidth>=strip.scrollWidth-1)strip.scrollLeft=0}raf=requestAnimationFrame(auto)};if(strip&&read().some(b=>b.motion==='ticker'))requestAnimationFrame(auto);
  renderRooms();
+})();
+</script>
+
+
+<script id="sgMovingCatalogScript">
+(()=>{
+ const grid=document.getElementById('productGrid'),track=document.getElementById('sgMovingCatalogTrack'),section=document.getElementById('sgMovingCatalog');if(!grid||!track||!section)return;
+ const esc=v=>String(v||'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
+ function render(){const cards=[...grid.querySelectorAll('.product-card')];if(!cards.length){section.style.display='none';return}section.style.display='';const items=cards.map(card=>{const img=card.querySelector('.product-img-wrap img'),title=card.querySelector('.product-title'),price=card.querySelector('.product-price'),open=card.querySelector('[data-open-id]');if(!img||!title)return null;return {src:img.getAttribute('src')||'',alt:img.getAttribute('alt')||title.textContent.trim(),title:title.textContent.trim(),price:price?.textContent.trim()||'',id:open?.getAttribute('data-open-id')||title.getAttribute('data-open-id')}}).filter(Boolean);
+ track.innerHTML=items.map(x=>`<article class="sg-mc-card" role="button" tabindex="0" data-product-id="${esc(x.id)}"><img src="${esc(x.src)}" alt="${esc(x.alt)}" loading="lazy"><div class="sg-mc-info"><strong>${esc(x.title)}</strong><span>${esc(x.price)}</span></div></article>`).join('');track.innerHTML+=track.innerHTML;
+ track.querySelectorAll('.sg-mc-card').forEach(el=>{const go=()=>{const id=el.dataset.productId;if(!id)return;const target=grid.querySelector(`[data-open-id="${CSS.escape(id)}"]`);target?.click();};el.addEventListener('click',go);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});});
+ if(items.length<3)track.style.animationDuration='20s';else track.style.animationDuration=Math.max(30,items.length*3)+'s';
+ }
+ const mo=new MutationObserver(()=>render());mo.observe(grid,{childList:true,subtree:true});render();
 })();
 </script>
 
