@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795609661053,
+  "updatedAt": 1795609972552,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -17,6 +17,7 @@
       "inStock": true,
       "codAvailable": true,
       "return7Days": false,
+      "affiliateLink": "https://myntr.it/OfkXocv",
       "featureSummary": [
         {
           "feature": "Key Highlight",
