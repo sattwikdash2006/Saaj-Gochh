@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795586057393,
+  "updatedAt": 1795586530179,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -11,13 +11,11 @@
       "images": [
         "./images/products/item-1795577754407-1-mwvlpmkh.jpg"
       ],
+      "video": "./videos/products/item-1795577754407-mwvljzrb.mp4",
+      "youtubeId": "8OVhqBBBiY8",
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
-      "whatsappNumber": "",
-      "affiliateLink": "",
-      "video": "./videos/products/item-1795577754407-mwvljzrb.mp4",
-      "youtubeId": "",
       "featureSummary": [
         {
           "feature": "Fabric",
@@ -286,7 +284,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795526846160-2-mwuqbqzc-lmwde.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795526846160-3-mwuqbsha-95nnf.jpg"
       ],
-      "inStock": false,
+      "inStock": true,
       "codAvailable": true,
       "return7Days": false,
       "whatsappNumber": "",
