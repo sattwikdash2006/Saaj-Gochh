@@ -1,7 +1,29 @@
 {
-  "updatedAt": 1795610623189,
+  "updatedAt": 1795616007515,
   "whatsapp": "918670234616",
   "products": [
+    {
+      "id": "item-1795615997087",
+      "title": "Prayas Direct Tax-1 For Students, Semester 3 A.Y. 2026-27 By Sanjay Mundhra & Vikash Mundhra (Hardcover, Bengali, Sanjay Mundhra & Vikash Mundhra)",
+      "price": 461,
+      "category": "Festive Gifts",
+      "description": "In The Box \nSales Package\n1 Book\nGeneral \nBook\nPrayas Direct Tax-1 For Students, Semester 3 A.Y. 2026-27 By Sanjay Mundhra & Vikash Mundhra\nAuthor\nSanjay Mundhra & Vikash Mundhra\nBinding\nHardcover\nPublishing Date\n2026\nPublisher\nLawpoiny Publications\nEdition\n25th\nNumber of Pages\n502\nLanguage\nBengali\nTags\nDirect tax 1, Direct tax 1 sem 3, taxation books, direct tax 1 book\nGenre\nOthers\nBook Subcategory\nOther Books\nTerm/Year\n2026-27\nTerm/Semester\n3\nNet Quantity\n1",
+      "images": [
+        "./images/products/item-1795615997087-1-mww7ejq2.jpg",
+        "./images/products/item-1795615997087-2-mww7em6o.jpg",
+        "./images/products/item-1795615997087-3-mww7eoer.jpg"
+      ],
+      "inStock": true,
+      "codAvailable": true,
+      "return7Days": true,
+      "featureSummary": [
+        {
+          "feature": "Key Highlight",
+          "detail": "Sales Package",
+          "group": "Highlights"
+        }
+      ]
+    },
     {
       "id": "item-1795609549431",
       "title": "BEARDO Men Whisky Smoke Bourbon Long Lasting Eau De Parfum - 50 ml",
