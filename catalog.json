@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795586673626,
+  "updatedAt": 1795586739493,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -11,7 +11,6 @@
       "images": [
         "./images/products/item-1795577754407-1-mwvlpmkh.jpg"
       ],
-      "video": "./videos/products/item-1795577754407-mwvljzrb.mp4",
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
