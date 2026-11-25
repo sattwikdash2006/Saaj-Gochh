@@ -27747,6 +27747,7 @@ var CategoryFeaturedCardSections = ({ products, categories, onFilterCategory, on
 	const [activeSlides, setActiveSlides] = (0, import_react.useState)({});
 	const [pausedCategories, setPausedCategories] = (0, import_react.useState)({});
 	(0, import_react.useEffect)(() => {
+		if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 		const timer = window.setInterval(() => {
 			setActiveSlides((previous) => {
 				const next = { ...previous };
@@ -27756,7 +27757,7 @@ var CategoryFeaturedCardSections = ({ products, categories, onFilterCategory, on
 				});
 				return next;
 			});
-		}, 4800);
+		}, 4600);
 		return () => window.clearInterval(timer);
 	}, [categories, products, pausedCategories]);
 	const goToCategory = (category) => {
@@ -27772,116 +27773,126 @@ var CategoryFeaturedCardSections = ({ products, categories, onFilterCategory, on
 	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		id: "category-stories",
-		className: "sg-featured-sections",
+		className: "sg-ajio-sections",
 		children: categories.map((category) => {
 			const categoryProducts = products.filter((product) => product.category === category);
 			if (!categoryProducts.length) return null;
 			const activeIndex = activeSlides[category] || 0;
 			const featuredProducts = [0, 1, 2].map((slot) => categoryProducts[(activeIndex + slot) % categoryProducts.length]);
-			const labels = ["ATELIER SPOTLIGHT", "CURATOR'S PICK", "THE COLLECTOR'S EDIT"];
+			const bannerProduct = categoryProducts[activeIndex % categoryProducts.length];
+			const bannerImage = getProductImages(bannerProduct)[0] || FALLBACK_IMG;
+			const labels = ["TRENDING PICK", "ARTISAN SPOTLIGHT", "THE SAAJ EDIT"];
 			return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 				key: category,
-				className: "sg-featured-section",
+				className: "sg-ajio-section",
 				"aria-label": `${category} featured products`,
 				onMouseEnter: () => setPausedCategories((previous) => ({ ...previous, [category]: true })),
 				onMouseLeave: () => setPausedCategories((previous) => ({ ...previous, [category]: false })),
 				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "sg-featured-heading",
+					/* Compact retail-style category banner, not a page hero */
+					(0, import_jsx_runtime.jsxs)("div", {
+						className: "sg-ajio-banner",
 						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							(0, import_jsx_runtime.jsxs)("div", {
+								className: "sg-ajio-banner-copy",
 								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "sg-featured-kicker", children: "THE FEATURED EDIT" }),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", { className: "sg-featured-title", children: category })
+									(0, import_jsx_runtime.jsx)("span", { className: "sg-ajio-banner-kicker", children: "THE HANDCRAFT EDIT  /  SAAJ GOCHH" }),
+									(0, import_jsx_runtime.jsx)("h2", { className: "sg-ajio-banner-title", children: category }),
+									(0, import_jsx_runtime.jsx)("p", { className: "sg-ajio-banner-subtitle", children: "Distinctive finds. Thoughtfully handcrafted." }),
+									(0, import_jsx_runtime.jsxs)("button", {
+										type: "button",
+										className: "sg-ajio-banner-cta",
+										onClick: () => goToCategory(category),
+										children: ["SHOP THIS EDIT", (0, import_jsx_runtime.jsx)("span", { "aria-hidden": "true", children: "→" })]
+									})
 								]
 							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "sg-featured-heading-actions",
+							(0, import_jsx_runtime.jsxs)("div", {
+								className: "sg-ajio-banner-visual",
 								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-										className: "sg-featured-count",
-										children: [categoryProducts.length, categoryProducts.length === 1 ? " piece" : " pieces", " · 3 featured cards"]
+									(0, import_jsx_runtime.jsx)("img", {
+										src: bannerImage,
+										alt: bannerProduct.title,
+										loading: "lazy",
+										referrerPolicy: "no-referrer",
+										onError: (event) => { event.currentTarget.src = FALLBACK_IMG; }
 									}),
-									/* @PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-										type: "button",
-										onClick: () => goToCategory(category),
-										className: "sg-featured-shop-all",
-										children: ["Explore category", "  →"]
-									})
+									(0, import_jsx_runtime.jsx)("span", { className: "sg-ajio-banner-sticker", children: "MADE WITH CARE" })
 								]
 							})
 						]
 					}),
-					/* @PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "sg-featured-card-grid",
+					(0, import_jsx_runtime.jsxs)("div", {
+						className: "sg-ajio-section-heading",
+						children: [
+							(0, import_jsx_runtime.jsxs)("div", {
+								children: [
+									(0, import_jsx_runtime.jsx)("span", { className: "sg-ajio-section-kicker", children: "PICKED FOR YOU" }),
+									(0, import_jsx_runtime.jsx)("h3", { className: "sg-ajio-section-title", children: "Featured pieces" })
+								]
+							}),
+							(0, import_jsx_runtime.jsxs)("div", {
+								className: "sg-ajio-section-actions",
+								children: [
+									(0, import_jsx_runtime.jsxs)("span", { className: "sg-ajio-product-count", children: [categoryProducts.length, categoryProducts.length === 1 ? " PIECE" : " PIECES"] }),
+									(0, import_jsx_runtime.jsx)("button", { type: "button", className: "sg-ajio-view-all", onClick: () => goToCategory(category), children: "VIEW ALL →" })
+								]
+							})
+						]
+					}),
+					(0, import_jsx_runtime.jsx)("div", {
+						className: "sg-ajio-card-rail",
 						children: featuredProducts.map((product, slot) => {
 							const image = getProductImages(product)[0] || FALLBACK_IMG;
-						const price = Number(product.price || 0).toLocaleString("en-IN");
-						return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
-							key: `${category}-${slot}-${activeIndex}`,
-							className: `sg-featured-card sg-featured-card-${slot}`,
-							children: [
-								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "sg-featured-card-image-wrap",
-									children: [
-										/* @PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-											src: image,
-											alt: product.title,
-											loading: "lazy",
-											referrerPolicy: "no-referrer",
-											onError: (event) => { event.currentTarget.src = FALLBACK_IMG; },
-											className: "sg-featured-card-image"
-										}),
-										/* @PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "sg-featured-card-index", children: `0${slot + 1} / 03` }),
-										/* @PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "sg-featured-card-label", children: labels[slot] })
-									]
-								}),
-								/* @PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "sg-featured-card-info",
-									children: [
-										/* @PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "sg-featured-product-category", children: category }),
-										/* @PURE__ */ (0, import_jsx_runtime.jsx)("h3", { className: "sg-featured-product-title", children: product.title }),
-										/* @PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "sg-featured-product-description", children: product.description || "A thoughtfully selected handcrafted piece from Saaj Gochh." }),
-										/* @PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-											className: "sg-featured-card-bottom",
-											children: [
-												/* @PURE__ */ (0, import_jsx_runtime.jsxs)("span", { className: "sg-featured-product-price", children: ["₹", price] }),
-												/* @PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-													type: "button",
-													onClick: () => onOpenProduct(product),
-													className: "sg-featured-product-cta",
-													children: "View piece  ↗"
-												})
-											]
-										})
-									]
-								})
-							]
-							});
+							const price = Number(product.price || 0).toLocaleString("en-IN");
+							return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
+								key: `${category}-${slot}-${activeIndex}`,
+								className: `sg-ajio-product-card sg-ajio-product-card-${slot}`,
+								children: [
+									(0, import_jsx_runtime.jsxs)("div", {
+										className: "sg-ajio-card-image-wrap",
+										children: [
+											(0, import_jsx_runtime.jsx)("img", {
+												src: image,
+												alt: product.title,
+												loading: "lazy",
+												referrerPolicy: "no-referrer",
+												onError: (event) => { event.currentTarget.src = FALLBACK_IMG; },
+												className: "sg-ajio-card-image"
+											}),
+											(0, import_jsx_runtime.jsx)("span", { className: "sg-ajio-card-label", children: labels[slot] }),
+											!product.inStock ? (0, import_jsx_runtime.jsx)("span", { className: "sg-ajio-stock-label", children: "CURRENTLY UNAVAILABLE" }) : null
+										]
+									}),
+									(0, import_jsx_runtime.jsxs)("div", {
+										className: "sg-ajio-card-details",
+										children: [
+											(0, import_jsx_runtime.jsx)("span", { className: "sg-ajio-card-category", children: category }),
+											(0, import_jsx_runtime.jsx)("h4", { className: "sg-ajio-card-title", children: product.title }),
+											(0, import_jsx_runtime.jsx)("p", { className: "sg-ajio-card-description", children: product.description || "A thoughtfully selected handcrafted piece from Saaj Gochh." }),
+											(0, import_jsx_runtime.jsxs)("div", {
+												className: "sg-ajio-card-bottom",
+												children: [
+													(0, import_jsx_runtime.jsxs)("span", { className: "sg-ajio-card-price", children: ["₹", price] }),
+													(0, import_jsx_runtime.jsx)("button", { type: "button", className: "sg-ajio-card-cta", onClick: () => onOpenProduct(product), children: "VIEW PIECE ↗" })
+												]
+											})
+										]
+									})
+								]
+							}, `${category}-${slot}-${activeIndex}`);
 						})
 					}),
-					/* @PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "sg-featured-controls",
+					(0, import_jsx_runtime.jsxs)("div", {
+						className: "sg-ajio-slider-controls",
 						children: [
-							/* @PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "sg-featured-auto-note", children: "AUTO SLIDING FEATURED PICKS" }),
-							/* @PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "sg-featured-arrows",
+							(0, import_jsx_runtime.jsx)("span", { className: "sg-ajio-auto-label", children: "AUTO-SLIDING FEATURED PICKS" }),
+							(0, import_jsx_runtime.jsxs)("div", {
+								className: "sg-ajio-slider-nav",
 								children: [
-									/* @PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-										type: "button",
-										"aria-label": `Previous ${category} featured products`,
-										disabled: categoryProducts.length < 2,
-										onClick: () => moveCategory(category, -1, categoryProducts.length),
-										children: "‹"
-									}),
-									/* @PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "sg-featured-position", children: `${activeIndex + 1} / ${categoryProducts.length}` }),
-									/* @PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-										type: "button",
-										"aria-label": `Next ${category} featured products`,
-										disabled: categoryProducts.length < 2,
-										onClick: () => moveCategory(category, 1, categoryProducts.length),
-										children: "›"
-									})
+									(0, import_jsx_runtime.jsx)("button", { type: "button", "aria-label": `Previous ${category} featured products`, disabled: categoryProducts.length < 2, onClick: () => moveCategory(category, -1, categoryProducts.length), children: "‹" }),
+									(0, import_jsx_runtime.jsx)("span", { className: "sg-ajio-slider-position", children: `${String(activeIndex + 1).padStart(2, "0")} / ${String(categoryProducts.length).padStart(2, "0")}` }),
+									(0, import_jsx_runtime.jsx)("button", { type: "button", "aria-label": `Next ${category} featured products`, disabled: categoryProducts.length < 2, onClick: () => moveCategory(category, 1, categoryProducts.length), children: "›" })
 								]
 							})
 						]
@@ -31753,67 +31764,78 @@ function App() {
 }
 /*$vite$:1*/</style>
   <script src="/_aistudio-iframe.js?v=29045eb3"></script>
-<style id="sg-category-featured-card-styles">
-.sg-featured-sections{max-width:1380px;margin:0 auto;padding:10px 24px 28px;display:grid;gap:28px}
-.sg-featured-section{min-width:0}
-.sg-featured-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:0 1px 12px}
-.sg-featured-kicker{display:block;font:600 9px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.19em;color:#9a742e;margin-bottom:4px}
-.sg-featured-title{margin:0;color:#18181b;font:600 clamp(18px,2vw,22px)/1.2 'Playfair Display',Georgia,serif;letter-spacing:-.02em}
-.sg-featured-heading-actions{display:flex;align-items:center;gap:12px}
-.sg-featured-count{flex-shrink:0;color:#71717a;background:#f8f8f7;border:1px solid #e4e4e7;border-radius:4px;padding:5px 8px;font:500 10px/1.2 'JetBrains Mono',monospace}
-.sg-featured-shop-all{border:0;background:transparent;padding:5px 0;color:#75551f;font:600 10px/1.2 'Plus Jakarta Sans',sans-serif;white-space:nowrap;cursor:pointer}
-.sg-featured-shop-all:hover{color:#18181b;text-decoration:underline;text-underline-offset:3px}
-.sg-featured-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:stretch}
-.sg-featured-card{position:relative;min-width:0;min-height:340px;overflow:hidden;border:1px solid #e5e1d8;border-radius:7px;background:#fff;box-shadow:0 2px 10px rgba(24,24,27,.035);animation:sg-feature-card-in .5s cubic-bezier(.2,.7,.2,1) both}
-@keyframes sg-feature-card-in{from{opacity:.35;transform:translateX(22px)}to{opacity:1;transform:translateX(0)}}
-.sg-featured-card-image-wrap{position:relative;overflow:hidden;background:#f3f0e9}
-.sg-featured-card-image{display:block;width:100%;height:100%;object-fit:cover;transition:transform .65s cubic-bezier(.2,.7,.2,1)}
-.sg-featured-card:hover .sg-featured-card-image{transform:scale(1.045)}
-.sg-featured-card-index{position:absolute;top:12px;left:12px;padding:5px 7px;border:1px solid rgba(255,255,255,.55);border-radius:3px;background:rgba(24,24,27,.48);color:#fff;font:500 9px/1 'JetBrains Mono',monospace;letter-spacing:.08em;backdrop-filter:blur(5px)}
-.sg-featured-card-label{position:absolute;right:12px;bottom:12px;padding:6px 8px;background:rgba(24,24,27,.78);color:#f5e9cf;font:600 8px/1.1 'Plus Jakarta Sans',sans-serif;letter-spacing:.13em}
-.sg-featured-card-info{min-width:0;padding:15px 16px 14px;display:flex;flex-direction:column;flex:1}
-.sg-featured-product-category{font:600 8px/1.4 'Plus Jakarta Sans',sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#9a742e}
-.sg-featured-product-title{margin:6px 0 0;color:#18181b;font:600 16px/1.28 'Playfair Display',Georgia,serif;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:41px}
-.sg-featured-product-description{margin:7px 0 0;color:#71717a;font:400 10px/1.55 'Plus Jakarta Sans',sans-serif;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:31px}
-.sg-featured-card-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:12px}
-.sg-featured-product-price{color:#18181b;font:600 15px/1 'JetBrains Mono',monospace;white-space:nowrap}
-.sg-featured-product-cta{min-height:31px;padding:0 11px;border:1px solid #27272a;border-radius:3px;background:#27272a;color:#fff;font:600 9px/1 'Plus Jakarta Sans',sans-serif;white-space:nowrap;cursor:pointer;transition:background .18s ease,color .18s ease,border-color .18s ease}
-.sg-featured-product-cta:hover{background:#b68d40;border-color:#b68d40;color:#18181b}
-/* Style 1: atelier portrait card */
-.sg-featured-card-0{display:flex;flex-direction:column;background:#fff}
-.sg-featured-card-0 .sg-featured-card-image-wrap{height:198px;flex:0 0 198px}
-.sg-featured-card-0 .sg-featured-card-info{background:linear-gradient(180deg,#fff 0%,#fbfaf7 100%)}
-/* Style 2: editorial split card */
-.sg-featured-card-1{display:grid;grid-template-columns:42% minmax(0,1fr);background:#292323;border-color:#292323;color:#fff}
-.sg-featured-card-1 .sg-featured-card-image-wrap{height:100%;min-height:340px;background:#3d302e}
-.sg-featured-card-1 .sg-featured-card-image{object-position:center}
-.sg-featured-card-1 .sg-featured-card-label{left:8px;right:8px;bottom:8px;text-align:center;font-size:7px;padding:6px 4px}
-.sg-featured-card-1 .sg-featured-card-index{top:8px;left:8px;font-size:8px}
-.sg-featured-card-1 .sg-featured-card-info{justify-content:center;padding:17px 14px}
-.sg-featured-card-1 .sg-featured-product-category{color:#e6c78d}
-.sg-featured-card-1 .sg-featured-product-title{color:#fff;font-size:17px;min-height:0}
-.sg-featured-card-1 .sg-featured-product-description{color:rgba(255,255,255,.68);-webkit-line-clamp:4;min-height:0}
-.sg-featured-card-1 .sg-featured-product-price{color:#f5e9cf}
-.sg-featured-card-1 .sg-featured-product-cta{background:transparent;border-color:#d9bf8a;color:#f5e9cf}
-.sg-featured-card-1 .sg-featured-product-cta:hover{background:#e6c78d;border-color:#e6c78d;color:#292323}
-/* Style 3: collector's framed card */
-.sg-featured-card-2{background:#f2eee5;border-color:#ded4c2;padding:9px;display:flex;flex-direction:column}
-.sg-featured-card-2 .sg-featured-card-image-wrap{height:180px;flex:0 0 180px;border:1px solid #dfd3bd;background:#e8dfd0}
-.sg-featured-card-2 .sg-featured-card-image{padding:7px;object-fit:contain}
-.sg-featured-card-2 .sg-featured-card-index{top:8px;left:8px;background:rgba(24,24,27,.68)}
-.sg-featured-card-2 .sg-featured-card-label{right:8px;bottom:8px;background:#b68d40;color:#18181b}
-.sg-featured-card-2 .sg-featured-card-info{padding:13px 7px 7px}
-.sg-featured-card-2 .sg-featured-product-title{font-size:17px}
-.sg-featured-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 1px 0}
-.sg-featured-auto-note{color:#a1a1aa;font:500 8px/1.2 'JetBrains Mono',monospace;letter-spacing:.12em}
-.sg-featured-arrows{display:flex;align-items:center;gap:7px}
-.sg-featured-arrows button{width:27px;height:27px;border:1px solid #dedbd4;border-radius:4px;background:#fff;color:#27272a;font:400 20px/20px Georgia,serif;cursor:pointer;transition:all .18s ease}
-.sg-featured-arrows button:hover:not(:disabled){background:#27272a;border-color:#27272a;color:#fff}
-.sg-featured-arrows button:disabled{opacity:.38;cursor:not-allowed}
-.sg-featured-position{min-width:42px;text-align:center;color:#71717a;font:500 9px/1 'JetBrains Mono',monospace}
-@media(max-width:900px){.sg-featured-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sg-featured-card-2{grid-column:1/-1;min-height:300px}.sg-featured-card-2 .sg-featured-card-image-wrap{height:165px;flex-basis:165px}}
-@media(max-width:640px){.sg-featured-sections{padding:8px 16px 22px;gap:23px}.sg-featured-heading{align-items:flex-start}.sg-featured-heading-actions{flex-direction:column;align-items:flex-end;gap:5px}.sg-featured-count{font-size:8px;padding:4px 6px}.sg-featured-shop-all{font-size:9px}.sg-featured-card-grid{display:grid;grid-template-columns:1fr;gap:10px}.sg-featured-card{min-height:0}.sg-featured-card-0{display:grid;grid-template-columns:38% minmax(0,1fr);min-height:185px}.sg-featured-card-0 .sg-featured-card-image-wrap{height:100%;min-height:185px}.sg-featured-card-0 .sg-featured-card-info{padding:12px 11px}.sg-featured-card-0 .sg-featured-product-title{font-size:14px;min-height:0}.sg-featured-card-0 .sg-featured-product-description{font-size:9px;-webkit-line-clamp:2;min-height:0}.sg-featured-card-0 .sg-featured-product-cta,.sg-featured-card-1 .sg-featured-product-cta,.sg-featured-card-2 .sg-featured-product-cta{min-height:29px;padding:0 8px;font-size:8px}.sg-featured-card-1{min-height:195px;grid-template-columns:38% minmax(0,1fr)}.sg-featured-card-1 .sg-featured-card-image-wrap{min-height:195px}.sg-featured-card-1 .sg-featured-card-info{padding:12px 11px}.sg-featured-card-1 .sg-featured-product-title,.sg-featured-card-2 .sg-featured-product-title{font-size:14px}.sg-featured-card-2{grid-column:auto;min-height:195px;display:grid;grid-template-columns:38% minmax(0,1fr);padding:7px}.sg-featured-card-2 .sg-featured-card-image-wrap{height:100%;min-height:180px}.sg-featured-card-2 .sg-featured-card-info{padding:10px}.sg-featured-product-description{font-size:9px}.sg-featured-product-price{font-size:13px}.sg-featured-controls{padding-top:7px}}
-@media(prefers-reduced-motion:reduce){.sg-featured-card,.sg-featured-card-image,.sg-featured-product-cta{animation:none;transition:none}}
+<style id="sg-ajio-inspired-featured-styles">
+.sg-ajio-sections{max-width:1380px;margin:0 auto;padding:12px 24px 30px;display:grid;gap:31px;color:#202124}
+.sg-ajio-section{min-width:0}
+/* Compact category promotion strip: retail banner treatment without a full-page hero */
+.sg-ajio-banner{height:152px;position:relative;display:flex;align-items:center;justify-content:space-between;overflow:hidden;border-radius:3px;background:linear-gradient(105deg,#211f20 0%,#342923 58%,#76533b 100%);color:#fff;isolation:isolate}
+.sg-ajio-banner:after{content:"";position:absolute;z-index:-1;left:38%;top:-90%;width:320px;height:320px;border:1px solid rgba(255,255,255,.13);border-radius:50%;box-shadow:0 0 0 28px rgba(255,255,255,.035),0 0 0 58px rgba(255,255,255,.025)}
+.sg-ajio-banner-copy{position:relative;z-index:2;width:64%;padding:17px 24px}
+.sg-ajio-banner-kicker{display:block;color:#e7c78e;font:700 8px/1.4 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em}
+.sg-ajio-banner-title{margin:5px 0 3px;color:#fff;font:600 clamp(19px,2.4vw,27px)/1.12 'Playfair Display',Georgia,serif;letter-spacing:-.02em}
+.sg-ajio-banner-subtitle{margin:0;color:rgba(255,255,255,.72);font:400 10px/1.5 'Plus Jakarta Sans',sans-serif;letter-spacing:.02em}
+.sg-ajio-banner-cta{display:inline-flex;align-items:center;gap:18px;margin-top:10px;min-height:29px;padding:0 12px;border:1px solid #e8d2a8;border-radius:2px;background:#e8d2a8;color:#292323;font:700 8px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;cursor:pointer;transition:background .2s ease,color .2s ease,transform .2s ease}
+.sg-ajio-banner-cta span{font-size:14px;line-height:1}
+.sg-ajio-banner-cta:hover{background:transparent;color:#fff;transform:translateY(-1px)}
+.sg-ajio-banner-visual{position:absolute;top:0;right:0;bottom:0;width:43%;overflow:hidden;z-index:1}
+.sg-ajio-banner-visual:before{content:"";position:absolute;z-index:2;inset:0;background:linear-gradient(90deg,#342923 0%,rgba(52,41,35,.18) 42%,rgba(52,41,35,0) 100%)}
+.sg-ajio-banner-visual img{position:absolute;right:7%;top:-32%;width:56%;height:165%;object-fit:cover;object-position:center 35%;transform:rotate(5deg);border:5px solid rgba(255,255,255,.13);box-shadow:0 8px 28px rgba(0,0,0,.28);transition:transform .65s cubic-bezier(.2,.7,.2,1)}
+.sg-ajio-section:hover .sg-ajio-banner-visual img{transform:rotate(2deg) scale(1.04)}
+.sg-ajio-banner-sticker{position:absolute;right:24px;bottom:13px;z-index:3;padding:6px 8px;background:#f0d39b;color:#282323;font:700 7px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;transform:rotate(-4deg)}
+.sg-ajio-section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:18px 1px 11px}
+.sg-ajio-section-kicker{display:block;margin-bottom:4px;color:#a27635;font:700 8px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em}
+.sg-ajio-section-title{margin:0;color:#202124;font:600 clamp(18px,2vw,22px)/1.2 'Playfair Display',Georgia,serif}
+.sg-ajio-section-actions{display:flex;align-items:center;gap:13px}
+.sg-ajio-product-count{color:#747474;font:600 8px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;white-space:nowrap}
+.sg-ajio-view-all{border:0;border-bottom:1px solid #a27635;padding:5px 0;background:transparent;color:#59401f;font:700 8px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.1em;white-space:nowrap;cursor:pointer}
+.sg-ajio-view-all:hover{color:#b36b2e;border-color:#b36b2e}
+.sg-ajio-card-rail{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:stretch}
+.sg-ajio-product-card{position:relative;display:flex;flex-direction:column;min-width:0;overflow:hidden;border:1px solid #e8e5df;border-radius:3px;background:#fff;box-shadow:0 3px 13px rgba(32,33,36,.045);animation:sg-ajio-card-enter .48s cubic-bezier(.2,.7,.2,1) both}
+@keyframes sg-ajio-card-enter{from{opacity:.2;transform:translateX(19px)}to{opacity:1;transform:translateX(0)}}
+.sg-ajio-card-image-wrap{position:relative;height:218px;flex:0 0 218px;overflow:hidden;background:#f2eee7}
+.sg-ajio-card-image{display:block;width:100%;height:100%;object-fit:cover;transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+.sg-ajio-product-card:hover .sg-ajio-card-image{transform:scale(1.045)}
+.sg-ajio-card-label{position:absolute;top:11px;left:11px;z-index:1;padding:6px 8px;background:#fff;color:#2f2b27;font:700 7px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;box-shadow:0 2px 7px rgba(0,0,0,.08)}
+.sg-ajio-stock-label{position:absolute;right:8px;bottom:8px;padding:6px 8px;background:rgba(32,33,36,.83);color:#fff;font:600 7px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.09em}
+.sg-ajio-card-details{display:flex;flex:1;flex-direction:column;padding:12px 13px 13px;min-width:0}
+.sg-ajio-card-category{color:#a27635;font:700 7px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.15em;text-transform:uppercase}
+.sg-ajio-card-title{display:-webkit-box;min-height:38px;margin:5px 0 0;overflow:hidden;color:#242424;font:600 15px/1.28 'Playfair Display',Georgia,serif;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.sg-ajio-card-description{display:-webkit-box;min-height:30px;margin:6px 0 0;overflow:hidden;color:#77736d;font:400 9px/1.55 'Plus Jakarta Sans',sans-serif;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.sg-ajio-card-bottom{display:flex;align-items:center;justify-content:space-between;gap:9px;margin-top:auto;padding-top:12px}
+.sg-ajio-card-price{color:#202124;font:700 14px/1 'JetBrains Mono',monospace;white-space:nowrap}
+.sg-ajio-card-cta{min-height:30px;padding:0 10px;border:1px solid #242424;border-radius:2px;background:#242424;color:#fff;font:700 8px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.08em;white-space:nowrap;cursor:pointer;transition:background .18s ease,border-color .18s ease,color .18s ease}
+.sg-ajio-card-cta:hover{border-color:#a27635;background:#a27635;color:#fff}
+/* Three coordinated but distinct featured-card treatments */
+.sg-ajio-product-card-0{background:#fff}
+.sg-ajio-product-card-0 .sg-ajio-card-image-wrap{height:218px;flex-basis:218px}
+.sg-ajio-product-card-0 .sg-ajio-card-label{background:#f8e8d5;color:#77411f}
+.sg-ajio-product-card-1{display:grid;grid-template-columns:43% minmax(0,1fr);background:#282322;border-color:#282322;color:#fff}
+.sg-ajio-product-card-1 .sg-ajio-card-image-wrap{height:100%;min-height:278px;flex-basis:auto;background:#3c302b}
+.sg-ajio-product-card-1 .sg-ajio-card-image{object-position:center}
+.sg-ajio-product-card-1 .sg-ajio-card-label{top:9px;left:8px;padding:5px 6px;background:#e8c88d;color:#292323;font-size:6px}
+.sg-ajio-product-card-1 .sg-ajio-card-details{justify-content:center;padding:15px 13px}
+.sg-ajio-product-card-1 .sg-ajio-card-category{color:#e8c88d}
+.sg-ajio-product-card-1 .sg-ajio-card-title{min-height:0;color:#fff;font-size:16px}
+.sg-ajio-product-card-1 .sg-ajio-card-description{min-height:0;color:rgba(255,255,255,.66);-webkit-line-clamp:3}
+.sg-ajio-product-card-1 .sg-ajio-card-price{color:#f1dfbe}
+.sg-ajio-product-card-1 .sg-ajio-card-cta{border-color:#e8c88d;background:transparent;color:#f1dfbe}
+.sg-ajio-product-card-1 .sg-ajio-card-cta:hover{background:#e8c88d;color:#292323}
+.sg-ajio-product-card-2{padding:8px;background:#f5f0e7;border-color:#e4d7c5}
+.sg-ajio-product-card-2 .sg-ajio-card-image-wrap{height:202px;flex-basis:202px;border:1px solid #e4d7c5;background:#eee5d7}
+.sg-ajio-product-card-2 .sg-ajio-card-image{padding:8px;object-fit:contain}
+.sg-ajio-product-card-2 .sg-ajio-card-label{top:8px;left:8px;background:#292323;color:#f3dfb9}
+.sg-ajio-product-card-2 .sg-ajio-card-details{padding:12px 6px 6px}
+.sg-ajio-product-card-2 .sg-ajio-card-title{font-size:16px}
+.sg-ajio-slider-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 1px 0}
+.sg-ajio-auto-label{color:#99938a;font:600 7px/1 'JetBrains Mono',monospace;letter-spacing:.14em}
+.sg-ajio-slider-nav{display:flex;align-items:center;gap:7px}
+.sg-ajio-slider-nav button{width:28px;height:27px;border:1px solid #ddd8ce;border-radius:2px;background:#fff;color:#242424;font:400 20px/20px Georgia,serif;cursor:pointer;transition:all .18s ease}
+.sg-ajio-slider-nav button:hover:not(:disabled){border-color:#242424;background:#242424;color:#fff}
+.sg-ajio-slider-nav button:disabled{opacity:.35;cursor:not-allowed}
+.sg-ajio-slider-position{min-width:43px;text-align:center;color:#7e7971;font:600 8px/1 'JetBrains Mono',monospace}
+@media(max-width:900px){.sg-ajio-card-rail{grid-template-columns:repeat(2,minmax(0,1fr))}.sg-ajio-product-card-2{grid-column:1/-1;display:grid;grid-template-columns:42% minmax(0,1fr);min-height:245px}.sg-ajio-product-card-2 .sg-ajio-card-image-wrap{height:100%;min-height:245px}.sg-ajio-product-card-2 .sg-ajio-card-details{justify-content:center;padding:14px}}
+@media(max-width:640px){.sg-ajio-sections{padding:8px 14px 23px;gap:25px}.sg-ajio-banner{height:139px}.sg-ajio-banner-copy{width:70%;padding:14px 14px}.sg-ajio-banner-kicker{font-size:7px;letter-spacing:.14em}.sg-ajio-banner-title{font-size:20px;max-width:220px}.sg-ajio-banner-subtitle{max-width:180px;font-size:9px}.sg-ajio-banner-cta{min-height:27px;margin-top:8px;padding:0 9px;font-size:7px;gap:12px}.sg-ajio-banner-visual{width:44%}.sg-ajio-banner-visual img{right:0;width:70%;height:145%;top:-21%;border-width:3px}.sg-ajio-banner-sticker{right:8px;bottom:9px;padding:5px 6px;font-size:6px}.sg-ajio-section-heading{margin:14px 1px 9px;align-items:flex-end}.sg-ajio-section-actions{gap:8px;flex-direction:column;align-items:flex-end}.sg-ajio-product-count{font-size:7px}.sg-ajio-view-all{font-size:7px}.sg-ajio-section-title{font-size:18px}.sg-ajio-card-rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(245px,78%);grid-template-columns:none;gap:10px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding:1px 1px 8px;scrollbar-width:thin;scrollbar-color:#d8cbb8 transparent}.sg-ajio-product-card{scroll-snap-align:start;min-height:0}.sg-ajio-card-image-wrap{height:190px;flex-basis:190px}.sg-ajio-product-card-0 .sg-ajio-card-image-wrap{height:190px;flex-basis:190px}.sg-ajio-product-card-1{grid-template-columns:40% minmax(0,1fr)}.sg-ajio-product-card-1 .sg-ajio-card-image-wrap{min-height:260px}.sg-ajio-product-card-1 .sg-ajio-card-details{padding:13px 11px}.sg-ajio-product-card-1 .sg-ajio-card-title{font-size:14px}.sg-ajio-product-card-2{grid-column:auto;display:flex;padding:7px}.sg-ajio-product-card-2 .sg-ajio-card-image-wrap{height:190px;min-height:190px;flex-basis:190px}.sg-ajio-product-card-2 .sg-ajio-card-details{padding:11px 7px 7px}.sg-ajio-card-title{font-size:14px;min-height:36px}.sg-ajio-card-description{font-size:8px;min-height:25px}.sg-ajio-card-price{font-size:13px}.sg-ajio-card-cta{min-height:28px;padding:0 8px;font-size:7px}.sg-ajio-slider-controls{padding-top:6px}}
+@media(prefers-reduced-motion:reduce){.sg-ajio-product-card,.sg-ajio-card-image,.sg-ajio-banner-visual img,.sg-ajio-banner-cta,.sg-ajio-card-cta{animation:none;transition:none}}
 </style>
 </head>
   <body>
