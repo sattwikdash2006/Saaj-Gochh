@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795577754442,
+  "updatedAt": 1795577878181,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -14,6 +14,8 @@
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
+      "whatsappNumber": "",
+      "affiliateLink": "",
       "featureSummary": [
         {
           "feature": "Fabric",
