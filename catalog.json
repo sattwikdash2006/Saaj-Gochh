@@ -1,7 +1,30 @@
 {
-  "updatedAt": 1795609453697,
+  "updatedAt": 1795609562810,
   "whatsapp": "918670234616",
   "products": [
+    {
+      "id": "item-1795609549431",
+      "title": "BEARDO Men Whisky Smoke Bourbon Long Lasting Eau De Parfum - 50 ml",
+      "price": 341,
+      "category": "Home Decor",
+      "description": "Men Whisky Smoke Bourbon Eau De Parfum\n\nSpecifications\nBottom Note\nPatchouli\nFragrance\nSmoky\nNet Quantity\n50\nNet Quantity Unit\nml\nPreferences\nCruelty-Free\nStrength\nStrong\nSustainable\nRegular\nTop Note\nBergamot\nType\nEau de Parfum",
+      "images": [
+        "./images/products/item-1795609549431-1-mww3kcd9.jpg",
+        "./images/products/item-1795609549431-2-mww3kel7.jpg",
+        "./images/products/item-1795609549431-3-mww3kh23.jpg",
+        "./images/products/item-1795609549431-4-mww3kjez.jpg"
+      ],
+      "inStock": true,
+      "codAvailable": true,
+      "return7Days": false,
+      "featureSummary": [
+        {
+          "feature": "Key Highlight",
+          "detail": "Men Whisky Smoke Bourbon Eau De Parfum",
+          "group": "Highlights"
+        }
+      ]
+    },
     {
       "id": "item-1795588145881",
       "title": "Face Deal Floral Linen Blend Banarasi Saree",
