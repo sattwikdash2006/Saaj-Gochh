@@ -23045,10 +23045,10 @@ var ArchitecturalIntro = ({ onComplete }) => {
 		} catch {}
 		const partTimer = window.setTimeout(() => {
 			setStage("parting");
-		}, 2650);
+		}, 2100);
 		const finishTimer = window.setTimeout(() => {
 			setStage("done");
-		}, 3650);
+		}, 3050);
 		return () => {
 			window.clearTimeout(partTimer);
 			window.clearTimeout(finishTimer);
@@ -23065,144 +23065,176 @@ var ArchitecturalIntro = ({ onComplete }) => {
 		exit: {
 			opacity: 0,
 			transition: {
-				duration: .4,
-				ease: [ .16, 1, .3, 1 ]
+				duration: .35,
+				ease: [
+					.16,
+					1,
+					.3,
+					1
+				]
 			}
 		},
 		"aria-label": "Saaj Gochh Opening Reveal",
 		className: "fixed inset-0 z-[100] overflow-hidden select-none pointer-events-auto",
 		children: [
-			/* Left and right heritage-inspired reveal panels. */
-			(0, import_jsx_runtime.jsxs)(motion.div, {
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
 				initial: { x: "0%" },
 				animate: { x: stage === "parting" ? "-100%" : "0%" },
-				transition: { duration: 1, ease: [ .16, 1, .3, 1 ] },
-				className: "absolute inset-y-0 left-0 w-1/2 bg-[#141416] border-r border-[#B68D40]/50 overflow-hidden",
-				children: [
-					(0, import_jsx_runtime.jsx)("div", {
-						className: "absolute inset-0 opacity-25",
-						style: { backgroundImage: "repeating-linear-gradient(90deg, transparent 0px, transparent 36px, rgba(182,141,64,0.08) 36px, rgba(182,141,64,0.08) 37px)" }
-					}),
-					(0, import_jsx_runtime.jsx)("div", { className: "absolute inset-y-6 left-6 right-0 border-t border-b border-l border-[#B68D40]/25 pointer-events-none" })
-				]
+				transition: {
+					duration: .95,
+					ease: [
+						.16,
+						1,
+						.3,
+						1
+					]
+				},
+				className: "absolute inset-y-0 left-0 w-1/2 bg-[#141416] border-r border-[#B68D40]/40 overflow-hidden",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "absolute inset-0 opacity-25",
+					style: { backgroundImage: "repeating-linear-gradient(90deg, transparent 0px, transparent 36px, rgba(182,141,64,0.08) 36px, rgba(182,141,64,0.08) 37px)" }
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-y-6 left-6 right-0 border-t border-b border-l border-[#B68D40]/20 pointer-events-none" })]
 			}),
-			(0, import_jsx_runtime.jsxs)(motion.div, {
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
 				initial: { x: "0%" },
 				animate: { x: stage === "parting" ? "100%" : "0%" },
-				transition: { duration: 1, ease: [ .16, 1, .3, 1 ] },
-				className: "absolute inset-y-0 right-0 w-1/2 bg-[#141416] border-l border-[#B68D40]/50 overflow-hidden",
+				transition: {
+					duration: .95,
+					ease: [
+						.16,
+						1,
+						.3,
+						1
+					]
+				},
+				className: "absolute inset-y-0 right-0 w-1/2 bg-[#141416] border-l border-[#B68D40]/40 overflow-hidden",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "absolute inset-0 opacity-25",
+					style: { backgroundImage: "repeating-linear-gradient(90deg, transparent 0px, transparent 36px, rgba(182,141,64,0.08) 36px, rgba(182,141,64,0.08) 37px)" }
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-y-6 left-0 right-6 border-t border-b border-r border-[#B68D40]/20 pointer-events-none" })]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+				initial: {
+					opacity: 0,
+					scale: .8
+				},
+				animate: {
+					opacity: stage === "parting" ? 0 : .75,
+					scale: stage === "parting" ? 1.25 : 1
+				},
+				transition: {
+					duration: .85,
+					ease: [
+						.16,
+						1,
+						.3,
+						1
+					]
+				},
+				className: "absolute inset-0 pointer-events-none flex items-center justify-center",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-[460px] h-[460px] rounded-full bg-[radial-gradient(circle,rgba(182,141,64,0.22)_0%,rgba(182,141,64,0.05)_45%,transparent_72%)]" })
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
+				initial: {
+					opacity: 0,
+					y: 12
+				},
+				animate: {
+					opacity: stage === "parting" ? 0 : 1,
+					y: stage === "parting" ? -14 : 0,
+					scale: stage === "parting" ? .96 : 1
+				},
+				transition: {
+					duration: .65,
+					ease: [
+						.16,
+						1,
+						.3,
+						1
+					]
+				},
+				className: "relative z-10 h-full flex flex-col items-center justify-center px-6 text-center pointer-events-none",
 				children: [
-					(0, import_jsx_runtime.jsx)("div", {
-						className: "absolute inset-0 opacity-25",
-						style: { backgroundImage: "repeating-linear-gradient(90deg, transparent 0px, transparent 36px, rgba(182,141,64,0.08) 36px, rgba(182,141,64,0.08) 37px)" }
+					/* A decorative golden light mandala replaces the logo in the intro only. */
+					(0, import_jsx_runtime.jsxs)("div", {
+						className: "relative w-[min(64vw,280px)] h-[min(64vw,280px)] flex items-center justify-center",
+						children: [
+							(0, import_jsx_runtime.jsx)(motion.div, {
+								className: "absolute inset-3 rounded-full border border-[#B68D40]/55 border-t-[#F5E6C4] border-b-transparent",
+								initial: { opacity: 0, scale: .72, rotate: -35 },
+								animate: { opacity: stage === "parting" ? 0 : .9, scale: stage === "parting" ? 1.12 : [ .92, 1.02, .96 ], rotate: 325 },
+								transition: { opacity: { duration: .5 }, scale: { duration: 1.4, ease: "easeOut" }, rotate: { duration: 7, repeat: Infinity, ease: "linear" } }
+							}),
+							(0, import_jsx_runtime.jsx)(motion.div, {
+								className: "absolute inset-8 rounded-full border border-dashed border-[#EBD8AE]/45",
+								initial: { opacity: 0, scale: .6 },
+								animate: { opacity: stage === "parting" ? 0 : .8, scale: stage === "parting" ? 1.18 : 1, rotate: -360 },
+								transition: { opacity: { duration: .65, delay: .2 }, scale: { duration: .8, ease: "easeOut" }, rotate: { duration: 16, repeat: Infinity, ease: "linear" } }
+							}),
+							(0, import_jsx_runtime.jsx)(motion.svg, {
+								viewBox: "0 0 200 200",
+								className: "absolute w-[76%] h-[76%] overflow-visible drop-shadow-[0_0_16px_rgba(182,141,64,0.35)]",
+								initial: { opacity: 0, scale: .65, rotate: -22 },
+								animate: { opacity: stage === "parting" ? 0 : 1, scale: stage === "parting" ? 1.22 : 1, rotate: 22 },
+								transition: { duration: 1.1, ease: [ .16, 1, .3, 1 ] },
+								children: [
+									(0, import_jsx_runtime.jsx)("circle", { cx: "100", cy: "100", r: "67", fill: "none", stroke: "#B68D40", strokeOpacity: ".65", strokeWidth: "1.2" }),
+									(0, import_jsx_runtime.jsx)("circle", { cx: "100", cy: "100", r: "48", fill: "none", stroke: "#EBD8AE", strokeOpacity: ".45", strokeWidth: "1" }),
+									(0, import_jsx_runtime.jsx)("g", { fill: "none", stroke: "#EBD8AE", strokeWidth: "1.5", strokeOpacity: ".9", children: [
+										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", fill: "rgba(182,141,64,.16)" }),
+										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(45 100 100)", fill: "rgba(182,141,64,.13)" }),
+										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(90 100 100)", fill: "rgba(182,141,64,.16)" }),
+										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(135 100 100)", fill: "rgba(182,141,64,.13)" }),
+										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(180 100 100)", fill: "rgba(182,141,64,.16)" }),
+										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(225 100 100)", fill: "rgba(182,141,64,.13)" }),
+										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(270 100 100)", fill: "rgba(182,141,64,.16)" }),
+										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(315 100 100)", fill: "rgba(182,141,64,.13)" })
+									] }),
+									(0, import_jsx_runtime.jsx)("circle", { cx: "100", cy: "100", r: "17", fill: "#EBD8AE", fillOpacity: ".9" }),
+									(0, import_jsx_runtime.jsx)("circle", { cx: "100", cy: "100", r: "7", fill: "#9A742E" })
+								]
+							}),
+							...[
+								{ left: "18%", top: "34%", delay: 0 },
+								{ right: "17%", top: "28%", delay: .25 },
+								{ left: "24%", bottom: "20%", delay: .5 },
+								{ right: "22%", bottom: "18%", delay: .75 }
+							].map((spark, idx) => (0, import_jsx_runtime.jsx)(motion.div, {
+								className: "absolute w-2 h-2 rounded-full bg-[#F5E6C4] shadow-[0_0_14px_rgba(235,216,174,0.95)]",
+								style: { left: spark.left, right: spark.right, top: spark.top, bottom: spark.bottom },
+								initial: { opacity: 0, scale: 0 },
+								animate: { opacity: stage === "parting" ? 0 : [ .15, 1, .35 ], scale: [ .45, 1.25, .6 ], y: [ 5, -9, 2 ] },
+								transition: { duration: 1.5, delay: spark.delay, repeat: Infinity, ease: "easeInOut" }
+							}, `intro-spark-${idx}`))
+						]
 					}),
-					(0, import_jsx_runtime.jsx)("div", { className: "absolute inset-y-6 left-0 right-6 border-t border-b border-r border-[#B68D40]/25 pointer-events-none" })
-				]
-			}),
-			/* Warm spotlight behind the arriving brand mark. */
-			(0, import_jsx_runtime.jsx)(motion.div, {
-				initial: { opacity: 0, scale: .15 },
-				animate: {
-					opacity: stage === "parting" ? 0 : .95,
-					scale: stage === "parting" ? 1.8 : [ .15, 1.12, 1 ]
-				},
-				transition: { duration: 1.8, ease: [ .16, 1, .3, 1 ] },
-				className: "absolute inset-0 pointer-events-none flex items-center justify-center",
-				children: (0, import_jsx_runtime.jsx)("div", {
-					className: "w-[min(88vw,520px)] aspect-square rounded-full",
-					style: { background: "radial-gradient(circle, rgba(231,190,105,0.32) 0%, rgba(182,141,64,0.13) 38%, rgba(182,141,64,0.035) 59%, transparent 72%)", filter: "blur(5px)" }
-				})
-			}),
-			/* Expanding gold ring gives the logo a bright, ceremonial entrance. */
-			(0, import_jsx_runtime.jsx)(motion.div, {
-				initial: { opacity: 0, scale: .12, rotate: -35 },
-				animate: {
-					opacity: stage === "parting" ? 0 : .78,
-					scale: stage === "parting" ? 1.42 : [ .12, 1.08, 1 ],
-					rotate: stage === "parting" ? 28 : 0
-				},
-				transition: { duration: 1.65, ease: [ .16, 1, .3, 1 ] },
-				className: "absolute inset-0 pointer-events-none flex items-center justify-center",
-				children: (0, import_jsx_runtime.jsx)("div", {
-					className: "w-[min(78vw,430px)] aspect-square rounded-full border border-[#E5BD70]/65",
-					style: { boxShadow: "0 0 32px rgba(211,166,79,0.22), inset 0 0 28px rgba(211,166,79,0.08)" }
-				})
-			}),
-			/* Fine orbit ring turns around the centre while the logo settles. */
-			(0, import_jsx_runtime.jsx)(motion.div, {
-				initial: { opacity: 0, scale: .25, rotate: 70 },
-				animate: {
-					opacity: stage === "parting" ? 0 : .45,
-					scale: stage === "parting" ? 1.5 : 1,
-					rotate: stage === "parting" ? 110 : 430
-				},
-				transition: { opacity: { duration: .8 }, scale: { duration: 1.5, ease: [ .16, 1, .3, 1 ] }, rotate: { duration: 3.2, ease: "linear" } },
-				className: "absolute inset-0 pointer-events-none flex items-center justify-center",
-				children: (0, import_jsx_runtime.jsx)("div", {
-					className: "w-[min(70vw,385px)] aspect-square rounded-full border border-dashed border-[#EBD8AE]/70"
-				})
-			}),
-			/* Small glints pulse around the logo. */
-			(0, import_jsx_runtime.jsxs)("div", {
-				className: "absolute inset-0 pointer-events-none flex items-center justify-center text-[#F4D48F]",
-				children: [
-					(0, import_jsx_runtime.jsx)(motion.span, {
-						initial: { opacity: 0, scale: 0, x: -158, y: -112, rotate: -60 },
-						animate: { opacity: stage === "parting" ? 0 : [ 0, 1, .65 ], scale: stage === "parting" ? 0 : [ 0, 1.35, 1 ], rotate: 0 },
-						transition: { duration: 1.25, delay: .6, ease: [ .16, 1, .3, 1 ] },
-						className: "absolute text-3xl drop-shadow-[0_0_12px_rgba(244,212,143,0.9)]",
-						children: "✦"
+					(0, import_jsx_runtime.jsx)(motion.h1, {
+						initial: { opacity: 0, y: 12 },
+						animate: { opacity: stage === "parting" ? 0 : 1, y: stage === "parting" ? -8 : 0 },
+						transition: { duration: .65, delay: .25, ease: [ .16, 1, .3, 1 ] },
+						className: "mt-1 font-serif-display text-3xl sm:text-5xl font-semibold tracking-tight text-white",
+						children: "Saaj Gochh"
 					}),
-					(0, import_jsx_runtime.jsx)(motion.span, {
-						initial: { opacity: 0, scale: 0, x: 165, y: -88, rotate: 60 },
-						animate: { opacity: stage === "parting" ? 0 : [ 0, 1, .6 ], scale: stage === "parting" ? 0 : [ 0, 1.15, 1 ], rotate: 0 },
-						transition: { duration: 1.3, delay: .82, ease: [ .16, 1, .3, 1 ] },
-						className: "absolute text-2xl drop-shadow-[0_0_12px_rgba(244,212,143,0.9)]",
-						children: "✧"
+					(0, import_jsx_runtime.jsx)(motion.div, {
+						initial: { scaleX: 0, opacity: 0 },
+						animate: { scaleX: stage === "parting" ? 0 : 1, opacity: stage === "parting" ? 0 : 1 },
+						transition: { duration: .65, delay: .4, ease: [ .16, 1, .3, 1 ] },
+						className: "w-28 h-px bg-gradient-to-r from-transparent via-[#B68D40] to-transparent my-3"
 					}),
-					(0, import_jsx_runtime.jsx)(motion.span, {
-						initial: { opacity: 0, scale: 0, x: -145, y: 112, rotate: 60 },
-						animate: { opacity: stage === "parting" ? 0 : [ 0, .9, .55 ], scale: stage === "parting" ? 0 : [ 0, 1.1, 1 ], rotate: 0 },
-						transition: { duration: 1.2, delay: 1.02, ease: [ .16, 1, .3, 1 ] },
-						className: "absolute text-xl drop-shadow-[0_0_10px_rgba(244,212,143,0.9)]",
-						children: "✧"
-					}),
-					(0, import_jsx_runtime.jsx)(motion.span, {
-						initial: { opacity: 0, scale: 0, x: 150, y: 118, rotate: -60 },
-						animate: { opacity: stage === "parting" ? 0 : [ 0, 1, .55 ], scale: stage === "parting" ? 0 : [ 0, 1.25, 1 ], rotate: 0 },
-						transition: { duration: 1.25, delay: .9, ease: [ .16, 1, .3, 1 ] },
-						className: "absolute text-2xl drop-shadow-[0_0_10px_rgba(244,212,143,0.9)]",
-						children: "✦"
+					(0, import_jsx_runtime.jsx)(motion.p, {
+						initial: { opacity: 0, y: 7 },
+						animate: { opacity: stage === "parting" ? 0 : 1, y: stage === "parting" ? -5 : 0 },
+						transition: { duration: .55, delay: .52 },
+						className: "text-xs sm:text-sm tracking-[0.22em] uppercase text-[#EBD8AE]/90 font-medium",
+						children: "Handcrafted Bengal Artistry"
 					})
 				]
 			}),
-			/* Official logo arrives small, spins forward, then settles at a compact size. */
-			(0, import_jsx_runtime.jsx)(motion.div, {
-				initial: { opacity: 0, y: 34, scale: .12, rotate: -24, filter: "blur(10px)" },
-				animate: {
-					opacity: stage === "parting" ? 0 : 1,
-					y: stage === "parting" ? -20 : 0,
-					scale: stage === "parting" ? .82 : [ .12, 1.12, .96, 1 ],
-					rotate: stage === "parting" ? 9 : [ -24, 7, -2, 0 ],
-					filter: stage === "parting" ? "blur(5px)" : "blur(0px)"
-				},
-				transition: stage === "parting" ? { duration: .48, ease: [ .4, 0, 1, 1 ] } : { duration: 1.55, times: [ 0, .58, .82, 1 ], ease: [ .16, 1, .3, 1 ] },
-				className: "relative z-10 h-full flex items-center justify-center px-6 text-center pointer-events-none",
-				children: (0, import_jsx_runtime.jsx)(motion.img, {
-					src: SAAJ_GOCHH_BRAND_LOGO,
-					alt: "Saaj Gochh official logo",
-					draggable: false,
-					className: "w-[min(66vw,285px)] max-h-[58vh] h-auto object-contain rounded-[4px] shadow-[0_0_42px_rgba(211,166,79,0.32)]"
-				})
-			}),
-			(0, import_jsx_runtime.jsxs)("button", {
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 				type: "button",
 				onClick: handleSkip,
 				className: "absolute bottom-6 right-6 z-20 h-9 px-3.5 rounded-[4px] border border-[#B68D40]/50 bg-zinc-900/90 hover:bg-zinc-800 text-[#EBD8AE] text-xs font-semibold inline-flex items-center gap-1.5 transition-colors cursor-pointer",
-				children: [
-					(0, import_jsx_runtime.jsx)("span", { children: "Skip Intro" }),
-					(0, import_jsx_runtime.jsx)(ArrowRight, { className: "w-3.5 h-3.5" })
-				]
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Skip Intro" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, { className: "w-3.5 h-3.5" })]
 			})
 		]
 	}, "sg-architectural-intro") });
