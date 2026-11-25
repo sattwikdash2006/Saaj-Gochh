@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795616108943,
+  "updatedAt": 1795616513633,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -14,8 +14,8 @@
         "./images/products/item-1795615997087-3-mww7eoer.jpg"
       ],
       "inStock": true,
-      "codAvailable": true,
-      "return7Days": true,
+      "codAvailable": false,
+      "return7Days": false,
       "affiliateLink": "https://bitli.in/8n4OUZc",
       "featureSummary": [
         {
