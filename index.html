@@ -12900,6 +12900,27 @@ function normalizeWhatsAppNumber(value) {
 	if (digits.length === 11 && digits.startsWith("0")) return "91" + digits.slice(1);
 	return digits;
 }
+function normalizeYouTubeVideoId(value) {
+	const raw = String(value || "").trim();
+	if (/^[A-Za-z0-9_-]{11}$/.test(raw)) return raw;
+	if (!raw) return "";
+	try {
+		const url = new URL(raw.includes("://") ? raw : `https://${raw}`);
+		const host = url.hostname.toLowerCase().replace(/^www\./, "");
+		let id = "";
+		if (host === "youtu.be") id = url.pathname.split("/").filter(Boolean)[0] || "";
+		else if (["youtube.com", "m.youtube.com", "music.youtube.com", "youtube-nocookie.com"].includes(host)) {
+			if (url.pathname === "/watch") id = url.searchParams.get("v") || "";
+			else {
+				const match = url.pathname.match(/^\/(?:embed|shorts|live)\/([A-Za-z0-9_-]{11})(?:[/?#]|$)/);
+				if (match) id = match[1];
+			}
+		}
+		return /^[A-Za-z0-9_-]{11}$/.test(id) ? id : "";
+	} catch {
+		return "";
+	}
+}
 function normalizeProduct(raw) {
 	if (!raw || typeof raw !== "object") return null;
 	const r = raw;
@@ -12912,8 +12933,7 @@ function normalizeProduct(raw) {
 	const affiliateLink = /^https?:\/\//i.test(rawAffiliate) ? rawAffiliate : "";
 	const rawVideo = typeof r.video === "string" ? r.video.trim() : "";
 	const video = /^(https?:\/\/|\.\/videos\/products\/|videos\/products\/)/i.test(rawVideo) ? rawVideo : "";
-	const rawYoutubeId = typeof r.youtubeId === "string" ? r.youtubeId.trim() : "";
-	const youtubeId = /^[A-Za-z0-9_-]{11}$/.test(rawYoutubeId) ? rawYoutubeId : "";
+	const youtubeId = normalizeYouTubeVideoId(r.youtubeId);
 	const featureSummary = sanitizeFeatureRows(r.featureSummary);
 	return {
 		id: String(r.id || "item-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6)),
@@ -26494,6 +26514,7 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 	const [return7Days, setReturn7Days] = (0, import_react.useState)(true);
 	const [photos, setPhotos] = (0, import_react.useState)([]);
 	const [videoUrl, setVideoUrl] = (0, import_react.useState)("");
+	const [youtubeId, setYoutubeId] = (0, import_react.useState)("");
 	const [videoFile, setVideoFile] = (0, import_react.useState)(null);
 	const [videoPreviewUrl, setVideoPreviewUrl] = (0, import_react.useState)("");
 	const [imageUrlInput, setImageUrlInput] = (0, import_react.useState)("");
@@ -26527,6 +26548,7 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 			setReturn7Days(editingProduct.return7Days);
 			setPhotos(getProductImages(editingProduct));
 			setVideoUrl(editingProduct.video || "");
+			setYoutubeId(editingProduct.youtubeId || "");
 			setVideoFile(null);
 			setVideoPreviewUrl(editingProduct.video || "");
 			setAutoCatStatus("Editing Item");
@@ -26545,6 +26567,7 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 		setReturn7Days(true);
 		setPhotos([]);
 		setVideoUrl("");
+		setYoutubeId("");
 		setVideoFile(null);
 		setVideoPreviewUrl("");
 		setImageUrlInput("");
@@ -26804,6 +26827,11 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 			onToast("Partner link must start with http:// or https://");
 			return;
 		}
+		const finalYoutubeId = normalizeYouTubeVideoId(youtubeId);
+		if (youtubeId.trim() && !finalYoutubeId) {
+			onToast("Paste a valid 11-character YouTube video ID or YouTube URL.");
+			return;
+		}
 		const cleanedSpecs = sanitizeFeatureRows(featureRows);
 		const finalSpecs = cleanedSpecs.length > 0 ? cleanedSpecs : generateLocalFeatureSummary(cleanDesc, cleanTitle).rows;
 		const productId = editingProduct ? editingProduct.id : "item-" + Date.now();
@@ -26838,7 +26866,7 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 			description: cleanDesc,
 			images: photos.length > 0 ? photos : editingProduct?.images || [],
 			video: finalVideoUrl || void 0,
-			youtubeId: editingProduct?.youtubeId || void 0,
+			youtubeId: finalYoutubeId || void 0,
 			inStock,
 			codAvailable,
 			return7Days,
@@ -27262,7 +27290,30 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 									(0, import_jsx_runtime.jsx)("span", { className: "text-[10px] font-medium text-emerald-700", children: "GitHub-backed" })
 								]
 							}),
-							(0, import_jsx_runtime.jsxs)("label", {
+							(0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-1.5",
+					children: [
+						(0, import_jsx_runtime.jsx)("label", {
+							htmlFor: "admin-youtube-video-id",
+							className: "block text-[11px] font-semibold text-zinc-700",
+							children: "YouTube Video ID / URL (Optional)"
+						}),
+						(0, import_jsx_runtime.jsx)("input", {
+							id: "admin-youtube-video-id",
+							type: "text",
+							value: youtubeId,
+							onChange: (e) => setYoutubeId(e.target.value),
+							placeholder: "Paste YouTube video ID or full URL",
+							autoComplete: "off",
+							className: "w-full h-9 px-3 rounded-[4px] border border-zinc-200 bg-white text-xs text-zinc-900 focus:border-[#B68D40] focus:outline-none"
+						}),
+						(0, import_jsx_runtime.jsx)("p", {
+							className: "text-[10px] text-zinc-500",
+							children: "Paste the 11-character video ID or a YouTube watch, youtu.be, shorts or embed link."
+						})
+					]
+				}),
+				(0, import_jsx_runtime.jsxs)("label", {
 								className: "flex flex-col items-center justify-center p-3 border border-dashed border-zinc-300 hover:border-[#B68D40] rounded-[4px] bg-[#F8F8F7]/70 cursor-pointer text-center",
 								children: [
 									(0, import_jsx_runtime.jsx)("input", { type: "file", accept: "video/mp4,video/webm,.mp4,.webm", onChange: handleVideoFileSelect, className: "hidden" }),
