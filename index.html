@@ -12910,6 +12910,8 @@ function normalizeProduct(raw) {
 	const prodWa = normalizeWhatsAppNumber(String(r.whatsappNumber || ""));
 	const rawAffiliate = typeof r.affiliateLink === "string" ? r.affiliateLink.trim() : "";
 	const affiliateLink = /^https?:\/\//i.test(rawAffiliate) ? rawAffiliate : "";
+	const rawVideo = typeof r.video === "string" ? r.video.trim() : "";
+	const video = /^(https?:\/\/|\.\/videos\/products\/|videos\/products\/)/i.test(rawVideo) ? rawVideo : "";
 	const featureSummary = sanitizeFeatureRows(r.featureSummary);
 	return {
 		id: String(r.id || "item-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6)),
@@ -12923,6 +12925,7 @@ function normalizeProduct(raw) {
 		return7Days: typeof r.return7Days === "boolean" ? r.return7Days : true,
 		whatsappNumber: /^\d{10,15}$/.test(prodWa) ? prodWa : "",
 		affiliateLink,
+		video,
 		featureSummary
 	};
 }
@@ -13216,6 +13219,36 @@ async function uploadImageDataUrlToGitHub(dataUrl, productId, photoIndex, repo, 
 	if (!putRes.ok) {
 		const err = await putRes.json().catch(() => ({}));
 		throw new Error(err.message || `Photo upload failed (${putRes.status})`);
+	}
+	return `./${repoPath}`;
+}
+const MAX_PRODUCT_VIDEO_BYTES = 20 * 1024 * 1024;
+async function uploadProductVideoToGitHub(file, productId, repo, token) {
+	if (!file || !(file instanceof Blob)) throw new Error("Choose a video file first.");
+	if (file.size <= 0) throw new Error("The selected video is empty.");
+	if (file.size > MAX_PRODUCT_VIDEO_BYTES) throw new Error("Video is larger than 20 MB. Please compress it and try again.");
+	const extension = String(file.name || "").split(".").pop().toLowerCase();
+	const mime = String(file.type || "").toLowerCase();
+	if (!["mp4", "webm"].includes(extension) || mime && !["video/mp4", "video/webm"].includes(mime)) throw new Error("Only MP4 and WebM videos are supported.");
+	if (!repo || !token) throw new Error("Connect GitHub in Admin → Settings before uploading a product video.");
+	const branch = await resolveGitHubBranch(repo, token, true);
+	const bytes = new Uint8Array(await file.arrayBuffer());
+	let binary = "";
+	const chunkSize = 32768;
+	for (let offset = 0; offset < bytes.length; offset += chunkSize) binary += String.fromCharCode(...bytes.subarray(offset, offset + chunkSize));
+	const base64Content = btoa(binary);
+	const safeId = String(productId || "item").toLowerCase().replace(/[^a-z0-9_-]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 48) || "item";
+	const filename = `${safeId}-${Date.now().toString(36)}.${extension}`;
+	const repoPath = `videos/products/${filename}`;
+	const apiUrl = `https://api.github.com/repos/${repo}/contents/${repoPath}`;
+	const putRes = await fetch(apiUrl, {
+		method: "PUT",
+		headers: buildGitHubHeaders(token),
+		body: JSON.stringify({ message: `Upload product video ${filename}`, content: base64Content, branch })
+	});
+	if (!putRes.ok) {
+		const err = await putRes.json().catch(() => ({}));
+		throw new Error(err.message || `GitHub video upload failed (${putRes.status})`);
 	}
 	return `./${repoPath}`;
 }
@@ -24356,7 +24389,16 @@ var ProductCard = ({ product, defaultWhatsapp, isWishlisted, isCompared, onToggl
 			},
 			className: "relative aspect-[4/3] bg-[#F8F8F7] overflow-hidden cursor-pointer border-b border-zinc-100",
 			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+				product.video ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("video", {
+					src: product.video,
+					poster: images[0],
+					muted: true,
+					controls: true,
+					playsInline: true,
+					preload: "none",
+					onClick: (e) => e.stopPropagation(),
+					className: `w-full h-full object-cover transition-transform duration-200 group-hover:scale-[1.03] ${!product.inStock ? "grayscale opacity-70" : ""}`
+				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
 					src: images[0],
 					alt: product.title,
 					loading: "lazy",
@@ -24616,6 +24658,14 @@ var ProductDetailModal = ({ product, defaultWhatsapp, isWishlisted, isCompared, 
 								className: "w-full h-full object-cover"
 							})
 						}, idx))
+					}),
+					product.video && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("video", {
+						src: product.video,
+						poster: images[0],
+						controls: true,
+						playsInline: true,
+						preload: "metadata",
+						className: "w-full max-h-56 aspect-video rounded-[4px] border border-zinc-200 bg-black object-contain"
 					})]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "md:col-span-7 flex flex-col gap-3.5",
@@ -26431,6 +26481,9 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 	const [codAvailable, setCodAvailable] = (0, import_react.useState)(true);
 	const [return7Days, setReturn7Days] = (0, import_react.useState)(true);
 	const [photos, setPhotos] = (0, import_react.useState)([]);
+	const [videoUrl, setVideoUrl] = (0, import_react.useState)("");
+	const [videoFile, setVideoFile] = (0, import_react.useState)(null);
+	const [videoPreviewUrl, setVideoPreviewUrl] = (0, import_react.useState)("");
 	const [imageUrlInput, setImageUrlInput] = (0, import_react.useState)("");
 	const [cropMode, setCropMode] = (0, import_react.useState)("smart-full");
 	const [autoEnhance, setAutoEnhance] = (0, import_react.useState)(true);
@@ -26444,6 +26497,9 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 	const [meeshoStatus, setMeeshoStatus] = (0, import_react.useState)("");
 	const [isImportingMeesho, setIsImportingMeesho] = (0, import_react.useState)(false);
 	const [copiedBookmarklet, setCopiedBookmarklet] = (0, import_react.useState)(false);
+	(0, import_react.useEffect)(() => () => {
+		if (videoPreviewUrl && videoPreviewUrl.startsWith("blob:")) URL.revokeObjectURL(videoPreviewUrl);
+	}, [videoPreviewUrl]);
 	(0, import_react.useEffect)(() => {
 		if (editingProduct) {
 			setTitle(editingProduct.title);
@@ -26458,6 +26514,9 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 			setCodAvailable(editingProduct.codAvailable);
 			setReturn7Days(editingProduct.return7Days);
 			setPhotos(getProductImages(editingProduct));
+			setVideoUrl(editingProduct.video || "");
+			setVideoFile(null);
+			setVideoPreviewUrl(editingProduct.video || "");
 			setAutoCatStatus("Editing Item");
 		} else resetFormFields();
 	}, [editingProduct]);
@@ -26473,6 +26532,9 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 		setCodAvailable(true);
 		setReturn7Days(true);
 		setPhotos([]);
+		setVideoUrl("");
+		setVideoFile(null);
+		setVideoPreviewUrl("");
 		setImageUrlInput("");
 		setAutoCatStatus("AI Auto-Detect Ready");
 	};
@@ -26608,6 +26670,29 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 			}
 		}
 	};
+	const handleVideoFileSelect = (e) => {
+		const file = e.target.files && e.target.files[0];
+		e.target.value = "";
+		if (!file) return;
+		const extension = String(file.name || "").split(".").pop().toLowerCase();
+		const mime = String(file.type || "").toLowerCase();
+		if (!["mp4", "webm"].includes(extension) || mime && !["video/mp4", "video/webm"].includes(mime)) {
+			onToast("Please choose an MP4 or WebM video.");
+			return;
+		}
+		if (file.size > MAX_PRODUCT_VIDEO_BYTES) {
+			onToast("Video must be 20 MB or smaller. Compress it and try again.");
+			return;
+		}
+		setVideoFile(file);
+		setVideoUrl("");
+		setVideoPreviewUrl(URL.createObjectURL(file));
+	};
+	const handleRemoveVideo = () => {
+		setVideoFile(null);
+		setVideoUrl("");
+		setVideoPreviewUrl("");
+	};
 	const handleAddImageUrl = async () => {
 		const url = imageUrlInput.trim();
 		if (!url) return;
@@ -26683,10 +26768,10 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 			onToast("Description formatted into clean key-value lines.");
 		}
 	};
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (isProcessingMedia) {
-			onToast("Please wait for photos to finish processing.");
+			onToast("Please wait for media processing to finish.");
 			return;
 		}
 		const cleanTitle = title.trim();
@@ -26709,13 +26794,38 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 		}
 		const cleanedSpecs = sanitizeFeatureRows(featureRows);
 		const finalSpecs = cleanedSpecs.length > 0 ? cleanedSpecs : generateLocalFeatureSummary(cleanDesc, cleanTitle).rows;
+		const productId = editingProduct ? editingProduct.id : "item-" + Date.now();
+		let finalVideoUrl = videoUrl;
+		if (videoFile) {
+			const gh = getStoredGitHubConfig();
+			if (!gh.repo || !gh.token) {
+				onToast("Connect GitHub in Admin → Settings before uploading a product video.");
+				return;
+			}
+			setIsProcessingMedia(true);
+			onToast("Uploading product video to GitHub...");
+			try {
+				finalVideoUrl = await uploadProductVideoToGitHub(videoFile, productId, gh.repo, gh.token);
+				setVideoUrl(finalVideoUrl);
+				setVideoFile(null);
+				setVideoPreviewUrl(finalVideoUrl);
+			} catch (err) {
+				setIsProcessingMedia(false);
+				const msg = err instanceof Error ? err.message : "Could not upload the video to GitHub.";
+				onToast(msg);
+				return;
+			} finally {
+				setIsProcessingMedia(false);
+			}
+		}
 		onSaveProduct({
-			id: editingProduct ? editingProduct.id : "item-" + Date.now(),
+			id: productId,
 			title: cleanTitle,
 			price: numPrice,
 			category,
 			description: cleanDesc,
 			images: photos.length > 0 ? photos : editingProduct?.images || [],
+			video: finalVideoUrl || void 0,
 			inStock,
 			codAvailable,
 			return7Days,
@@ -27128,7 +27238,41 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 								})
 							]
 						}, idx))
-					})
+					}),
+					(0, import_jsx_runtime.jsxs)("div", {
+						className: "rounded-[6px] border border-zinc-200 bg-white p-3 space-y-2.5",
+						children: [
+							(0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center justify-between gap-2",
+								children: [
+									(0, import_jsx_runtime.jsx)("span", { className: "text-xs font-semibold text-zinc-800", children: "Product Video" }),
+									(0, import_jsx_runtime.jsx)("span", { className: "text-[10px] font-medium text-emerald-700", children: "GitHub-backed" })
+								]
+							}),
+							(0, import_jsx_runtime.jsxs)("label", {
+								className: "flex flex-col items-center justify-center p-3 border border-dashed border-zinc-300 hover:border-[#B68D40] rounded-[4px] bg-[#F8F8F7]/70 cursor-pointer text-center",
+								children: [
+									(0, import_jsx_runtime.jsx)("input", { type: "file", accept: "video/mp4,video/webm,.mp4,.webm", onChange: handleVideoFileSelect, className: "hidden" }),
+									(0, import_jsx_runtime.jsx)(Upload, { className: "w-5 h-5 text-zinc-500 mb-1" }),
+									(0, import_jsx_runtime.jsx)("span", { className: "text-xs font-semibold text-zinc-800", children: videoFile ? "Choose a different video" : videoUrl ? "Replace saved video" : "Choose MP4 / WebM video" }),
+									(0, import_jsx_runtime.jsx)("span", { className: "text-[10px] text-zinc-500 mt-0.5", children: "Up to 20 MB · Uploads to videos/products/ when you publish" })
+								]
+							}),
+							videoPreviewUrl && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "space-y-2",
+								children: [
+									(0, import_jsx_runtime.jsx)("video", { src: videoPreviewUrl, controls: true, playsInline: true, preload: "metadata", className: "w-full max-h-48 aspect-video rounded-[4px] bg-black object-contain" }),
+									(0, import_jsx_runtime.jsxs)("div", {
+										className: "flex items-center justify-between gap-2 text-[10px]",
+										children: [
+											(0, import_jsx_runtime.jsx)("span", { className: "text-zinc-500 truncate", children: videoFile ? "Ready to upload when you publish" : "Video saved with this product" }),
+											(0, import_jsx_runtime.jsx)("button", { type: "button", onClick: handleRemoveVideo, className: "text-red-600 font-semibold hover:underline cursor-pointer shrink-0", children: "Remove video" })
+										]
+									})
+								]
+							}),
+						]
+					}),
 				]
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "bg-white border border-zinc-200 rounded-[6px] p-5 space-y-3",
@@ -27384,7 +27528,13 @@ var AdminSettingsTab = ({ products, defaultWhatsapp, isOwnerUnlocked, onRequestO
 								className: "font-mono-num",
 								children: "images/products/"
 							}),
-							" across all devices."
+							", and product videos to",
+							" ",
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("code", {
+								className: "font-mono-num",
+								children: "videos/products/"
+							}),
+							" across all devices. Fine-grained tokens need Contents: read and write permission."
 						]
 					}),
 					base64Stats.photos > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -28084,7 +28234,10 @@ function App() {
 		}
 		if (toastText) showToast(toastText);
 		const gh = getStoredGitHubConfig();
-		if (gh.token && gh.repo) pushCatalogToGitHub(nextProducts, defaultWhatsapp, gh.repo, gh.token).catch(() => {});
+		if (gh.token && gh.repo) pushCatalogToGitHub(nextProducts, defaultWhatsapp, gh.repo, gh.token).catch((err) => {
+			const msg = err instanceof Error ? err.message : "Check GitHub settings.";
+			showToast(`Saved on this device, but GitHub sync failed: ${msg}`);
+		});
 	};
 	const maxPriceCeil = (0, import_react.useMemo)(() => {
 		const maxP = products.reduce((m, p) => Math.max(m, p.price), 0);
