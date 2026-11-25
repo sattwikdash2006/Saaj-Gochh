@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795586739493,
+  "updatedAt": 1795587117391,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -11,6 +11,7 @@
       "images": [
         "./images/products/item-1795577754407-1-mwvlpmkh.jpg"
       ],
+      "youtubeId": "8OVhqBBBiY8",
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
