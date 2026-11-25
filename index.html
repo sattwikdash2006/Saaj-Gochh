@@ -27742,6 +27742,167 @@ var AdminDashboard = ({ isOpen, products, defaultWhatsapp, isOwnerUnlocked, pend
 		})]
 	});
 };
+// src/components/storefront/CategoryBannerSections.tsx
+var CATEGORY_STORY_COPY = {
+	"Sarees & Apparel": [
+		{ eyebrow: "THE LOOM EDIT", title: "Tradition, woven into every day", subtitle: "Discover handwoven textures, graceful drapes and easy ethnic essentials rooted in Bengali craft.", cta: "Shop the wardrobe" },
+		{ eyebrow: "FESTIVE CLASSICS", title: "A little heritage for every occasion", subtitle: "Artisan details and timeless silhouettes made for celebrations, gatherings and thoughtful gifting.", cta: "Explore festive styles" },
+		{ eyebrow: "THE EVERYDAY EDIT", title: "Wear your story, beautifully", subtitle: "From relaxed cotton favourites to statement occasion pieces, find a look that feels like you.", cta: "Find your next favourite" }
+	],
+	"Home Decor": [
+		{ eyebrow: "ARTISANAL LIVING", title: "Bring home the warmth of handmade", subtitle: "Thoughtful accents, earthy textures and handcrafted details for spaces with character.", cta: "Refresh your home" },
+		{ eyebrow: "CRAFTED CORNERS", title: "Small details. A more personal home.", subtitle: "Explore wall accents and soft furnishings inspired by Bengal's living craft traditions.", cta: "Discover home accents" },
+		{ eyebrow: "THE SLOW HOME EDIT", title: "Make room for something meaningful", subtitle: "Choose handcrafted pieces that bring a little story and soul to everyday spaces.", cta: "Style your space" }
+	],
+	"Jewelry & Craft": [
+		{ eyebrow: "THE CRAFT EDIT", title: "Handcrafted details that stand apart", subtitle: "Explore expressive jewellery and artisan-made keepsakes with a distinctly timeless feel.", cta: "Explore the craft" },
+		{ eyebrow: "HEIRLOOM NOTES", title: "A touch of tradition, made wearable", subtitle: "Discover character-rich finishes and handcrafted accents for everyday and occasion looks.", cta: "Discover artisan pieces" },
+		{ eyebrow: "MADE TO BE KEPT", title: "Find a piece with a story", subtitle: "Thoughtful craft, beautiful details and unique finds selected for your collection.", cta: "See the collection" }
+	],
+	"Festive Gifts": [
+		{ eyebrow: "GIFTING, THOUGHTFULLY", title: "Celebrate with something handmade", subtitle: "Find meaningful festive pieces and handcrafted gifts for the moments worth remembering.", cta: "Browse festive gifts" },
+		{ eyebrow: "THE CELEBRATION EDIT", title: "Little traditions. Lasting memories.", subtitle: "Explore puja essentials and thoughtful keepsakes that make every celebration feel special.", cta: "Explore celebration picks" },
+		{ eyebrow: "MADE FOR GIVING", title: "Give a gift with a story", subtitle: "Choose artisan-inspired pieces that bring warmth to housewarmings, festivals and family moments.", cta: "Find a thoughtful gift" }
+	]
+};
+var CategoryBannerSections = ({ products, categories, onFilterCategory, onOpenProduct }) => {
+	const [activeSlides, setActiveSlides] = (0, import_react.useState)({});
+	const [pausedCategories, setPausedCategories] = (0, import_react.useState)({});
+	(0, import_react.useEffect)(() => {
+		const timer = window.setInterval(() => {
+			setActiveSlides((previous) => {
+				const next = { ...previous };
+				categories.forEach((category) => {
+					if (!pausedCategories[category]) next[category] = ((previous[category] || 0) + 1) % 3;
+				});
+				return next;
+			});
+		}, 5200);
+		return () => window.clearInterval(timer);
+	}, [categories, pausedCategories]);
+	const goToCategory = (category) => {
+		onFilterCategory(category);
+		const target = document.getElementById("explore");
+		if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		id: "category-stories",
+		className: "sg-category-banners",
+		children: categories.map((category, categoryIndex) => {
+			const categoryProducts = products.filter((product) => product.category === category);
+			if (!categoryProducts.length) return null;
+			const storyCopy = CATEGORY_STORY_COPY[category] || [
+				{ eyebrow: "THE CATEGORY EDIT", title: `Discover ${category}`, subtitle: `Explore thoughtfully selected ${category.toLowerCase()} and find a handcrafted piece to make your own.`, cta: `Explore ${category}` },
+				{ eyebrow: "CURATED FINDS", title: `A fresh perspective on ${category.toLowerCase()}`, subtitle: "Distinctive details, artisan inspiration and pieces selected for everyday moments.", cta: "Browse the collection" },
+				{ eyebrow: "MADE TO BE DISCOVERED", title: `Find your next favourite in ${category.toLowerCase()}`, subtitle: "Take a closer look at the details and discover something that feels just right.", cta: "Discover your favourite" }
+			];
+			const campaignImage = CAMPAIGN_SLIDES.find((slide) => slide.category === category)?.image || (category === "Festive Gifts" ? CAMPAIGN_SLIDES.find((slide) => slide.id === "brass-dokra")?.image : null);
+			const imagePool = [];
+			if (campaignImage) imagePool.push(campaignImage);
+			categoryProducts.forEach((product) => getProductImages(product).forEach((image) => imagePool.push(image)));
+			const uniqueImages = Array.from(new Set(imagePool.filter(Boolean)));
+			const slides = [0, 1, 2].map((index) => ({
+				...storyCopy[index],
+				image: uniqueImages[index % Math.max(1, uniqueImages.length)] || FALLBACK_IMG,
+				product: categoryProducts[index % categoryProducts.length]
+			}));
+			const activeIndex = activeSlides[category] || 0;
+			const activeSlide = slides[activeIndex];
+			const featuredProduct = categoryProducts[0];
+			return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+				key: category,
+				className: "sg-category-banner-section",
+				"aria-label": `${category} category banners`,
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "sg-category-heading",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "sg-category-kicker", children: "CURATED CATEGORY" }),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", { className: "sg-category-title", children: category })
+								]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "sg-category-count",
+								children: [categoryProducts.length, categoryProducts.length === 1 ? " piece" : " pieces", " · 3 banners"]
+							})
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "sg-category-banner-frame",
+						onMouseEnter: () => setPausedCategories((previous) => ({ ...previous, [category]: true })),
+						onMouseLeave: () => setPausedCategories((previous) => ({ ...previous, [category]: false })),
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+								src: activeSlide.image,
+								alt: `${category} — ${activeSlide.title}`,
+								loading: "lazy",
+								referrerPolicy: "no-referrer",
+								onError: (event) => { event.currentTarget.src = FALLBACK_IMG; },
+								className: `sg-category-banner-image sg-category-banner-image-${activeIndex}`
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: `sg-category-banner-shade sg-category-banner-shade-${activeIndex}` }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "sg-category-banner-content",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "sg-category-banner-eyebrow", children: activeSlide.eyebrow }),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", { className: "sg-category-banner-title", children: activeSlide.title }),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "sg-category-banner-subtitle", children: activeSlide.subtitle }),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "sg-category-banner-actions",
+										children: [
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+												type: "button",
+												onClick: () => goToCategory(category),
+												className: "sg-category-primary-cta",
+												children: [activeSlide.cta, " →"]
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+												type: "button",
+												onClick: () => onOpenProduct(activeSlide.product || featuredProduct),
+											className: "sg-category-secondary-cta",
+												children: "View featured piece"
+											})
+										]
+									})
+								]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "sg-category-banner-controls",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+										type: "button",
+										"aria-label": `Previous ${category} banner`,
+										onClick: () => setActiveSlides((previous) => ({ ...previous, [category]: ((previous[category] || 0) + 2) % 3 })),
+										children: "‹"
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "sg-category-banner-count", children: `${activeIndex + 1} / 3` }),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+										type: "button",
+										"aria-label": `Next ${category} banner`,
+										onClick: () => setActiveSlides((previous) => ({ ...previous, [category]: ((previous[category] || 0) + 1) % 3 })),
+										children: "›"
+									})
+								]
+							})
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "sg-category-pagination",
+						children: [0, 1, 2].map((index) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							type: "button",
+							"aria-label": `Show ${category} banner ${index + 1}`,
+							"aria-current": index === activeIndex ? "true" : void 0,
+						onClick: () => setActiveSlides((previous) => ({ ...previous, [category]: index })),
+						className: `sg-category-dot ${index === activeIndex ? "is-active" : ""}`
+						}, `${category}-${index}`))
+					})
+				]
+			}, category);
+		})
+	});
+};
 // src/App.tsx
 function App() {
 	const initial = (0, import_react.useMemo)(() => loadInitialCatalog(), []);
@@ -28071,7 +28232,13 @@ function App() {
 						})),
 						onOpenProduct: handleOpenProduct
 					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CategoryBannerSections, {
+    products,
+    categories,
+    onFilterCategory: (cat) => setFilters((prev) => ({ ...prev, categories: [cat] })),
+    onOpenProduct: handleOpenProduct
+}),
+/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 						id: "explore",
 						className: "max-w-[1380px] mx-auto px-4 sm:px-6 pt-2 pb-12 grid grid-cols-1 lg:grid-cols-[248px_minmax(0,1fr)] gap-5 items-start",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FilterSidebar, {
@@ -31597,7 +31764,43 @@ function App() {
   inherits: false
 }
 /*$vite$:1*/</style>
-  <script src="/_aistudio-iframe.js?v=29045eb3"></script></head>
+  <script src="/_aistudio-iframe.js?v=29045eb3"></script>
+<style id="sg-category-banner-styles">
+.sg-category-banners{max-width:1380px;margin:0 auto;padding:10px 24px 26px;display:grid;gap:24px}
+.sg-category-banner-section{min-width:0}
+.sg-category-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:0 1px 10px}
+.sg-category-kicker{display:block;font:600 9px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.19em;color:#9a742e;margin-bottom:4px}
+.sg-category-title{margin:0;color:#18181b;font:600 clamp(18px,2vw,22px)/1.2 'Playfair Display',Georgia,serif;letter-spacing:-.02em}
+.sg-category-count{flex-shrink:0;color:#71717a;background:#f8f8f7;border:1px solid #e4e4e7;border-radius:4px;padding:5px 8px;font:500 10px/1.2 'JetBrains Mono',monospace}
+.sg-category-banner-frame{position:relative;height:270px;overflow:hidden;border:1px solid #e4e4e7;border-radius:6px;background:#27272a;isolation:isolate}
+.sg-category-banner-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 44%;transition:transform 6s ease,filter .7s ease;z-index:-2}
+.sg-category-banner-image-0{transform:scale(1.025);filter:saturate(.95)}
+.sg-category-banner-image-1{transform:scale(1.12);object-position:58% center;filter:saturate(.78) contrast(1.05)}
+.sg-category-banner-image-2{transform:scale(1.18);object-position:42% center;filter:sepia(.13) saturate(1.08)}
+.sg-category-banner-shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(24,24,27,.91) 0%,rgba(24,24,27,.76) 42%,rgba(24,24,27,.18) 100%),linear-gradient(0deg,rgba(24,24,27,.25),transparent 45%)}
+.sg-category-banner-shade-1{background:linear-gradient(90deg,rgba(48,28,22,.92) 0%,rgba(74,43,30,.72) 43%,rgba(24,24,27,.14) 100%),linear-gradient(0deg,rgba(92,54,28,.24),transparent 48%)}
+.sg-category-banner-shade-2{background:linear-gradient(90deg,rgba(32,25,39,.92) 0%,rgba(64,43,58,.72) 43%,rgba(24,24,27,.14) 100%),linear-gradient(0deg,rgba(142,98,46,.22),transparent 48%)}
+.sg-category-banner-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:25px 34px 34px;max-width:700px}
+.sg-category-banner-eyebrow{font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;color:#ebd8ae;text-transform:uppercase;margin-bottom:9px}
+.sg-category-banner-title{margin:0;color:#fff;font:600 clamp(22px,3.2vw,34px)/1.14 'Playfair Display',Georgia,serif;letter-spacing:-.02em;max-width:600px;text-wrap:balance}
+.sg-category-banner-subtitle{max-width:540px;color:rgba(255,255,255,.84);font:400 12px/1.7 'Plus Jakarta Sans',sans-serif;margin:10px 0 0}
+.sg-category-banner-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}
+.sg-category-primary-cta,.sg-category-secondary-cta{min-height:35px;padding:0 13px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;gap:7px;font:600 10px/1 'Plus Jakarta Sans',sans-serif;cursor:pointer;transition:background .18s ease,border-color .18s ease,transform .18s ease}
+.sg-category-primary-cta{background:#fff;color:#18181b;border:1px solid #fff}
+.sg-category-primary-cta:hover{background:#faf5eb;border-color:#faf5eb;transform:translateY(-1px)}
+.sg-category-secondary-cta{background:rgba(24,24,27,.24);color:#fff;border:1px solid rgba(255,255,255,.55)}
+.sg-category-secondary-cta:hover{background:rgba(24,24,27,.65);border-color:#ebd8ae;transform:translateY(-1px)}
+.sg-category-banner-controls{position:absolute;right:16px;bottom:15px;display:flex;align-items:center;gap:6px;color:#fff}
+.sg-category-banner-controls button{height:27px;width:27px;border:1px solid rgba(255,255,255,.35);border-radius:4px;background:rgba(24,24,27,.58);color:#fff;font:400 22px/20px Georgia,serif;cursor:pointer}
+.sg-category-banner-controls button:hover{background:#18181b;border-color:#ebd8ae}
+.sg-category-banner-count{min-width:34px;text-align:center;font:500 10px/1 'JetBrains Mono',monospace;color:#f4e8ca}
+.sg-category-pagination{display:flex;justify-content:center;align-items:center;gap:6px;padding-top:9px}
+.sg-category-dot{height:5px;width:16px;border:0;border-radius:4px;background:#d4d4d8;padding:0;cursor:pointer;transition:width .2s ease,background .2s ease}
+.sg-category-dot.is-active{width:28px;background:#b68d40}
+@media(max-width:640px){.sg-category-banners{padding:8px 16px 20px;gap:20px}.sg-category-banner-frame{height:255px}.sg-category-banner-content{padding:20px 18px 48px;max-width:100%;justify-content:center}.sg-category-banner-shade{background:linear-gradient(90deg,rgba(24,24,27,.9),rgba(24,24,27,.48)),linear-gradient(0deg,rgba(24,24,27,.4),transparent 65%)}.sg-category-banner-title{font-size:25px;max-width:95%}.sg-category-banner-subtitle{font-size:11px;line-height:1.55;max-width:95%}.sg-category-banner-actions{gap:7px;margin-top:14px}.sg-category-primary-cta,.sg-category-secondary-cta{min-height:33px;padding:0 10px;font-size:9px}.sg-category-banner-controls{right:10px;bottom:10px}.sg-category-count{font-size:9px;padding:4px 6px}}
+@media(prefers-reduced-motion:reduce){.sg-category-banner-image,.sg-category-dot,.sg-category-primary-cta,.sg-category-secondary-cta{transition:none}}
+</style>
+</head>
   <body>
     <script id="saaj-embedded-catalog" type="application/json">{"updatedAt":1795538199096,"whatsapp":"918670234616","products":[{"id":"demo-1","title":"Handwoven Red-Border White Dhakai Jamdani Saree","price":1250,"category":"Sarees & Apparel","description":"Classic crisp cotton-blend Dhakai Jamdani weave in off-white with traditional crimson temple border and intricate motifs. Length: 5.5m (without blouse piece). Ideal for pujas and festive mornings.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%237D1B24%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23B84A2F%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%22452%22%20height%3D%22452%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23F2D79B%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.45%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%22120%22%20fill%3D%22%23F2D79B%22%20fill-opacity%3D%220.1%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M180%20155%20Q250%20130%20320%20155%20L340%20275%20Q250%20295%20160%20275%20Z%22%20fill%3D%22%23FFF8EE%22%20stroke%3D%22%23C89B3C%22%20stroke-width%3D%224%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M168%20255%20Q250%20275%20332%20255%22%20stroke%3D%22%239B1B27%22%20stroke-width%3D%2214%22%20fill%3D%22none%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22205%22%20r%3D%2214%22%20fill%3D%22%23C89B3C%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22395%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFFFF%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%3EDhakai%20Jamdani%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22426%22%20text-anchor%3D%22middle%22%20fill%3D%22%23F2D79B%22%20font-family%3D%22sans-serif%22%20font-size%3D%2213%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"whatsappNumber":"","affiliateLink":"","featureSummary":[]},{"id":"demo-2","title":"Hand-Painted Terracotta Alpona Wall Hanging","price":450,"category":"Home Decor","description":"Baked clay wall plate adorned with traditional hand-painted Alpona geometric patterns. Diameter: 10 inches. Comes with a ready-to-hang jute cord at the back.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%239E3B24%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%235A1F16%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%22452%22%20height%3D%22452%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23F4D58D%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.45%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%22120%22%20fill%3D%22%23F4D58D%22%20fill-opacity%3D%220.1%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%2272%22%20fill%3D%22%23C9593B%22%20stroke%3D%22%23F4D58D%22%20stroke-width%3D%224%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%2242%22%20fill%3D%22none%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%223%22%20stroke-dasharray%3D%226%206%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M250%20160%20L265%20200%20L305%20215%20L265%20230%20L250%20270%20L235%20230%20L195%20215%20L235%20200%20Z%22%20fill%3D%22%23F4D58D%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22395%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFFFF%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%3ETerracotta%20Wall%20Art%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22426%22%20text-anchor%3D%22middle%22%20fill%3D%22%23F4D58D%22%20font-family%3D%22sans-serif%22%20font-size%3D%2213%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"whatsappNumber":"","affiliateLink":"","featureSummary":[]},{"id":"demo-3","title":"Dokra & Oxidized Traditional Jhumka Necklace Set","price":380,"category":"Jewelry & Craft","description":"Handcrafted Dokra-inspired antique brass & oxidized choker paired with matching lightweight jhumkas. Adjustable dori thread closure suitable for sarees and kurtis.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2327272A%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%2352525B%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%22452%22%20height%3D%22452%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23E6C27A%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.45%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%22120%22%20fill%3D%22%23E6C27A%22%20fill-opacity%3D%220.1%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M190%20165%20Q250%20265%20310%20165%22%20fill%3D%22none%22%20stroke%3D%22%23E6C27A%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22222%22%20r%3D%2222%22%20fill%3D%22%23E6C27A%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%22215%22%20cy%3D%22204%22%20r%3D%2210%22%20fill%3D%22%23E6C27A%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%22285%22%20cy%3D%22204%22%20r%3D%2210%22%20fill%3D%22%23E6C27A%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22395%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFFFF%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%3EDokra%20Jewelry%20Set%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22426%22%20text-anchor%3D%22middle%22%20fill%3D%22%23E6C27A%22%20font-family%3D%22sans-serif%22%20font-size%3D%2213%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"whatsappNumber":"","affiliateLink":"","featureSummary":[]},{"id":"demo-4","title":"Nakshi Kantha Embroidered Cotton Cushion Covers (Set of 2)","price":520,"category":"Home Decor","description":"Soft 100% pure cotton 16x16 inch cushion covers featuring authentic running-stitch Nakshi Kantha embroidery in maroon and gold threads with concealed zip.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%233F3F46%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%2318181B%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%22452%22%20height%3D%22452%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23FBE4B4%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.45%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%22120%22%20fill%3D%22%23FBE4B4%22%20fill-opacity%3D%220.1%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%22180%22%20y%3D%22145%22%20width%3D%22140%22%20height%3D%22140%22%20rx%3D%226%22%20fill%3D%22%23FBF7F0%22%20stroke%3D%22%23C89B3C%22%20stroke-width%3D%225%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Crect%20x%3D%22200%22%20y%3D%22165%22%20width%3D%22100%22%20height%3D%22100%22%20rx%3D%224%22%20fill%3D%22none%22%20stroke%3D%22%23B84A2F%22%20stroke-width%3D%223%22%20stroke-dasharray%3D%226%204%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%2224%22%20fill%3D%22%2318181B%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22395%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFFFF%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%3ENakshi%20Kantha%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22426%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FBE4B4%22%20font-family%3D%22sans-serif%22%20font-size%3D%2213%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"whatsappNumber":"","affiliateLink":"","featureSummary":[]},{"id":"demo-5","title":"Pure Brass Mangal Diya & Dhunuchi Festive Gift Set","price":690,"category":"Festive Gifts","description":"Heavyweight solid brass puja essentials set containing one traditional Mangal Diya and one classic Dhunuchi. Easy to polish and perfect for housewarming gifts.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23422006%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23713F12%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%22452%22%20height%3D%22452%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23FDE047%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.45%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%22120%22%20fill%3D%22%23FDE047%22%20fill-opacity%3D%220.1%22%2F%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22250%22%20cy%3D%22245%22%20rx%3D%2268%22%20ry%3D%2222%22%20fill%3D%22%23D4AF37%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M210%20240%20Q250%20285%20290%20240%20Z%22%20fill%3D%22%23B68B22%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M250%20155%20C265%20182%20272%20200%20250%20218%20C228%20200%20235%20182%20250%20155%20Z%22%20fill%3D%22%23FDE047%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22395%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFFFF%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%3EBrass%20Festive%20Set%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22426%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FDE047%22%20font-family%3D%22sans-serif%22%20font-size%3D%2213%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":false,"whatsappNumber":"","affiliateLink":"","featureSummary":[]},{"id":"demo-6","title":"Shantiniketan Batik Print Pure Cotton Kurta","price":790,"category":"Sarees & Apparel","description":"Breathable hand-dyed Shantiniketan batik print cotton kurta in warm terracotta & cream tones. Available in sizes M, L, XL, and XXL.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%237C2D12%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23431407%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%22452%22%20height%3D%22452%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23F3D38C%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.45%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%22120%22%20fill%3D%22%23F3D38C%22%20fill-opacity%3D%220.1%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M205%20150%20L295%20150%20L325%20200%20L298%20220%20L290%20205%20L290%20285%20L210%20285%20L210%20205%20L202%20220%20L175%20200%20Z%22%20fill%3D%22%23FBF7F0%22%20stroke%3D%22%23C89B3C%22%20stroke-width%3D%224%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Cline%20x1%3D%22250%22%20y1%3D%22150%22%20x2%3D%22250%22%20y2%3D%22220%22%20stroke%3D%22%237C2D12%22%20stroke-width%3D%224%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22395%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFFFF%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%3EBatik%20Cotton%20Kurta%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22426%22%20text-anchor%3D%22middle%22%20fill%3D%22%23F3D38C%22%20font-family%3D%22sans-serif%22%20font-size%3D%2213%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"whatsappNumber":"","affiliateLink":"","featureSummary":[]}]}</script>
     <div id="root"></div>
