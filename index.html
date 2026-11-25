@@ -27742,30 +27742,8 @@ var AdminDashboard = ({ isOpen, products, defaultWhatsapp, isOwnerUnlocked, pend
 		})]
 	});
 };
-// src/components/storefront/CategoryBannerSections.tsx
-var CATEGORY_STORY_COPY = {
-	"Sarees & Apparel": [
-		{ eyebrow: "THE LOOM EDIT", title: "Tradition, woven into every day", subtitle: "Discover handwoven textures, graceful drapes and easy ethnic essentials rooted in Bengali craft.", cta: "Shop the wardrobe" },
-		{ eyebrow: "FESTIVE CLASSICS", title: "A little heritage for every occasion", subtitle: "Artisan details and timeless silhouettes made for celebrations, gatherings and thoughtful gifting.", cta: "Explore festive styles" },
-		{ eyebrow: "THE EVERYDAY EDIT", title: "Wear your story, beautifully", subtitle: "From relaxed cotton favourites to statement occasion pieces, find a look that feels like you.", cta: "Find your next favourite" }
-	],
-	"Home Decor": [
-		{ eyebrow: "ARTISANAL LIVING", title: "Bring home the warmth of handmade", subtitle: "Thoughtful accents, earthy textures and handcrafted details for spaces with character.", cta: "Refresh your home" },
-		{ eyebrow: "CRAFTED CORNERS", title: "Small details. A more personal home.", subtitle: "Explore wall accents and soft furnishings inspired by Bengal's living craft traditions.", cta: "Discover home accents" },
-		{ eyebrow: "THE SLOW HOME EDIT", title: "Make room for something meaningful", subtitle: "Choose handcrafted pieces that bring a little story and soul to everyday spaces.", cta: "Style your space" }
-	],
-	"Jewelry & Craft": [
-		{ eyebrow: "THE CRAFT EDIT", title: "Handcrafted details that stand apart", subtitle: "Explore expressive jewellery and artisan-made keepsakes with a distinctly timeless feel.", cta: "Explore the craft" },
-		{ eyebrow: "HEIRLOOM NOTES", title: "A touch of tradition, made wearable", subtitle: "Discover character-rich finishes and handcrafted accents for everyday and occasion looks.", cta: "Discover artisan pieces" },
-		{ eyebrow: "MADE TO BE KEPT", title: "Find a piece with a story", subtitle: "Thoughtful craft, beautiful details and unique finds selected for your collection.", cta: "See the collection" }
-	],
-	"Festive Gifts": [
-		{ eyebrow: "GIFTING, THOUGHTFULLY", title: "Celebrate with something handmade", subtitle: "Find meaningful festive pieces and handcrafted gifts for the moments worth remembering.", cta: "Browse festive gifts" },
-		{ eyebrow: "THE CELEBRATION EDIT", title: "Little traditions. Lasting memories.", subtitle: "Explore puja essentials and thoughtful keepsakes that make every celebration feel special.", cta: "Explore celebration picks" },
-		{ eyebrow: "MADE FOR GIVING", title: "Give a gift with a story", subtitle: "Choose artisan-inspired pieces that bring warmth to housewarmings, festivals and family moments.", cta: "Find a thoughtful gift" }
-	]
-};
-var CategoryBannerSections = ({ products, categories, onFilterCategory, onOpenProduct }) => {
+// src/components/storefront/CategoryFeaturedCardSections.tsx
+var CategoryFeaturedCardSections = ({ products, categories, onFilterCategory, onOpenProduct }) => {
 	const [activeSlides, setActiveSlides] = (0, import_react.useState)({});
 	const [pausedCategories, setPausedCategories] = (0, import_react.useState)({});
 	(0, import_react.useEffect)(() => {
@@ -27773,130 +27751,140 @@ var CategoryBannerSections = ({ products, categories, onFilterCategory, onOpenPr
 			setActiveSlides((previous) => {
 				const next = { ...previous };
 				categories.forEach((category) => {
-					if (!pausedCategories[category]) next[category] = ((previous[category] || 0) + 1) % 3;
+					const count = products.filter((product) => product.category === category).length;
+					if (count > 1 && !pausedCategories[category]) next[category] = ((previous[category] || 0) + 1) % count;
 				});
 				return next;
 			});
-		}, 5200);
+		}, 4800);
 		return () => window.clearInterval(timer);
-	}, [categories, pausedCategories]);
+	}, [categories, products, pausedCategories]);
 	const goToCategory = (category) => {
 		onFilterCategory(category);
 		const target = document.getElementById("explore");
 		if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
 	};
+	const moveCategory = (category, direction, count) => {
+		setActiveSlides((previous) => ({
+			...previous,
+			[category]: ((previous[category] || 0) + direction + count) % count
+		}));
+	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		id: "category-stories",
-		className: "sg-category-banners",
-		children: categories.map((category, categoryIndex) => {
+		className: "sg-featured-sections",
+		children: categories.map((category) => {
 			const categoryProducts = products.filter((product) => product.category === category);
 			if (!categoryProducts.length) return null;
-			const storyCopy = CATEGORY_STORY_COPY[category] || [
-				{ eyebrow: "THE CATEGORY EDIT", title: `Discover ${category}`, subtitle: `Explore thoughtfully selected ${category.toLowerCase()} and find a handcrafted piece to make your own.`, cta: `Explore ${category}` },
-				{ eyebrow: "CURATED FINDS", title: `A fresh perspective on ${category.toLowerCase()}`, subtitle: "Distinctive details, artisan inspiration and pieces selected for everyday moments.", cta: "Browse the collection" },
-				{ eyebrow: "MADE TO BE DISCOVERED", title: `Find your next favourite in ${category.toLowerCase()}`, subtitle: "Take a closer look at the details and discover something that feels just right.", cta: "Discover your favourite" }
-			];
-			const campaignImage = CAMPAIGN_SLIDES.find((slide) => slide.category === category)?.image || (category === "Festive Gifts" ? CAMPAIGN_SLIDES.find((slide) => slide.id === "brass-dokra")?.image : null);
-			const imagePool = [];
-			if (campaignImage) imagePool.push(campaignImage);
-			categoryProducts.forEach((product) => getProductImages(product).forEach((image) => imagePool.push(image)));
-			const uniqueImages = Array.from(new Set(imagePool.filter(Boolean)));
-			const slides = [0, 1, 2].map((index) => ({
-				...storyCopy[index],
-				image: uniqueImages[index % Math.max(1, uniqueImages.length)] || FALLBACK_IMG,
-				product: categoryProducts[index % categoryProducts.length]
-			}));
 			const activeIndex = activeSlides[category] || 0;
-			const activeSlide = slides[activeIndex];
-			const featuredProduct = categoryProducts[0];
+			const featuredProducts = [0, 1, 2].map((slot) => categoryProducts[(activeIndex + slot) % categoryProducts.length]);
+			const labels = ["ATELIER SPOTLIGHT", "CURATOR'S PICK", "THE COLLECTOR'S EDIT"];
 			return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 				key: category,
-				className: "sg-category-banner-section",
-				"aria-label": `${category} category banners`,
+				className: "sg-featured-section",
+				"aria-label": `${category} featured products`,
+				onMouseEnter: () => setPausedCategories((previous) => ({ ...previous, [category]: true })),
+				onMouseLeave: () => setPausedCategories((previous) => ({ ...previous, [category]: false })),
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "sg-category-heading",
+						className: "sg-featured-heading",
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "sg-category-kicker", children: "CURATED CATEGORY" }),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", { className: "sg-category-title", children: category })
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "sg-featured-kicker", children: "THE FEATURED EDIT" }),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", { className: "sg-featured-title", children: category })
 								]
 							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-								className: "sg-category-count",
-								children: [categoryProducts.length, categoryProducts.length === 1 ? " piece" : " pieces", " · 3 banners"]
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "sg-featured-heading-actions",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+										className: "sg-featured-count",
+										children: [categoryProducts.length, categoryProducts.length === 1 ? " piece" : " pieces", " · 3 featured cards"]
+									}),
+									/* @PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+										type: "button",
+										onClick: () => goToCategory(category),
+										className: "sg-featured-shop-all",
+										children: ["Explore category", "  →"]
+									})
+								]
 							})
 						]
 					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "sg-category-banner-frame",
-						onMouseEnter: () => setPausedCategories((previous) => ({ ...previous, [category]: true })),
-						onMouseLeave: () => setPausedCategories((previous) => ({ ...previous, [category]: false })),
+					/* @PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "sg-featured-card-grid",
+						children: featuredProducts.map((product, slot) => {
+							const image = getProductImages(product)[0] || FALLBACK_IMG;
+						const price = Number(product.price || 0).toLocaleString("en-IN");
+						return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
+							key: `${category}-${slot}-${activeIndex}`,
+							className: `sg-featured-card sg-featured-card-${slot}`,
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "sg-featured-card-image-wrap",
+									children: [
+										/* @PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+											src: image,
+											alt: product.title,
+											loading: "lazy",
+											referrerPolicy: "no-referrer",
+											onError: (event) => { event.currentTarget.src = FALLBACK_IMG; },
+											className: "sg-featured-card-image"
+										}),
+										/* @PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "sg-featured-card-index", children: `0${slot + 1} / 03` }),
+										/* @PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "sg-featured-card-label", children: labels[slot] })
+									]
+								}),
+								/* @PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "sg-featured-card-info",
+									children: [
+										/* @PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "sg-featured-product-category", children: category }),
+										/* @PURE__ */ (0, import_jsx_runtime.jsx)("h3", { className: "sg-featured-product-title", children: product.title }),
+										/* @PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "sg-featured-product-description", children: product.description || "A thoughtfully selected handcrafted piece from Saaj Gochh." }),
+										/* @PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "sg-featured-card-bottom",
+											children: [
+												/* @PURE__ */ (0, import_jsx_runtime.jsxs)("span", { className: "sg-featured-product-price", children: ["₹", price] }),
+												/* @PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+													type: "button",
+													onClick: () => onOpenProduct(product),
+													className: "sg-featured-product-cta",
+													children: "View piece  ↗"
+												})
+											]
+										})
+									]
+								})
+							]
+							});
+						})
+					}),
+					/* @PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "sg-featured-controls",
 						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-								src: activeSlide.image,
-								alt: `${category} — ${activeSlide.title}`,
-								loading: "lazy",
-								referrerPolicy: "no-referrer",
-								onError: (event) => { event.currentTarget.src = FALLBACK_IMG; },
-								className: `sg-category-banner-image sg-category-banner-image-${activeIndex}`
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: `sg-category-banner-shade sg-category-banner-shade-${activeIndex}` }),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "sg-category-banner-content",
+							/* @PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "sg-featured-auto-note", children: "AUTO SLIDING FEATURED PICKS" }),
+							/* @PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "sg-featured-arrows",
 								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "sg-category-banner-eyebrow", children: activeSlide.eyebrow }),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", { className: "sg-category-banner-title", children: activeSlide.title }),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "sg-category-banner-subtitle", children: activeSlide.subtitle }),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "sg-category-banner-actions",
-										children: [
-											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-												type: "button",
-												onClick: () => goToCategory(category),
-												className: "sg-category-primary-cta",
-												children: [activeSlide.cta, " →"]
-											}),
-											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-												type: "button",
-												onClick: () => onOpenProduct(activeSlide.product || featuredProduct),
-											className: "sg-category-secondary-cta",
-												children: "View featured piece"
-											})
-										]
-									})
-								]
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "sg-category-banner-controls",
-								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+									/* @PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 										type: "button",
-										"aria-label": `Previous ${category} banner`,
-										onClick: () => setActiveSlides((previous) => ({ ...previous, [category]: ((previous[category] || 0) + 2) % 3 })),
+										"aria-label": `Previous ${category} featured products`,
+										disabled: categoryProducts.length < 2,
+										onClick: () => moveCategory(category, -1, categoryProducts.length),
 										children: "‹"
 									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "sg-category-banner-count", children: `${activeIndex + 1} / 3` }),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+									/* @PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "sg-featured-position", children: `${activeIndex + 1} / ${categoryProducts.length}` }),
+									/* @PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 										type: "button",
-										"aria-label": `Next ${category} banner`,
-										onClick: () => setActiveSlides((previous) => ({ ...previous, [category]: ((previous[category] || 0) + 1) % 3 })),
+										"aria-label": `Next ${category} featured products`,
+										disabled: categoryProducts.length < 2,
+										onClick: () => moveCategory(category, 1, categoryProducts.length),
 										children: "›"
 									})
 								]
 							})
 						]
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "sg-category-pagination",
-						children: [0, 1, 2].map((index) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-							type: "button",
-							"aria-label": `Show ${category} banner ${index + 1}`,
-							"aria-current": index === activeIndex ? "true" : void 0,
-						onClick: () => setActiveSlides((previous) => ({ ...previous, [category]: index })),
-						className: `sg-category-dot ${index === activeIndex ? "is-active" : ""}`
-						}, `${category}-${index}`))
 					})
 				]
 			}, category);
@@ -28232,7 +28220,7 @@ function App() {
 						})),
 						onOpenProduct: handleOpenProduct
 					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CategoryBannerSections, {
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CategoryFeaturedCardSections, {
     products,
     categories,
     onFilterCategory: (cat) => setFilters((prev) => ({ ...prev, categories: [cat] })),
@@ -31765,40 +31753,67 @@ function App() {
 }
 /*$vite$:1*/</style>
   <script src="/_aistudio-iframe.js?v=29045eb3"></script>
-<style id="sg-category-banner-styles">
-.sg-category-banners{max-width:1380px;margin:0 auto;padding:10px 24px 26px;display:grid;gap:24px}
-.sg-category-banner-section{min-width:0}
-.sg-category-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:0 1px 10px}
-.sg-category-kicker{display:block;font:600 9px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.19em;color:#9a742e;margin-bottom:4px}
-.sg-category-title{margin:0;color:#18181b;font:600 clamp(18px,2vw,22px)/1.2 'Playfair Display',Georgia,serif;letter-spacing:-.02em}
-.sg-category-count{flex-shrink:0;color:#71717a;background:#f8f8f7;border:1px solid #e4e4e7;border-radius:4px;padding:5px 8px;font:500 10px/1.2 'JetBrains Mono',monospace}
-.sg-category-banner-frame{position:relative;height:270px;overflow:hidden;border:1px solid #e4e4e7;border-radius:6px;background:#27272a;isolation:isolate}
-.sg-category-banner-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 44%;transition:transform 6s ease,filter .7s ease;z-index:-2}
-.sg-category-banner-image-0{transform:scale(1.025);filter:saturate(.95)}
-.sg-category-banner-image-1{transform:scale(1.12);object-position:58% center;filter:saturate(.78) contrast(1.05)}
-.sg-category-banner-image-2{transform:scale(1.18);object-position:42% center;filter:sepia(.13) saturate(1.08)}
-.sg-category-banner-shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(24,24,27,.91) 0%,rgba(24,24,27,.76) 42%,rgba(24,24,27,.18) 100%),linear-gradient(0deg,rgba(24,24,27,.25),transparent 45%)}
-.sg-category-banner-shade-1{background:linear-gradient(90deg,rgba(48,28,22,.92) 0%,rgba(74,43,30,.72) 43%,rgba(24,24,27,.14) 100%),linear-gradient(0deg,rgba(92,54,28,.24),transparent 48%)}
-.sg-category-banner-shade-2{background:linear-gradient(90deg,rgba(32,25,39,.92) 0%,rgba(64,43,58,.72) 43%,rgba(24,24,27,.14) 100%),linear-gradient(0deg,rgba(142,98,46,.22),transparent 48%)}
-.sg-category-banner-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:25px 34px 34px;max-width:700px}
-.sg-category-banner-eyebrow{font:600 10px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.18em;color:#ebd8ae;text-transform:uppercase;margin-bottom:9px}
-.sg-category-banner-title{margin:0;color:#fff;font:600 clamp(22px,3.2vw,34px)/1.14 'Playfair Display',Georgia,serif;letter-spacing:-.02em;max-width:600px;text-wrap:balance}
-.sg-category-banner-subtitle{max-width:540px;color:rgba(255,255,255,.84);font:400 12px/1.7 'Plus Jakarta Sans',sans-serif;margin:10px 0 0}
-.sg-category-banner-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}
-.sg-category-primary-cta,.sg-category-secondary-cta{min-height:35px;padding:0 13px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;gap:7px;font:600 10px/1 'Plus Jakarta Sans',sans-serif;cursor:pointer;transition:background .18s ease,border-color .18s ease,transform .18s ease}
-.sg-category-primary-cta{background:#fff;color:#18181b;border:1px solid #fff}
-.sg-category-primary-cta:hover{background:#faf5eb;border-color:#faf5eb;transform:translateY(-1px)}
-.sg-category-secondary-cta{background:rgba(24,24,27,.24);color:#fff;border:1px solid rgba(255,255,255,.55)}
-.sg-category-secondary-cta:hover{background:rgba(24,24,27,.65);border-color:#ebd8ae;transform:translateY(-1px)}
-.sg-category-banner-controls{position:absolute;right:16px;bottom:15px;display:flex;align-items:center;gap:6px;color:#fff}
-.sg-category-banner-controls button{height:27px;width:27px;border:1px solid rgba(255,255,255,.35);border-radius:4px;background:rgba(24,24,27,.58);color:#fff;font:400 22px/20px Georgia,serif;cursor:pointer}
-.sg-category-banner-controls button:hover{background:#18181b;border-color:#ebd8ae}
-.sg-category-banner-count{min-width:34px;text-align:center;font:500 10px/1 'JetBrains Mono',monospace;color:#f4e8ca}
-.sg-category-pagination{display:flex;justify-content:center;align-items:center;gap:6px;padding-top:9px}
-.sg-category-dot{height:5px;width:16px;border:0;border-radius:4px;background:#d4d4d8;padding:0;cursor:pointer;transition:width .2s ease,background .2s ease}
-.sg-category-dot.is-active{width:28px;background:#b68d40}
-@media(max-width:640px){.sg-category-banners{padding:8px 16px 20px;gap:20px}.sg-category-banner-frame{height:255px}.sg-category-banner-content{padding:20px 18px 48px;max-width:100%;justify-content:center}.sg-category-banner-shade{background:linear-gradient(90deg,rgba(24,24,27,.9),rgba(24,24,27,.48)),linear-gradient(0deg,rgba(24,24,27,.4),transparent 65%)}.sg-category-banner-title{font-size:25px;max-width:95%}.sg-category-banner-subtitle{font-size:11px;line-height:1.55;max-width:95%}.sg-category-banner-actions{gap:7px;margin-top:14px}.sg-category-primary-cta,.sg-category-secondary-cta{min-height:33px;padding:0 10px;font-size:9px}.sg-category-banner-controls{right:10px;bottom:10px}.sg-category-count{font-size:9px;padding:4px 6px}}
-@media(prefers-reduced-motion:reduce){.sg-category-banner-image,.sg-category-dot,.sg-category-primary-cta,.sg-category-secondary-cta{transition:none}}
+<style id="sg-category-featured-card-styles">
+.sg-featured-sections{max-width:1380px;margin:0 auto;padding:10px 24px 28px;display:grid;gap:28px}
+.sg-featured-section{min-width:0}
+.sg-featured-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:0 1px 12px}
+.sg-featured-kicker{display:block;font:600 9px/1.3 'Plus Jakarta Sans',sans-serif;letter-spacing:.19em;color:#9a742e;margin-bottom:4px}
+.sg-featured-title{margin:0;color:#18181b;font:600 clamp(18px,2vw,22px)/1.2 'Playfair Display',Georgia,serif;letter-spacing:-.02em}
+.sg-featured-heading-actions{display:flex;align-items:center;gap:12px}
+.sg-featured-count{flex-shrink:0;color:#71717a;background:#f8f8f7;border:1px solid #e4e4e7;border-radius:4px;padding:5px 8px;font:500 10px/1.2 'JetBrains Mono',monospace}
+.sg-featured-shop-all{border:0;background:transparent;padding:5px 0;color:#75551f;font:600 10px/1.2 'Plus Jakarta Sans',sans-serif;white-space:nowrap;cursor:pointer}
+.sg-featured-shop-all:hover{color:#18181b;text-decoration:underline;text-underline-offset:3px}
+.sg-featured-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:stretch}
+.sg-featured-card{position:relative;min-width:0;min-height:340px;overflow:hidden;border:1px solid #e5e1d8;border-radius:7px;background:#fff;box-shadow:0 2px 10px rgba(24,24,27,.035);animation:sg-feature-card-in .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes sg-feature-card-in{from{opacity:.35;transform:translateX(22px)}to{opacity:1;transform:translateX(0)}}
+.sg-featured-card-image-wrap{position:relative;overflow:hidden;background:#f3f0e9}
+.sg-featured-card-image{display:block;width:100%;height:100%;object-fit:cover;transition:transform .65s cubic-bezier(.2,.7,.2,1)}
+.sg-featured-card:hover .sg-featured-card-image{transform:scale(1.045)}
+.sg-featured-card-index{position:absolute;top:12px;left:12px;padding:5px 7px;border:1px solid rgba(255,255,255,.55);border-radius:3px;background:rgba(24,24,27,.48);color:#fff;font:500 9px/1 'JetBrains Mono',monospace;letter-spacing:.08em;backdrop-filter:blur(5px)}
+.sg-featured-card-label{position:absolute;right:12px;bottom:12px;padding:6px 8px;background:rgba(24,24,27,.78);color:#f5e9cf;font:600 8px/1.1 'Plus Jakarta Sans',sans-serif;letter-spacing:.13em}
+.sg-featured-card-info{min-width:0;padding:15px 16px 14px;display:flex;flex-direction:column;flex:1}
+.sg-featured-product-category{font:600 8px/1.4 'Plus Jakarta Sans',sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#9a742e}
+.sg-featured-product-title{margin:6px 0 0;color:#18181b;font:600 16px/1.28 'Playfair Display',Georgia,serif;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:41px}
+.sg-featured-product-description{margin:7px 0 0;color:#71717a;font:400 10px/1.55 'Plus Jakarta Sans',sans-serif;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:31px}
+.sg-featured-card-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:12px}
+.sg-featured-product-price{color:#18181b;font:600 15px/1 'JetBrains Mono',monospace;white-space:nowrap}
+.sg-featured-product-cta{min-height:31px;padding:0 11px;border:1px solid #27272a;border-radius:3px;background:#27272a;color:#fff;font:600 9px/1 'Plus Jakarta Sans',sans-serif;white-space:nowrap;cursor:pointer;transition:background .18s ease,color .18s ease,border-color .18s ease}
+.sg-featured-product-cta:hover{background:#b68d40;border-color:#b68d40;color:#18181b}
+/* Style 1: atelier portrait card */
+.sg-featured-card-0{display:flex;flex-direction:column;background:#fff}
+.sg-featured-card-0 .sg-featured-card-image-wrap{height:198px;flex:0 0 198px}
+.sg-featured-card-0 .sg-featured-card-info{background:linear-gradient(180deg,#fff 0%,#fbfaf7 100%)}
+/* Style 2: editorial split card */
+.sg-featured-card-1{display:grid;grid-template-columns:42% minmax(0,1fr);background:#292323;border-color:#292323;color:#fff}
+.sg-featured-card-1 .sg-featured-card-image-wrap{height:100%;min-height:340px;background:#3d302e}
+.sg-featured-card-1 .sg-featured-card-image{object-position:center}
+.sg-featured-card-1 .sg-featured-card-label{left:8px;right:8px;bottom:8px;text-align:center;font-size:7px;padding:6px 4px}
+.sg-featured-card-1 .sg-featured-card-index{top:8px;left:8px;font-size:8px}
+.sg-featured-card-1 .sg-featured-card-info{justify-content:center;padding:17px 14px}
+.sg-featured-card-1 .sg-featured-product-category{color:#e6c78d}
+.sg-featured-card-1 .sg-featured-product-title{color:#fff;font-size:17px;min-height:0}
+.sg-featured-card-1 .sg-featured-product-description{color:rgba(255,255,255,.68);-webkit-line-clamp:4;min-height:0}
+.sg-featured-card-1 .sg-featured-product-price{color:#f5e9cf}
+.sg-featured-card-1 .sg-featured-product-cta{background:transparent;border-color:#d9bf8a;color:#f5e9cf}
+.sg-featured-card-1 .sg-featured-product-cta:hover{background:#e6c78d;border-color:#e6c78d;color:#292323}
+/* Style 3: collector's framed card */
+.sg-featured-card-2{background:#f2eee5;border-color:#ded4c2;padding:9px;display:flex;flex-direction:column}
+.sg-featured-card-2 .sg-featured-card-image-wrap{height:180px;flex:0 0 180px;border:1px solid #dfd3bd;background:#e8dfd0}
+.sg-featured-card-2 .sg-featured-card-image{padding:7px;object-fit:contain}
+.sg-featured-card-2 .sg-featured-card-index{top:8px;left:8px;background:rgba(24,24,27,.68)}
+.sg-featured-card-2 .sg-featured-card-label{right:8px;bottom:8px;background:#b68d40;color:#18181b}
+.sg-featured-card-2 .sg-featured-card-info{padding:13px 7px 7px}
+.sg-featured-card-2 .sg-featured-product-title{font-size:17px}
+.sg-featured-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 1px 0}
+.sg-featured-auto-note{color:#a1a1aa;font:500 8px/1.2 'JetBrains Mono',monospace;letter-spacing:.12em}
+.sg-featured-arrows{display:flex;align-items:center;gap:7px}
+.sg-featured-arrows button{width:27px;height:27px;border:1px solid #dedbd4;border-radius:4px;background:#fff;color:#27272a;font:400 20px/20px Georgia,serif;cursor:pointer;transition:all .18s ease}
+.sg-featured-arrows button:hover:not(:disabled){background:#27272a;border-color:#27272a;color:#fff}
+.sg-featured-arrows button:disabled{opacity:.38;cursor:not-allowed}
+.sg-featured-position{min-width:42px;text-align:center;color:#71717a;font:500 9px/1 'JetBrains Mono',monospace}
+@media(max-width:900px){.sg-featured-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sg-featured-card-2{grid-column:1/-1;min-height:300px}.sg-featured-card-2 .sg-featured-card-image-wrap{height:165px;flex-basis:165px}}
+@media(max-width:640px){.sg-featured-sections{padding:8px 16px 22px;gap:23px}.sg-featured-heading{align-items:flex-start}.sg-featured-heading-actions{flex-direction:column;align-items:flex-end;gap:5px}.sg-featured-count{font-size:8px;padding:4px 6px}.sg-featured-shop-all{font-size:9px}.sg-featured-card-grid{display:grid;grid-template-columns:1fr;gap:10px}.sg-featured-card{min-height:0}.sg-featured-card-0{display:grid;grid-template-columns:38% minmax(0,1fr);min-height:185px}.sg-featured-card-0 .sg-featured-card-image-wrap{height:100%;min-height:185px}.sg-featured-card-0 .sg-featured-card-info{padding:12px 11px}.sg-featured-card-0 .sg-featured-product-title{font-size:14px;min-height:0}.sg-featured-card-0 .sg-featured-product-description{font-size:9px;-webkit-line-clamp:2;min-height:0}.sg-featured-card-0 .sg-featured-product-cta,.sg-featured-card-1 .sg-featured-product-cta,.sg-featured-card-2 .sg-featured-product-cta{min-height:29px;padding:0 8px;font-size:8px}.sg-featured-card-1{min-height:195px;grid-template-columns:38% minmax(0,1fr)}.sg-featured-card-1 .sg-featured-card-image-wrap{min-height:195px}.sg-featured-card-1 .sg-featured-card-info{padding:12px 11px}.sg-featured-card-1 .sg-featured-product-title,.sg-featured-card-2 .sg-featured-product-title{font-size:14px}.sg-featured-card-2{grid-column:auto;min-height:195px;display:grid;grid-template-columns:38% minmax(0,1fr);padding:7px}.sg-featured-card-2 .sg-featured-card-image-wrap{height:100%;min-height:180px}.sg-featured-card-2 .sg-featured-card-info{padding:10px}.sg-featured-product-description{font-size:9px}.sg-featured-product-price{font-size:13px}.sg-featured-controls{padding-top:7px}}
+@media(prefers-reduced-motion:reduce){.sg-featured-card,.sg-featured-card-image,.sg-featured-product-cta{animation:none;transition:none}}
 </style>
 </head>
   <body>
