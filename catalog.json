@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795588145944,
+  "updatedAt": 1795588538010,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -17,6 +17,7 @@
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
+      "affiliateLink": "https://myntr.it/K28s80w",
       "featureSummary": [
         {
           "feature": "Dimensions (L × H × B)",
