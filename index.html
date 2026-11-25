@@ -13025,9 +13025,11 @@ function loadInitialCatalog() {
 	};
 }
 function persistProductsLocally(products, updatedAt = Date.now()) {
-	const ok = safeSetItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(products));
+	const serialized = JSON.stringify(products);
+	const ok = safeSetItem(STORAGE_KEYS.PRODUCTS, serialized);
+	if (!ok) return false;
 	safeSetItem(STORAGE_KEYS.UPDATED_AT, String(updatedAt));
-	return ok;
+	return true;
 }
 function getProductImages(product) {
 	if (Array.isArray(product.images) && product.images.length > 0) return product.images;
@@ -13179,8 +13181,11 @@ function getStoredGitHubConfig() {
 		branch: (safeGetItem(STORAGE_KEYS.GH_BRANCH) || "main").trim() || "main"
 	};
 }
-function saveStoredGitHubConfig(repo, token, branch = "main") {
-	safeSetItem(STORAGE_KEYS.GH_REPO, repo.trim() || "sattwikdash2006/Saaj-Gochh");
+function saveStoredGitHubConfig(repo, token, branch = "") {
+	const nextRepo = repo.trim() || "sattwikdash2006/Saaj-Gochh";
+	const previousRepo = (safeGetItem(STORAGE_KEYS.GH_REPO) || "").trim();
+	if (previousRepo !== nextRepo || !branch.trim()) safeSetItem(STORAGE_KEYS.GH_BRANCH, "");
+	safeSetItem(STORAGE_KEYS.GH_REPO, nextRepo);
 	safeSetItem(STORAGE_KEYS.GH_TOKEN, token.trim());
 	if (branch.trim()) safeSetItem(STORAGE_KEYS.GH_BRANCH, branch.trim());
 }
@@ -13201,17 +13206,17 @@ function utf8ToBase64(str) {
 async function resolveGitHubBranch(repo, token, forceRefresh = false) {
 	const cached = safeGetItem(STORAGE_KEYS.GH_BRANCH);
 	if (cached && !forceRefresh) return cached;
+	let res;
 	try {
-		const res = await fetch(`https://api.github.com/repos/${repo}`, { headers: buildGitHubHeaders(token) });
-		if (res.ok) {
-			const repoMeta = await res.json();
-			if (repoMeta && repoMeta.default_branch) {
-				safeSetItem(STORAGE_KEYS.GH_BRANCH, repoMeta.default_branch);
-				return repoMeta.default_branch;
-			}
-		}
-	} catch {}
-	return "main";
+		res = await fetch(`https://api.github.com/repos/${repo}`, { headers: buildGitHubHeaders(token) });
+	} catch (err) {
+		throw new Error(`Could not reach GitHub: ${err instanceof Error ? err.message : "network error"}`);
+	}
+	const repoMeta = await res.json().catch(() => ({}));
+	if (!res.ok) throw new Error(repoMeta.message || `Could not access GitHub repository (${res.status})`);
+	if (!repoMeta.default_branch) throw new Error("GitHub repository has no default branch.");
+	safeSetItem(STORAGE_KEYS.GH_BRANCH, repoMeta.default_branch);
+	return repoMeta.default_branch;
 }
 async function uploadImageDataUrlToGitHub(dataUrl, productId, photoIndex, repo, token, branch) {
 	const match = dataUrl.match(/^data:image\/([a-zA-Z0-9+.-]+);base64,([\s\S]+)$/);
@@ -13300,26 +13305,29 @@ async function migrateAllBase64ImagesToGitHub(products, repo, token, onProgress)
 		uploadedCount
 	};
 }
-async function pushCatalogToGitHub(products, whatsapp, repo, token) {
+async function pushCatalogToGitHub(products, whatsapp, repo, token, onProgress) {
+	if (!repo || !token) throw new Error("Connect a GitHub repository and token in Admin → Settings first.");
+	const migration = await migrateAllBase64ImagesToGitHub(products, repo, token, onProgress);
+	const uploadedProducts = migration.updatedProducts;
 	const branch = await resolveGitHubBranch(repo, token, false);
 	const apiUrl = `https://api.github.com/repos/${repo}/contents/catalog.json`;
 	const payload = {
 		updatedAt: Date.now(),
 		whatsapp,
-		products
+		products: uploadedProducts
 	};
 	let existingSha = null;
 	const getRes = await fetch(`${apiUrl}?ref=${encodeURIComponent(branch)}`, { headers: buildGitHubHeaders(token) });
 	if (getRes.ok) existingSha = (await getRes.json()).sha || null;
 	else if (getRes.status !== 404) {
 		const errData = await getRes.json().catch(() => ({}));
-		throw new Error(errData.message || "Could not read GitHub catalog.json");
+		throw new Error(errData.message || `Could not read GitHub catalog.json (${getRes.status})`);
 	}
 	const putRes = await fetch(apiUrl, {
 		method: "PUT",
 		headers: buildGitHubHeaders(token),
 		body: JSON.stringify({
-			message: `Update Saaj Gochh catalog (${products.length} items)`,
+			message: `Update Saaj Gochh catalog (${uploadedProducts.length} items)`,
 			content: utf8ToBase64(JSON.stringify(payload, null, 2)),
 			branch,
 			...existingSha ? { sha: existingSha } : {}
@@ -13327,8 +13335,9 @@ async function pushCatalogToGitHub(products, whatsapp, repo, token) {
 	});
 	if (!putRes.ok) {
 		const errData = await putRes.json().catch(() => ({}));
-		throw new Error(errData.message || `GitHub sync failed (${putRes.status})`);
+		throw new Error(errData.message || `GitHub catalog publish failed (${putRes.status})`);
 	}
+	return { updatedProducts: uploadedProducts, uploadedCount: migration.uploadedCount };
 }
 // node_modules/react/cjs/react-jsx-runtime.production.js
 /**
@@ -26074,7 +26083,7 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 		}
 		const ghReady = Boolean(getStoredGitHubConfig().token);
 		if (autoPublish && nextTitle && Number(nextPrice) > 0 && processed.length > 0 && ghReady) {
-			onSaveProduct({
+			const saved = await onSaveProduct({
 				id: "item-" + Date.now(),
 				title: nextTitle,
 				price: Number(nextPrice),
@@ -26086,8 +26095,11 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 				return7Days: true,
 				featureSummary: generateLocalFeatureSummary(nextDesc, nextTitle).rows
 			}, false);
+			if (saved === false) {
+				setMeeshoStatus("Auto-publish failed. Check GitHub settings, then publish again.");
+				return;
+			}
 			setMeeshoStatus("Auto-published imported Meesho product to store!");
-			resetFormFields();
 			return;
 		}
 		setMeeshoStatus(`Imported ${processed.length} photo(s) & specs. Review details and click Publish.`);
@@ -26313,23 +26325,32 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 				setIsProcessingMedia(false);
 			}
 		}
-		onSaveProduct({
-			id: productId,
-			title: cleanTitle,
-			price: numPrice,
-			category,
-			description: cleanDesc,
-			images: photos.length > 0 ? photos : editingProduct?.images || [],
-			video: finalVideoUrl || void 0,
-			youtubeId: finalYoutubeId || void 0,
-			inStock,
-			codAvailable,
-			return7Days,
-			whatsappNumber: normWa || void 0,
-			affiliateLink: cleanAff || void 0,
-			featureSummary: finalSpecs
-		}, Boolean(editingProduct));
-		if (!editingProduct) resetFormFields();
+		setIsProcessingMedia(true);
+		onToast("Publishing product and uploading photos...");
+		try {
+			const saved = await onSaveProduct({
+				id: productId,
+				title: cleanTitle,
+				price: numPrice,
+				category,
+				description: cleanDesc,
+				images: photos.length > 0 ? photos : editingProduct?.images || [],
+				video: finalVideoUrl || void 0,
+				youtubeId: finalYoutubeId || void 0,
+				inStock,
+				codAvailable,
+				return7Days,
+				whatsappNumber: normWa || void 0,
+				affiliateLink: cleanAff || void 0,
+				featureSummary: finalSpecs
+			}, Boolean(editingProduct));
+			if (saved === false) return;
+			if (!editingProduct) resetFormFields();
+		} catch (err) {
+			onToast(err instanceof Error ? err.message : "Product publish failed. Please try again.");
+		} finally {
+			setIsProcessingMedia(false);
+		}
 	};
 	const bookmarkletHref = buildMeeshoBookmarkletHref(storeUrl);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
@@ -26945,9 +26966,10 @@ var AdminSettingsTab = ({ products, defaultWhatsapp, isOwnerUnlocked, onRequestO
 		setSyncStatus("Connecting & syncing...");
 		try {
 			saveStoredGitHubConfig(ghRepo, ghToken);
-			await pushCatalogToGitHub(products, defaultWhatsapp, ghRepo.trim(), ghToken.trim());
+			const result = await pushCatalogToGitHub(products, defaultWhatsapp, ghRepo.trim(), ghToken.trim(), (progress) => setSyncStatus(progress));
+			onProductsMigrated(result.updatedProducts);
 			setSyncStatus("Synced with GitHub");
-			onToast("Catalog synced to GitHub successfully!");
+			onToast(`Catalog synced successfully. Uploaded ${result.uploadedCount} product photo(s).`);
 		} catch (err) {
 			const msg = err instanceof Error ? err.message : "GitHub sync failed";
 			setSyncStatus(msg);
@@ -26964,9 +26986,8 @@ var AdminSettingsTab = ({ products, defaultWhatsapp, isOwnerUnlocked, onRequestO
 		setIsSyncing(true);
 		try {
 			saveStoredGitHubConfig(ghRepo, ghToken);
-			const { updatedProducts, uploadedCount } = await migrateAllBase64ImagesToGitHub(products, ghRepo.trim(), ghToken.trim(), (progress) => setSyncStatus(progress));
+			const { updatedProducts, uploadedCount } = await pushCatalogToGitHub(products, defaultWhatsapp, ghRepo.trim(), ghToken.trim(), (progress) => setSyncStatus(progress));
 			onProductsMigrated(updatedProducts);
-			await pushCatalogToGitHub(updatedProducts, defaultWhatsapp, ghRepo.trim(), ghToken.trim());
 			setSyncStatus(`Migrated ${uploadedCount} photos & synced!`);
 			onToast(`Migrated ${uploadedCount} photo(s) to GitHub!`);
 		} catch (err) {
@@ -27383,10 +27404,12 @@ var AdminDashboard = ({ isOpen, products, defaultWhatsapp, isOwnerUnlocked, pend
 								editingProduct,
 								pendingMeeshoPayload,
 								onConsumeMeeshoPayload,
-								onSaveProduct: (prod, isEdit) => {
-									onSaveProduct(prod, isEdit);
+								onSaveProduct: async (prod, isEdit) => {
+									const saved = await onSaveProduct(prod, isEdit);
+									if (saved === false) return false;
 									setEditingProduct(null);
 									setActiveTab("products");
+									return true;
 								},
 								onCancelEdit: () => {
 									setEditingProduct(null);
@@ -27739,24 +27762,36 @@ function App() {
 			stealthTapRef.current.count = 0;
 		}, 1600);
 	};
-	const saveAndSyncProducts = (nextProducts, toastText) => {
-		setProducts(nextProducts);
+	const saveAndSyncProducts = async (nextProducts, toastText) => {
+		const gh = getStoredGitHubConfig();
+		const hasGitHub = Boolean(gh.token && gh.repo);
+		let productsToSave = nextProducts;
+		let syncError = "";
+		if (hasGitHub) {
+			showToast("Uploading product photos and publishing catalog...");
+			try {
+				const result = await pushCatalogToGitHub(nextProducts, defaultWhatsapp, gh.repo, gh.token, (progress) => showToast(progress));
+				productsToSave = result.updatedProducts;
+			} catch (err) {
+				syncError = err instanceof Error ? err.message : "Check GitHub repository and token.";
+			}
+		}
 		const ts = Date.now();
-		persistProductsLocally(nextProducts, ts);
+		const persisted = persistProductsLocally(productsToSave, ts);
+		if (!persisted && !hasGitHub) {
+			showToast("Browser storage is full. Product was not saved. Connect GitHub in Admin → Settings and publish again.");
+			return false;
+		}
+		setProducts(productsToSave);
 		if (typeof BroadcastChannel !== "undefined") {
 			const ch = new BroadcastChannel("saajgochh_sync_v1");
-			ch.postMessage({
-				type: "SYNC_CATALOG",
-				updatedAt: ts
-			});
+			ch.postMessage({ type: "SYNC_CATALOG", updatedAt: ts });
 			ch.close();
 		}
-		if (toastText) showToast(toastText);
-		const gh = getStoredGitHubConfig();
-		if (gh.token && gh.repo) pushCatalogToGitHub(nextProducts, defaultWhatsapp, gh.repo, gh.token).catch((err) => {
-			const msg = err instanceof Error ? err.message : "Check GitHub settings.";
-			showToast(`Saved on this device, but GitHub sync failed: ${msg}`);
-		});
+		if (syncError) showToast(`Saved on this device, but GitHub upload failed: ${syncError}`);
+		else if (!persisted) showToast("Published to GitHub, but this browser could not cache the catalog. Reloading will fetch it from GitHub.");
+		else if (toastText) showToast(hasGitHub ? toastText : `${toastText} Saved on this device only; connect GitHub to publish online.`);
+		return true;
 	};
 	const maxPriceCeil = (0, import_react.useMemo)(() => {
 		const maxP = products.reduce((m, p) => Math.max(m, p.price), 0);
@@ -28203,9 +28238,9 @@ function App() {
 					setIsAdminOpen(false);
 					showToast("Admin Console locked.");
 				},
-				onSaveProduct: (product, isEdit) => {
+				onSaveProduct: async (product, isEdit) => {
 					const next = isEdit ? products.map((p) => p.id === product.id ? product : p) : [product, ...products];
-					saveAndSyncProducts(next, isEdit ? "Product updated!" : "New product published!");
+					return await saveAndSyncProducts(next, isEdit ? "Product updated!" : "New product published!");
 				},
 				onToggleStock: (id) => {
 					const next = products.map((p) => p.id === id ? {
@@ -28244,10 +28279,21 @@ function App() {
 					setIsOwnerUnlocked(false);
 					showToast("Default WhatsApp saved & locked!");
 					const gh = getStoredGitHubConfig();
-					if (gh.token && gh.repo) pushCatalogToGitHub(products, nextWa, gh.repo, gh.token).catch(() => {});
+					if (gh.token && gh.repo) pushCatalogToGitHub(products, nextWa, gh.repo, gh.token).then((result) => {
+						setProducts(result.updatedProducts);
+						if (!persistProductsLocally(result.updatedProducts, Date.now())) showToast("GitHub was updated, but browser storage could not cache the catalog.");
+					}).catch((err) => showToast(`GitHub sync failed: ${err instanceof Error ? err.message : "Check GitHub settings."}`));
 				},
 				onProductsMigrated: (nextProducts) => {
-					saveAndSyncProducts(nextProducts);
+					setProducts(nextProducts);
+					const ts = Date.now();
+					const persisted = persistProductsLocally(nextProducts, ts);
+					if (typeof BroadcastChannel !== "undefined") {
+						const ch = new BroadcastChannel("saajgochh_sync_v1");
+						ch.postMessage({ type: "SYNC_CATALOG", updatedAt: ts });
+						ch.close();
+					}
+					if (!persisted) showToast("Synced to GitHub, but browser storage could not cache the catalog.");
 				},
 				onToast: showToast
 			}),
