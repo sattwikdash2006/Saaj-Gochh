@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795703710579,
+  "updatedAt": 1795703773003,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -13,31 +13,6 @@
         "./images/products/item-1795703697829-2-mwxnmbw6.jpg",
         "./images/products/item-1795703697829-3-mwxnme1e.jpg",
         "./images/products/item-1795703697829-4-mwxnmghq.jpg"
-      ],
-      "inStock": true,
-      "codAvailable": true,
-      "return7Days": true,
-      "featureSummary": [
-        {
-          "feature": "Fabric",
-          "detail": "Denim",
-          "group": "Material & Craft"
-        },
-        {
-          "feature": "Net Quantity",
-          "detail": "1",
-          "group": "Package & Origin"
-        },
-        {
-          "feature": "Country of Origin",
-          "detail": "India",
-          "group": "Package & Origin"
-        },
-        {
-          "feature": "Key Highlight",
-          "detail": "26 (Waist Size: 26 in, Length Size: 38 in)",
-          "group": "Highlights"
-        }
       ],
       "variantMap": {
         "colors": [
@@ -64,53 +39,6 @@
             ]
           }
         ]
-      }
-    },
-    {
-      "id": "item-1795703313814",
-      "title": "Women’s PalazzoFabric | Ethnic & Casual Wear",
-      "price": 150,
-      "category": "Others",
-      "description": "Women’s PalazzoFabric | Ethnic & Casual Wear | Comfortable & Stylish. Printed Palazzo for Women Rayon Palazzo Pants Ethnic & Casual Palazzo Stylish Palazzo for Daily Wear Palazzo with Elastic Waistband Floral Print Palazzo Comfortable & Trendy Palazzo\nName: Women’s PalazzoFabric | Ethnic & Casual Wear | Comfortable & Stylish. Printed Palazzo for Women Rayon Palazzo Pants Ethnic & Casual Palazzo Stylish Palazzo for Daily Wear Palazzo with Elastic Waistband Floral Print Palazzo Comfortable & Trendy Palazzo\nFabric: Cotton\nPattern: Solid\nNet Quantity (N): 1\nName : WOMEN PLAZO [PACK.FOR .1]\n\nFabric : Cotton Linen\n\nPattern : Solid\n\nNet Quantity (N) : 1\n\nThe \"Sarina Lycra Palazzo Pack of `1' is a clothing item, specifically a set of two palazzo pants made from lycra fabric. Palazzo pants are wide-legged trousers that are known for their flowing and loose-fitting style. Lycra, also known as spandex or elastane, is a stretchy synthetic fabric that provides comfort and flexibility.\n\n \n\n \n\n \n\nHere are some key features and details of the Sarina Lycra Palazzo Pack of 1 :  \n\n \n\n \n\n \n\nDesign : The palazzo pants feature a wide-leg design, which means the legs are roomy and flared from the waist down to the hem. This style offers a relaxed and comfortable fit.\n\n \n\n \n\n \n\nMaterial : The pants are made from lycra fabric, which is known for its stretchiness and ability to retain its shape. Lycra provides a form-fitting look while allowing ease of movement.\n\n \n\n \n\n \n\nQuantity : The pack includes two palazzo pants, providing you with two different options to style and wear.\n\n \n\n \n\n \n\nColors and patterns : The specific colors and patterns of the palazzo pants may vary depending on the available options. The pack may include two different colors or patterns, or it could consist of two pants of the same color or pattern.\n\n \n\n \n\n \n\nElasticized waistband : The pants typically feature an elasticized waistband, which adds to the comfort and ease of wearin\nSizes: \nS, M, L, XL, XXL, Free Size\nCountry of Origin: India",
-      "images": [
-        "./images/products/item-1795703313814-1-mwxne1bh.jpg",
-        "./images/products/item-1795703313814-2-mwxne3rx.jpg",
-        "./images/products/item-1795703313814-3-mwxne67p.jpg",
-        "./images/products/item-1795703313814-4-mwxne891.jpg"
-      ],
-      "variantMap": {
-        "colors": [
-          {
-            "id": "color-1795703252460",
-            "name": "Color 1",
-            "swatch": "#B68D40",
-            "image": "",
-            "images": [],
-            "imageIndex": 0,
-            "sizes": [
-              {
-                "label": "S",
-                "inStock": true
-              },
-              {
-                "label": "M",
-                "inStock": true
-              },
-              {
-                "label": "L",
-                "inStock": true
-              },
-              {
-                "label": "XL",
-                "inStock": true
-              },
-              {
-                "label": "XXL",
-                "inStock": true
-              }
-            ]
-          }
-        ]
       },
       "inStock": true,
       "codAvailable": true,
@@ -119,6 +47,44 @@
       "affiliateLink": "",
       "video": "",
       "youtubeId": "",
+      "featureSummary": [
+        {
+          "feature": "Fabric",
+          "detail": "Denim",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "26 (Waist Size: 26 in, Length Size: 38 in)",
+          "group": "Highlights"
+        }
+      ]
+    },
+    {
+      "id": "item-1795703313814",
+      "title": "Women’s PalazzoFabric | Ethnic & Casual Wear",
+      "price": 150,
+      "category": "Kurtis & Ethnic Wear",
+      "description": "Women’s PalazzoFabric | Ethnic & Casual Wear | Comfortable & Stylish. Printed Palazzo for Women Rayon Palazzo Pants Ethnic & Casual Palazzo Stylish Palazzo for Daily Wear Palazzo with Elastic Waistband Floral Print Palazzo Comfortable & Trendy Palazzo\nName: Women’s PalazzoFabric | Ethnic & Casual Wear | Comfortable & Stylish. Printed Palazzo for Women Rayon Palazzo Pants Ethnic & Casual Palazzo Stylish Palazzo for Daily Wear Palazzo with Elastic Waistband Floral Print Palazzo Comfortable & Trendy Palazzo\nFabric: Cotton\nPattern: Solid\nNet Quantity (N): 1\nName : WOMEN PLAZO [PACK.FOR .1]\n\nFabric : Cotton Linen\n\nPattern : Solid\n\nNet Quantity (N) : 1\n\nThe \"Sarina Lycra Palazzo Pack of `1' is a clothing item, specifically a set of two palazzo pants made from lycra fabric. Palazzo pants are wide-legged trousers that are known for their flowing and loose-fitting style. Lycra, also known as spandex or elastane, is a stretchy synthetic fabric that provides comfort and flexibility.\n\n \n\n \n\n \n\nHere are some key features and details of the Sarina Lycra Palazzo Pack of 1 :  \n\n \n\n \n\n \n\nDesign : The palazzo pants feature a wide-leg design, which means the legs are roomy and flared from the waist down to the hem. This style offers a relaxed and comfortable fit.\n\n \n\n \n\n \n\nMaterial : The pants are made from lycra fabric, which is known for its stretchiness and ability to retain its shape. Lycra provides a form-fitting look while allowing ease of movement.\n\n \n\n \n\n \n\nQuantity : The pack includes two palazzo pants, providing you with two different options to style and wear.\n\n \n\n \n\n \n\nColors and patterns : The specific colors and patterns of the palazzo pants may vary depending on the available options. The pack may include two different colors or patterns, or it could consist of two pants of the same color or pattern.\n\n \n\n \n\n \n\nElasticized waistband : The pants typically feature an elasticized waistband, which adds to the comfort and ease of wearin\nSizes: \nS, M, L, XL, XXL, Free Size\nCountry of Origin: India",
+      "images": [
+        "./images/products/item-1795703313814-1-mwxne1bh.jpg",
+        "./images/products/item-1795703313814-2-mwxne3rx.jpg",
+        "./images/products/item-1795703313814-3-mwxne67p.jpg",
+        "./images/products/item-1795703313814-4-mwxne891.jpg"
+      ],
+      "inStock": true,
+      "codAvailable": true,
+      "return7Days": true,
       "featureSummary": [
         {
           "feature": "Fabric",
@@ -165,7 +131,41 @@
           "detail": "Printed Palazzo for Women Rayon Palazzo Pants Ethnic & Casual Palazzo Stylish Palazzo for Daily Wear Palazzo with Elastic Waistband Flora…",
           "group": "Highlights"
         }
-      ]
+      ],
+      "variantMap": {
+        "colors": [
+          {
+            "id": "color-1795703252460",
+            "name": "Color 1",
+            "swatch": "#B68D40",
+            "image": "",
+            "images": [],
+            "imageIndex": 0,
+            "sizes": [
+              {
+                "label": "S",
+                "inStock": true
+              },
+              {
+                "label": "M",
+                "inStock": true
+              },
+              {
+                "label": "L",
+                "inStock": true
+              },
+              {
+                "label": "XL",
+                "inStock": true
+              },
+              {
+                "label": "XXL",
+                "inStock": true
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "item-1795701756415",
