@@ -1,7 +1,37 @@
 {
-  "updatedAt": 1795689685667,
+  "updatedAt": 1795690464650,
   "whatsapp": "918670234616",
   "products": [
+    {
+      "id": "item-1795690448315",
+      "title": "BLK FOODS Select Dates Dry Yellow 1Kg | Sukha Khajoor (Chuara) Dates (1 x 1 kg)",
+      "price": 303,
+      "category": "Others",
+      "description": "Brand\nBLK FOODS\nQuantity\n1 kg\nType\nDates\nVariant\nDried\nContainer Type\nPouch\nModel Name\nSelect Dates Dry Yellow 1Kg | Sukha Khajoor (Chuara)\nCombo\nNo\nMaximum Shelf Life\n9 Months\nOrganic\nNo\nAdded Preservatives\nNo\nGift Pack\nNo\nCaloric Value\n291\nRegional Speciality\ndry dates\nManufactured By\nBLK Foods India Private Limited\nModel Number\nDry Date\nNutrient Content\ncarb 71g\nUsage Instructions\nConsume directly or use in sweet dishes\nNet Quantity\n1 kg\nFSSAI Number\n12722999000444\nAdditional Features \nCertification\nFSSAI\nOther Features\nNatural\nDimensions \nHeight\n27 cm\nWidth\n18 cm\nDepth\n8 cm\nWeight\n1 kg\nOther Dimensions\n1 kilogram",
+      "images": [
+        "./images/products/item-1795690448315-1-mwxfqaab.jpg",
+        "./images/products/item-1795690448315-2-mwxfqcnt.jpg",
+        "./images/products/item-1795690448315-3-mwxfqf3l.jpg",
+        "./images/products/item-1795690448315-4-mwxfqhos.jpg",
+        "./images/products/item-1795690448315-5-mwxfqk15.jpg"
+      ],
+      "inStock": true,
+      "codAvailable": true,
+      "return7Days": false,
+      "affiliateLink": "https://bitli.in/XrKwudu",
+      "featureSummary": [
+        {
+          "feature": "Dimensions",
+          "detail": "27 cm · 18 cm · 8 cm",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Container Type",
+          "group": "Highlights"
+        }
+      ]
+    },
     {
       "id": "item-1795665292737",
       "title": "Stylecast X Slyck Solid Smocked Fit and Flare Mini Dress",
