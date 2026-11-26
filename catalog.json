@@ -1,7 +1,33 @@
 {
-  "updatedAt": 1795695720466,
+  "updatedAt": 1795701761295,
   "whatsapp": "918670234616",
   "products": [
+    {
+      "id": "item-1795701756415",
+      "title": "Hand-Painted Eco-Friendly Kraft Paper Gift Bags – Butterfly & \"Be Happy in Life\" Floral Edition (Set of 2)",
+      "price": 99,
+      "category": "Festive Gifts",
+      "description": "Add a personal, artistic touch to your gifting with this set of two hand-painted brown kraft paper bags. Unlike mass-printed bags, each piece features charming hand-drawn details that make any present feel more thoughtful.  \n​Unique Hand-Painted Art: Includes two distinct designs—one with a detailed butterfly illustration and a pink-silver bottom trim, and another featuring the uplifting message \"Be Happy in Life\" with colorful flowers, a bee, and a yellow border.  \n​Eco-Friendly Kraft Paper: Crafted from sturdy, recyclable brown kraft paper for a natural, rustic look.  \n​Easy to Carry: Fitted with black cord handles for comfortable holding.  \n​Versatile Gifting: Great for birthdays, return gifts, festive presents, small keepsakes, or boutique packaging.",
+      "images": [
+        "./images/products/item-1795701756415-1-mwxmgnu9.jpg"
+      ],
+      "youtubeId": "yCcmi4iCdk4",
+      "inStock": true,
+      "codAvailable": false,
+      "return7Days": false,
+      "featureSummary": [
+        {
+          "feature": "Ideal For",
+          "detail": "Birthdays",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Add a personal, artistic touch to your gifting with this set of two hand-painted brown kraft paper bags",
+          "group": "Highlights"
+        }
+      ]
+    },
     {
       "id": "item-1795690448315",
       "title": "BLK FOODS Select Dates Dry Yellow 1Kg | Sukha Khajoor (Chuara) Dates (1 x 1 kg)",
@@ -2034,7 +2060,7 @@
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
-      "whatsappNumber": "917908741893",
+      "whatsappNumber": "",
       "affiliateLink": "",
       "video": "",
       "youtubeId": "",
@@ -2092,7 +2118,7 @@
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
-      "whatsappNumber": "917908741893",
+      "whatsappNumber": "",
       "affiliateLink": "",
       "video": "",
       "youtubeId": "",
@@ -2200,7 +2226,7 @@
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
-      "whatsappNumber": "917908741893",
+      "whatsappNumber": "",
       "affiliateLink": "",
       "video": "",
       "youtubeId": "",
@@ -2258,7 +2284,7 @@
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
-      "whatsappNumber": "917908741893",
+      "whatsappNumber": "",
       "affiliateLink": "",
       "video": "",
       "youtubeId": "",
@@ -2302,10 +2328,14 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795274516570-3-mwqk3i26-nwi1h.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795274516570-4-mwqk3jss-hovw6.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
-      "whatsappNumber": "917908741893",
+      "whatsappNumber": "",
+      "affiliateLink": "",
+      "video": "",
+      "youtubeId": "",
       "featureSummary": [
         {
           "feature": "Net Quantity",
