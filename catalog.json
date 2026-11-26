@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795689143528,
+  "updatedAt": 1795689685667,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -190,10 +190,14 @@
       "images": [
         "./images/products/item-1795577754407-1-mwvlpmkh.jpg"
       ],
-      "youtubeId": "8OVhqBBBiY8",
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
+      "whatsappNumber": "",
+      "affiliateLink": "",
+      "video": "",
+      "youtubeId": "8OVhqBBBiY8",
       "featureSummary": [
         {
           "feature": "Fabric",
