@@ -1,7 +1,71 @@
 {
-  "updatedAt": 1795703326928,
+  "updatedAt": 1795703710579,
   "whatsapp": "918670234616",
   "products": [
+    {
+      "id": "item-1795703697829",
+      "title": "ICEE STRAIGHT JEANS",
+      "price": 349,
+      "category": "Kurtis & Ethnic Wear",
+      "description": "ICEE STRAIGHT JEANS\nName: ICEE STRAIGHT JEANS\nFabric: Denim\nNet Quantity (N): 1\nSizes:\n26 (Waist Size: 26 in, Length Size: 38 in) \n28 (Waist Size: 28 in, Length Size: 38 in) \n30 (Waist Size: 30 in, Length Size: 38 in) \n32 (Waist Size: 32 in, Length Size: 38 in) \n34 (Waist Size: 34 in, Length Size: 38 in) \n36 (Waist Size: 36 in, Length Size: 38 in) \n38 (Waist Size: 38 in, Length Size: 38 in) \n40 (Waist Size: 40 in, Length Size: 38 in) \n\nCountry of Origin: India",
+      "images": [
+        "./images/products/item-1795703697829-1-mwxnm9nw.jpg",
+        "./images/products/item-1795703697829-2-mwxnmbw6.jpg",
+        "./images/products/item-1795703697829-3-mwxnme1e.jpg",
+        "./images/products/item-1795703697829-4-mwxnmghq.jpg"
+      ],
+      "inStock": true,
+      "codAvailable": true,
+      "return7Days": true,
+      "featureSummary": [
+        {
+          "feature": "Fabric",
+          "detail": "Denim",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "26 (Waist Size: 26 in, Length Size: 38 in)",
+          "group": "Highlights"
+        }
+      ],
+      "variantMap": {
+        "colors": [
+          {
+            "id": "color-1795703490380",
+            "name": "Color 1",
+            "swatch": "#B68D40",
+            "image": "",
+            "images": [],
+            "imageIndex": 0,
+            "sizes": [
+              {
+                "label": "26 ₹399",
+                "inStock": true
+              },
+              {
+                "label": "28 ₹399",
+                "inStock": true
+              },
+              {
+                "label": "30 429",
+                "inStock": true
+              }
+            ]
+          }
+        ]
+      }
+    },
     {
       "id": "item-1795703313814",
       "title": "Women’s PalazzoFabric | Ethnic & Casual Wear",
@@ -14,9 +78,47 @@
         "./images/products/item-1795703313814-3-mwxne67p.jpg",
         "./images/products/item-1795703313814-4-mwxne891.jpg"
       ],
+      "variantMap": {
+        "colors": [
+          {
+            "id": "color-1795703252460",
+            "name": "Color 1",
+            "swatch": "#B68D40",
+            "image": "",
+            "images": [],
+            "imageIndex": 0,
+            "sizes": [
+              {
+                "label": "S",
+                "inStock": true
+              },
+              {
+                "label": "M",
+                "inStock": true
+              },
+              {
+                "label": "L",
+                "inStock": true
+              },
+              {
+                "label": "XL",
+                "inStock": true
+              },
+              {
+                "label": "XXL",
+                "inStock": true
+              }
+            ]
+          }
+        ]
+      },
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
+      "whatsappNumber": "",
+      "affiliateLink": "",
+      "video": "",
+      "youtubeId": "",
       "featureSummary": [
         {
           "feature": "Fabric",
@@ -63,41 +165,7 @@
           "detail": "Printed Palazzo for Women Rayon Palazzo Pants Ethnic & Casual Palazzo Stylish Palazzo for Daily Wear Palazzo with Elastic Waistband Flora…",
           "group": "Highlights"
         }
-      ],
-      "variantMap": {
-        "colors": [
-          {
-            "id": "color-1795703252460",
-            "name": "Color 1",
-            "swatch": "#B68D40",
-            "image": "",
-            "images": [],
-            "imageIndex": 0,
-            "sizes": [
-              {
-                "label": "S",
-                "inStock": true
-              },
-              {
-                "label": "M",
-                "inStock": true
-              },
-              {
-                "label": "L",
-                "inStock": true
-              },
-              {
-                "label": "XL",
-                "inStock": true
-              },
-              {
-                "label": "XXL",
-                "inStock": true
-              }
-            ]
-          }
-        ]
-      }
+      ]
     },
     {
       "id": "item-1795701756415",
