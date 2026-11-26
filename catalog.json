@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795690464650,
+  "updatedAt": 1795695421046,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -15,10 +15,14 @@
         "./images/products/item-1795690448315-4-mwxfqhos.jpg",
         "./images/products/item-1795690448315-5-mwxfqk15.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": false,
+      "whatsappNumber": "",
       "affiliateLink": "https://bitli.in/XrKwudu",
+      "video": "",
+      "youtubeId": "",
       "featureSummary": [
         {
           "feature": "Dimensions",
@@ -2026,14 +2030,10 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795276323118-3-mwql67jh-tiyzi.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795276323118-4-mwql68yo-7srrz.jpg"
       ],
-      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
-      "whatsappNumber": "",
-      "affiliateLink": "",
-      "video": "",
-      "youtubeId": "",
+      "whatsappNumber": "917908741893",
       "featureSummary": [
         {
           "feature": "Material",
