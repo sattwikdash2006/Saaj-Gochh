@@ -13067,10 +13067,13 @@ function getProductImages(product) {
 }
 function getVariantImages(product, color) {
 	const productImages = getProductImages(product);
-	if (Array.isArray(color?.images) && color.images.length > 0) return color.images;
-	if (color?.image) return [color.image];
-	if (Number.isInteger(color?.imageIndex) && productImages[color.imageIndex]) return [productImages[color.imageIndex]];
-	return productImages;
+	const variantImages = Array.isArray(color?.images)
+		? color.images.filter((src) => typeof src === "string" && src.trim() !== "")
+		: [];
+	if (typeof color?.image === "string" && color.image.trim() !== "") variantImages.unshift(color.image);
+	if (Number.isInteger(color?.imageIndex) && productImages[color.imageIndex]) variantImages.unshift(productImages[color.imageIndex]);
+	// Keep the selected variant photo first, but never hide the rest of the product gallery.
+	return Array.from(new Set([...variantImages, ...productImages].filter((src) => typeof src === "string" && src.trim() !== "")));
 }
 function resolveOrderWhatsAppNumber(product, defaultWa) {
 	const prodNum = normalizeWhatsAppNumber(product.whatsappNumber || "");
