@@ -12922,6 +12922,35 @@ function normalizeYouTubeVideoId(value) {
 		return "";
 	}
 }
+function normalizeVariantMap(raw) {
+	if (!raw || typeof raw !== "object" || !Array.isArray(raw.colors)) return null;
+	const colors = raw.colors.map((entry, index) => {
+		if (!entry || typeof entry !== "object") return null;
+		const name = String(entry.name || entry.label || `Color ${index + 1}`).trim();
+		const id = String(entry.id || name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || `color-${index + 1}`).trim();
+		const safeImage = (value) => {
+			if (typeof value !== "string") return "";
+			const url = value.trim();
+			return /^(https?:\/\/|\.\/|\/)/i.test(url) ? url : "";
+		};
+		const image = safeImage(entry.image);
+		const images = Array.isArray(entry.images) ? entry.images.map(safeImage).filter(Boolean).slice(0, 10) : [];
+		const imageIndex = Number.isInteger(entry.imageIndex) && entry.imageIndex >= 0 ? entry.imageIndex : null;
+		const rawSwatch = String(entry.swatch || "#B68D40").trim();
+		const swatch = /^(#[0-9a-f]{3,8}|[a-z]{3,20}|rgba?\([0-9.,%\s]+\))$/i.test(rawSwatch) ? rawSwatch : "#B68D40";
+		const sizes = (Array.isArray(entry.sizes) ? entry.sizes : []).map((size) => {
+			const value = typeof size === "string" ? { label: size } : size && typeof size === "object" ? size : null;
+			if (!value) return null;
+			const label = String(value.label || value.name || value.value || "").trim();
+			if (!label) return null;
+			const inStock = value.inStock !== false && value.available !== false && !(typeof value.stock === "number" && value.stock <= 0);
+			return { label, inStock };
+		}).filter(Boolean).slice(0, 30);
+		if (!name || !id) return null;
+		return { id, name, swatch, image, images, imageIndex, sizes };
+	}).filter(Boolean).slice(0, 20);
+	return colors.length ? { colors } : null;
+}
 function normalizeProduct(raw) {
 	if (!raw || typeof raw !== "object") return null;
 	const r = raw;
@@ -12943,6 +12972,7 @@ function normalizeProduct(raw) {
 		category: String(r.category || "Others"),
 		description: String(r.description || ""),
 		images: imgs,
+		variantMap: normalizeVariantMap(r.variantMap),
 		inStock: typeof r.inStock === "boolean" ? r.inStock : true,
 		codAvailable: typeof r.codAvailable === "boolean" ? r.codAvailable : true,
 		return7Days: typeof r.return7Days === "boolean" ? r.return7Days : true,
@@ -13035,13 +13065,22 @@ function getProductImages(product) {
 	if (Array.isArray(product.images) && product.images.length > 0) return product.images;
 	return [FALLBACK_IMG];
 }
+function getVariantImages(product, color) {
+	const productImages = getProductImages(product);
+	if (Array.isArray(color?.images) && color.images.length > 0) return color.images;
+	if (color?.image) return [color.image];
+	if (Number.isInteger(color?.imageIndex) && productImages[color.imageIndex]) return [productImages[color.imageIndex]];
+	return productImages;
+}
 function resolveOrderWhatsAppNumber(product, defaultWa) {
 	const prodNum = normalizeWhatsAppNumber(product.whatsappNumber || "");
 	if (/^\d{10,15}$/.test(prodNum)) return prodNum;
 	return normalizeWhatsAppNumber(defaultWa) || "918670234616";
 }
-function buildWhatsAppLink(product, defaultWa) {
-	return `https://wa.me/${resolveOrderWhatsAppNumber(product, defaultWa)}?text=${encodeURIComponent(`Hello! I would like to order "${product.title}" (₹${product.price}) from Saaj Gochh. Is it available?`)}`;
+function buildWhatsAppLink(product, defaultWa, selection = {}) {
+	const variantParts = [selection.color ? `Color: ${selection.color}` : "", selection.size ? `Size: ${selection.size}` : ""].filter(Boolean);
+	const variantText = variantParts.length ? ` Selected variant: ${variantParts.join(", ")}.` : "";
+	return `https://wa.me/${resolveOrderWhatsAppNumber(product, defaultWa)}?text=${encodeURIComponent(`Hello! I would like to order "${product.title}" (₹${product.price}) from Saaj Gochh.${variantText} Is it available?`)}`;
 }
 function isRasterDataUrl(src) {
 	return typeof src === "string" && /^data:image\/(?!svg\+xml)/i.test(src);
@@ -24033,9 +24072,14 @@ var CompactCarousel = ({ title, subtitle, items, onOpenProduct, actionLabel, onA
 var ProductDetailModal = ({ product, defaultWhatsapp, isWishlisted, isCompared, onClose, onToggleWishlist, onToggleCompare, onShare }) => {
 	const [slideIndex, setSlideIndex] = (0, import_react.useState)(0);
 	const [zoomed, setZoomed] = (0, import_react.useState)(false);
+	const [selectedColorId, setSelectedColorId] = (0, import_react.useState)("");
+	const [selectedSize, setSelectedSize] = (0, import_react.useState)("");
 	(0, import_react.useEffect)(() => {
 		setSlideIndex(0);
 		setZoomed(false);
+		const firstColor = product?.variantMap?.colors?.[0];
+		setSelectedColorId(firstColor?.id || "");
+		setSelectedSize(firstColor?.sizes?.find((size) => size.inStock !== false)?.label || "");
 	}, [product?.id]);
 	(0, import_react.useEffect)(() => {
 		if (!product) return;
@@ -24046,9 +24090,14 @@ var ProductDetailModal = ({ product, defaultWhatsapp, isWishlisted, isCompared, 
 		return () => window.removeEventListener("keydown", handleEsc);
 	}, [product, onClose]);
 	if (!product) return null;
-	const images = getProductImages(product);
+	const colors = product.variantMap?.colors || [];
+	const selectedColor = colors.find((color) => color.id === selectedColorId) || colors[0] || null;
+	const availableSizes = selectedColor?.sizes || [];
+	const selectedSizeOption = availableSizes.find((size) => size.label === selectedSize);
+	const canOrderSelectedVariant = product.inStock && (availableSizes.length === 0 || Boolean(selectedSizeOption && selectedSizeOption.inStock));
+	const images = selectedColor ? getVariantImages(product, selectedColor) : getProductImages(product);
 	const featureRows = getProductFeatureRows(product);
-	const waHref = buildWhatsAppLink(product, defaultWhatsapp);
+	const waHref = buildWhatsAppLink(product, defaultWhatsapp, { color: selectedColor?.name, size: selectedSize });
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		role: "dialog",
 		"aria-modal": "true",
@@ -24175,14 +24224,65 @@ var ProductDetailModal = ({ product, defaultWhatsapp, isWishlisted, isCompared, 
 								className: "text-xs font-medium text-zinc-600",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: product.inStock ? "text-emerald-700 font-semibold" : "text-red-600 font-semibold",
-										children: product.inStock ? "In Stock" : "Sold Out"
+										className: canOrderSelectedVariant ? "text-emerald-700 font-semibold" : "text-red-600 font-semibold",
+										children: canOrderSelectedVariant ? "In Stock" : "Sold Out"
 									}),
 									product.codAvailable && " · COD Available",
 									product.return7Days && " · 7-Day Return"
 								]
 							})]
 						}),
+						colors.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "rounded-[4px] border border-zinc-200 bg-[#F8F8F7] p-3 space-y-3",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex items-center justify-between gap-2",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-xs font-semibold text-zinc-800", children: "Color" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-xs text-zinc-500", children: selectedColor?.name || "Choose a color" })]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "flex flex-wrap gap-2",
+									children: colors.map((color) => {
+										const swatchImage = getVariantImages(product, color)[0] || getProductImages(product)[0];
+										const isActive = selectedColor?.id === color.id;
+										return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+											type: "button",
+											onClick: () => {
+											setSelectedColorId(color.id);
+											setSelectedSize(color.sizes?.find((size) => size.inStock !== false)?.label || "");
+											setSlideIndex(0);
+											setZoomed(false);
+										},
+											"aria-pressed": isActive,
+											"aria-label": `Select ${color.name} color`,
+											title: color.name,
+											className: `p-1 rounded-[4px] border bg-white flex flex-col items-center gap-1 transition-colors cursor-pointer ${isActive ? "border-zinc-900 ring-1 ring-zinc-900" : "border-zinc-200 hover:border-[#B68D40]"}`,
+											style: { width: 62 },
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+												src: swatchImage,
+												alt: "",
+												onError: (e) => { e.currentTarget.src = FALLBACK_IMG; },
+												className: "rounded-[3px] object-cover bg-zinc-100",
+												style: { width: 48, height: 48 }
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "w-full text-[10px] text-center text-zinc-700 truncate", children: color.name })]
+										}, color.id);
+									})
+								}),
+								availableSizes.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "pt-2 border-t border-zinc-200 space-y-2",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "text-xs font-semibold text-zinc-800", children: "Size" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "flex flex-wrap gap-2",
+										children: availableSizes.map((size) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+												type: "button",
+												onClick: () => setSelectedSize(size.label),
+												disabled: !size.inStock,
+												"aria-pressed": selectedSize === size.label,
+												className: `h-8 px-3 rounded-[4px] border text-xs font-semibold transition-colors ${!size.inStock ? "border-zinc-100 bg-zinc-100 text-zinc-400 cursor-not-allowed" : selectedSize === size.label ? "border-zinc-900 bg-zinc-900 text-white cursor-pointer" : "border-zinc-300 bg-white text-zinc-700 hover:border-[#B68D40] cursor-pointer"}`,
+												style: { minWidth: 40, textDecoration: size.inStock ? "none" : "line-through" },
+												children: size.label
+											}, size.label))
+										})]
+									})
+								]}),
 						featureRows.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "border border-zinc-200 rounded-[4px] overflow-hidden",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -24211,11 +24311,11 @@ var ProductDetailModal = ({ product, defaultWhatsapp, isWishlisted, isCompared, 
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "mt-auto pt-2 space-y-2",
-							children: [!product.inStock ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							children: [!canOrderSelectedVariant ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 								type: "button",
 								disabled: true,
 								className: "w-full h-10 rounded-[4px] bg-zinc-100 border border-zinc-200 text-zinc-400 text-xs font-semibold cursor-not-allowed",
-								children: "Currently Sold Out"
+								children: product.inStock ? "Selected Option Unavailable" : "Currently Sold Out"
 							}) : product.affiliateLink ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
 								href: product.affiliateLink,
 								target: "_blank",
@@ -25970,6 +26070,7 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 	const [price, setPrice] = (0, import_react.useState)("");
 	const [category, setCategory] = (0, import_react.useState)(CATEGORIES[0]);
 	const [description, setDescription] = (0, import_react.useState)("");
+	const [variantColors, setVariantColors] = (0, import_react.useState)([]);
 	const [featureRows, setFeatureRows] = (0, import_react.useState)([]);
 	const [affiliateLink, setAffiliateLink] = (0, import_react.useState)("");
 	const [whatsappNumber, setWhatsappNumber] = (0, import_react.useState)("");
@@ -26003,6 +26104,7 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 			setPrice(String(editingProduct.price));
 			setCategory(editingProduct.category || CATEGORIES[0]);
 			setDescription(editingProduct.description || "");
+			setVariantColors(editingProduct.variantMap?.colors ? editingProduct.variantMap.colors.map((color) => ({ ...color, sizes: (color.sizes || []).map((size) => ({ ...size })) })) : []);
 			const initialRows = editingProduct.featureSummary && editingProduct.featureSummary.length > 0 ? editingProduct.featureSummary : generateLocalFeatureSummary(editingProduct.description || "", editingProduct.title || "").rows;
 			setFeatureRows(initialRows);
 			setAffiliateLink(editingProduct.affiliateLink || "");
@@ -26023,6 +26125,7 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 		setPrice("");
 		setCategory(CATEGORIES[0]);
 		setDescription("");
+		setVariantColors([]);
 		setFeatureRows([]);
 		setAffiliateLink("");
 		setWhatsappNumber("");
@@ -26257,6 +26360,35 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 		setIsProcessingMedia(false);
 		onToast(fixed > 0 ? `Auto-cropped & enhanced ${fixed} photo(s).` : "Photos are already optimized.");
 	};
+	const updateVariantColor = (colorId, patch) => setVariantColors((prev) => prev.map((color) => color.id === colorId ? { ...color, ...patch } : color));
+	const handleVariantPhotoUpload = async (colorId, e) => {
+		const file = e.target.files && e.target.files[0];
+		e.target.value = "";
+		if (!file) return;
+		if (photos.length >= 10) { onToast("Maximum 10 photos per item. Remove a photo in Photo Studio first."); return; }
+		setIsProcessingMedia(true);
+		try {
+			const processed = await autoProcessImageFromFile(file, { cropMode, enhance: autoEnhance });
+			const imageIndex = photos.length;
+			setPhotos((prev) => [...prev, processed.dataUrl]);
+			updateVariantColor(colorId, { imageIndex, image: "", images: [] });
+		} catch (err) {
+			onToast(err instanceof Error ? err.message : "Could not process this color photo.");
+		} finally {
+			setIsProcessingMedia(false);
+		}
+	};
+	const addVariantColor = () => setVariantColors((prev) => [...prev, {
+		id: `color-${Date.now()}`,
+		name: `Color ${prev.length + 1}`,
+		swatch: "#B68D40",
+		imageIndex: photos.length ? Math.min(prev.length, photos.length - 1) : null,
+		sizes: []
+	}]);
+	const removeVariantColor = (colorId) => setVariantColors((prev) => prev.filter((color) => color.id !== colorId));
+	const addVariantSize = (colorId) => setVariantColors((prev) => prev.map((color) => color.id === colorId ? { ...color, sizes: [...(color.sizes || []), { label: `Size ${(color.sizes || []).length + 1}`, inStock: true }] } : color));
+	const updateVariantSize = (colorId, sizeIndex, patch) => setVariantColors((prev) => prev.map((color) => color.id === colorId ? { ...color, sizes: (color.sizes || []).map((size, index) => index === sizeIndex ? { ...size, ...patch } : size) } : color));
+	const removeVariantSize = (colorId, sizeIndex) => setVariantColors((prev) => prev.map((color) => color.id === colorId ? { ...color, sizes: (color.sizes || []).filter((_, index) => index !== sizeIndex) } : color));
 	const handleGenerateAiTable = () => {
 		const generated = generateLocalFeatureSummary(description, title);
 		setFeatureRows(generated.rows);
@@ -26301,6 +26433,7 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 		}
 		const cleanedSpecs = sanitizeFeatureRows(featureRows);
 		const finalSpecs = cleanedSpecs.length > 0 ? cleanedSpecs : generateLocalFeatureSummary(cleanDesc, cleanTitle).rows;
+		const finalVariantMap = variantColors.length > 0 ? normalizeVariantMap({ colors: variantColors }) : void 0;
 		const productId = editingProduct ? editingProduct.id : "item-" + Date.now();
 		let finalVideoUrl = videoUrl;
 		if (videoFile) {
@@ -26342,7 +26475,8 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 				return7Days,
 				whatsappNumber: normWa || void 0,
 				affiliateLink: cleanAff || void 0,
-				featureSummary: finalSpecs
+				featureSummary: finalSpecs,
+				variantMap: finalVariantMap || void 0
 			}, Boolean(editingProduct));
 			if (saved === false) return;
 			if (!editingProduct) resetFormFields();
@@ -26462,6 +26596,94 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 						required: true,
 						className: "w-full p-3 rounded-[4px] border border-zinc-200 bg-white text-xs text-zinc-900 focus:border-[#B68D40] focus:outline-none resize-y"
 					})] }),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+						className: "border border-zinc-200 rounded-[6px] p-3.5 space-y-3",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex flex-wrap items-center justify-between gap-2",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										children: [
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { className: "block text-xs font-semibold text-zinc-800", children: "Color & Size Variants" }),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "text-[11px] text-zinc-500 mt-0.5", children: "Add each color, choose its product photo, then manage sizes and stock visually." })
+										]
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+										type: "button",
+										onClick: addVariantColor,
+										className: "h-8 px-3 rounded-[4px] bg-zinc-900 hover:bg-zinc-800 text-white text-[11px] font-semibold cursor-pointer",
+										children: "+ Add Color"
+									})
+								]
+							}),
+							photos.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "rounded-[4px] border border-dashed border-[#D8C49B] bg-[#FAF5EB] p-2.5 text-[11px] text-zinc-600",
+								children: "Upload the product's color photos in Photo Studio first. Then select the matching photo for each color below."
+							}),
+							variantColors.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "rounded-[4px] border border-dashed border-zinc-200 bg-[#F8F8F7] p-4 text-center",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "text-xs font-semibold text-zinc-700", children: "No variants added yet" }),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "text-[11px] text-zinc-500 mt-1", children: "Use Add Color to enable color swatches and size selection on this product." })
+								]
+							}) : variantColors.map((color, colorIndex) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "rounded-[5px] border border-zinc-200 bg-[#F8F8F7] p-3 space-y-3",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "flex items-center gap-2",
+										children: [
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+												className: "w-10 h-10 rounded-[4px] border border-zinc-200 overflow-hidden bg-white shrink-0",
+												children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: Number.isInteger(color.imageIndex) && photos[color.imageIndex] ? photos[color.imageIndex] : color.image || FALLBACK_IMG, alt: `${color.name || "Color"} swatch`, className: "w-full h-full object-cover" })
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												className: "flex-1 min-w-0 grid grid-cols-1 sm:grid-cols-2 gap-2",
+												children: [
+													/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { type: "text", value: color.name || "", onChange: (e) => updateVariantColor(color.id, { name: e.target.value }), placeholder: "Color name (e.g. Maroon)", className: "h-8 w-full px-2.5 rounded-[4px] border border-zinc-200 bg-white text-xs text-zinc-900 focus:border-[#B68D40] focus:outline-none" }),
+													/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", { className: "h-8 px-2 rounded-[4px] border border-zinc-200 bg-white flex items-center gap-2 text-[11px] text-zinc-600", children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Swatch" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { type: "color", value: /^#[0-9a-f]{6}$/i.test(color.swatch || "") ? color.swatch : "#B68D40", onChange: (e) => updateVariantColor(color.id, { swatch: e.target.value }), className: "w-6 h-6 p-0 border-0 bg-transparent cursor-pointer" })] })
+												]
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { type: "button", onClick: () => removeVariantColor(color.id), title: "Remove color", className: "h-8 px-2.5 rounded-[4px] border border-red-200 bg-white text-red-600 hover:bg-red-50 text-[11px] font-semibold cursor-pointer shrink-0", children: "Remove" })
+										]
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 items-center",
+										children: [
+											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", { className: "text-[11px] font-semibold text-zinc-600", children: ["Product photo for ", color.name || `Color ${colorIndex + 1}`] }),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("select", {
+												value: Number.isInteger(color.imageIndex) ? String(color.imageIndex) : "",
+												onChange: (e) => updateVariantColor(color.id, { imageIndex: e.target.value === "" ? null : Number(e.target.value), image: "", images: [] }),
+												disabled: photos.length === 0,
+												className: "h-8 w-full px-2 rounded-[4px] border border-zinc-200 bg-white text-xs text-zinc-800 disabled:bg-zinc-100",
+												children: [
+													/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", { value: "", children: "Choose a Photo Studio image..." }),
+													...photos.map((src, imageIndex) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", { value: String(imageIndex), children: `Photo ${imageIndex + 1}` }, imageIndex))
+												]
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", { className: "h-8 px-3 rounded-[4px] border border-zinc-200 bg-white hover:border-[#B68D40] text-[11px] font-semibold text-zinc-700 inline-flex items-center justify-center cursor-pointer", children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { type: "file", accept: "image/*", onChange: (e) => handleVariantPhotoUpload(color.id, e), className: "hidden" }), "Upload Color Photo"] })
+										]
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-2",
+										children: [
+											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex flex-wrap items-center justify-between gap-2", children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-[11px] font-semibold text-zinc-700", children: "Available sizes" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { type: "button", onClick: () => addVariantSize(color.id), className: "h-7 px-2 rounded-[4px] border border-zinc-300 bg-white text-[10px] font-semibold text-zinc-800 hover:border-[#B68D40] cursor-pointer", children: "+ Add Size" })] }),
+											(color.sizes || []).length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "text-[10px] text-zinc-500", children: "No sizes yet. Add a size to enable size selection for this color." }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+												className: "flex flex-wrap gap-2",
+												children: (color.sizes || []).map((size, sizeIndex) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+													className: "flex items-center gap-1.5 rounded-[4px] border border-zinc-200 bg-white px-2 py-1.5",
+													children: [
+														/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", { className: "flex items-center gap-1 text-[10px] text-zinc-700", children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { type: "checkbox", checked: size.inStock !== false, onChange: (e) => updateVariantSize(color.id, sizeIndex, { inStock: e.target.checked }), className: "w-3 h-3 accent-emerald-700" }), "In stock"] }),
+														/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { type: "text", value: size.label || "", onChange: (e) => updateVariantSize(color.id, sizeIndex, { label: e.target.value }), placeholder: "Size", className: "w-14 h-6 px-1.5 rounded-[3px] border border-zinc-200 text-[11px] text-zinc-800 focus:border-[#B68D40] focus:outline-none" }),
+														/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { type: "button", onClick: () => removeVariantSize(color.id, sizeIndex), title: "Remove size", className: "text-zinc-400 hover:text-red-600 text-sm leading-none cursor-pointer", children: "×" })
+													]
+												}, `${color.id}-${sizeIndex}`))
+											})
+										]
+									})
+								]
+							}, color.id))
+						]
+					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "border border-zinc-200 rounded-[6px] bg-[#F8F8F7] p-3.5 space-y-3",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
