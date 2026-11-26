@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795665303238,
+  "updatedAt": 1795665746891,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -11,7 +11,8 @@
       "images": [
         "./images/products/item-1795665292737-1-mwx0r4f9.jpg",
         "./images/products/item-1795665292737-2-mwx0r6rp.jpg",
-        "./images/products/item-1795665292737-3-mwx0r947.jpg"
+        "./images/products/item-1795665292737-3-mwx0r947.jpg",
+        "./images/products/item-1795665292737-4-mwx10rhu.jpg"
       ],
       "inStock": true,
       "codAvailable": true,
@@ -41,8 +42,25 @@
             "swatch": "#0712ab",
             "image": "",
             "images": [],
-            "imageIndex": 0,
-            "sizes": []
+            "imageIndex": 3,
+            "sizes": [
+              {
+                "label": "XS",
+                "inStock": true
+              },
+              {
+                "label": "M",
+                "inStock": true
+              },
+              {
+                "label": "L",
+                "inStock": true
+              },
+              {
+                "label": "XL",
+                "inStock": true
+              }
+            ]
           },
           {
             "id": "color-1795665252087",
