@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795695421046,
+  "updatedAt": 1795695494469,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -2030,10 +2030,14 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795276323118-3-mwql67jh-tiyzi.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795276323118-4-mwql68yo-7srrz.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
       "whatsappNumber": "917908741893",
+      "affiliateLink": "",
+      "video": "",
+      "youtubeId": "",
       "featureSummary": [
         {
           "feature": "Material",
@@ -2088,7 +2092,7 @@
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
-      "whatsappNumber": "",
+      "whatsappNumber": "917908741893",
       "affiliateLink": "",
       "video": "",
       "youtubeId": "",
