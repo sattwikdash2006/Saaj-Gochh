@@ -1,7 +1,61 @@
 {
-  "updatedAt": 1795616513633,
+  "updatedAt": 1795665303238,
   "whatsapp": "918670234616",
   "products": [
+    {
+      "id": "item-1795665292737",
+      "title": "Stylecast X Slyck Solid Smocked Fit and Flare Mini Dress",
+      "price": 791,
+      "category": "Western Wear",
+      "description": "Maroon Solid A-Line Dress\nShoulder Straps\nSleeveless\nGathered or Pleated Detail\nKnee Length\n\nSize & Fit\nThe model (height 5'8) is wearing a size S\n\nMaterial & Care\n100% POLYESTER, Hand Wash\n\n\nSpecifications\nShape\nA-Line\nNeck\nShoulder Straps\nLength\nKnee Length\nSleeve Length\nSleeveless\nSleeve Styling\nShoulder Straps\nKnit or Woven\nWoven\nHemline\nStraight\nTransparency\nOpaque\nSurface Styling\nGathered or Pleated\nNumber of Items\n1\nPackage Contains\n1 Dress\nNet Quantity\n1",
+      "images": [
+        "./images/products/item-1795665292737-1-mwx0r4f9.jpg",
+        "./images/products/item-1795665292737-2-mwx0r6rp.jpg",
+        "./images/products/item-1795665292737-3-mwx0r947.jpg"
+      ],
+      "inStock": true,
+      "codAvailable": true,
+      "return7Days": true,
+      "featureSummary": [
+        {
+          "feature": "Available Sizes",
+          "detail": "S",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Care & Setup",
+          "detail": "Material & Care",
+          "group": "Care & Specs"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Maroon Solid A-Line Dress",
+          "group": "Highlights"
+        }
+      ],
+      "variantMap": {
+        "colors": [
+          {
+            "id": "color-1795665215399",
+            "name": "Color 1",
+            "swatch": "#0712ab",
+            "image": "",
+            "images": [],
+            "imageIndex": 0,
+            "sizes": []
+          },
+          {
+            "id": "color-1795665252087",
+            "name": "Color 2",
+            "swatch": "#000000",
+            "image": "",
+            "images": [],
+            "imageIndex": 1,
+            "sizes": []
+          }
+        ]
+      }
+    },
     {
       "id": "item-1795615997087",
       "title": "Prayas Direct Tax-1 For Students, Semester 3 A.Y. 2026-27 By Sanjay Mundhra & Vikash Mundhra (Hardcover, Bengali, Sanjay Mundhra & Vikash Mundhra)",
@@ -13,10 +67,14 @@
         "./images/products/item-1795615997087-2-mww7em6o.jpg",
         "./images/products/item-1795615997087-3-mww7eoer.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": false,
       "return7Days": false,
+      "whatsappNumber": "",
       "affiliateLink": "https://bitli.in/8n4OUZc",
+      "video": "",
+      "youtubeId": "",
       "featureSummary": [
         {
           "feature": "Key Highlight",
@@ -37,6 +95,7 @@
         "./images/products/item-1795609549431-3-mww3kh23.jpg",
         "./images/products/item-1795609549431-4-mww3kjez.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": false,
@@ -64,6 +123,7 @@
         "./images/products/item-1795588145881-3-mww3fy8o.jpg",
         "./images/products/item-1795588145881-4-mww3g0kk.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -108,6 +168,7 @@
       "images": [
         "./images/products/item-1795577754407-1-mwvlpmkh.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -168,6 +229,7 @@
         "./images/products/item-1795537593249-1-mwuwq7gm.jpg",
         "./images/products/item-1795537593249-2-mwuwq9wd.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -235,6 +297,7 @@
         "./images/products/item-1795537285537-3-mwuwl8gm.jpg",
         "./images/products/item-1795537285537-4-mwuwlak6.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -307,6 +370,7 @@
         "./images/products/item-1795537163369-3-mwuwlhh1.jpg",
         "./images/products/item-1795537163369-4-mwuwljtg.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -383,6 +447,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795526846160-2-mwuqbqzc-lmwde.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795526846160-3-mwuqbsha-95nnf.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": false,
@@ -414,6 +479,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795526152654-2-mwuq1qzv-sxx39.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795526152654-3-mwuq1sf4-simsc.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -466,6 +532,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795525983872-3-mwuptbl9-lea4y.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795525983872-4-mwuptdhh-rj0h5.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -516,6 +583,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795525589043-1-mwupkrau-w9ued.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795525589043-2-mwupmk4k-91yox.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -569,6 +637,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795492730983-4-mwu60nam-zqlj4.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795492730983-5-mwu60p1e-2hh60.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -610,6 +679,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795438919523-2-mwt9z6kj-671ey.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795438919523-3-mwt9z8b6-9fopb.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -652,6 +722,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795437947028-3-mwt9eeef-21xth.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795437947028-4-mwt9eg5h-xa7fw.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -687,6 +758,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795437543236-1-mwt95mpx-fteac.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795437543236-2-mwt95oua-6jcor.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -727,6 +799,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795437167188-1-mwt8xkk5-dfriw.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795437167188-2-mwt8xmhe-837xp.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": false,
@@ -762,6 +835,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795436499630-1-mwt8j9gv-vio8y.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795436499630-2-mwt8jby5-e1hju.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -797,6 +871,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795424689035-1-mwt1i4cs-fasvb.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795424689035-2-mwt1i6e7-3dl2h.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -831,6 +906,7 @@
       "images": [
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795407962348-1-mwsrjlyl-d61jg.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": false,
@@ -881,6 +957,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795343466215-1-mwrp58fc-n62f9.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795343466215-2-mwrp5ahb-m9ljv.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": false,
       "return7Days": false,
@@ -912,6 +989,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795343231321-2-mwrp094h-zclq8.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795343231321-3-mwrp0anr-r1k49.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -968,6 +1046,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795343126519-2-mwroy00y-fgbhc.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795343126519-3-mwroy1dt-l3kfp.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -1022,6 +1101,7 @@
       "images": [
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795342946346-1-mwrou3aj-kdwii.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -1088,6 +1168,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795342840987-2-mwrorw66-3ztrf.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795342840987-3-mwrorxwd-pi3b3.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -1158,6 +1239,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795342675824-1-mwrooak0-xpyw9.jpg",
         "https://images.meesho.com/images/products/626019167/vqye7_512.avif?width=512"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -1224,6 +1306,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795342536731-2-mwrold27-cq1ps.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795342536731-3-mwroleq7-l5udi.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -1298,6 +1381,7 @@
       "images": [
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795339597546-1-mwrmubcb-o6lur.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -1370,6 +1454,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795321722073-3-mwrc79ku-ma29x.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795321722073-4-mwrc7b7q-na8im.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -1423,6 +1508,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795321392301-4-mwrc099k-v48by.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795321392301-5-mwrc0arm-axnwx.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -1484,6 +1570,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795321188221-2-mwrbvsbe-inmzq.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795321188221-3-mwrbvtwa-rzjm1.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -1571,6 +1658,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795320839051-3-mwrbocuv-a8yxf.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795320839051-4-mwrboeob-clssh.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -1618,6 +1706,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795320636713-3-mwrbk0hn-hufo8.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795320636713-4-mwrbk25e-rqhhp.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -1690,6 +1779,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795320289238-3-mwrbck5t-pupa6.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795320289238-4-mwrbclwe-n2lxr.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -1736,6 +1826,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795320122219-2-mwrb8xpo-p5l65.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795320122219-3-mwrb8z4t-55wd1.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -1781,6 +1872,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795319615634-1-mwray177-t63cd.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795319615634-2-mwray2r7-javxt.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -1829,6 +1921,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795319076739-4-mwramm8o-1l8b4.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795319076739-5-mwramnvu-pyyo5.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -1881,6 +1974,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795276323118-3-mwql67jh-tiyzi.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795276323118-4-mwql68yo-7srrz.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -1938,6 +2032,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795275942119-3-mwqky1j1-q59gn.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795275942119-4-mwqky36c-u7sjv.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -2045,6 +2140,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795275525242-3-mwqkp43r-p6tfn.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795275525242-4-mwqkp5ls-b8rzy.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -2102,6 +2198,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795274966069-3-mwqkd4oz-brit0.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795274966069-4-mwqkd66u-j3dq3.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -2149,6 +2246,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795274516570-3-mwqk3i26-nwi1h.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795274516570-4-mwqk3jss-hovw6.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -2195,6 +2293,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795273378667-2-mwqjf2jf-2c84l.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795273378667-3-mwqjf45a-bowws.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -2228,6 +2327,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795253743060-4-mwq7qaha-4zjpe.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795253743060-5-mwq7qbwg-n7s8h.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -2295,6 +2395,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795242811394-3-mwq17yqj-xlns0.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795242811394-4-mwq180dd-f4cw4.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -2322,6 +2423,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795242422936-3-mwq0zm67-nn3zl.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795242422936-4-mwq0znmu-t91b9.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -2373,6 +2475,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795242295618-3-mwq0wwb0-hwrj1.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795242295618-4-mwq0wxvb-ui4u7.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -2439,6 +2542,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795242110010-2-mwq0sv2f-upie9.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795242110010-3-mwq0swet-iezwi.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -2476,6 +2580,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795242007496-3-mwq0qq26-tkq73.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795242007496-4-mwq0qrsr-ca5w4.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -2533,6 +2638,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795241900466-3-mwq0offy-0dvqk.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795241900466-4-mwq0oh3q-g9u7d.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -2602,6 +2708,7 @@
       "images": [
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795241021040-1-mwq05h80-uwira.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": false,
       "return7Days": false,
@@ -2659,6 +2766,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795240567144-3-mwpzvuyq-89gmm.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795240567144-4-mwpzvwj0-45gq0.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -2701,6 +2809,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795240408817-3-mwpzsg7g-7jcei.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795240408817-4-mwpzshzi-fuq6l.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -2757,6 +2866,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795240305769-2-mwpzq79j-vi8ld.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795240305769-3-mwpzq8oe-75zx1.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -2804,6 +2914,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795240193146-3-mwpzntmy-cpm5x.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795240193146-4-mwpznv4i-pzu0g.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -2856,6 +2967,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795235222492-3-mwpwp9v7-7jr8b.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795235222492-4-mwpwpbad-f2uun.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -2925,6 +3037,7 @@
       "images": [
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795231761162-1-mwpun097-4m58h.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -2987,6 +3100,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795153213921-3-mwojvkwq-amjrm.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795153213921-4-mwojvmj7-lkoi1.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -3055,6 +3169,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795145260280-9-mwof5dev-crod8.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795145260280-10-mwof5f5g-8ylls.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -3117,6 +3232,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795144892428-3-mwoex7ei-5ipxy.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795144892428-4-mwoex8wn-6aj40.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -3174,6 +3290,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795144546605-3-mwoeps6j-g5v2n.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795144546605-4-mwoeptrg-xdbhw.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -3223,6 +3340,7 @@
       "images": [
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795111398258-1-mwnuz7n6-cw4ap.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -3289,6 +3407,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795111271387-2-mwnuwk2l-no72t.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795111271387-3-mwnuwlu9-8tcx0.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -3341,6 +3460,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795111135034-3-mwnutomg-vxa63.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795111135034-4-mwnutqlp-javpn.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -3400,6 +3520,7 @@
       "images": [
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795110898050-1-mwnuohoj-v1tv7.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -3454,6 +3575,7 @@
       "images": [
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795110787138-1-mwnum43m-w9llf.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -3516,6 +3638,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795110671770-3-mwnujrlp-tfrjk.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795110671770-4-mwnujtk9-el9ro.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -3572,6 +3695,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795106950133-2-mwnsbxrx-omw74.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795106950133-3-mwnsbzja-ptdi5.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -3629,6 +3753,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795106375339-3-mwns0glf-atpst.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795106375339-4-mwns0icn-gj59s.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -3686,6 +3811,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795103679145-3-mwnqdve2-bc5kd.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795103679145-4-mwnqdx4k-54wp1.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -3773,6 +3899,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795103086451-3-mwnq16xd-mbvsh.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795103086451-4-mwnq18ui-s4z9s.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -3839,6 +3966,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795102803123-2-mwnpv1gf-3z810.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795102803123-3-mwnpv3ny-whq7z.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -3906,6 +4034,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795101362479-8-mwnp0l1p-es4r6.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795101362479-9-mwnp0nl0-41rs2.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -3957,6 +4086,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795100553001-7-mwnoj250-e7fe8.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795100553001-8-mwnoj3vk-ih3ye.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -4019,6 +4149,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795099195523-3-mwnnprow-oi976.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795099195523-4-mwnnptfl-e21o2.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -4081,6 +4212,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795098951579-3-mwnnkl4k-jyrih.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795098951579-4-mwnnkmqv-6qyx9.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -4147,6 +4279,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795063628633-2-mwn2jev0-u4c18.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1795063628633-3-mwn2jggp-8vtql.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -4251,6 +4384,7 @@
       "images": [
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794980074471-1-mwloshk7-edgwm.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -4311,6 +4445,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794979931423-1-mwlopf6n-yfx3e.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794979931423-2-mwloph93-a0x64.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -4373,6 +4508,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794979767711-3-mwlom0hq-yqxvg.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794979767711-4-mwlom277-jnzay.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -4455,6 +4591,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794979266327-3-mwlob9id-9cved.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794979266327-4-mwlobb49-ue6ga.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -4506,6 +4643,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794979141606-2-mwlo8jqj-yco8t.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794979141606-3-mwlo8lgr-uqwmf.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -4557,6 +4695,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794978970734-2-mwlo4vn9-q6q2b.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794978970734-3-mwlo4x9v-i2o5d.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -4607,6 +4746,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794978832366-1-mwlo1v5a-v7286.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794978832366-2-mwlo1x0b-vvx9y.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -4681,6 +4821,7 @@
       "images": [
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794978395142-1-mwlnshs6-axai5.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -4748,6 +4889,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794973985834-3-mwlnl7je-0o3bk.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794973985834-4-mwlnl9dj-ke3ln.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -4817,6 +4959,7 @@
       "images": [
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794973233258-1-mwlnlav2-vo3z3.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -4867,6 +5010,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794972535714-1-mwlnlcna-cnln6.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794972535714-2-mwlnleep-jvlh7.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -4918,6 +5062,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794972274594-2-mwlnlhsv-o7gbb.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794972274594-3-mwlnlj51-gif2i.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -4974,6 +5119,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794938795889-2-mwlnlmcl-1bs5p.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794938795889-3-mwlnlnye-opf87.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -5035,6 +5181,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794937854080-2-mwlnlrad-qxdm1.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794937854080-3-mwlnlsro-0nyzr.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -5087,6 +5234,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794926560879-3-mwlnlxgk-n5zlt.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794926560879-4-mwlnlyxw-mvxyh.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -5139,6 +5287,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794925991823-3-mwlnm3ub-1dzxq.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794925991823-4-mwlnm5cz-dajzm.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -5191,6 +5340,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794925795815-3-mwlnm9sz-b9yrn.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794925795815-4-mwlnmbab-7v3ul.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -5240,6 +5390,7 @@
       "images": [
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794925553015-1-mwlnmcxc-2vyzm.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -5342,6 +5493,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794924566215-3-mwlnmhpf-j2um7.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794924566215-4-mwlnmj46-nnklv.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -5389,6 +5541,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794924051247-3-mwlnmnpt-ka9iz.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794924051247-4-mwlnmp8i-l8r0k.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -5436,6 +5589,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794922768479-3-mwlnmtxg-58rng.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794922768479-4-mwlnmvf1-ikzcd.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -5503,6 +5657,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794922459400-3-mwlnn0gj-t5hwr.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794922459400-4-mwlnn22p-d404t.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -5570,6 +5725,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794921407248-3-mwlnn6o5-aemdl.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794921407248-4-mwlnn858-edaem.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -5631,6 +5787,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794919296113-2-mwlnnb36-ungmk.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794919296113-3-mwlnncox-aqfrk.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -5693,6 +5850,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794918959273-3-mwlnnh0i-ylxku.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794918959273-4-mwlnni9h-orelx.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -5744,6 +5902,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794917164849-2-mwlnnku7-wxp25.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794917164849-3-mwlnnmbt-6tx9a.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -5783,6 +5942,7 @@
       "images": [
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794909299226-1-mwlnnnye-psahe.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -5847,6 +6007,7 @@
       "images": [
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794909098130-1-mwlnnpgk-l9zd5.jpg"
       ],
+      "variantMap": null,
       "inStock": false,
       "codAvailable": true,
       "return7Days": false,
@@ -5874,6 +6035,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794908660530-3-mwlnnthb-5v8s3.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794908660530-4-mwlnnuua-wcmhm.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -5936,6 +6098,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794908169194-3-mwlnnzen-68v60.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794908169194-4-mwlno0rq-whtxd.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -5986,6 +6149,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794907738386-1-mwlno28n-0k96f.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794907738386-2-mwlno3lr-4jx4i.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -6055,6 +6219,7 @@
       "images": [
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794907549970-1-mwlno4z9-1z8xk.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -6139,6 +6304,7 @@
       "images": [
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794905783803-1-mwlno6dl-e6v7t.jpg"
       ],
+      "variantMap": null,
       "inStock": false,
       "codAvailable": false,
       "return7Days": false,
@@ -6202,6 +6368,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794887180684-4-mwlnochp-3efi6.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794887180684-5-mwlnodul-o9433.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -6259,6 +6426,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794886669964-3-mwlnoi8g-t3v3y.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794886669964-4-mwlnojjc-rwp3n.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -6316,6 +6484,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794886039660-3-mwlnonlz-oi75a.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794886039660-4-mwlnop1o-gv98n.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -6401,6 +6570,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794884481196-1-mwlnoqgm-2djl7.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794884481196-2-mwlnos1p-rat8m.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -6448,6 +6618,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794884240269-3-mwlnow4e-9jzno.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794884240269-4-mwlnoxi8-83826.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -6505,6 +6676,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794883999605-3-mwlnp21u-d8219.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794883999605-4-mwlnp3j0-uplkn.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -6566,6 +6738,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794882749293-2-mwlnp6hp-uzjbj.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794882749293-3-mwlnp7ul-mebs0.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -6622,6 +6795,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794882250405-2-mwlnpb23-mugf2.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794882250405-3-mwlnpc8w-pf3s3.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -6669,6 +6843,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794851173697-3-mwlnpg8z-3vhkq.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794851173697-4-mwlnphnx-2octi.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -6706,6 +6881,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794850707913-3-mwlnplx7-tbwr6.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794850707913-4-mwlnpnc6-ufskr.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
@@ -6757,6 +6933,7 @@
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794850044018-2-mwlnpq1e-931lc.jpg",
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794850044018-3-mwlnpr8a-lo4ms.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
