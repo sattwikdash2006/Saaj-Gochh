@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795688479011,
+  "updatedAt": 1795689143528,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -13,26 +13,6 @@
         "./images/products/item-1795665292737-2-mwx0r6rp.jpg",
         "./images/products/item-1795665292737-3-mwx0r947.jpg",
         "./images/products/item-1795665292737-4-mwx10rhu.jpg"
-      ],
-      "inStock": false,
-      "codAvailable": true,
-      "return7Days": true,
-      "featureSummary": [
-        {
-          "feature": "Available Sizes",
-          "detail": "S",
-          "group": "Dimensions & Sizing"
-        },
-        {
-          "feature": "Care & Setup",
-          "detail": "Material & Care",
-          "group": "Care & Specs"
-        },
-        {
-          "feature": "Key Highlight",
-          "detail": "Maroon Solid A-Line Dress",
-          "group": "Highlights"
-        }
       ],
       "variantMap": {
         "colors": [
@@ -72,7 +52,31 @@
             "sizes": []
           }
         ]
-      }
+      },
+      "inStock": false,
+      "codAvailable": true,
+      "return7Days": true,
+      "whatsappNumber": "",
+      "affiliateLink": "",
+      "video": "",
+      "youtubeId": "",
+      "featureSummary": [
+        {
+          "feature": "Available Sizes",
+          "detail": "S",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Care & Setup",
+          "detail": "Material & Care",
+          "group": "Care & Specs"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Maroon Solid A-Line Dress",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "item-1795615997087",
@@ -181,19 +185,15 @@
       "id": "item-1795577754407",
       "title": "WOMEN PRINTED DRESS",
       "price": 265,
-      "category": "Kurtis & Ethnic Wear",
+      "category": "Western Wear",
       "description": "WOMEN PRINTED DRESS\nName: WOMEN PRINTED DRESS\nFabric: Poly Crepe\nSleeve Length: Three-Quarter Sleeves\nPattern: Printed\nNet Quantity (N): 2\nSizes:\nS (Bust Size: 36 in, Length Size: 46 in) \nM (Bust Size: 38 in, Length Size: 46 in) \nL (Bust Size: 40 in, Length Size: 46 in) \n\nCountry of Origin: India",
       "images": [
         "./images/products/item-1795577754407-1-mwvlpmkh.jpg"
       ],
-      "variantMap": null,
+      "youtubeId": "8OVhqBBBiY8",
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
-      "whatsappNumber": "",
-      "affiliateLink": "",
-      "video": "",
-      "youtubeId": "8OVhqBBBiY8",
       "featureSummary": [
         {
           "feature": "Fabric",
