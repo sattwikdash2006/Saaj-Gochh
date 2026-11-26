@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795665746891,
+  "updatedAt": 1795679363784,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -13,26 +13,6 @@
         "./images/products/item-1795665292737-2-mwx0r6rp.jpg",
         "./images/products/item-1795665292737-3-mwx0r947.jpg",
         "./images/products/item-1795665292737-4-mwx10rhu.jpg"
-      ],
-      "inStock": true,
-      "codAvailable": true,
-      "return7Days": true,
-      "featureSummary": [
-        {
-          "feature": "Available Sizes",
-          "detail": "S",
-          "group": "Dimensions & Sizing"
-        },
-        {
-          "feature": "Care & Setup",
-          "detail": "Material & Care",
-          "group": "Care & Specs"
-        },
-        {
-          "feature": "Key Highlight",
-          "detail": "Maroon Solid A-Line Dress",
-          "group": "Highlights"
-        }
       ],
       "variantMap": {
         "colors": [
@@ -72,7 +52,31 @@
             "sizes": []
           }
         ]
-      }
+      },
+      "inStock": true,
+      "codAvailable": true,
+      "return7Days": true,
+      "whatsappNumber": "",
+      "affiliateLink": "",
+      "video": "",
+      "youtubeId": "",
+      "featureSummary": [
+        {
+          "feature": "Available Sizes",
+          "detail": "S",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Care & Setup",
+          "detail": "Material & Care",
+          "group": "Care & Specs"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Maroon Solid A-Line Dress",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "item-1795615997087",
