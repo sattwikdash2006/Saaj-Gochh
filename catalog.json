@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795683332627,
+  "updatedAt": 1795688419402,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -53,7 +53,7 @@
           }
         ]
       },
-      "inStock": true,
+      "inStock": false,
       "codAvailable": true,
       "return7Days": true,
       "whatsappNumber": "",
