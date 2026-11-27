@@ -1,7 +1,99 @@
 {
-  "updatedAt": 1795754855067,
+  "updatedAt": 1795755088333,
   "whatsapp": "918670234616",
   "products": [
+    {
+      "id": "item-1795755075519",
+      "title": "Korean Black Biker Jacket with Brand logo Embroidery | Stylish Jacket for Men | Winter Casual Wear",
+      "price": 814,
+      "category": "Sarees & Apparel",
+      "description": "Korean Black Biker Jacket with Brand logo Embroidery | Stylish Jacket for Men | Winter Casual Wear\nName: Korean Black Biker Jacket with Brand logo Embroidery | Stylish Jacket for Men | Winter Casual Wear\nFabric: Polyester\nSleeve Length: Long Sleeves\nPattern: Striped\nNet Quantity (N): 1\nSizes:\nS, M (Chest Size: 42 in, Length Size: 26 in, Waist Size: 40 in, Hip Size: 40 in) \nL (Chest Size: 45 in, Length Size: 27 in, Waist Size: 43 in, Hip Size: 42 in) \nXL (Chest Size: 48 in, Length Size: 28 in, Waist Size: 45 in, Hip Size: 44 in) \nXXL\nJacket For men Must Buy!\nCountry of Origin: India",
+      "images": [
+        "./images/products/item-1795755075519-1-mwyi7gy5.jpg",
+        "./images/products/item-1795755075519-2-mwyi7jaj.jpg",
+        "./images/products/item-1795755075519-3-mwyi7lje.jpg",
+        "./images/products/item-1795755075519-4-mwyi7nuy.jpg"
+      ],
+      "inStock": true,
+      "codAvailable": true,
+      "return7Days": true,
+      "featureSummary": [
+        {
+          "feature": "Fabric",
+          "detail": "Polyester",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Sleeve Length",
+          "detail": "Long Sleeves",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Pattern",
+          "detail": "Striped",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "L (Chest Size",
+          "detail": "45 in, Length Size: 27 in, Waist Size: 43 in, Hip Size: 42 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XL (Chest Size",
+          "detail": "48 in, Length Size: 28 in, Waist Size: 45 in, Hip Size: 44 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "S, M (Chest Size: 42 in, Length Size: 26 in, Waist Size: 40 in, Hip Size: 40 in)",
+          "group": "Highlights"
+        }
+      ],
+      "variantMap": {
+        "colors": [
+          {
+            "id": "color-1795755016775",
+            "name": "Color 1",
+            "swatch": "#B68D40",
+            "image": "",
+            "images": [],
+            "imageIndex": 0,
+            "sizes": [
+              {
+                "label": "S",
+                "inStock": true
+              },
+              {
+                "label": "M",
+                "inStock": true
+              },
+              {
+                "label": "L",
+                "inStock": true
+              },
+              {
+                "label": "XL",
+                "inStock": true
+              },
+              {
+                "label": "XXL",
+                "inStock": true
+              }
+            ]
+          }
+        ]
+      }
+    },
     {
       "id": "item-1795754845660",
       "title": "Jockey Super Combed Cotton Rich Pique Fabric Jacket With Ribbed Cuffs - Am99",
@@ -12,36 +104,6 @@
         "./images/products/item-1795754845660-1-mwyi2jhs.jpg",
         "./images/products/item-1795754845660-2-mwyi2lrn.jpg",
         "./images/products/item-1795754845660-3-mwyi2nws.jpg"
-      ],
-      "inStock": true,
-      "codAvailable": true,
-      "return7Days": true,
-      "featureSummary": [
-        {
-          "feature": "Fabric Composition",
-          "detail": "Cotton and Polyester",
-          "group": "Material & Craft"
-        },
-        {
-          "feature": "Material / Craft",
-          "detail": "Cotton",
-          "group": "Material & Craft"
-        },
-        {
-          "feature": "Available Sizes",
-          "detail": "M",
-          "group": "Dimensions & Sizing"
-        },
-        {
-          "feature": "Care & Setup",
-          "detail": "Material & Care",
-          "group": "Care & Specs"
-        },
-        {
-          "feature": "Key Highlight",
-          "detail": "Ribbed Collar and Cuffs",
-          "group": "Highlights"
-        }
       ],
       "variantMap": {
         "colors": [
@@ -76,7 +138,41 @@
             ]
           }
         ]
-      }
+      },
+      "inStock": true,
+      "codAvailable": true,
+      "return7Days": true,
+      "whatsappNumber": "",
+      "affiliateLink": "",
+      "video": "",
+      "youtubeId": "",
+      "featureSummary": [
+        {
+          "feature": "Fabric Composition",
+          "detail": "Cotton and Polyester",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Material / Craft",
+          "detail": "Cotton",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Available Sizes",
+          "detail": "M",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Care & Setup",
+          "detail": "Material & Care",
+          "group": "Care & Specs"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Ribbed Collar and Cuffs",
+          "group": "Highlights"
+        }
+      ]
     },
     {
       "id": "item-1795703697829",
