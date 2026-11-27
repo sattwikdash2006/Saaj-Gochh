@@ -32436,6 +32436,21 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     }
     renderShowcase();
   }
+  function installAdminButton(){
+    const dashboard=$('[aria-label="Admin Dashboard"]');
+    if(!dashboard)return;
+    const header=dashboard.querySelector('header');
+    if(!header)return;
+    const newItem=Array.from(header.querySelectorAll('button')).find(button=>/new item/i.test(button.textContent||''));
+    const host=newItem?.parentElement;
+    if(!host||$('#sgv-admin-open',host))return;
+    const manage=make('button','h-8 px-3 rounded-[4px] border border-[#B68D40] bg-[#FAF5EB] hover:bg-[#F3E8D2] text-[#6C5129] text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer','Manage Videos');
+    manage.id='sgv-admin-open';
+    manage.type='button';
+    manage.setAttribute('aria-label','Manage product videos');
+    manage.addEventListener('click',openManager);
+    host.insertBefore(manage,newItem);
+  }
   function closeManager(){const modal=$('#sg-video-showcase-modal');if(modal)modal.remove();document.removeEventListener('keydown',managerKeydown)}
   function managerKeydown(event){if(event.key==='Escape')closeManager()}
   function openManager(){
@@ -32472,8 +32487,9 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   }
   function setup(){
     installSection();
+    installAdminButton();
     loadVideos();
-    const observer=new MutationObserver(()=>installSection());
+    const observer=new MutationObserver(()=>{installSection();installAdminButton()});
     observer.observe(document.documentElement,{childList:true,subtree:true});
     window.addEventListener('storage',event=>{if(event.key===STORE_KEY){const local=getLocalSnapshot();videos=local.videos;snapshotTime=local.updatedAt;renderShowcase()}});
   }
