@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795769984346,
+  "updatedAt": 1795774684815,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -16,10 +16,14 @@
         "./images/products/item-1795769965738-5-mwyr2vhw.jpg",
         "./images/products/item-1795769965738-6-mwyr2xjw.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
+      "whatsappNumber": "",
       "affiliateLink": "https://myntr.it/nOQ5GnK",
+      "video": "",
+      "youtubeId": "",
       "featureSummary": [
         {
           "feature": "Color",
