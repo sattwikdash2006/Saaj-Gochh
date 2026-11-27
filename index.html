@@ -23295,6 +23295,12 @@ var CAMPAIGN_SLIDES = [
 ];
 var CampaignShowcase = ({ products, totalCategories, onFilterCategory, onOpenProduct }) => {
 	const [activeIndex, setActiveIndex] = (0, import_react.useState)(0);
+	(0, import_react.useEffect)(() => {
+		const timer = window.setInterval(() => {
+			setActiveIndex((prev) => (prev + 1) % CAMPAIGN_SLIDES.length);
+		}, 4000);
+		return () => window.clearInterval(timer);
+	}, []);
 	const currentSlide = CAMPAIGN_SLIDES[activeIndex];
 	const featuredMarqueeItems = products.filter((p) => p.inStock).slice(0, 12);
 	const marqueeLoop = featuredMarqueeItems.length > 0 ? [...featuredMarqueeItems, ...featuredMarqueeItems] : [];
@@ -27618,6 +27624,20 @@ var AdminDashboard = ({ isOpen, products, defaultWhatsapp, isOwnerUnlocked, pend
 // src/components/storefront/CategoryFeaturedCardSections.tsx
 var CategoryFeaturedCardSections = ({ products, categories, onFilterCategory, onOpenProduct }) => {
 	const [activeSlides, setActiveSlides] = (0, import_react.useState)({});
+	(0, import_react.useEffect)(() => {
+		if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+		const timer = window.setInterval(() => {
+			setActiveSlides((previous) => {
+				const next = { ...previous };
+				categories.forEach((category) => {
+					const count = products.filter((product) => product.category === category).length;
+					if (count > 1) next[category] = ((previous[category] || 0) + 1) % count;
+				});
+				return next;
+			});
+		}, 3500);
+		return () => window.clearInterval(timer);
+	}, [categories, products]);
 	const goToCategory = (category) => {
 		onFilterCategory(category);
 		const target = document.getElementById("explore");
@@ -27761,9 +27781,16 @@ var CategoryFeaturedCardSections = ({ products, categories, onFilterCategory, on
 // src/components/PremiumMotionPosters.tsx
 // Additive editorial poster rail. Every poster cycles through products in the live catalog.
 var PremiumMotionPosters = ({ products, onFilterCategory }) => {
-	// Static editorial poster mosaic: fewer moving elements, more varied poster sizes.
-	const posters = products.length ? [0, 1, 2, 3, 4, 5].map((position) => {
-		const product = products[position % products.length];
+	const [activeStart, setActiveStart] = (0, import_react.useState)(0);
+	(0, import_react.useEffect)(() => {
+		if (products.length < 2 || (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
+		const timer = window.setInterval(() => {
+			setActiveStart((previous) => (previous + 1) % products.length);
+		}, 4600);
+		return () => window.clearInterval(timer);
+	}, [products]);
+	const posters = products.length ? [0, 1, 2].map((position) => {
+		const product = products[(activeStart + position) % products.length];
 		return { position, product, category: product.category || "Handcrafted Edit", image: getProductImages(product)[0] || FALLBACK_IMG };
 	}) : [];
 	if (!posters.length) return null;
@@ -27782,7 +27809,7 @@ var PremiumMotionPosters = ({ products, onFilterCategory }) => {
 					(0, import_jsx_runtime.jsxs)("div", { children: [
 						(0, import_jsx_runtime.jsx)("span", { className: "sg-premium-eyebrow", children: "THE ART OF SAAJ GOCHH" }),
 						(0, import_jsx_runtime.jsx)("h2", { children: "Stories, stitched in Bengal." }),
-						(0, import_jsx_runtime.jsx)("p", { children: "An editorial showcase of craft, colour and considered details." })
+						(0, import_jsx_runtime.jsx)("p", { children: "A moving showcase of craft, colour and considered details." })
 					] })
 				]
 			}),
@@ -27794,7 +27821,7 @@ var PremiumMotionPosters = ({ products, onFilterCategory }) => {
 					children: [
 						(0, import_jsx_runtime.jsx)("div", { className: "sg-premium-poster-image", style: { backgroundImage: `url("${poster.image}")` }, "aria-hidden": "true" }),
 						(0, import_jsx_runtime.jsx)("div", { className: "sg-premium-poster-grain", "aria-hidden": "true" }),
-						(0, import_jsx_runtime.jsx)("span", { className: "sg-premium-poster-number", children: `0${poster.position + 1} / 06` }),
+						(0, import_jsx_runtime.jsx)("span", { className: "sg-premium-poster-number", children: `0${poster.position + 1} / 03` }),
 						(0, import_jsx_runtime.jsx)("span", { className: "sg-premium-poster-seal", children: "SAAJ · GOCHH" }),
 						(0, import_jsx_runtime.jsxs)("div", { className: "sg-premium-poster-copy", children: [
 							(0, import_jsx_runtime.jsx)("span", { className: "sg-premium-poster-kicker", children: poster.position === 0 ? "THE SIGNATURE EDIT" : poster.position === 1 ? "MADE TO BE KEPT" : "CRAFTED WITH A STORY" }),
@@ -31786,237 +31813,6 @@ function App() {
 @media(max-width:640px){.sg-ajio-sections{padding:8px 14px 23px;gap:25px}.sg-ajio-banner{height:139px}.sg-ajio-banner-copy{width:70%;padding:14px 14px}.sg-ajio-banner-kicker{font-size:7px;letter-spacing:.14em}.sg-ajio-banner-title{font-size:20px;max-width:220px}.sg-ajio-banner-subtitle{max-width:180px;font-size:9px}.sg-ajio-banner-cta{min-height:27px;margin-top:8px;padding:0 9px;font-size:7px;gap:12px}.sg-ajio-banner-visual{width:44%}.sg-ajio-banner-visual img{right:0;width:70%;height:145%;top:-21%;border-width:3px}.sg-ajio-banner-sticker{right:8px;bottom:9px;padding:5px 6px;font-size:6px}.sg-ajio-section-heading{margin:14px 1px 9px;align-items:flex-end}.sg-ajio-section-actions{gap:8px;flex-direction:column;align-items:flex-end}.sg-ajio-product-count{font-size:7px}.sg-ajio-view-all{font-size:7px}.sg-ajio-section-title{font-size:18px}.sg-ajio-card-rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(245px,78%);grid-template-columns:none;gap:10px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding:1px 1px 8px;scrollbar-width:thin;scrollbar-color:#d8cbb8 transparent}.sg-ajio-product-card{scroll-snap-align:start;min-height:0}.sg-ajio-card-image-wrap{height:190px;flex-basis:190px}.sg-ajio-product-card-0 .sg-ajio-card-image-wrap{height:190px;flex-basis:190px}.sg-ajio-product-card-1{grid-template-columns:40% minmax(0,1fr)}.sg-ajio-product-card-1 .sg-ajio-card-image-wrap{min-height:260px}.sg-ajio-product-card-1 .sg-ajio-card-details{padding:13px 11px}.sg-ajio-product-card-1 .sg-ajio-card-title{font-size:14px}.sg-ajio-product-card-2{grid-column:auto;display:flex;padding:7px}.sg-ajio-product-card-2 .sg-ajio-card-image-wrap{height:190px;min-height:190px;flex-basis:190px}.sg-ajio-product-card-2 .sg-ajio-card-details{padding:11px 7px 7px}.sg-ajio-card-title{font-size:14px;min-height:36px}.sg-ajio-card-description{font-size:8px;min-height:25px}.sg-ajio-card-price{font-size:13px}.sg-ajio-card-cta{min-height:28px;padding:0 8px;font-size:7px}.sg-ajio-slider-controls{padding-top:6px}}
 @media(prefers-reduced-motion:reduce){.sg-ajio-product-card,.sg-ajio-card-image,.sg-ajio-banner-visual img,.sg-ajio-banner-cta,.sg-ajio-card-cta{animation:none;transition:none}}
 </style>
-<style id="sg-previous-editorial-poster-style">
-/* Saaj Gochh editorial mosaic refinement */
-.sg-premium-poster-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:minmax(145px,11vw);gap:16px}
-.sg-premium-poster{height:auto;min-height:0;border-radius:18px;animation:none;box-shadow:0 10px 28px rgba(37,25,18,.10);transition:transform .35s ease,box-shadow .35s ease}
-.sg-premium-poster-0{grid-column:span 2;grid-row:span 2;min-height:350px}
-.sg-premium-poster-1{grid-column:span 1;grid-row:span 2;min-height:350px}
-.sg-premium-poster-2{grid-column:span 1;grid-row:span 1;min-height:165px}
-.sg-premium-poster-3{grid-column:span 2;grid-row:span 1;min-height:190px}
-.sg-premium-poster-4{grid-column:span 1;grid-row:span 2;min-height:350px}
-.sg-premium-poster-5{grid-column:span 1;grid-row:span 1;min-height:165px}
-.sg-premium-poster-image{animation:none;transform:scale(1.02)}
-.sg-premium-poster:hover{transform:translateY(-4px);box-shadow:0 18px 36px rgba(37,25,18,.16)}
-.sg-premium-poster-copy h3{font-size:clamp(19px,2vw,30px)}
-.sg-ajio-product-card{border:1px solid #eee7dc!important;border-radius:14px!important;overflow:hidden!important;background:#fff!important;box-shadow:0 5px 18px rgba(39,29,20,.045)!important;transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease!important}
-.sg-ajio-product-card:hover{transform:translateY(-4px)!important;box-shadow:0 16px 32px rgba(39,29,20,.11)!important;border-color:#e2d2b6!important}
-.sg-ajio-card-image-wrap{background:linear-gradient(145deg,#f7f3ed,#eee6da)!important}
-@media(max-width:900px){.sg-premium-poster-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:160px}.sg-premium-poster-0,.sg-premium-poster-3{grid-column:span 2}.sg-premium-poster-1,.sg-premium-poster-4{grid-row:span 2;min-height:320px}.sg-premium-poster-2,.sg-premium-poster-5{grid-row:span 1;min-height:160px}}
-@media(max-width:640px){.sg-premium-poster-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:150px;gap:9px}.sg-premium-poster{height:auto;min-height:0;border-radius:12px}.sg-premium-poster-0{grid-column:span 2;grid-row:span 2;min-height:300px}.sg-premium-poster-1,.sg-premium-poster-4{grid-column:span 1;grid-row:span 2;min-height:300px}.sg-premium-poster-2,.sg-premium-poster-5{grid-column:span 1;grid-row:span 1;min-height:150px}.sg-premium-poster-3{grid-column:span 2;grid-row:span 1;min-height:170px}}
-
-
-</style>
-<style id="sg-ultimate-premium-ui">
-:root{
-  --sg-paper:#f7f4ee;
-  --sg-paper-2:#f1ece3;
-  --sg-white:#fffdf9;
-  --sg-ink:#2b241e;
-  --sg-muted:#7d7164;
-  --sg-gold:#a8874c;
-  --sg-gold-soft:#e9dcc3;
-  --sg-line:#e8dfd2;
-  --sg-deep:#30251f;
-  --sg-olive:#59634a;
-  color-scheme:light;
-}
-html{scroll-behavior:smooth;scroll-padding-top:100px}
-body{background:var(--sg-paper)!important;color:var(--sg-ink)!important;font-family:'Plus Jakarta Sans',Arial,sans-serif!important;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-#root{min-height:100vh;background:var(--sg-paper)}
-#root>.min-h-screen{background:linear-gradient(180deg,#fbf9f4 0%,var(--sg-paper) 48%,#f8f5ef 100%)!important;color:var(--sg-ink)!important}
-#root h1,#root h2,#root h3,.sg-ajio-section-title,.sg-premium-posters-heading h2,#sg-pro20-faq h2{font-family:'Playfair Display',Georgia,serif!important;letter-spacing:-.025em}
-
-/* Header and category navigation */
-#root header{background:rgba(251,249,244,.94)!important;border-bottom:1px solid rgba(205,190,166,.58)!important;box-shadow:0 5px 24px rgba(48,37,28,.055)!important;backdrop-filter:blur(18px)!important}
-#root header>div{height:76px!important;max-width:1440px!important;padding-left:clamp(16px,3vw,42px)!important;padding-right:clamp(16px,3vw,42px)!important;gap:clamp(14px,2.5vw,34px)!important}
-#root header a{gap:12px!important}
-#root header a img{width:44px!important;height:44px!important;border-radius:12px!important;border:1px solid #d5c09a!important;box-shadow:0 4px 12px rgba(77,57,34,.10)}
-#root header a span{font-family:'Playfair Display',Georgia,serif!important;font-size:22px!important;font-weight:700!important;letter-spacing:-.035em!important;color:var(--sg-deep)!important}
-#root header input[aria-label="Search products"]{height:43px!important;border-radius:999px!important;background:#f4f0e8!important;border:1px solid #e5dac9!important;padding-left:43px!important;font-size:12px!important;transition:background .2s,border-color .2s,box-shadow .2s!important}
-#root header input[aria-label="Search products"]:focus{background:#fff!important;border-color:#b99a65!important;box-shadow:0 0 0 4px rgba(168,135,76,.12)!important}
-#root header button[aria-label="Open Saved Items"]{height:42px!important;padding:0 15px!important;border-radius:999px!important;border-color:#e4d8c6!important;background:#fffdf9!important;box-shadow:0 2px 7px rgba(48,37,28,.035)}
-#root nav[aria-label="Quick Categories"]{background:#f3efe7!important;border-bottom:1px solid #e7ddce!important}
-#root nav[aria-label="Quick Categories"]>div{max-width:1440px!important;min-height:49px;padding-top:8px!important;padding-bottom:8px!important;padding-left:clamp(16px,3vw,42px)!important;padding-right:clamp(16px,3vw,42px)!important;gap:8px!important}
-#root nav[aria-label="Quick Categories"] button{height:32px!important;padding:0 15px!important;border-radius:999px!important;border-color:#e2d7c5!important;background:rgba(255,253,249,.85)!important;color:#65594c!important;font-size:10px!important;font-weight:700!important;letter-spacing:.015em;transition:all .22s ease!important}
-#root nav[aria-label="Quick Categories"] button:hover{background:#fff!important;border-color:#b89b68!important;color:#382b20!important;transform:translateY(-1px)}
-#root nav[aria-label="Quick Categories"] button[class*="bg-zinc-900"]{background:var(--sg-deep)!important;border-color:var(--sg-deep)!important;color:#f9f2e6!important;box-shadow:0 4px 10px rgba(48,37,28,.13)}
-
-/* Hero campaign */
-#root main>section[aria-label="Featured Campaign Showcase"]{max-width:1440px!important;padding:28px clamp(16px,3vw,42px) 18px!important;gap:15px!important}
-#root main>section[aria-label="Featured Campaign Showcase"]>div:first-child{height:clamp(300px,30vw,420px)!important;border:1px solid rgba(190,166,128,.45)!important;border-radius:24px!important;box-shadow:0 18px 48px rgba(45,34,24,.13)!important;background:#30251f!important}
-#root main>section[aria-label="Featured Campaign Showcase"]>div:first-child img{filter:saturate(.88) contrast(1.025)}
-#root main>section[aria-label="Featured Campaign Showcase"] h1{font-size:clamp(30px,4vw,52px)!important;line-height:1.08!important;max-width:620px!important;text-shadow:0 3px 24px rgba(0,0,0,.2)}
-#root main>section[aria-label="Featured Campaign Showcase"] button{border-radius:999px!important}
-#root main>section[aria-label="Featured Campaign Showcase"]>div:nth-child(2){border:1px solid #e8dfd2!important;border-radius:16px!important;background:rgba(255,253,249,.8)!important;padding:14px!important;box-shadow:0 7px 22px rgba(48,37,28,.035)}
-#root .sg-marquee-track{animation:none!important;transform:none!important;width:max-content!important}
-#root .sg-marquee-viewport{overflow-x:auto!important;scrollbar-width:thin;scroll-behavior:smooth}
-#root .sg-marquee-viewport>div>button{border-radius:12px!important;border-color:#e9dfd2!important;background:#fffdf9!important;box-shadow:0 3px 11px rgba(49,38,27,.045)!important}
-#root .sg-marquee-viewport>div>button>div:first-child{border-radius:11px 11px 0 0!important}
-
-/* Editorial poster mosaic */
-.sg-premium-posters{max-width:1440px!important;margin:0 auto!important;padding:30px clamp(16px,3vw,42px) 20px!important}
-.sg-premium-posters-heading{margin-bottom:19px!important;align-items:flex-end!important}
-.sg-premium-posters-heading h2{font-size:clamp(27px,3vw,38px)!important;color:var(--sg-deep)!important}
-.sg-premium-posters-heading p{color:var(--sg-muted)!important;letter-spacing:.01em}
-.sg-premium-poster-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:minmax(145px,11vw);gap:16px}
-.sg-premium-poster{height:auto;min-height:0;border-radius:20px;animation:none;box-shadow:0 12px 30px rgba(37,25,18,.10);transition:transform .35s ease,box-shadow .35s ease;overflow:hidden}
-.sg-premium-poster-0{grid-column:span 2;grid-row:span 2;min-height:350px}
-.sg-premium-poster-1{grid-column:span 1;grid-row:span 2;min-height:350px}
-.sg-premium-poster-2{grid-column:span 1;grid-row:span 1;min-height:165px}
-.sg-premium-poster-3{grid-column:span 2;grid-row:span 1;min-height:190px}
-.sg-premium-poster-4{grid-column:span 1;grid-row:span 2;min-height:350px}
-.sg-premium-poster-5{grid-column:span 1;grid-row:span 1;min-height:165px}
-.sg-premium-poster-image{animation:none;transform:scale(1.02);filter:saturate(.9)}
-.sg-premium-poster:hover{transform:translateY(-4px);box-shadow:0 22px 42px rgba(37,25,18,.17)}
-.sg-premium-poster-copy h3{font-size:clamp(19px,2vw,31px)!important;letter-spacing:-.035em}
-.sg-premium-poster-cta{border-radius:999px!important;min-height:39px!important;padding:0 17px!important;font-size:9px!important}
-.sg-premium-poster-orbit{animation:none!important}
-.sg-premium-poster-marquee{border-color:#e7ddce!important;border-radius:999px!important;overflow:hidden;background:#f2eee6!important}
-.sg-premium-poster-marquee-track{animation:none!important;transform:none!important;justify-content:center!important;width:100%!important;overflow:hidden}
-
-/* Curated AJIO-inspired collection sections */
-.sg-ajio-sections{max-width:1440px!important;padding:26px clamp(16px,3vw,42px) 42px!important;gap:42px!important;color:var(--sg-ink)!important}
-.sg-ajio-section{padding-bottom:4px}
-.sg-ajio-banner{min-height:205px!important;height:auto!important;border-radius:22px!important;background:linear-gradient(110deg,#28251f 0%,#3d3027 58%,#806344 100%)!important;box-shadow:0 12px 30px rgba(45,34,24,.11);padding:20px 26px!important}
-.sg-ajio-banner-title{font-size:clamp(26px,3vw,38px)!important;line-height:1.08!important}
-.sg-ajio-banner-kicker,.sg-ajio-section-kicker{letter-spacing:.21em!important;color:#d7bd91!important}
-.sg-ajio-banner-subtitle{font-size:12px!important;line-height:1.7!important;color:rgba(255,255,255,.76)!important}
-.sg-ajio-banner-cta{min-height:40px!important;padding:0 18px!important;border-radius:999px!important;background:#f5ead7!important;color:#382b20!important;border:1px solid rgba(245,234,215,.75)!important}
-.sg-ajio-banner-visual{width:clamp(130px,22vw,220px)!important;height:155px!important;border-radius:15px!important;overflow:hidden!important;box-shadow:0 12px 24px rgba(0,0,0,.20)}
-.sg-ajio-banner-visual img{border-radius:15px!important}
-.sg-ajio-section-heading{margin:22px 0 14px!important;align-items:flex-end!important}
-.sg-ajio-section-title{font-size:clamp(23px,2.4vw,30px)!important;color:var(--sg-deep)!important}
-.sg-ajio-product-count{color:#8b7b67!important;letter-spacing:.12em!important}
-.sg-ajio-view-all{border-radius:999px!important;padding:9px 15px!important;border:1px solid #e0d3bf!important;background:#fffdf9!important;color:#604a30!important}
-.sg-ajio-card-rail{gap:17px!important}
-.sg-ajio-product-card{border:1px solid #e9dfd2!important;border-radius:16px!important;overflow:hidden!important;background:#fffdf9!important;box-shadow:0 6px 20px rgba(39,29,20,.055)!important;transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease!important}
-.sg-ajio-product-card:hover{transform:translateY(-5px)!important;box-shadow:0 18px 34px rgba(39,29,20,.12)!important;border-color:#cfb98e!important}
-.sg-ajio-card-image-wrap{background:linear-gradient(145deg,#f7f2e9,#eee5d8)!important}
-.sg-ajio-card-image{transition:transform .5s cubic-bezier(.2,.7,.2,1)!important}
-.sg-ajio-product-card:hover .sg-ajio-card-image{transform:scale(1.04)!important}
-.sg-ajio-card-label{border-radius:999px!important;box-shadow:0 3px 12px rgba(30,22,15,.1)}
-.sg-ajio-card-details{padding:15px 15px 16px!important}
-.sg-ajio-card-category{letter-spacing:.13em!important;color:#9a805a!important}
-.sg-ajio-card-title{font-family:'Playfair Display',Georgia,serif!important;font-size:18px!important;line-height:1.25!important;color:#342920!important}
-.sg-ajio-card-description{font-size:11px!important;line-height:1.6!important;color:#817568!important}
-.sg-ajio-card-price{font-size:16px!important;color:#382a20!important}
-.sg-ajio-card-cta{border-radius:999px!important;min-height:36px!important;padding:0 14px!important}
-
-/* Main catalogue, filters and product cards */
-#explore{max-width:1440px!important;padding:26px clamp(16px,3vw,42px) 76px!important;gap:24px!important;scroll-margin-top:106px}
-#explore>aside>div{border:1px solid #e8dfd2!important;border-radius:16px!important;background:#fffdf9!important;box-shadow:0 8px 24px rgba(44,33,23,.045)!important}
-#explore>aside>div>div:first-child{background:#f3eee5!important;border-color:#e8dfd2!important;padding:15px 17px!important}
-#explore>aside button{transition:background .18s,color .18s,border-color .18s!important}
-#explore>aside label{line-height:1.6!important}
-#explore>div.min-w-0>div:first-child{border:1px solid #e8dfd2!important;border-radius:15px!important;background:#fffdf9!important;box-shadow:0 5px 18px rgba(44,33,23,.035)!important;padding:13px 16px!important}
-#explore>div.min-w-0>div.grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:17px!important}
-#explore article.group{border:1px solid #e9dfd2!important;border-radius:16px!important;overflow:hidden!important;background:#fffdf9!important;box-shadow:0 6px 20px rgba(42,31,21,.045)!important;transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease!important}
-#explore article.group:hover{transform:translateY(-5px)!important;box-shadow:0 17px 32px rgba(42,31,21,.11)!important;border-color:#d1bc95!important}
-#explore article.group>div:first-child{aspect-ratio:4/5!important;background:#f3eee5!important;border-bottom:1px solid #eee5d8!important}
-#explore article.group>div:first-child img,#explore article.group>div:first-child video{transition:transform .55s cubic-bezier(.2,.7,.2,1)!important}
-#explore article.group:hover>div:first-child img{transform:scale(1.035)!important}
-#explore article.group>div:nth-child(2){padding:14px 14px 15px!important;gap:6px!important}
-#explore article.group h3{font-family:'Playfair Display',Georgia,serif!important;font-size:16px!important;line-height:1.3!important;min-height:2.6em!important;color:#30251f!important}
-#explore article.group h3:hover{color:#8b6b3f!important}
-#explore article.group>div:nth-child(2)>div:first-child{font-size:9px!important;letter-spacing:.1em!important;text-transform:uppercase;color:#9a805a!important}
-#explore article.group>div:nth-child(2)>div.mt-auto span{font-size:15px!important;color:#34271f!important}
-#explore article.group button{border-radius:999px!important}
-#explore input[type="checkbox"]{accent-color:#8e7044!important}
-#explore input[type="range"]{accent-color:#987648!important}
-#explore select,#explore input[type="text"]{border-radius:999px!important;border-color:#e2d7c7!important;background:#fffdf9!important}
-
-/* Trust signals, smart finder, FAQ and floating actions */
-.sg-pro20-trust{max-width:1440px!important;padding-left:clamp(16px,3vw,42px)!important;padding-right:clamp(16px,3vw,42px)!important;gap:12px!important}
-.sg-pro20-trust-item{border-radius:14px!important;border-color:#e7ddcf!important;background:linear-gradient(135deg,#fffdf9,#f4eee3)!important;padding:15px 17px!important;font-size:11px!important}
-.sg-pro20-trust-icon{background:#eee3d0!important;color:#8e7044!important}
-.sg-pro20-quickbar{max-width:1440px!important;padding-left:clamp(16px,3vw,42px)!important;padding-right:clamp(16px,3vw,42px)!important}
-.sg-pro20-chip{border-radius:999px!important;padding:10px 16px!important}
-#sg-smart-finder-launcher{max-width:1440px!important;padding-left:clamp(16px,3vw,42px)!important;padding-right:clamp(16px,3vw,42px)!important;margin-top:25px!important;margin-bottom:30px!important}
-#sg-smart-finder-launcher .sgf-launch-card{border-radius:21px!important;padding:30px clamp(20px,3vw,38px)!important;box-shadow:0 16px 40px rgba(45,32,21,.12)!important}
-#sg-smart-finder-launcher .sgf-launch-btn{border-radius:999px!important;min-height:45px!important}
-#sg-pro20-faq{max-width:1100px!important;margin:56px auto 62px!important}
-.sg-pro20-faq-item{border-color:#e6dccd!important}
-.sg-pro20-faq-q{padding:18px 3px!important;font-size:13px!important}
-#sg-pro20-dock{right:22px!important;bottom:22px!important}
-.sg-pro20-dock-btn{border-radius:999px!important;min-height:46px!important;padding:0 17px!important;box-shadow:0 12px 30px rgba(31,22,16,.22)!important}
-.sg-pro20-modal{border-radius:20px!important;background:#fffdf9!important}
-.sg-pro20-submit{border-radius:999px!important}
-
-/* Product dialogs and general controls */
-#root button:not([aria-label="Previous campaign slide"]):not([aria-label="Next campaign slide"]){-webkit-tap-highlight-color:transparent}
-#root button:focus-visible,#root a:focus-visible,#root input:focus-visible,#root select:focus-visible{outline:2px solid rgba(168,135,76,.72)!important;outline-offset:3px!important}
-#root [role="dialog"]{border-radius:20px!important}
-#root .sg-interspersed-promo{border-radius:17px!important;overflow:hidden!important;box-shadow:0 12px 28px rgba(39,29,20,.09)!important}
-
-@media(max-width:1100px){
-  #explore>div.min-w-0>div.grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important}
-  .sg-premium-poster-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:160px}
-  .sg-premium-poster-0,.sg-premium-poster-3{grid-column:span 2}
-  .sg-premium-poster-1,.sg-premium-poster-4{grid-row:span 2;min-height:320px}
-  .sg-premium-poster-2,.sg-premium-poster-5{grid-row:span 1;min-height:160px}
-}
-@media(max-width:900px){
-  #root header>div{height:68px!important}
-  #root main>section[aria-label="Featured Campaign Showcase"]{padding-top:18px!important}
-  .sg-ajio-sections{gap:32px!important}
-  #explore{padding-top:18px!important}
-}
-@media(max-width:700px){
-  #root header>div{height:62px!important;gap:10px!important}
-  #root header a img{width:38px!important;height:38px!important;border-radius:10px!important}
-  #root header a span{font-size:18px!important}
-  #root header input[aria-label="Search products"]{height:39px!important;font-size:11px!important}
-  #root header button[aria-label="Open Saved Items"]{height:38px!important;padding:0 10px!important}
-  #root nav[aria-label="Quick Categories"]>div{min-height:45px!important}
-  #root nav[aria-label="Quick Categories"] button{height:30px!important;padding:0 12px!important}
-  #root main>section[aria-label="Featured Campaign Showcase"]{padding:15px 12px 10px!important}
-  #root main>section[aria-label="Featured Campaign Showcase"]>div:first-child{height:285px!important;border-radius:17px!important}
-  #root main>section[aria-label="Featured Campaign Showcase"] h1{font-size:29px!important;max-width:90%!important}
-  .sg-premium-posters{padding:20px 12px 14px!important}
-  .sg-premium-poster-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:145px;gap:9px}
-  .sg-premium-poster{border-radius:14px!important;min-height:0!important}
-  .sg-premium-poster-0{grid-column:span 2;grid-row:span 2;min-height:290px!important}
-  .sg-premium-poster-1,.sg-premium-poster-4{grid-column:span 1;grid-row:span 2;min-height:290px!important}
-  .sg-premium-poster-2,.sg-premium-poster-5{grid-column:span 1;grid-row:span 1;min-height:145px!important}
-  .sg-premium-poster-3{grid-column:span 2;grid-row:span 1;min-height:155px!important}
-  .sg-premium-poster-copy{left:15px!important;right:15px!important;bottom:16px!important}
-  .sg-premium-poster-cta{min-height:34px!important;font-size:8px!important}
-  .sg-ajio-sections{padding:18px 12px 30px!important;gap:27px!important}
-  .sg-ajio-banner{min-height:175px!important;padding:17px!important;border-radius:16px!important}
-  .sg-ajio-banner-visual{width:112px!important;height:125px!important}
-  .sg-ajio-banner-title{font-size:25px!important}
-  .sg-ajio-banner-subtitle{font-size:10px!important}
-  .sg-ajio-card-rail{gap:11px!important}
-  .sg-ajio-product-card{border-radius:13px!important}
-  .sg-ajio-card-details{padding:11px!important}
-  .sg-ajio-card-title{font-size:15px!important}
-  #explore{padding:17px 12px 54px!important;gap:12px!important}
-  #explore>div.min-w-0>div.grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:11px!important}
-  #explore article.group{border-radius:13px!important}
-  #explore article.group>div:first-child{aspect-ratio:4/5!important}
-  #explore article.group>div:nth-child(2){padding:10px!important;gap:5px!important}
-  #explore article.group h3{font-size:14px!important;min-height:2.55em!important}
-  #explore article.group>div:nth-child(2)>div.mt-auto span{font-size:13px!important}
-  .sg-pro20-trust{padding:0 12px!important}
-  .sg-pro20-quickbar{padding:0 12px!important}
-  #sg-smart-finder-launcher{padding:0 12px!important}
-  #sg-smart-finder-launcher .sgf-launch-card{display:block!important;padding:22px 18px!important;border-radius:16px!important}
-  #sg-smart-finder-launcher .sgf-launch-actions{margin-top:16px!important}
-  #sg-pro20-faq{padding:0 14px!important;margin:35px auto 40px!important}
-  #sg-pro20-dock{right:10px!important;bottom:10px!important}
-  .sg-pro20-dock-btn{min-height:41px!important;padding:0 13px!important}
-}
-@media(max-width:380px){
-  #root header a span{font-size:16px!important}
-  #root header>div{gap:7px!important}
-  #explore>div.min-w-0>div.grid{gap:8px!important}
-}
-@media(prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto!important}
-  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
-}
-</style>
 </head>
   <body>
     <script id="saaj-embedded-catalog" type="application/json">{"updatedAt":1795538199096,"whatsapp":"918670234616","products":[{"id":"demo-1","title":"Handwoven Red-Border White Dhakai Jamdani Saree","price":1250,"category":"Sarees & Apparel","description":"Classic crisp cotton-blend Dhakai Jamdani weave in off-white with traditional crimson temple border and intricate motifs. Length: 5.5m (without blouse piece). Ideal for pujas and festive mornings.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%237D1B24%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23B84A2F%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%22452%22%20height%3D%22452%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23F2D79B%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.45%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%22120%22%20fill%3D%22%23F2D79B%22%20fill-opacity%3D%220.1%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M180%20155%20Q250%20130%20320%20155%20L340%20275%20Q250%20295%20160%20275%20Z%22%20fill%3D%22%23FFF8EE%22%20stroke%3D%22%23C89B3C%22%20stroke-width%3D%224%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M168%20255%20Q250%20275%20332%20255%22%20stroke%3D%22%239B1B27%22%20stroke-width%3D%2214%22%20fill%3D%22none%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22205%22%20r%3D%2214%22%20fill%3D%22%23C89B3C%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22395%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFFFF%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%3EDhakai%20Jamdani%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22426%22%20text-anchor%3D%22middle%22%20fill%3D%22%23F2D79B%22%20font-family%3D%22sans-serif%22%20font-size%3D%2213%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"whatsappNumber":"","affiliateLink":"","featureSummary":[]},{"id":"demo-2","title":"Hand-Painted Terracotta Alpona Wall Hanging","price":450,"category":"Home Decor","description":"Baked clay wall plate adorned with traditional hand-painted Alpona geometric patterns. Diameter: 10 inches. Comes with a ready-to-hang jute cord at the back.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%239E3B24%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%235A1F16%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%22452%22%20height%3D%22452%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23F4D58D%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.45%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%22120%22%20fill%3D%22%23F4D58D%22%20fill-opacity%3D%220.1%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%2272%22%20fill%3D%22%23C9593B%22%20stroke%3D%22%23F4D58D%22%20stroke-width%3D%224%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%2242%22%20fill%3D%22none%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%223%22%20stroke-dasharray%3D%226%206%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M250%20160%20L265%20200%20L305%20215%20L265%20230%20L250%20270%20L235%20230%20L195%20215%20L235%20200%20Z%22%20fill%3D%22%23F4D58D%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22395%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFFFF%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%3ETerracotta%20Wall%20Art%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22426%22%20text-anchor%3D%22middle%22%20fill%3D%22%23F4D58D%22%20font-family%3D%22sans-serif%22%20font-size%3D%2213%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"whatsappNumber":"","affiliateLink":"","featureSummary":[]},{"id":"demo-3","title":"Dokra & Oxidized Traditional Jhumka Necklace Set","price":380,"category":"Jewelry & Craft","description":"Handcrafted Dokra-inspired antique brass & oxidized choker paired with matching lightweight jhumkas. Adjustable dori thread closure suitable for sarees and kurtis.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2327272A%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%2352525B%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%22452%22%20height%3D%22452%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23E6C27A%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.45%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%22120%22%20fill%3D%22%23E6C27A%22%20fill-opacity%3D%220.1%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M190%20165%20Q250%20265%20310%20165%22%20fill%3D%22none%22%20stroke%3D%22%23E6C27A%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22222%22%20r%3D%2222%22%20fill%3D%22%23E6C27A%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%22215%22%20cy%3D%22204%22%20r%3D%2210%22%20fill%3D%22%23E6C27A%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%22285%22%20cy%3D%22204%22%20r%3D%2210%22%20fill%3D%22%23E6C27A%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22395%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFFFF%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%3EDokra%20Jewelry%20Set%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22426%22%20text-anchor%3D%22middle%22%20fill%3D%22%23E6C27A%22%20font-family%3D%22sans-serif%22%20font-size%3D%2213%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"whatsappNumber":"","affiliateLink":"","featureSummary":[]},{"id":"demo-4","title":"Nakshi Kantha Embroidered Cotton Cushion Covers (Set of 2)","price":520,"category":"Home Decor","description":"Soft 100% pure cotton 16x16 inch cushion covers featuring authentic running-stitch Nakshi Kantha embroidery in maroon and gold threads with concealed zip.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%233F3F46%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%2318181B%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%22452%22%20height%3D%22452%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23FBE4B4%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.45%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%22120%22%20fill%3D%22%23FBE4B4%22%20fill-opacity%3D%220.1%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%22180%22%20y%3D%22145%22%20width%3D%22140%22%20height%3D%22140%22%20rx%3D%226%22%20fill%3D%22%23FBF7F0%22%20stroke%3D%22%23C89B3C%22%20stroke-width%3D%225%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Crect%20x%3D%22200%22%20y%3D%22165%22%20width%3D%22100%22%20height%3D%22100%22%20rx%3D%224%22%20fill%3D%22none%22%20stroke%3D%22%23B84A2F%22%20stroke-width%3D%223%22%20stroke-dasharray%3D%226%204%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%2224%22%20fill%3D%22%2318181B%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22395%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFFFF%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%3ENakshi%20Kantha%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22426%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FBE4B4%22%20font-family%3D%22sans-serif%22%20font-size%3D%2213%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"whatsappNumber":"","affiliateLink":"","featureSummary":[]},{"id":"demo-5","title":"Pure Brass Mangal Diya & Dhunuchi Festive Gift Set","price":690,"category":"Festive Gifts","description":"Heavyweight solid brass puja essentials set containing one traditional Mangal Diya and one classic Dhunuchi. Easy to polish and perfect for housewarming gifts.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23422006%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23713F12%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%22452%22%20height%3D%22452%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23FDE047%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.45%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%22120%22%20fill%3D%22%23FDE047%22%20fill-opacity%3D%220.1%22%2F%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22250%22%20cy%3D%22245%22%20rx%3D%2268%22%20ry%3D%2222%22%20fill%3D%22%23D4AF37%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M210%20240%20Q250%20285%20290%20240%20Z%22%20fill%3D%22%23B68B22%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M250%20155%20C265%20182%20272%20200%20250%20218%20C228%20200%20235%20182%20250%20155%20Z%22%20fill%3D%22%23FDE047%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22395%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFFFF%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%3EBrass%20Festive%20Set%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22426%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FDE047%22%20font-family%3D%22sans-serif%22%20font-size%3D%2213%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":false,"whatsappNumber":"","affiliateLink":"","featureSummary":[]},{"id":"demo-6","title":"Shantiniketan Batik Print Pure Cotton Kurta","price":790,"category":"Sarees & Apparel","description":"Breathable hand-dyed Shantiniketan batik print cotton kurta in warm terracotta & cream tones. Available in sizes M, L, XL, and XXL.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%237C2D12%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23431407%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%22452%22%20height%3D%22452%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23F3D38C%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.45%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%22120%22%20fill%3D%22%23F3D38C%22%20fill-opacity%3D%220.1%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M205%20150%20L295%20150%20L325%20200%20L298%20220%20L290%20205%20L290%20285%20L210%20285%20L210%20205%20L202%20220%20L175%20200%20Z%22%20fill%3D%22%23FBF7F0%22%20stroke%3D%22%23C89B3C%22%20stroke-width%3D%224%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Cline%20x1%3D%22250%22%20y1%3D%22150%22%20x2%3D%22250%22%20y2%3D%22220%22%20stroke%3D%22%237C2D12%22%20stroke-width%3D%224%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22395%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFFFF%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%3EBatik%20Cotton%20Kurta%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22426%22%20text-anchor%3D%22middle%22%20fill%3D%22%23F3D38C%22%20font-family%3D%22sans-serif%22%20font-size%3D%2213%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"whatsappNumber":"","affiliateLink":"","featureSummary":[]}]}</script>
@@ -32463,211 +32259,4 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 </script>
 
-
-<style id="sg-clean-clear-layout-v2">
-/* Saaj Gochh — clean, aligned and easy-to-scan layout refinement */
-:root{
-  --sg-content:1280px;
-  --sg-gutter:clamp(14px,2.4vw,30px);
-  --sg-section-gap:30px;
-  --sg-card-radius:13px;
-}
-html{scroll-padding-top:92px}
-body{overflow-x:hidden}
-#root>.min-h-screen{width:100%;overflow:clip}
-#root main{width:100%;min-width:0}
-
-/* Keep the whole storefront on one clear content grid */
-#root header>div,
-#root nav[aria-label="Quick Categories"]>div,
-#root main>section[aria-label="Featured Campaign Showcase"],
-.sg-premium-posters,
-.sg-ajio-sections,
-#explore,
-.sg-pro20-trust,
-.sg-pro20-quickbar,
-#sg-smart-finder-launcher{
-  max-width:var(--sg-content)!important;
-  margin-left:auto!important;
-  margin-right:auto!important;
-}
-#root header>div,
-#root nav[aria-label="Quick Categories"]>div{padding-left:var(--sg-gutter)!important;padding-right:var(--sg-gutter)!important}
-
-/* Header: compact and aligned */
-#root header{box-shadow:0 2px 14px rgba(48,37,28,.045)!important}
-#root header>div{height:68px!important;gap:clamp(10px,1.8vw,22px)!important}
-#root header a{flex-shrink:0}
-#root header a img{width:40px!important;height:40px!important}
-#root header a span{font-size:21px!important}
-#root header input[aria-label="Search products"]{max-width:520px;border-radius:9px!important}
-#root nav[aria-label="Quick Categories"]>div{min-height:45px!important;gap:7px!important}
-#root nav[aria-label="Quick Categories"] button{height:30px!important;padding:0 13px!important}
-
-/* Hero and featured strip */
-#root main>section[aria-label="Featured Campaign Showcase"]{padding:22px var(--sg-gutter) 12px!important;gap:10px!important}
-#root main>section[aria-label="Featured Campaign Showcase"]>div:first-child{height:clamp(270px,28vw,350px)!important;border-radius:17px!important;box-shadow:0 9px 26px rgba(45,34,24,.09)!important}
-#root main>section[aria-label="Featured Campaign Showcase"] h1{font-size:clamp(27px,3.4vw,43px)!important;max-width:560px!important;line-height:1.12!important}
-#root main>section[aria-label="Featured Campaign Showcase"]>div:nth-child(2){padding:9px 11px!important;border-radius:11px!important;box-shadow:none!important}
-#root .sg-marquee-viewport{scrollbar-width:none!important}
-#root .sg-marquee-viewport::-webkit-scrollbar{display:none}
-#root .sg-marquee-viewport>div>button{box-shadow:none!important}
-
-/* Editorial posters: an orderly two-row mosaic */
-.sg-premium-posters{padding:22px var(--sg-gutter) 16px!important}
-.sg-premium-posters-heading{margin-bottom:13px!important}
-.sg-premium-posters-heading h2{font-size:clamp(25px,2.7vw,34px)!important;line-height:1.16!important}
-.sg-premium-posters-heading p{margin-top:5px!important;font-size:12px!important}
-.sg-premium-poster-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;grid-auto-rows:clamp(160px,17vw,210px)!important;grid-auto-flow:row!important;gap:12px!important}
-.sg-premium-poster{grid-row:span 1!important;grid-column:span 1!important;min-height:0!important;height:100%!important;border-radius:13px!important;box-shadow:0 5px 17px rgba(37,25,18,.075)!important}
-.sg-premium-poster-0,.sg-premium-poster-4{grid-column:span 2!important;grid-row:span 1!important}
-.sg-premium-poster-image{transform:none!important;filter:saturate(.88)!important}
-.sg-premium-poster:hover{transform:translateY(-2px)!important;box-shadow:0 10px 22px rgba(37,25,18,.12)!important}
-.sg-premium-poster-copy h3{font-size:clamp(17px,1.8vw,24px)!important;line-height:1.15!important}
-.sg-premium-poster-copy p{font-size:10px!important;line-height:1.45!important}
-.sg-premium-poster-marquee{margin-top:12px!important}
-
-/* Category feature blocks: tighter rhythm and consistent card geometry */
-.sg-ajio-sections{padding:18px var(--sg-gutter) 28px!important;gap:var(--sg-section-gap)!important}
-.sg-ajio-section{min-width:0;padding:0!important}
-.sg-ajio-banner{height:132px!important;min-height:132px!important;border-radius:13px!important;box-shadow:none!important;padding:0!important}
-.sg-ajio-banner-copy{width:68%!important;padding:16px 21px!important}
-.sg-ajio-banner-kicker,.sg-ajio-section-kicker{font-size:8px!important;letter-spacing:.16em!important}
-.sg-ajio-banner-title{font-size:clamp(21px,2.2vw,29px)!important;line-height:1.12!important;max-width:480px!important}
-.sg-ajio-banner-subtitle{font-size:10px!important;line-height:1.5!important;max-width:430px!important}
-.sg-ajio-banner-cta{min-height:33px!important;margin-top:8px!important;padding:0 13px!important;font-size:8px!important}
-.sg-ajio-banner-visual{width:155px!important;height:112px!important;margin-right:20px!important;border-radius:10px!important;box-shadow:none!important}
-.sg-ajio-banner-visual img{border-radius:10px!important}
-.sg-ajio-banner-sticker{font-size:7px!important}
-.sg-ajio-section-heading{margin:16px 0 10px!important;align-items:center!important;gap:12px!important}
-.sg-ajio-section-title{font-size:clamp(21px,2vw,27px)!important;line-height:1.2!important}
-.sg-ajio-product-count{font-size:8px!important;letter-spacing:.08em!important}
-.sg-ajio-view-all{min-height:32px!important;padding:0 12px!important;font-size:8px!important;border-radius:7px!important}
-.sg-ajio-card-rail{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;grid-auto-flow:row!important;grid-auto-columns:initial!important;gap:13px!important;overflow:visible!important;padding:0!important;scroll-snap-type:none!important}
-.sg-ajio-product-card{display:flex!important;flex-direction:column!important;min-width:0!important;min-height:0!important;border-radius:var(--sg-card-radius)!important;box-shadow:0 3px 13px rgba(39,29,20,.05)!important;transform:none!important}
-.sg-ajio-product-card:hover{transform:translateY(-2px)!important;box-shadow:0 8px 19px rgba(39,29,20,.09)!important}
-.sg-ajio-card-image-wrap,.sg-ajio-product-card-0 .sg-ajio-card-image-wrap,.sg-ajio-product-card-1 .sg-ajio-card-image-wrap,.sg-ajio-product-card-2 .sg-ajio-card-image-wrap{width:100%!important;height:clamp(175px,21vw,245px)!important;min-height:0!important;flex:0 0 auto!important}
-.sg-ajio-card-image{object-fit:cover!important}
-.sg-ajio-card-details,.sg-ajio-product-card-1 .sg-ajio-card-details,.sg-ajio-product-card-2 .sg-ajio-card-details{display:flex!important;flex:1!important;flex-direction:column!important;justify-content:flex-start!important;padding:12px 13px 13px!important;gap:5px!important}
-.sg-ajio-card-category{font-size:8px!important;letter-spacing:.1em!important}
-.sg-ajio-card-title{font-family:'Plus Jakarta Sans',Arial,sans-serif!important;font-size:14px!important;font-weight:700!important;line-height:1.35!important;min-height:2.65em!important}
-.sg-ajio-card-description{font-size:10px!important;line-height:1.45!important;display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;overflow:hidden!important}
-.sg-ajio-card-price{font-size:15px!important;margin-top:2px!important}
-.sg-ajio-card-cta{min-height:34px!important;padding:0 12px!important;border-radius:7px!important;font-size:9px!important}
-.sg-ajio-slider-controls{padding-top:7px!important}
-.sg-ajio-slider-nav button{width:31px!important;height:31px!important;border-radius:7px!important}
-
-/* Main catalogue: clear filter column, calm toolbar, consistent product grid */
-#explore{width:100%!important;padding:24px var(--sg-gutter) 55px!important;gap:20px!important;scroll-margin-top:92px!important}
-#explore>aside>div{border-radius:12px!important;box-shadow:0 3px 13px rgba(44,33,23,.035)!important}
-#explore>aside>div>div:first-child{padding:12px 14px!important}
-#explore>div.min-w-0>div:first-child{padding:11px 13px!important;border-radius:11px!important;box-shadow:none!important}
-#explore>div.min-w-0>div.grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:13px!important}
-#explore article.group{border-radius:12px!important;box-shadow:0 3px 12px rgba(42,31,21,.04)!important}
-#explore article.group:hover{transform:translateY(-2px)!important;box-shadow:0 8px 17px rgba(42,31,21,.085)!important}
-#explore article.group>div:first-child{aspect-ratio:4/4.7!important}
-#explore article.group>div:nth-child(2){padding:11px 11px 12px!important;gap:5px!important}
-#explore article.group h3{font-family:'Plus Jakarta Sans',Arial,sans-serif!important;font-size:13px!important;font-weight:700!important;line-height:1.35!important;min-height:2.7em!important}
-#explore article.group>div:nth-child(2)>div:first-child{font-size:8px!important;letter-spacing:.08em!important}
-#explore article.group>div:nth-child(2)>div.mt-auto span{font-size:14px!important}
-#explore article.group button{min-height:34px!important;font-size:9px!important}
-
-/* Smart finder, trust row and FAQ: fit the same page grid */
-.sg-pro20-trust,.sg-pro20-quickbar,#sg-smart-finder-launcher{padding-left:var(--sg-gutter)!important;padding-right:var(--sg-gutter)!important}
-.sg-pro20-trust{gap:10px!important}
-.sg-pro20-trust-item{padding:12px 14px!important;border-radius:11px!important;box-shadow:none!important}
-#sg-smart-finder-launcher{margin-top:18px!important;margin-bottom:23px!important}
-#sg-smart-finder-launcher .sgf-launch-card{padding:22px 25px!important;border-radius:14px!important;box-shadow:0 6px 19px rgba(45,32,21,.08)!important}
-#sg-smart-finder-launcher .sgf-launch-btn{min-height:39px!important}
-#sg-pro20-faq{max-width:920px!important;margin:36px auto 42px!important;padding-left:var(--sg-gutter)!important;padding-right:var(--sg-gutter)!important}
-.sg-pro20-faq-item{padding-left:0!important;padding-right:0!important}
-#sg-pro20-dock{right:16px!important;bottom:16px!important}
-#root .sg-interspersed-promo{border-radius:13px!important;box-shadow:0 5px 16px rgba(39,29,20,.07)!important}
-
-/* Tablet */
-@media(max-width:1023px){
-  .sg-ajio-sections{gap:25px!important}
-  .sg-ajio-card-rail{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-  .sg-ajio-product-card-2{grid-column:auto!important;display:flex!important;grid-template-columns:none!important;min-height:0!important;padding:0!important}
-  .sg-ajio-product-card-2 .sg-ajio-card-image-wrap{height:clamp(180px,28vw,230px)!important;min-height:0!important}
-  .sg-ajio-product-card-2 .sg-ajio-card-details{padding:12px 13px!important}
-  #explore>div.min-w-0>div.grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important}
-  .sg-premium-poster-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-rows:185px!important;gap:10px!important}
-  .sg-premium-poster-0{grid-column:span 2!important}
-  .sg-premium-poster-4{grid-column:span 1!important}
-}
-
-/* Mobile: no cramped typography or oversized side-by-side panels */
-@media(max-width:640px){
-  :root{--sg-gutter:12px;--sg-section-gap:23px}
-  #root header>div{height:59px!important;gap:8px!important}
-  #root header a{gap:7px!important}
-  #root header a img{width:34px!important;height:34px!important}
-  #root header a span{font-size:17px!important}
-  #root header input[aria-label="Search products"]{height:37px!important;min-width:0!important;font-size:10px!important;padding-left:34px!important}
-  #root header button[aria-label="Open Saved Items"]{height:35px!important;padding:0 8px!important;font-size:10px!important}
-  #root nav[aria-label="Quick Categories"]>div{min-height:42px!important;gap:6px!important}
-  #root nav[aria-label="Quick Categories"] button{height:28px!important;padding:0 10px!important;font-size:9px!important}
-  #root main>section[aria-label="Featured Campaign Showcase"]{padding-top:13px!important;padding-bottom:8px!important;gap:8px!important}
-  #root main>section[aria-label="Featured Campaign Showcase"]>div:first-child{height:245px!important;border-radius:13px!important}
-  #root main>section[aria-label="Featured Campaign Showcase"] h1{font-size:26px!important;max-width:94%!important}
-  #root main>section[aria-label="Featured Campaign Showcase"] p{font-size:10px!important;max-width:95%!important}
-  #root main>section[aria-label="Featured Campaign Showcase"]>div:nth-child(2){padding:7px!important}
-  .sg-premium-posters{padding-top:16px!important;padding-bottom:11px!important}
-  .sg-premium-posters-heading{margin-bottom:10px!important}
-  .sg-premium-posters-heading h2{font-size:24px!important}
-  .sg-premium-posters-heading p{font-size:10px!important;line-height:1.5!important}
-  .sg-premium-poster-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-rows:155px!important;gap:8px!important}
-  .sg-premium-poster,.sg-premium-poster-0,.sg-premium-poster-4{grid-column:span 1!important;grid-row:span 1!important;border-radius:10px!important}
-  .sg-premium-poster-0{grid-column:span 2!important}
-  .sg-premium-poster-copy{left:12px!important;right:12px!important;bottom:12px!important}
-  .sg-premium-poster-copy h3{font-size:17px!important}
-  .sg-premium-poster-copy p{font-size:9px!important}
-  .sg-premium-poster-cta{min-height:29px!important;padding:0 11px!important;font-size:8px!important}
-  .sg-ajio-sections{padding-top:14px!important;padding-bottom:23px!important;gap:23px!important}
-  .sg-ajio-banner{height:116px!important;min-height:116px!important;border-radius:11px!important}
-  .sg-ajio-banner-copy{width:70%!important;padding:12px 13px!important}
-  .sg-ajio-banner-title{font-size:19px!important;max-width:190px!important}
-  .sg-ajio-banner-subtitle{font-size:9px!important;max-width:165px!important}
-  .sg-ajio-banner-cta{min-height:28px!important;margin-top:6px!important;padding:0 10px!important;font-size:7px!important}
-  .sg-ajio-banner-visual{width:95px!important;height:92px!important;margin-right:10px!important;border-radius:8px!important}
-  .sg-ajio-banner-sticker{right:6px!important;bottom:6px!important;padding:4px 5px!important;font-size:6px!important}
-  .sg-ajio-section-heading{margin:13px 0 9px!important;gap:7px!important}
-  .sg-ajio-section-title{font-size:19px!important}
-  .sg-ajio-section-actions{gap:6px!important;flex-direction:row!important;align-items:center!important}
-  .sg-ajio-product-count{font-size:7px!important}
-  .sg-ajio-view-all{min-height:28px!important;padding:0 8px!important;font-size:7px!important}
-  .sg-ajio-card-rail{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
-  .sg-ajio-product-card,.sg-ajio-product-card-2{display:flex!important;flex-direction:column!important;min-height:0!important;border-radius:10px!important;padding:0!important}
-  .sg-ajio-card-image-wrap,.sg-ajio-product-card-0 .sg-ajio-card-image-wrap,.sg-ajio-product-card-1 .sg-ajio-card-image-wrap,.sg-ajio-product-card-2 .sg-ajio-card-image-wrap{height:clamp(145px,48vw,190px)!important;min-height:0!important;flex:0 0 auto!important}
-  .sg-ajio-card-details,.sg-ajio-product-card-1 .sg-ajio-card-details,.sg-ajio-product-card-2 .sg-ajio-card-details{padding:9px!important;gap:4px!important}
-  .sg-ajio-card-category{font-size:7px!important}
-  .sg-ajio-card-title{font-size:11px!important;line-height:1.35!important;min-height:2.7em!important}
-  .sg-ajio-card-description{font-size:9px!important;line-height:1.4!important}
-  .sg-ajio-card-price{font-size:13px!important}
-  .sg-ajio-card-cta{min-height:30px!important;padding:0 8px!important;font-size:8px!important}
-  #explore{padding-top:14px!important;padding-bottom:38px!important;gap:10px!important;scroll-margin-top:80px!important}
-  #explore>div.min-w-0>div:first-child{padding:9px!important}
-  #explore>div.min-w-0>div.grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
-  #explore article.group{border-radius:10px!important}
-  #explore article.group>div:first-child{aspect-ratio:4/4.8!important}
-  #explore article.group>div:nth-child(2){padding:9px!important;gap:4px!important}
-  #explore article.group h3{font-size:11px!important;min-height:2.7em!important}
-  #explore article.group>div:nth-child(2)>div:first-child{font-size:7px!important}
-  #explore article.group>div:nth-child(2)>div.mt-auto span{font-size:12px!important}
-  #explore article.group button{min-height:31px!important;font-size:8px!important}
-  .sg-pro20-trust{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
-  .sg-pro20-trust-item{padding:9px!important;font-size:9px!important}
-  #sg-smart-finder-launcher .sgf-launch-card{padding:16px!important;gap:12px!important}
-  #sg-smart-finder-launcher h2{font-size:22px!important}
-  #sg-smart-finder-launcher p.sgf-desc{font-size:10px!important}
-  #sg-pro20-faq{margin:28px auto 32px!important}
-  #sg-pro20-dock{right:10px!important;bottom:10px!important}
-}
-@media(prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto!important}
-  #root *,#root *:before,#root *:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
-}
-
-</style>
 </body></html>
