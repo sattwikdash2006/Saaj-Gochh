@@ -23071,15 +23071,15 @@ var motion = /* @__PURE__ */ createMotionProxy({
 	...layout
 }, createDomVisualElement);
 // src/components/storefront/ArchitecturalIntro.tsx
-var INTRO_SESSION_KEY = "saajGochhIntroPlayed_v1";
+var INTRO_SESSION_KEY = "saajGochhIntroPlayed_v2";
 var ArchitecturalIntro = ({ onComplete }) => {
 	const [stage, setStage] = (0, import_react.useState)(() => {
 		try {
 			if (typeof window === "undefined") return "done";
 			if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return "done";
-			if (window.sessionStorage.getItem("saajGochhIntroPlayed_v1") === "1") return "done";
+			if (window.sessionStorage.getItem(INTRO_SESSION_KEY) === "1") return "done";
 			if (new URLSearchParams(window.location.search).get("item") || window.location.hash.startsWith("#saaj-import=")) return "done";
-			return "crest";
+			return "seed";
 		} catch {
 			return "done";
 		}
@@ -23094,13 +23094,13 @@ var ArchitecturalIntro = ({ onComplete }) => {
 		try {
 			window.sessionStorage.setItem(INTRO_SESSION_KEY, "1");
 		} catch {}
-		const partTimer = window.setTimeout(() => {
-			setStage("parting");
-		}, 2100);
-		const finishTimer = window.setTimeout(() => {
-			setStage("done");
-		}, 3050);
+		const sproutTimer = window.setTimeout(() => setStage("sprout"), 760);
+		const canopyTimer = window.setTimeout(() => setStage("canopy"), 2050);
+		const partTimer = window.setTimeout(() => setStage("parting"), 4850);
+		const finishTimer = window.setTimeout(() => setStage("done"), 5850);
 		return () => {
+			window.clearTimeout(sproutTimer);
+			window.clearTimeout(canopyTimer);
 			window.clearTimeout(partTimer);
 			window.clearTimeout(finishTimer);
 		};
@@ -23111,181 +23111,154 @@ var ArchitecturalIntro = ({ onComplete }) => {
 		} catch {}
 		setStage("done");
 	};
+	const trunkProgress = stage === "seed" ? 0 : stage === "sprout" ? .72 : 1;
+	const branchProgress = stage === "seed" ? 0 : stage === "sprout" ? .28 : 1;
+	const leafProgress = stage === "canopy" || stage === "parting" ? 1 : 0;
+	const treeBranches = [
+		{ d: "M160 225 C139 207 119 188 99 163", delay: .12, width: 7 },
+		{ d: "M160 205 C181 184 201 160 219 132", delay: .23, width: 7 },
+		{ d: "M158 178 C139 158 132 138 126 112", delay: .34, width: 6 },
+		{ d: "M163 159 C184 139 194 116 199 88", delay: .43, width: 6 },
+		{ d: "M157 246 C132 237 112 221 87 202", delay: .54, width: 5 },
+		{ d: "M164 244 C190 231 213 211 237 185", delay: .63, width: 5 },
+		{ d: "M158 135 C145 119 142 101 143 83", delay: .73, width: 4 },
+		{ d: "M165 128 C181 109 183 91 181 70", delay: .82, width: 4 }
+	];
+	const treeLeaves = [
+		[91,157,-35],[108,171,-12],[119,145,-55],[130,113,-25],[144,94,18],
+		[181,76,35],[198,96,4],[216,126,42],[225,147,68],[238,180,26],
+		[213,197,58],[189,177,20],[162,110,-5],[151,139,-42],[105,202,-60],
+		[132,218,-18],[187,218,38],[222,166,12],[145,76,-38],[202,116,55],
+		[174,99,18],[117,128,-15],[245,195,38],[82,184,-42]
+	];
+	const pollen = [
+		{ left: "13%", top: "23%", delay: 0, size: 3 }, { left: "24%", top: "67%", delay: .4, size: 4 },
+		{ left: "77%", top: "26%", delay: .7, size: 3 }, { left: "86%", top: "64%", delay: 1.1, size: 4 },
+		{ left: "18%", top: "48%", delay: 1.4, size: 2 }, { left: "72%", top: "72%", delay: .2, size: 3 },
+		{ left: "35%", top: "18%", delay: .9, size: 2 }, { left: "64%", top: "17%", delay: 1.7, size: 3 },
+		{ left: "91%", top: "41%", delay: .55, size: 2 }, { left: "8%", top: "76%", delay: 1.25, size: 3 },
+		{ left: "43%", top: "78%", delay: .3, size: 2 }, { left: "57%", top: "11%", delay: 1.55, size: 3 }
+	];
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AnimatePresence, { children: stage !== "done" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
 		initial: { opacity: 1 },
-		exit: {
-			opacity: 0,
-			transition: {
-				duration: .35,
-				ease: [
-					.16,
-					1,
-					.3,
-					1
-				]
-			}
-		},
+		exit: { opacity: 0, transition: { duration: .55, ease: [ .16, 1, .3, 1 ] } },
 		"aria-label": "Saaj Gochh Opening Reveal",
 		className: "fixed inset-0 z-[100] overflow-hidden select-none pointer-events-auto",
 		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
-				initial: { x: "0%" },
-				animate: { x: stage === "parting" ? "-100%" : "0%" },
-				transition: {
-					duration: .95,
-					ease: [
-						.16,
-						1,
-						.3,
-						1
-					]
-				},
-				className: "absolute inset-y-0 left-0 w-1/2 bg-[#141416] border-r border-[#B68D40]/40 overflow-hidden",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "absolute inset-0 opacity-25",
-					style: { backgroundImage: "repeating-linear-gradient(90deg, transparent 0px, transparent 36px, rgba(182,141,64,0.08) 36px, rgba(182,141,64,0.08) 37px)" }
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-y-6 left-6 right-0 border-t border-b border-l border-[#B68D40]/20 pointer-events-none" })]
+			(0, import_jsx_runtime.jsx)("div", {
+				className: "absolute inset-0 pointer-events-none",
+				style: { background: "radial-gradient(ellipse at 50% 46%, rgba(91,112,54,.22) 0%, rgba(20,20,22,0) 42%), radial-gradient(ellipse at 50% 100%, rgba(182,141,64,.13) 0%, transparent 55%), linear-gradient(135deg,#111311 0%,#171816 48%,#101210 100%)" }
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
-				initial: { x: "0%" },
-				animate: { x: stage === "parting" ? "100%" : "0%" },
-				transition: {
-					duration: .95,
-					ease: [
-						.16,
-						1,
-						.3,
-						1
-					]
-				},
-				className: "absolute inset-y-0 right-0 w-1/2 bg-[#141416] border-l border-[#B68D40]/40 overflow-hidden",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "absolute inset-0 opacity-25",
-					style: { backgroundImage: "repeating-linear-gradient(90deg, transparent 0px, transparent 36px, rgba(182,141,64,0.08) 36px, rgba(182,141,64,0.08) 37px)" }
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-y-6 left-0 right-6 border-t border-b border-r border-[#B68D40]/20 pointer-events-none" })]
+			(0, import_jsx_runtime.jsx)(motion.div, {
+				className: "absolute inset-0 pointer-events-none",
+				initial: { opacity: 0 }, animate: { opacity: stage === "parting" ? 0 : .32 },
+				transition: { duration: 1.5 },
+				style: { backgroundImage: "radial-gradient(rgba(235,216,174,.2) .65px, transparent .65px)", backgroundSize: "23px 23px", maskImage: "radial-gradient(ellipse at center, black, transparent 76%)" }
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
-				initial: {
-					opacity: 0,
-					scale: .8
-				},
-				animate: {
-					opacity: stage === "parting" ? 0 : .75,
-					scale: stage === "parting" ? 1.25 : 1
-				},
-				transition: {
-					duration: .85,
-					ease: [
-						.16,
-						1,
-						.3,
-						1
-					]
-				},
+			...pollen.map((particle, idx) => (0, import_jsx_runtime.jsx)(motion.div, {
+				className: "absolute rounded-full bg-[#EBD8AE] pointer-events-none",
+				style: { left: particle.left, top: particle.top, width: particle.size, height: particle.size, boxShadow: "0 0 12px rgba(235,216,174,.8)" },
+				initial: { opacity: 0, y: 10, scale: .4 },
+				animate: { opacity: stage === "parting" ? 0 : [ .12, .78, .2 ], y: [ 10, -22, -42 ], x: [ 0, idx % 2 ? 9 : -8, idx % 2 ? -4 : 7 ], scale: [ .55, 1.2, .65 ] },
+				transition: { duration: 3.8 + (idx % 4) * .45, delay: particle.delay, repeat: Infinity, ease: "easeInOut" }
+			}, `sg-pollen-${idx}`)),
+			(0, import_jsx_runtime.jsxs)(motion.div, {
+				initial: { x: "0%" }, animate: { x: stage === "parting" ? "-100%" : "0%" },
+				transition: { duration: 1.05, ease: [ .76, 0, .24, 1 ] },
+				className: "absolute inset-y-0 left-0 w-1/2 bg-[#141416] border-r border-[#B68D40]/40 overflow-hidden", style: { backgroundColor: "rgba(20,20,22,.96)" },
+				children: [
+					(0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 opacity-25", style: { backgroundImage: "repeating-linear-gradient(90deg, transparent 0px, transparent 36px, rgba(182,141,64,0.08) 36px, rgba(182,141,64,0.08) 37px)" } }),
+					(0, import_jsx_runtime.jsx)("div", { className: "absolute inset-y-6 left-6 right-0 border-t border-b border-l border-[#B68D40]/20 pointer-events-none" }),
+					(0, import_jsx_runtime.jsx)(motion.div, { className: "absolute -right-20 top-0 bottom-0 w-24", animate: { opacity: stage === "parting" ? 0 : [.04,.13,.04] }, transition: { duration: 3, repeat: Infinity }, style: { background: "linear-gradient(90deg,transparent,rgba(214,181,112,.14),transparent)" } })
+				]
+			}),
+			(0, import_jsx_runtime.jsxs)(motion.div, {
+				initial: { x: "0%" }, animate: { x: stage === "parting" ? "100%" : "0%" },
+				transition: { duration: 1.05, ease: [ .76, 0, .24, 1 ] },
+				className: "absolute inset-y-0 right-0 w-1/2 bg-[#141416] border-l border-[#B68D40]/40 overflow-hidden", style: { backgroundColor: "rgba(20,20,22,.96)" },
+				children: [
+					(0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 opacity-25", style: { backgroundImage: "repeating-linear-gradient(90deg, transparent 0px, transparent 36px, rgba(182,141,64,0.08) 36px, rgba(182,141,64,0.08) 37px)" } }),
+					(0, import_jsx_runtime.jsx)("div", { className: "absolute inset-y-6 left-0 right-6 border-t border-b border-r border-[#B68D40]/20 pointer-events-none" }),
+					(0, import_jsx_runtime.jsx)(motion.div, { className: "absolute -left-20 top-0 bottom-0 w-24", animate: { opacity: stage === "parting" ? 0 : [.04,.13,.04] }, transition: { duration: 3, repeat: Infinity }, style: { background: "linear-gradient(90deg,transparent,rgba(214,181,112,.14),transparent)" } })
+				]
+			}),
+			(0, import_jsx_runtime.jsx)(motion.div, {
+				initial: { opacity: 0, scale: .7 },
+				animate: { opacity: stage === "parting" ? 0 : [.4,.85,.58], scale: stage === "parting" ? 1.38 : [ .78, 1.08, .98 ] },
+				transition: { duration: 3.8, repeat: stage === "parting" ? 0 : Infinity, ease: "easeInOut" },
 				className: "absolute inset-0 pointer-events-none flex items-center justify-center",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-[460px] h-[460px] rounded-full bg-[radial-gradient(circle,rgba(182,141,64,0.22)_0%,rgba(182,141,64,0.05)_45%,transparent_72%)]" })
+				children: (0, import_jsx_runtime.jsx)("div", { className: "aspect-square rounded-full", style: { width: "min(90vw,650px)", height: "min(90vw,650px)", background: "radial-gradient(circle,rgba(117,139,70,.16) 0%,rgba(182,141,64,.12) 30%,rgba(182,141,64,.035) 55%,transparent 72%)", filter: "blur(8px)" } })
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
-				initial: {
-					opacity: 0,
-					y: 12
-				},
-				animate: {
-					opacity: stage === "parting" ? 0 : 1,
-					y: stage === "parting" ? -14 : 0,
-					scale: stage === "parting" ? .96 : 1
-				},
-				transition: {
-					duration: .65,
-					ease: [
-						.16,
-						1,
-						.3,
-						1
-					]
-				},
+			(0, import_jsx_runtime.jsxs)(motion.div, {
+				initial: { opacity: 0, y: 18, scale: .97 },
+				animate: { opacity: stage === "parting" ? 0 : 1, y: stage === "parting" ? -18 : 0, scale: stage === "parting" ? .96 : 1 },
+				transition: { duration: .8, ease: [ .16, 1, .3, 1 ] },
 				className: "relative z-10 h-full flex flex-col items-center justify-center px-6 text-center pointer-events-none",
 				children: [
-					/* A decorative golden light mandala replaces the logo in the intro only. */
 					(0, import_jsx_runtime.jsxs)("div", {
-						className: "relative w-[min(64vw,280px)] h-[min(64vw,280px)] flex items-center justify-center",
+						className: "relative flex items-center justify-center", style: { width: "min(76vw,390px)", height: "min(76vw,390px)" },
 						children: [
-							(0, import_jsx_runtime.jsx)(motion.div, {
-								className: "absolute inset-3 rounded-full border border-[#B68D40]/55 border-t-[#F5E6C4] border-b-transparent",
-								initial: { opacity: 0, scale: .72, rotate: -35 },
-								animate: { opacity: stage === "parting" ? 0 : .9, scale: stage === "parting" ? 1.12 : [ .92, 1.02, .96 ], rotate: 325 },
-								transition: { opacity: { duration: .5 }, scale: { duration: 1.4, ease: "easeOut" }, rotate: { duration: 7, repeat: Infinity, ease: "linear" } }
-							}),
-							(0, import_jsx_runtime.jsx)(motion.div, {
-								className: "absolute inset-8 rounded-full border border-dashed border-[#EBD8AE]/45",
-								initial: { opacity: 0, scale: .6 },
-								animate: { opacity: stage === "parting" ? 0 : .8, scale: stage === "parting" ? 1.18 : 1, rotate: -360 },
-								transition: { opacity: { duration: .65, delay: .2 }, scale: { duration: .8, ease: "easeOut" }, rotate: { duration: 16, repeat: Infinity, ease: "linear" } }
-							}),
-							(0, import_jsx_runtime.jsx)(motion.svg, {
-								viewBox: "0 0 200 200",
-								className: "absolute w-[76%] h-[76%] overflow-visible drop-shadow-[0_0_16px_rgba(182,141,64,0.35)]",
-								initial: { opacity: 0, scale: .65, rotate: -22 },
-								animate: { opacity: stage === "parting" ? 0 : 1, scale: stage === "parting" ? 1.22 : 1, rotate: 22 },
-								transition: { duration: 1.1, ease: [ .16, 1, .3, 1 ] },
+							(0, import_jsx_runtime.jsx)(motion.div, { className: "absolute inset-4 rounded-full border border-[#B68D40]/40 border-t-[#EBD8AE] border-b-transparent", initial: { opacity: 0, scale: .7, rotate: -60 }, animate: { opacity: stage === "parting" ? 0 : .8, scale: stage === "parting" ? 1.15 : 1, rotate: 300 }, transition: { opacity: { duration: .6 }, scale: { duration: 1.6, ease: "easeOut" }, rotate: { duration: 22, repeat: Infinity, ease: "linear" } } }),
+							(0, import_jsx_runtime.jsx)(motion.div, { className: "absolute inset-9 rounded-full border border-dashed border-[#EBD8AE]/30", initial: { opacity: 0, scale: .55 }, animate: { opacity: stage === "parting" ? 0 : .65, scale: stage === "parting" ? 1.2 : 1, rotate: -360 }, transition: { opacity: { duration: .8, delay: .2 }, scale: { duration: 1.2, ease: "easeOut" }, rotate: { duration: 34, repeat: Infinity, ease: "linear" } } }),
+							(0, import_jsx_runtime.jsx)(motion.div, { className: "absolute inset-0 rounded-full", animate: { boxShadow: stage === "parting" ? "0 0 0 rgba(190,160,91,0)" : [ "0 0 24px rgba(190,160,91,.04)", "0 0 60px rgba(190,160,91,.17)", "0 0 24px rgba(190,160,91,.04)" ] }, transition: { duration: 3.2, repeat: Infinity, ease: "easeInOut" } }),
+							(0, import_jsx_runtime.jsxs)(motion.svg, {
+								viewBox: "0 0 320 340",
+								className: "absolute overflow-visible", style: { width: "88%", height: "88%", filter: "drop-shadow(0 0 18px rgba(182,141,64,.28))" },
+								initial: { opacity: 0, scale: .72, y: 12 },
+								animate: { opacity: stage === "parting" ? 0 : 1, scale: stage === "parting" ? 1.18 : 1, y: stage === "parting" ? -8 : 0 },
+								transition: { duration: 1.15, ease: [ .16, 1, .3, 1 ] },
 								children: [
-									(0, import_jsx_runtime.jsx)("circle", { cx: "100", cy: "100", r: "67", fill: "none", stroke: "#B68D40", strokeOpacity: ".65", strokeWidth: "1.2" }),
-									(0, import_jsx_runtime.jsx)("circle", { cx: "100", cy: "100", r: "48", fill: "none", stroke: "#EBD8AE", strokeOpacity: ".45", strokeWidth: "1" }),
-									(0, import_jsx_runtime.jsx)("g", { fill: "none", stroke: "#EBD8AE", strokeWidth: "1.5", strokeOpacity: ".9", children: [
-										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", fill: "rgba(182,141,64,.16)" }),
-										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(45 100 100)", fill: "rgba(182,141,64,.13)" }),
-										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(90 100 100)", fill: "rgba(182,141,64,.16)" }),
-										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(135 100 100)", fill: "rgba(182,141,64,.13)" }),
-										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(180 100 100)", fill: "rgba(182,141,64,.16)" }),
-										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(225 100 100)", fill: "rgba(182,141,64,.13)" }),
-										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(270 100 100)", fill: "rgba(182,141,64,.16)" }),
-										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(315 100 100)", fill: "rgba(182,141,64,.13)" })
+									(0, import_jsx_runtime.jsx)("defs", { children: [
+										(0, import_jsx_runtime.jsxs)("linearGradient", { id: "sg-tree-bark", x1: "0", y1: "0", x2: "1", y2: "1", children: [ (0, import_jsx_runtime.jsx)("stop", { offset: "0%", stopColor: "#F4DEAE" }), (0, import_jsx_runtime.jsx)("stop", { offset: "48%", stopColor: "#B68D40" }), (0, import_jsx_runtime.jsx)("stop", { offset: "100%", stopColor: "#76552B" }) ] }),
+										(0, import_jsx_runtime.jsxs)("linearGradient", { id: "sg-tree-leaf", x1: "0", y1: "0", x2: "1", y2: "1", children: [ (0, import_jsx_runtime.jsx)("stop", { offset: "0%", stopColor: "#D6DDA0" }), (0, import_jsx_runtime.jsx)("stop", { offset: "100%", stopColor: "#617B43" }) ] }),
+										(0, import_jsx_runtime.jsxs)("radialGradient", { id: "sg-tree-heart", children: [ (0, import_jsx_runtime.jsx)("stop", { offset: "0%", stopColor: "#F8E9BE", stopOpacity: ".8" }), (0, import_jsx_runtime.jsx)("stop", { offset: "100%", stopColor: "#B68D40", stopOpacity: "0" }) ] })
 									] }),
-									(0, import_jsx_runtime.jsx)("circle", { cx: "100", cy: "100", r: "17", fill: "#EBD8AE", fillOpacity: ".9" }),
-									(0, import_jsx_runtime.jsx)("circle", { cx: "100", cy: "100", r: "7", fill: "#9A742E" })
+									(0, import_jsx_runtime.jsx)("circle", { cx: "160", cy: "177", r: "118", fill: "url(#sg-tree-heart)", opacity: ".45" }),
+									(0, import_jsx_runtime.jsx)("ellipse", { cx: "160", cy: "299", rx: "91", ry: "9", fill: "#B68D40", opacity: ".13" }),
+									/* Roots unfurl first, anchoring the living-tree reveal. */
+									(0, import_jsx_runtime.jsx)(motion.path, { d: "M160 278 C145 294 119 299 91 302 M160 280 C177 297 207 300 231 302 M158 288 C149 306 137 313 119 316 M164 289 C179 308 194 313 211 316", fill: "none", stroke: "url(#sg-tree-bark)", strokeWidth: "3.4", strokeLinecap: "round", initial: { pathLength: 0, opacity: 0 }, animate: { pathLength: trunkProgress, opacity: stage === "parting" ? 0 : .95 }, transition: { pathLength: { duration: 1.55, delay: .15, ease: "easeInOut" }, opacity: { duration: .5 } } }),
+									/* One continuous, hand-drawn trunk grows upward from the roots. */
+									(0, import_jsx_runtime.jsx)(motion.path, { d: "M160 286 C153 257 166 235 159 211 C152 187 165 164 160 139 C157 116 162 92 161 61", fill: "none", stroke: "url(#sg-tree-bark)", strokeWidth: "11", strokeLinecap: "round", initial: { pathLength: 0, opacity: 0 }, animate: { pathLength: trunkProgress, opacity: stage === "parting" ? 0 : 1 }, transition: { pathLength: { duration: 2.25, delay: .12, ease: [ .45, 0, .25, 1 ] }, opacity: { duration: .4 } } }),
+									(0, import_jsx_runtime.jsx)(motion.path, { d: "M159 282 C158 244 163 215 159 184 C157 156 163 118 161 76", fill: "none", stroke: "#F8E8C2", strokeWidth: "1.25", strokeOpacity: ".65", strokeLinecap: "round", initial: { pathLength: 0 }, animate: { pathLength: trunkProgress, opacity: stage === "parting" ? 0 : .85 }, transition: { pathLength: { duration: 2.1, delay: .2 }, opacity: { duration: .5 } } }),
+									...treeBranches.map((branch, idx) => (0, import_jsx_runtime.jsx)(motion.path, { d: branch.d, fill: "none", stroke: "url(#sg-tree-bark)", strokeWidth: branch.width, strokeLinecap: "round", initial: { pathLength: 0, opacity: 0 }, animate: { pathLength: branchProgress, opacity: stage === "parting" ? 0 : 1 }, transition: { pathLength: { duration: 1.55, delay: branch.delay, ease: "easeOut" }, opacity: { duration: .35, delay: branch.delay } } }, `sg-branch-${idx}`)),
+									...treeLeaves.map((leaf, idx) => (0, import_jsx_runtime.jsx)("g", { transform: `translate(${leaf[0]} ${leaf[1]}) rotate(${leaf[2]})`, children: (0, import_jsx_runtime.jsx)(motion.path, { d: "M0 0 C-5 -12 -19 -14 -22 -3 C-15 10 -5 9 0 0Z", style: { transformBox: "fill-box", transformOrigin: "center" }, fill: idx % 4 === 0 ? "#E2D79A" : "url(#sg-tree-leaf)", stroke: "#EBD8AE", strokeOpacity: ".48", strokeWidth: "1", initial: { opacity: 0, scale: .12 }, animate: { opacity: stage === "parting" ? 0 : leafProgress, scale: stage === "parting" ? .5 : leafProgress ? 1 : .12, rotate: stage === "canopy" ? [ -3, 3, -3 ] : 0 }, transition: { opacity: { duration: .55, delay: .04 * idx }, scale: { type: "spring", stiffness: 125, damping: 10, delay: .035 * idx }, rotate: { duration: 3.2, delay: .04 * idx, repeat: stage === "canopy" ? Infinity : 0, ease: "easeInOut" } } }) }, `sg-leaf-${idx}`)),
+									(0, import_jsx_runtime.jsx)(motion.circle, { cx: "160", cy: "61", r: "5", fill: "#F4DEAE", initial: { scale: 0, opacity: 0 }, animate: { scale: stage === "canopy" ? [ 1, 1.35, 1 ] : stage === "parting" ? 0 : 0, opacity: stage === "parting" ? 0 : stage === "canopy" ? 1 : 0 }, transition: { duration: 2, repeat: stage === "canopy" ? Infinity : 0, ease: "easeInOut" } })
 								]
 							}),
 							...[
-								{ left: "18%", top: "34%", delay: 0 },
-								{ right: "17%", top: "28%", delay: .25 },
-								{ left: "24%", bottom: "20%", delay: .5 },
-								{ right: "22%", bottom: "18%", delay: .75 }
+								{ left: "18%", top: "34%", delay: 0 }, { right: "17%", top: "28%", delay: .25 },
+								{ left: "24%", bottom: "20%", delay: .5 }, { right: "22%", bottom: "18%", delay: .75 },
+								{ left: "8%", top: "52%", delay: .9 }, { right: "8%", top: "55%", delay: 1.1 }
 							].map((spark, idx) => (0, import_jsx_runtime.jsx)(motion.div, {
-								className: "absolute w-2 h-2 rounded-full bg-[#F5E6C4] shadow-[0_0_14px_rgba(235,216,174,0.95)]",
-								style: { left: spark.left, right: spark.right, top: spark.top, bottom: spark.bottom },
+								className: "absolute w-2 h-2 rounded-full bg-[#F5E6C4]",
+								style: { left: spark.left, right: spark.right, top: spark.top, bottom: spark.bottom, boxShadow: "0 0 14px rgba(235,216,174,.95)" },
 								initial: { opacity: 0, scale: 0 },
 								animate: { opacity: stage === "parting" ? 0 : [ .15, 1, .35 ], scale: [ .45, 1.25, .6 ], y: [ 5, -9, 2 ] },
-								transition: { duration: 1.5, delay: spark.delay, repeat: Infinity, ease: "easeInOut" }
+								transition: { duration: 1.8, delay: spark.delay, repeat: Infinity, ease: "easeInOut" }
 							}, `intro-spark-${idx}`))
 						]
 					}),
+					(0, import_jsx_runtime.jsx)(motion.div, { initial: { opacity: 0, y: 8 }, animate: { opacity: stage === "parting" ? 0 : 1, y: 0 }, transition: { duration: .6, delay: .35 }, className: "text-[9px] sm:text-[10px] uppercase text-[#B7C393]/80", style: { marginTop: "-.5rem", letterSpacing: ".42em" }, children: "ROOTED IN BENGAL" }),
 					(0, import_jsx_runtime.jsx)(motion.h1, {
-						initial: { opacity: 0, y: 12 },
-						animate: { opacity: stage === "parting" ? 0 : 1, y: stage === "parting" ? -8 : 0 },
-						transition: { duration: .65, delay: .25, ease: [ .16, 1, .3, 1 ] },
-						className: "mt-1 font-serif-display text-3xl sm:text-5xl font-semibold tracking-tight text-white",
+						initial: { opacity: 0, y: 16, letterSpacing: ".12em" },
+						animate: { opacity: stage === "parting" ? 0 : 1, y: stage === "parting" ? -8 : 0, letterSpacing: ".015em" },
+						transition: { duration: .85, delay: .35, ease: [ .16, 1, .3, 1 ] },
+						className: "mt-1 font-serif-display text-3xl sm:text-5xl font-semibold tracking-tight text-white drop-shadow-[0_4px_24px_rgba(0,0,0,.35)]",
 						children: "Saaj Gochh"
 					}),
-					(0, import_jsx_runtime.jsx)(motion.div, {
-						initial: { scaleX: 0, opacity: 0 },
-						animate: { scaleX: stage === "parting" ? 0 : 1, opacity: stage === "parting" ? 0 : 1 },
-						transition: { duration: .65, delay: .4, ease: [ .16, 1, .3, 1 ] },
-						className: "w-28 h-px bg-gradient-to-r from-transparent via-[#B68D40] to-transparent my-3"
-					}),
+					(0, import_jsx_runtime.jsx)(motion.div, { initial: { scaleX: 0, opacity: 0 }, animate: { scaleX: stage === "parting" ? 0 : 1, opacity: stage === "parting" ? 0 : 1 }, transition: { duration: .8, delay: .52, ease: [ .16, 1, .3, 1 ] }, className: "w-36 h-px bg-gradient-to-r from-transparent via-[#B68D40] to-transparent my-3" }),
 					(0, import_jsx_runtime.jsx)(motion.p, {
-						initial: { opacity: 0, y: 7 },
-						animate: { opacity: stage === "parting" ? 0 : 1, y: stage === "parting" ? -5 : 0 },
-						transition: { duration: .55, delay: .52 },
-						className: "text-xs sm:text-sm tracking-[0.22em] uppercase text-[#EBD8AE]/90 font-medium",
+						initial: { opacity: 0, y: 8 }, animate: { opacity: stage === "parting" ? 0 : 1, y: stage === "parting" ? -5 : 0 },
+						transition: { duration: .65, delay: .68 },
+						className: "text-[10px] sm:text-xs uppercase text-[#EBD8AE]/90 font-medium", style: { letterSpacing: ".25em" },
 						children: "Handcrafted Bengal Artistry"
 					})
 				]
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
-				type: "button",
-				onClick: handleSkip,
+			(0, import_jsx_runtime.jsxs)("button", {
+				type: "button", onClick: handleSkip,
 				className: "absolute bottom-6 right-6 z-20 h-9 px-3.5 rounded-[4px] border border-[#B68D40]/50 bg-zinc-900/90 hover:bg-zinc-800 text-[#EBD8AE] text-xs font-semibold inline-flex items-center gap-1.5 transition-colors cursor-pointer",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Skip Intro" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, { className: "w-3.5 h-3.5" })]
+				children: [ (0, import_jsx_runtime.jsx)("span", { children: "Skip Intro" }), (0, import_jsx_runtime.jsx)(ArrowRight, { className: "w-3.5 h-3.5" }) ]
 			})
 		]
 	}, "sg-architectural-intro") });
@@ -27439,310 +27412,6 @@ var AdminSettingsTab = ({ products, defaultWhatsapp, isOwnerUnlocked, onRequestO
 	});
 };
 // src/components/admin/AdminDashboard.tsx
-var FCMSetupPanel = () => {
-	const [supported, setSupported] = (0, import_react.useState)(false);
-	const [permission, setPermission] = (0, import_react.useState)(() => ("Notification" in window ? Notification.permission : "unsupported"));
-	const [token, setToken] = (0, import_react.useState)("");
-	const [status, setStatus] = (0, import_react.useState)("Checking browser support…");
-	const [busy, setBusy] = (0, import_react.useState)(false);
-	const [copyLabel, setCopyLabel] = (0, import_react.useState)("Copy token");
-	(0, import_react.useEffect)(() => {
-		let active = true;
-		(async () => {
-			try {
-				const api = window.SGFCM;
-				if (!api) throw new Error("FCM module has not loaded. Reload the page and try again.");
-				const ok = await api.checkSupport();
-				if (!active) return;
-				setSupported(ok);
-				setPermission("Notification" in window ? Notification.permission : "unsupported");
-				setStatus(ok ? "This browser supports Firebase Web Push." : "This browser does not support the required FCM APIs.");
-				if (ok && "Notification" in window && Notification.permission === "granted") {
-					const existing = await api.getCurrentToken();
-					if (active && existing) { setToken(existing); setStatus("This browser is subscribed to push notifications."); }
-				}
-			} catch (err) { if (active) setStatus(err?.message || "Could not initialise Firebase Messaging."); }
-		})();
-		return () => { active = false; };
-	}, []);
-	const enable = async () => {
-		setBusy(true); setStatus("Requesting browser permission and registering this device…");
-		try {
-			const nextToken = await window.SGFCM.requestToken();
-			setToken(nextToken); setPermission(Notification.permission);
-			setStatus("Notifications enabled for this browser. Copy the token below for Firebase Console testing.");
-		} catch (err) { setPermission("Notification" in window ? Notification.permission : "unsupported"); setStatus(err?.message || "Could not obtain an FCM token."); }
-		finally { setBusy(false); }
-	};
-	const copyToken = async () => {
-		if (!token) return;
-		try {
-			if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(token);
-			else {
-				const el = document.createElement("textarea"); el.value = token; el.setAttribute("readonly", "");
-				el.style.position = "fixed"; el.style.opacity = "0"; document.body.appendChild(el); el.select();
-				const copied = document.execCommand("copy"); el.remove(); if (!copied) throw new Error("Clipboard access is unavailable.");
-			}
-			setCopyLabel("Copied!"); setTimeout(() => setCopyLabel("Copy token"), 1800);
-		} catch (err) { setStatus("Copy failed. Select the token and copy it manually."); }
-	};
-	const disconnect = async () => {
-		if (!window.confirm("Turn off push notifications for this browser?")) return;
-		setBusy(true);
-		try { await window.SGFCM.removeCurrentToken(); setToken(""); setStatus("This browser has been unsubscribed."); setPermission(Notification.permission); }
-		catch (err) { setStatus(err?.message || "Could not remove this browser's token."); }
-		finally { setBusy(false); }
-	};
-	return (0, import_jsx_runtime.jsxs)("div", { className: "space-y-4", children: [
-		(0, import_jsx_runtime.jsxs)("div", { className: "bg-white border border-zinc-200 rounded-xl p-4 sm:p-5 space-y-3", children: [
-			(0, import_jsx_runtime.jsxs)("div", { className: "flex flex-wrap items-center justify-between gap-2", children: [
-				(0, import_jsx_runtime.jsxs)("div", { children: [
-					(0, import_jsx_runtime.jsx)("h3", { className: "text-sm font-bold text-zinc-900", children: "Firebase Cloud Messaging · Web Push" }),
-					(0, import_jsx_runtime.jsx)("p", { className: "mt-1 text-xs text-zinc-500", children: "Register this browser and retrieve its FCM registration token." })
-				] }),
-				(0, import_jsx_runtime.jsx)("span", { className: `rounded-full px-2.5 py-1 text-[10px] font-bold ${supported ? "bg-emerald-50 text-emerald-700" : "bg-amber-50 text-amber-700"}`, children: supported ? "Browser supported" : "Checking / unavailable" })
-			] }),
-			(0, import_jsx_runtime.jsxs)("div", { className: "grid sm:grid-cols-2 gap-3", children: [
-				(0, import_jsx_runtime.jsxs)("div", { className: "rounded-lg bg-[#FAFAF8] border border-zinc-100 p-3", children: [
-					(0, import_jsx_runtime.jsx)("p", { className: "text-[10px] uppercase tracking-wider font-bold text-zinc-400", children: "Notification permission" }),
-					(0, import_jsx_runtime.jsx)("p", { className: "mt-1 text-sm font-semibold text-zinc-800 capitalize", children: permission })
-				] }),
-				(0, import_jsx_runtime.jsxs)("div", { className: "rounded-lg bg-[#FAFAF8] border border-zinc-100 p-3", children: [
-					(0, import_jsx_runtime.jsx)("p", { className: "text-[10px] uppercase tracking-wider font-bold text-zinc-400", children: "Delivery mode" }),
-					(0, import_jsx_runtime.jsx)("p", { className: "mt-1 text-sm font-semibold text-zinc-800", children: "Foreground + background receive" })
-				] })
-			] }),
-			(0, import_jsx_runtime.jsx)("p", { role: "status", className: "rounded-lg border border-[#E9DFC9] bg-[#FBF8F1] px-3 py-2.5 text-xs leading-relaxed text-zinc-700", children: status }),
-			(0, import_jsx_runtime.jsxs)("div", { className: "flex flex-wrap gap-2", children: [
-				(0, import_jsx_runtime.jsx)("button", { type: "button", disabled: busy || !supported, onClick: enable, className: "h-10 px-4 rounded-lg bg-zinc-900 hover:bg-zinc-800 disabled:opacity-50 text-white text-xs font-semibold", children: busy ? "Please wait…" : permission === "granted" ? "Generate / refresh FCM token" : "Enable notifications & get token" }),
-				token && (0, import_jsx_runtime.jsx)("button", { type: "button", disabled: busy, onClick: disconnect, className: "h-10 px-4 rounded-lg border border-red-200 bg-white text-red-600 text-xs font-semibold", children: "Unsubscribe this browser" })
-			] }),
-			(0, import_jsx_runtime.jsx)("label", { className: "block space-y-1.5", children: [
-				(0, import_jsx_runtime.jsx)("span", { className: "text-xs font-semibold text-zinc-700", children: "FCM registration token · current browser only" }),
-				(0, import_jsx_runtime.jsx)("textarea", { readOnly: true, rows: 4, value: token, placeholder: "Enable notifications to generate this browser's FCM token…", className: "w-full p-3 rounded-lg border border-zinc-200 bg-zinc-50 text-[11px] leading-relaxed text-zinc-700 break-all resize-y" }),
-				token && (0, import_jsx_runtime.jsx)("button", { type: "button", onClick: copyToken, className: "h-9 px-3 rounded-lg border border-zinc-200 bg-white hover:border-[#B68D40] text-xs font-semibold text-zinc-700", children: copyLabel })
-			] })
-		] }),
-		(0, import_jsx_runtime.jsxs)("div", { className: "bg-white border border-zinc-200 rounded-xl p-4 sm:p-5 space-y-2", children: [
-			(0, import_jsx_runtime.jsx)("h3", { className: "text-sm font-bold text-zinc-900", children: "Important: what works without a backend" }),
-			(0, import_jsx_runtime.jsx)("p", { className: "text-xs leading-relaxed text-zinc-600", children: "This static site can ask for permission, register the service worker, generate this browser's token, receive foreground messages and display background notifications. The token is not uploaded to a database." }),
-			(0, import_jsx_runtime.jsx)("p", { className: "text-[11px] leading-relaxed text-amber-700", children: "VAPID Public Key is configured. Its Base64URL format and 65-byte uncompressed P-256 structure have been validated locally. Keep this Public Key paired with the matching Firebase Web Push certificate." }),
-			(0, import_jsx_runtime.jsx)("p", { className: "text-[11px] leading-relaxed text-zinc-500", children: "Compatibility note: this build uses getToken() to provide the requested copyable registration token. Firebase currently marks getToken() deprecated and recommends register() with onRegistered() for new projects." }),
-			(0, import_jsx_runtime.jsx)("p", { className: "text-xs leading-relaxed text-zinc-600", children: "Sending campaigns to all subscribers, storing every visitor's token, scheduling broadcasts and managing delivery reports require a trusted server or a secure Firebase service with suitable access rules. Never put a Firebase service-account key or FCM server credential in this HTML." }),
-			(0, import_jsx_runtime.jsx)("p", { className: "text-[11px] text-zinc-400", children: "Use HTTPS (GitHub Pages provides it), keep firebase-messaging-sw.js at the published site root, and test in a browser that supports Web Push." })
-		] })
-	] });
-};
-
-var AdminNotificationCenterTab = () => {
-	const [unlocked, setUnlocked] = (0, import_react.useState)(false);
-	const [accessCode, setAccessCode] = (0, import_react.useState)("");
-	const [accessError, setAccessError] = (0, import_react.useState)("");
-	const [busy, setBusy] = (0, import_react.useState)(false);
-	const [view, setView] = (0, import_react.useState)("compose");
-	const [feedback, setFeedback] = (0, import_react.useState)("");
-	const [campaigns, setCampaigns] = (0, import_react.useState)(() => {
-		try { return JSON.parse(window.localStorage.getItem("saajGochh_notificationCampaigns_v1") || "[]"); }
-		catch { return []; }
-	});
-	const [draft, setDraft] = (0, import_react.useState)({
-		type: "announcement", title: "", message: "", audience: "All opted-in visitors",
-		priority: "normal", schedule: "", expiry: "72", imageUrl: "", ctaLabel: "Explore now", ctaUrl: ""
-	});
-	(0, import_react.useEffect)(() => {
-		try { window.localStorage.setItem("saajGochh_notificationCampaigns_v1", JSON.stringify(campaigns)); } catch {}
-	}, [campaigns]);
-	const inputClass = "w-full h-10 px-3 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-800 outline-none focus:border-[#B68D40] focus:ring-2 focus:ring-[#B68D40]/10";
-	const areaClass = "w-full min-h-[112px] p-3 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-800 outline-none resize-y focus:border-[#B68D40] focus:ring-2 focus:ring-[#B68D40]/10";
-	const update = (key, value) => setDraft((old) => ({ ...old, [key]: value }));
-	const verifyLock = async () => {
-		if (!accessCode) { setAccessError("Enter the Notification Center access code."); return; }
-		setBusy(true); setAccessError("");
-		try {
-			const salt = Uint8Array.from(atob("DnLj+BBrjNBsOS9kzTKPBg=="), (c) => c.charCodeAt(0));
-			const encoder = new TextEncoder();
-			const key = await window.crypto.subtle.importKey("raw", encoder.encode(accessCode), "PBKDF2", false, ["deriveBits"]);
-			const bits = await window.crypto.subtle.deriveBits({ name: "PBKDF2", salt, iterations: 180000, hash: "SHA-256" }, key, 256);
-			const actual = btoa(Array.from(new Uint8Array(bits)).map((b) => String.fromCharCode(b)).join(""));
-			if (actual === "ITN+dntoOzB0+QJwFrEW7ALqAtrtIub5XiAqbaS6Xiw=") {
-				setUnlocked(true); setAccessCode(""); setAccessError("");
-			} else setAccessError("Access code did not match. Please try again.");
-		} catch (err) {
-			setAccessError("Secure code verification is unavailable in this browser. Open the site in a modern browser over HTTPS.");
-		} finally { setBusy(false); }
-	};
-	const saveCampaign = (mode) => {
-		if (!draft.title.trim() || !draft.message.trim()) {
-			setFeedback("Add both a notification title and message before saving."); return;
-		}
-		const item = {
-			...draft,
-			id: `SG-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-			createdAt: new Date().toISOString(),
-			status: mode === "draft" ? "Draft" : draft.schedule ? "Scheduled · local only" : "Preview saved · local only",
-			delivery: "Not connected to a delivery service"
-		};
-		setCampaigns((old) => [item, ...old].slice(0, 100));
-		setFeedback(mode === "draft" ? "Draft saved in this browser." : "Campaign saved to local preview history. No customer notification was sent.");
-		if (mode !== "draft") setView("history");
-	};
-	const editCampaign = (item) => {
-		const { id, createdAt, status, delivery, ...rest } = item;
-		setDraft(rest); setView("compose"); setFeedback("Campaign loaded into the composer. Save it again to create an updated copy.");
-	};
-	const deleteCampaign = (id) => setCampaigns((old) => old.filter((item) => item.id !== id));
-	const navButton = (id, label) => (0, import_jsx_runtime.jsx)("button", {
-		type: "button", onClick: () => { setView(id); setFeedback(""); },
-		className: `px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${view === id ? "bg-zinc-900 text-white" : "bg-white border border-zinc-200 text-zinc-600 hover:border-[#B68D40]"}`,
-		children: label
-	}, id);
-	if (!unlocked) return (0, import_jsx_runtime.jsxs)("div", {
-		className: "sg-notification-lock max-w-xl mx-auto py-10 sm:py-16",
-		children: [
-			(0, import_jsx_runtime.jsxs)("div", { className: "sg-notification-lock-card bg-white border border-zinc-200 rounded-2xl p-6 sm:p-9 shadow-sm text-center", children: [
-				(0, import_jsx_runtime.jsx)("div", { className: "mx-auto mb-4 w-14 h-14 rounded-2xl bg-zinc-900 text-[#EBD8AE] flex items-center justify-center text-2xl", children: "⌁" }),
-				(0, import_jsx_runtime.jsx)("p", { className: "text-[10px] uppercase tracking-[.22em] font-bold text-[#A17B36]", children: "Restricted admin workspace" }),
-				(0, import_jsx_runtime.jsx)("h2", { className: "mt-2 text-2xl font-semibold font-serif-display text-zinc-900", children: "Notification Center" }),
-				(0, import_jsx_runtime.jsx)("p", { className: "mt-2 text-sm text-zinc-500 max-w-sm mx-auto", children: "Unlock the campaign console to create announcements, promotions and customer updates." }),
-				(0, import_jsx_runtime.jsxs)("div", { className: "mt-7 max-w-sm mx-auto text-left", children: [
-					(0, import_jsx_runtime.jsx)("label", { className: "block text-xs font-semibold text-zinc-700 mb-2", htmlFor: "sg-notification-lock", children: "Dedicated access code" }),
-					(0, import_jsx_runtime.jsx)("input", { id: "sg-notification-lock", type: "password", inputMode: "numeric", autoComplete: "off", maxLength: 32, value: accessCode, onChange: (e) => { setAccessCode(e.target.value); setAccessError(""); }, onKeyDown: (e) => { if (e.key === "Enter") verifyLock(); }, placeholder: "Enter access code", className: inputClass }),
-					accessError && (0, import_jsx_runtime.jsx)("p", { role: "alert", className: "mt-2 text-xs text-red-600", children: accessError }),
-					(0, import_jsx_runtime.jsx)("button", { type: "button", disabled: busy, onClick: verifyLock, className: "mt-4 w-full h-10 rounded-lg bg-zinc-900 hover:bg-zinc-800 disabled:opacity-60 text-white text-sm font-semibold", children: busy ? "Verifying…" : "Unlock Notification Center" })
-				] }),
-				(0, import_jsx_runtime.jsx)("p", { className: "mt-6 text-[11px] leading-relaxed text-zinc-400", children: "This is an additional in-page lock. Real access control must be enforced by a secure server, not only by browser code." })
-			] }),
-			(0, import_jsx_runtime.jsxs)("div", { className: "mt-4 flex items-center justify-center gap-2 text-[11px] text-zinc-400", children: ["🔒", "Separate from the main Admin Console password"] })
-		]
-	});
-	const statCard = (label, value, detail) => (0, import_jsx_runtime.jsxs)("div", { className: "bg-white border border-zinc-200 rounded-xl p-4", children: [
-		(0, import_jsx_runtime.jsx)("p", { className: "text-[10px] uppercase tracking-wider font-bold text-zinc-400", children: label }),
-		(0, import_jsx_runtime.jsx)("p", { className: "mt-2 text-2xl font-semibold text-zinc-900", children: value }),
-		(0, import_jsx_runtime.jsx)("p", { className: "mt-1 text-[11px] text-zinc-400", children: detail })
-	] });
-	const field = (label, control, help) => (0, import_jsx_runtime.jsxs)("label", { className: "block space-y-1.5", children: [
-		(0, import_jsx_runtime.jsx)("span", { className: "block text-xs font-semibold text-zinc-700", children: label }), control,
-		help && (0, import_jsx_runtime.jsx)("span", { className: "block text-[11px] leading-relaxed text-zinc-400", children: help })
-	] });
-	return (0, import_jsx_runtime.jsxs)("section", { className: "sg-notification-center space-y-5", children: [
-		(0, import_jsx_runtime.jsxs)("div", { className: "flex flex-col sm:flex-row sm:items-end justify-between gap-3", children: [
-			(0, import_jsx_runtime.jsxs)("div", { children: [
-				(0, import_jsx_runtime.jsx)("p", { className: "text-[10px] uppercase tracking-[.2em] font-bold text-[#A17B36]", children: "Campaign management" }),
-				(0, import_jsx_runtime.jsx)("h2", { className: "mt-1 text-2xl font-semibold font-serif-display text-zinc-900", children: "Notification Studio" }),
-				(0, import_jsx_runtime.jsx)("p", { className: "mt-1 text-xs text-zinc-500", children: "Compose, preview and organise customer communication." })
-			] }),
-			(0, import_jsx_runtime.jsx)("button", { type: "button", onClick: () => { setUnlocked(false); setView("compose"); setAccessCode(""); }, className: "h-9 px-3 rounded-lg border border-zinc-200 bg-white text-xs font-semibold text-zinc-600 hover:text-red-600", children: "Lock Notification Center" })
-		] }),
-		(0, import_jsx_runtime.jsx)("div", { className: "grid grid-cols-2 lg:grid-cols-4 gap-3", children: [
-			statCard("Saved campaigns", campaigns.length, "Stored in this browser"),
-			statCard("Drafts", campaigns.filter((x) => x.status === "Draft").length, "Ready for review"),
-			statCard("Scheduled", campaigns.filter((x) => (x.status || "").startsWith("Scheduled")).length, "Local schedule records"),
-			statCard("Delivered", "—", "Delivery provider not connected")
-		] }),
-		(0, import_jsx_runtime.jsx)("div", { className: "flex flex-wrap gap-2", children: [navButton("compose", "✦  Compose"), navButton("history", "◷  Campaign history"), navButton("delivery", "◎  Delivery & consent"), navButton("fcm", "☁  FCM Setup")] }),
-		feedback && (0, import_jsx_runtime.jsx)("div", { role: "status", className: "rounded-lg border border-[#DCCBA7] bg-[#FBF8F1] px-4 py-3 text-xs text-zinc-700", children: feedback }),
-		view === "compose" && (0, import_jsx_runtime.jsxs)("div", { className: "grid grid-cols-1 xl:grid-cols-[minmax(0,1.3fr)_minmax(280px,.7fr)] gap-4 items-start", children: [
-			(0, import_jsx_runtime.jsxs)("div", { className: "bg-white border border-zinc-200 rounded-xl p-4 sm:p-5 space-y-4", children: [
-				(0, import_jsx_runtime.jsxs)("div", { className: "flex items-center justify-between", children: [(0, import_jsx_runtime.jsx)("h3", { className: "text-sm font-bold text-zinc-900", children: "Campaign composer" }), (0, import_jsx_runtime.jsx)("span", { className: "text-[10px] text-zinc-400", children: "LOCAL PREVIEW MODE" })] }),
-				(0, import_jsx_runtime.jsxs)("div", { className: "grid sm:grid-cols-2 gap-3", children: [
-					field("Notification type", (0, import_jsx_runtime.jsxs)("select", { className: inputClass, value: draft.type, onChange: (e) => update("type", e.target.value), children: [
-						(0, import_jsx_runtime.jsx)("option", { value: "announcement", children: "Store announcement" }),
-						(0, import_jsx_runtime.jsx)("option", { value: "promotion", children: "Promotion / offer" }),
-						(0, import_jsx_runtime.jsx)("option", { value: "new-arrival", children: "New arrival" }),
-						(0, import_jsx_runtime.jsx)("option", { value: "urgent", children: "Important update" }),
-						(0, import_jsx_runtime.jsx)("option", { value: "personal", children: "Customer update" })
-					] })),
-					field("Audience", (0, import_jsx_runtime.jsxs)("select", { className: inputClass, value: draft.audience, onChange: (e) => update("audience", e.target.value), children: [
-						(0, import_jsx_runtime.jsx)("option", { children: "All opted-in visitors" }),
-						(0, import_jsx_runtime.jsx)("option", { children: "Push notification subscribers" }),
-						(0, import_jsx_runtime.jsx)("option", { children: "New customers" }),
-						(0, import_jsx_runtime.jsx)("option", { children: "Returning customers" }),
-						(0, import_jsx_runtime.jsx)("option", { children: "Specific customer group" })
-					] }))
-				] }),
-				field("Notification title", (0, import_jsx_runtime.jsx)("input", { className: inputClass, maxLength: 70, value: draft.title, onChange: (e) => update("title", e.target.value), placeholder: "e.g. New festive collection is here" }), "Up to 70 characters."),
-				field("Message", (0, import_jsx_runtime.jsx)("textarea", { className: areaClass, maxLength: 260, value: draft.message, onChange: (e) => update("message", e.target.value), placeholder: "Write a clear, helpful message for your customers…" }), "Up to 260 characters. Avoid sensitive personal information."),
-				(0, import_jsx_runtime.jsxs)("div", { className: "grid sm:grid-cols-2 gap-3", children: [
-					field("Priority", (0, import_jsx_runtime.jsxs)("select", { className: inputClass, value: draft.priority, onChange: (e) => update("priority", e.target.value), children: [
-						(0, import_jsx_runtime.jsx)("option", { value: "low", children: "Low" }), (0, import_jsx_runtime.jsx)("option", { value: "normal", children: "Normal" }), (0, import_jsx_runtime.jsx)("option", { value: "high", children: "High" })
-					] })),
-					field("Expiry", (0, import_jsx_runtime.jsxs)("select", { className: inputClass, value: draft.expiry, onChange: (e) => update("expiry", e.target.value), children: [
-						(0, import_jsx_runtime.jsx)("option", { value: "24", children: "24 hours" }), (0, import_jsx_runtime.jsx)("option", { value: "72", children: "3 days" }), (0, import_jsx_runtime.jsx)("option", { value: "168", children: "7 days" }), (0, import_jsx_runtime.jsx)("option", { value: "720", children: "30 days" })
-					] }))
-				] }),
-				field("Schedule date & time (optional)", (0, import_jsx_runtime.jsx)("input", { type: "datetime-local", className: inputClass, value: draft.schedule, onChange: (e) => update("schedule", e.target.value) }), "A saved time is only a local schedule note until a server scheduler is connected."),
-				field("Image URL (optional)", (0, import_jsx_runtime.jsx)("input", { type: "url", className: inputClass, value: draft.imageUrl, onChange: (e) => update("imageUrl", e.target.value), placeholder: "https://…" })),
-				(0, import_jsx_runtime.jsxs)("div", { className: "grid sm:grid-cols-2 gap-3", children: [
-					field("Button label", (0, import_jsx_runtime.jsx)("input", { className: inputClass, maxLength: 24, value: draft.ctaLabel, onChange: (e) => update("ctaLabel", e.target.value), placeholder: "Explore now" })),
-					field("Button destination URL", (0, import_jsx_runtime.jsx)("input", { type: "url", className: inputClass, value: draft.ctaUrl, onChange: (e) => update("ctaUrl", e.target.value), placeholder: "https://your-store.com/…" }))
-				] }),
-				(0, import_jsx_runtime.jsxs)("div", { className: "flex flex-wrap gap-2 pt-2 border-t border-zinc-100", children: [
-					(0, import_jsx_runtime.jsx)("button", { type: "button", onClick: () => saveCampaign("draft"), className: "h-10 px-4 rounded-lg border border-zinc-200 bg-white hover:border-[#B68D40] text-xs font-semibold text-zinc-700", children: "Save draft" }),
-					(0, import_jsx_runtime.jsx)("button", { type: "button", onClick: () => saveCampaign("queue"), className: "h-10 px-4 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-xs font-semibold text-white", children: "Save & queue preview" }),
-					(0, import_jsx_runtime.jsx)("button", { type: "button", onClick: () => { setDraft({ type: "announcement", title: "", message: "", audience: "All opted-in visitors", priority: "normal", schedule: "", expiry: "72", imageUrl: "", ctaLabel: "Explore now", ctaUrl: "" }); setFeedback("Composer cleared."); }, className: "h-10 px-3 rounded-lg text-xs font-semibold text-zinc-500 hover:bg-zinc-50", children: "Clear" })
-				] })
-			] }),
-			(0, import_jsx_runtime.jsxs)("aside", { className: "bg-white border border-zinc-200 rounded-xl p-4 sm:p-5 space-y-4", children: [
-				(0, import_jsx_runtime.jsxs)("div", { className: "flex items-center justify-between", children: [(0, import_jsx_runtime.jsx)("h3", { className: "text-sm font-bold text-zinc-900", children: "Live preview" }), (0, import_jsx_runtime.jsx)("span", { className: "text-[10px] text-zinc-400", children: "CUSTOMER VIEW" })] }),
-				(0, import_jsx_runtime.jsxs)("div", { className: "rounded-xl border border-zinc-200 bg-[#FAFAF8] p-3", children: [
-					(0, import_jsx_runtime.jsxs)("div", { className: "flex items-center gap-2", children: [(0, import_jsx_runtime.jsx)("span", { className: "w-8 h-8 rounded-lg bg-zinc-900 text-[#EBD8AE] flex items-center justify-center", children: "SG" }), (0, import_jsx_runtime.jsxs)("div", { children: [(0, import_jsx_runtime.jsx)("p", { className: "text-xs font-bold text-zinc-900", children: "Saaj Gochh" }), (0, import_jsx_runtime.jsx)("p", { className: "text-[10px] text-zinc-400", children: "Notification · just now" })] })] }),
-					(0, import_jsx_runtime.jsx)("p", { className: "mt-3 text-sm font-bold text-zinc-900 break-words", children: draft.title || "Your notification title" }),
-					(0, import_jsx_runtime.jsx)("p", { className: "mt-1 text-xs leading-relaxed text-zinc-600 break-words", children: draft.message || "Your customer-facing message will appear here." }),
-					draft.imageUrl && (0, import_jsx_runtime.jsx)("img", { src: draft.imageUrl, alt: "Notification preview", className: "mt-3 w-full max-h-40 object-cover rounded-lg", onError: (e) => { e.currentTarget.style.display = "none"; } }),
-					draft.ctaLabel && (0, import_jsx_runtime.jsx)("div", { className: "mt-3 inline-flex rounded-lg bg-zinc-900 px-3 py-2 text-[11px] font-semibold text-white", children: draft.ctaLabel })
-				] }),
-				(0, import_jsx_runtime.jsxs)("div", { className: "rounded-lg bg-[#FBF8F1] border border-[#E9DFC9] p-3 text-[11px] leading-relaxed text-zinc-600", children: [
-					(0, import_jsx_runtime.jsx)("p", { className: "font-bold text-zinc-800", children: "Delivery status: not connected" }),
-					(0, import_jsx_runtime.jsx)("p", { className: "mt-1", children: "This preview does not send push notifications or messages to real customers. Connect an authenticated backend, consent-based subscriber storage and a push provider to enable live delivery." })
-				] }),
-				(0, import_jsx_runtime.jsx)("p", { className: "text-[10px] text-zinc-400", children: `Audience: ${draft.audience} · Priority: ${draft.priority}` })
-			] })
-		] }),
-		view === "history" && (0, import_jsx_runtime.jsxs)("div", { className: "bg-white border border-zinc-200 rounded-xl overflow-hidden", children: [
-			(0, import_jsx_runtime.jsxs)("div", { className: "p-4 border-b border-zinc-100 flex items-center justify-between", children: [(0, import_jsx_runtime.jsx)("h3", { className: "text-sm font-bold text-zinc-900", children: "Campaign history" }), (0, import_jsx_runtime.jsx)("span", { className: "text-[10px] text-zinc-400", children: `${campaigns.length} saved` })] }),
-			campaigns.length ? (0, import_jsx_runtime.jsx)("div", { className: "divide-y divide-zinc-100", children: campaigns.map((item) => (0, import_jsx_runtime.jsxs)("div", { className: "p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3", children: [
-				(0, import_jsx_runtime.jsxs)("div", { className: "min-w-0", children: [
-					(0, import_jsx_runtime.jsx)("div", { className: "flex flex-wrap items-center gap-2", children: [
-						(0, import_jsx_runtime.jsx)("p", { className: "text-sm font-semibold text-zinc-900 truncate", children: item.title }),
-						(0, import_jsx_runtime.jsx)("span", { className: "rounded-full bg-[#F5F1E8] px-2 py-1 text-[9px] font-bold text-[#87682F]", children: item.status })
-					] }),
-					(0, import_jsx_runtime.jsx)("p", { className: "mt-1 text-xs text-zinc-500 line-clamp-2", children: item.message }),
-					(0, import_jsx_runtime.jsx)("p", { className: "mt-1 text-[10px] text-zinc-400", children: `${item.audience} · ${new Date(item.createdAt).toLocaleString()}` })
-				] }),
-				(0, import_jsx_runtime.jsxs)("div", { className: "flex gap-2 shrink-0", children: [
-					(0, import_jsx_runtime.jsx)("button", { type: "button", onClick: () => editCampaign(item), className: "h-8 px-3 rounded-lg border border-zinc-200 text-[11px] font-semibold text-zinc-700", children: "Edit copy" }),
-					(0, import_jsx_runtime.jsx)("button", { type: "button", onClick: () => deleteCampaign(item.id), className: "h-8 px-3 rounded-lg border border-red-100 text-[11px] font-semibold text-red-600", children: "Delete" })
-				] })
-			] }, item.id)) }) : (0, import_jsx_runtime.jsx)("div", { className: "p-10 text-center", children: [
-				(0, import_jsx_runtime.jsx)("p", { className: "text-sm font-semibold text-zinc-700", children: "No campaigns saved yet" }),
-				(0, import_jsx_runtime.jsx)("p", { className: "mt-1 text-xs text-zinc-400", children: "Create a draft in the composer to see it here." })
-			] })
-		] }),
-		view === "fcm" && (0, import_jsx_runtime.jsx)(FCMSetupPanel, {}),
-		view === "delivery" && (0, import_jsx_runtime.jsxs)("div", { className: "grid lg:grid-cols-2 gap-4", children: [
-			(0, import_jsx_runtime.jsxs)("div", { className: "bg-white border border-zinc-200 rounded-xl p-5 space-y-3", children: [
-				(0, import_jsx_runtime.jsx)("h3", { className: "text-sm font-bold text-zinc-900", children: "Delivery integration" }),
-				(0, import_jsx_runtime.jsx)("p", { className: "text-xs leading-relaxed text-zinc-500", children: "Live delivery requires a server-side API and a push service such as Firebase Cloud Messaging. The server must authenticate admins, validate campaigns, schedule delivery and keep provider credentials private." }),
-				(0, import_jsx_runtime.jsx)("div", { className: "rounded-lg border border-zinc-200 p-3", children: [
-					(0, import_jsx_runtime.jsx)("p", { className: "text-xs font-semibold text-zinc-800", children: "Current connection" }),
-					(0, import_jsx_runtime.jsx)("p", { className: "mt-1 text-xs text-amber-700", children: "Not configured · local preview only" })
-				] }),
-				(0, import_jsx_runtime.jsx)("p", { className: "text-[11px] text-zinc-400", children: "Do not place API keys, service-account files or customer secrets in this HTML." })
-			] }),
-			(0, import_jsx_runtime.jsxs)("div", { className: "bg-white border border-zinc-200 rounded-xl p-5 space-y-3", children: [
-				(0, import_jsx_runtime.jsx)("h3", { className: "text-sm font-bold text-zinc-900", children: "Customer consent & controls" }),
-				(0, import_jsx_runtime.jsx)("p", { className: "text-xs leading-relaxed text-zinc-500", children: "Only send push notifications to people who explicitly opted in. Provide a clear unsubscribe or notification-preferences control, respect expiry and frequency limits, and avoid targeting based on sensitive personal information." }),
-				(0, import_jsx_runtime.jsx)("ul", { className: "space-y-2 text-xs text-zinc-600", children: [
-					(0, import_jsx_runtime.jsx)("li", { children: "✓  Explicit browser permission and opt-in records" }),
-					(0, import_jsx_runtime.jsx)("li", { children: "✓  Unsubscribe and preference management" }),
-					(0, import_jsx_runtime.jsx)("li", { children: "✓  Frequency cap, expiry and delivery logs" }),
-					(0, import_jsx_runtime.jsx)("li", { children: "✓  Admin authentication and server-side audit trail" })
-				] })
-			] })
-		] })
-	] });
-};
-
 var AdminDashboard = ({ isOpen, products, defaultWhatsapp, isOwnerUnlocked, pendingMeeshoPayload, onConsumeMeeshoPayload, onClose, onLogout, onSaveProduct, onToggleStock, onDeleteProduct, onSummarizeAll, onRestoreDefaults, onPreviewProduct, onRequestOwnerPin, onLockOwner, onSaveWhatsapp, onProductsMigrated, onToast }) => {
 	const [activeTab, setActiveTab] = (0, import_react.useState)("overview");
 	const [editingProduct, setEditingProduct] = (0, import_react.useState)(null);
@@ -27771,11 +27440,6 @@ var AdminDashboard = ({ isOpen, products, defaultWhatsapp, isOwnerUnlocked, pend
 			icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CirclePlus, { className: "w-4 h-4" })
 		},
 		{
-			id: "notifications",
-			label: "Notification Center",
-			icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-sm", children: "🔔" })
-		},
-		{
 			id: "settings",
 			label: "Sync & Settings",
 			icon: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Settings, { className: "w-4 h-4" })
@@ -27785,7 +27449,6 @@ var AdminDashboard = ({ isOpen, products, defaultWhatsapp, isOwnerUnlocked, pend
 		overview: "Store Overview",
 		products: "Catalog & Inventory",
 		editor: editingProduct ? `Editing: ${editingProduct.title}` : "Add or Import Product",
-		notifications: "Notification Center · Restricted",
 		settings: "Sync, WhatsApp & Backup"
 	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -27950,8 +27613,7 @@ var AdminDashboard = ({ isOpen, products, defaultWhatsapp, isOwnerUnlocked, pend
 								onSaveWhatsapp,
 								onProductsMigrated,
 								onToast
-							}),
-							activeTab === "notifications" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AdminNotificationCenterTab, {})
+							})
 						]
 					})
 				})
@@ -32151,45 +31813,6 @@ function App() {
 @media(max-width:640px){.sg-ajio-sections{padding:8px 14px 23px;gap:25px}.sg-ajio-banner{height:139px}.sg-ajio-banner-copy{width:70%;padding:14px 14px}.sg-ajio-banner-kicker{font-size:7px;letter-spacing:.14em}.sg-ajio-banner-title{font-size:20px;max-width:220px}.sg-ajio-banner-subtitle{max-width:180px;font-size:9px}.sg-ajio-banner-cta{min-height:27px;margin-top:8px;padding:0 9px;font-size:7px;gap:12px}.sg-ajio-banner-visual{width:44%}.sg-ajio-banner-visual img{right:0;width:70%;height:145%;top:-21%;border-width:3px}.sg-ajio-banner-sticker{right:8px;bottom:9px;padding:5px 6px;font-size:6px}.sg-ajio-section-heading{margin:14px 1px 9px;align-items:flex-end}.sg-ajio-section-actions{gap:8px;flex-direction:column;align-items:flex-end}.sg-ajio-product-count{font-size:7px}.sg-ajio-view-all{font-size:7px}.sg-ajio-section-title{font-size:18px}.sg-ajio-card-rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(245px,78%);grid-template-columns:none;gap:10px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding:1px 1px 8px;scrollbar-width:thin;scrollbar-color:#d8cbb8 transparent}.sg-ajio-product-card{scroll-snap-align:start;min-height:0}.sg-ajio-card-image-wrap{height:190px;flex-basis:190px}.sg-ajio-product-card-0 .sg-ajio-card-image-wrap{height:190px;flex-basis:190px}.sg-ajio-product-card-1{grid-template-columns:40% minmax(0,1fr)}.sg-ajio-product-card-1 .sg-ajio-card-image-wrap{min-height:260px}.sg-ajio-product-card-1 .sg-ajio-card-details{padding:13px 11px}.sg-ajio-product-card-1 .sg-ajio-card-title{font-size:14px}.sg-ajio-product-card-2{grid-column:auto;display:flex;padding:7px}.sg-ajio-product-card-2 .sg-ajio-card-image-wrap{height:190px;min-height:190px;flex-basis:190px}.sg-ajio-product-card-2 .sg-ajio-card-details{padding:11px 7px 7px}.sg-ajio-card-title{font-size:14px;min-height:36px}.sg-ajio-card-description{font-size:8px;min-height:25px}.sg-ajio-card-price{font-size:13px}.sg-ajio-card-cta{min-height:28px;padding:0 8px;font-size:7px}.sg-ajio-slider-controls{padding-top:6px}}
 @media(prefers-reduced-motion:reduce){.sg-ajio-product-card,.sg-ajio-card-image,.sg-ajio-banner-visual img,.sg-ajio-banner-cta,.sg-ajio-card-cta{animation:none;transition:none}}
 </style>
-<style id="sg-notification-center-styles">
-/* Saaj Gochh — Notification Center additions */
-.sg-notification-lock{max-width:42rem;margin:0 auto;padding:2.5rem 1rem 3rem}
-.sg-notification-lock-card{background:#fff;border:1px solid #e4e4e7;border-radius:1rem;padding:2rem 1.5rem;box-shadow:0 8px 30px rgba(24,24,27,.06);text-align:center}
-.sg-notification-lock-card input{width:100%;height:2.75rem;padding:0 .85rem;border:1px solid #d4d4d8;border-radius:.5rem;background:#fff;color:#27272a}
-.sg-notification-lock-card button{width:100%;height:2.75rem;margin-top:1rem;border-radius:.5rem;background:#18181b;color:#fff;font-weight:600}
-.sg-notification-center{display:flex;flex-direction:column;gap:1.25rem;min-width:0}
-.sg-notification-center .rounded-lg{border-radius:.5rem}
-.sg-notification-center .rounded-xl{border-radius:.75rem}
-.sg-notification-center .rounded-2xl{border-radius:1rem}
-.sg-notification-center .shadow-sm,.sg-notification-lock .shadow-sm{box-shadow:0 1px 2px rgba(0,0,0,.06)}
-.sg-notification-center .break-words{overflow-wrap:anywhere;word-break:break-word}
-.sg-notification-center .max-h-40{max-height:10rem}
-.sg-notification-center .mt-6{margin-top:1.5rem}
-.sg-notification-center .mt-7{margin-top:1.75rem}
-.sg-notification-center .mb-2{margin-bottom:.5rem}
-.sg-notification-center .p-10{padding:2.5rem}
-.sg-notification-center .py-10{padding-top:2.5rem;padding-bottom:2.5rem}
-.sg-notification-center .text-amber-700{color:#b45309}
-.sg-notification-center [class~="text-[#A17B36]"]{color:#a17b36}
-.sg-notification-center [class~="text-[#87682F]"]{color:#87682f}
-.sg-notification-center [class~="bg-[#F5F1E8]"]{background:#f5f1e8}
-.sg-notification-center [class~="bg-[#FAFAF8]"]{background:#fafaf8}
-.sg-notification-center [class~="bg-[#FBF8F1]"]{background:#fbf8f1}
-.sg-notification-center [class~="border-[#DCCBA7]"]{border-color:#dccba7}
-.sg-notification-center [class~="border-[#E9DFC9]"]{border-color:#e9dfc9}
-.sg-notification-center [class~="border-red-100"]{border-color:#fee2e2}
-.sg-notification-center [class~="tracking-[.22em]"]{letter-spacing:.22em}
-.sg-notification-center [class~="tracking-[.2em]"]{letter-spacing:.2em}
-.sg-notification-center [class~="disabled:opacity-60"]:disabled{opacity:.6}
-.sg-notification-center [class~="hover:border-[#B68D40]"]:hover{border-color:#b68d40}
-@media(min-width:640px){
- .sg-notification-center [class~="sm:flex-row"]{flex-direction:row}
- .sg-notification-center [class~="sm:items-end"]{align-items:flex-end}
- .sg-notification-center [class~="sm:p-9"]{padding:2.25rem}
- .sg-notification-center [class~="sm:py-16"]{padding-top:4rem;padding-bottom:4rem}
-}
-@media(min-width:1280px){.sg-notification-center [class~="xl:grid-cols-[minmax(0,1.3fr)_minmax(280px,.7fr)]"]{grid-template-columns:minmax(0,1.3fr) minmax(280px,.7fr)}}
-</style>
 </head>
   <body>
     <script id="saaj-embedded-catalog" type="application/json">{"updatedAt":1795538199096,"whatsapp":"918670234616","products":[{"id":"demo-1","title":"Handwoven Red-Border White Dhakai Jamdani Saree","price":1250,"category":"Sarees & Apparel","description":"Classic crisp cotton-blend Dhakai Jamdani weave in off-white with traditional crimson temple border and intricate motifs. Length: 5.5m (without blouse piece). Ideal for pujas and festive mornings.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%237D1B24%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23B84A2F%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%22452%22%20height%3D%22452%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23F2D79B%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.45%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%22120%22%20fill%3D%22%23F2D79B%22%20fill-opacity%3D%220.1%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M180%20155%20Q250%20130%20320%20155%20L340%20275%20Q250%20295%20160%20275%20Z%22%20fill%3D%22%23FFF8EE%22%20stroke%3D%22%23C89B3C%22%20stroke-width%3D%224%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M168%20255%20Q250%20275%20332%20255%22%20stroke%3D%22%239B1B27%22%20stroke-width%3D%2214%22%20fill%3D%22none%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22205%22%20r%3D%2214%22%20fill%3D%22%23C89B3C%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22395%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFFFF%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%3EDhakai%20Jamdani%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22426%22%20text-anchor%3D%22middle%22%20fill%3D%22%23F2D79B%22%20font-family%3D%22sans-serif%22%20font-size%3D%2213%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"whatsappNumber":"","affiliateLink":"","featureSummary":[]},{"id":"demo-2","title":"Hand-Painted Terracotta Alpona Wall Hanging","price":450,"category":"Home Decor","description":"Baked clay wall plate adorned with traditional hand-painted Alpona geometric patterns. Diameter: 10 inches. Comes with a ready-to-hang jute cord at the back.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%239E3B24%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%235A1F16%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%22452%22%20height%3D%22452%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23F4D58D%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.45%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%22120%22%20fill%3D%22%23F4D58D%22%20fill-opacity%3D%220.1%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%2272%22%20fill%3D%22%23C9593B%22%20stroke%3D%22%23F4D58D%22%20stroke-width%3D%224%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%2242%22%20fill%3D%22none%22%20stroke%3D%22%23FFFDF8%22%20stroke-width%3D%223%22%20stroke-dasharray%3D%226%206%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M250%20160%20L265%20200%20L305%20215%20L265%20230%20L250%20270%20L235%20230%20L195%20215%20L235%20200%20Z%22%20fill%3D%22%23F4D58D%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22395%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFFFF%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%3ETerracotta%20Wall%20Art%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22426%22%20text-anchor%3D%22middle%22%20fill%3D%22%23F4D58D%22%20font-family%3D%22sans-serif%22%20font-size%3D%2213%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"whatsappNumber":"","affiliateLink":"","featureSummary":[]},{"id":"demo-3","title":"Dokra & Oxidized Traditional Jhumka Necklace Set","price":380,"category":"Jewelry & Craft","description":"Handcrafted Dokra-inspired antique brass & oxidized choker paired with matching lightweight jhumkas. Adjustable dori thread closure suitable for sarees and kurtis.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2327272A%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%2352525B%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%22452%22%20height%3D%22452%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23E6C27A%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.45%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%22120%22%20fill%3D%22%23E6C27A%22%20fill-opacity%3D%220.1%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M190%20165%20Q250%20265%20310%20165%22%20fill%3D%22none%22%20stroke%3D%22%23E6C27A%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22222%22%20r%3D%2222%22%20fill%3D%22%23E6C27A%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%22215%22%20cy%3D%22204%22%20r%3D%2210%22%20fill%3D%22%23E6C27A%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%22285%22%20cy%3D%22204%22%20r%3D%2210%22%20fill%3D%22%23E6C27A%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22395%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFFFF%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%3EDokra%20Jewelry%20Set%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22426%22%20text-anchor%3D%22middle%22%20fill%3D%22%23E6C27A%22%20font-family%3D%22sans-serif%22%20font-size%3D%2213%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"whatsappNumber":"","affiliateLink":"","featureSummary":[]},{"id":"demo-4","title":"Nakshi Kantha Embroidered Cotton Cushion Covers (Set of 2)","price":520,"category":"Home Decor","description":"Soft 100% pure cotton 16x16 inch cushion covers featuring authentic running-stitch Nakshi Kantha embroidery in maroon and gold threads with concealed zip.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%233F3F46%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%2318181B%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%22452%22%20height%3D%22452%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23FBE4B4%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.45%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%22120%22%20fill%3D%22%23FBE4B4%22%20fill-opacity%3D%220.1%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%22180%22%20y%3D%22145%22%20width%3D%22140%22%20height%3D%22140%22%20rx%3D%226%22%20fill%3D%22%23FBF7F0%22%20stroke%3D%22%23C89B3C%22%20stroke-width%3D%225%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Crect%20x%3D%22200%22%20y%3D%22165%22%20width%3D%22100%22%20height%3D%22100%22%20rx%3D%224%22%20fill%3D%22none%22%20stroke%3D%22%23B84A2F%22%20stroke-width%3D%223%22%20stroke-dasharray%3D%226%204%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%2224%22%20fill%3D%22%2318181B%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22395%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFFFF%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%3ENakshi%20Kantha%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22426%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FBE4B4%22%20font-family%3D%22sans-serif%22%20font-size%3D%2213%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"whatsappNumber":"","affiliateLink":"","featureSummary":[]},{"id":"demo-5","title":"Pure Brass Mangal Diya & Dhunuchi Festive Gift Set","price":690,"category":"Festive Gifts","description":"Heavyweight solid brass puja essentials set containing one traditional Mangal Diya and one classic Dhunuchi. Easy to polish and perfect for housewarming gifts.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23422006%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23713F12%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%22452%22%20height%3D%22452%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23FDE047%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.45%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%22120%22%20fill%3D%22%23FDE047%22%20fill-opacity%3D%220.1%22%2F%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22250%22%20cy%3D%22245%22%20rx%3D%2268%22%20ry%3D%2222%22%20fill%3D%22%23D4AF37%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M210%20240%20Q250%20285%20290%20240%20Z%22%20fill%3D%22%23B68B22%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M250%20155%20C265%20182%20272%20200%20250%20218%20C228%20200%20235%20182%20250%20155%20Z%22%20fill%3D%22%23FDE047%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22395%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFFFF%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%3EBrass%20Festive%20Set%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22426%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FDE047%22%20font-family%3D%22sans-serif%22%20font-size%3D%2213%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":false,"whatsappNumber":"","affiliateLink":"","featureSummary":[]},{"id":"demo-6","title":"Shantiniketan Batik Print Pure Cotton Kurta","price":790,"category":"Sarees & Apparel","description":"Breathable hand-dyed Shantiniketan batik print cotton kurta in warm terracotta & cream tones. Available in sizes M, L, XL, and XXL.","images":["data:image/svg+xml;charset=UTF-8,%0A%20%20%20%20%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%237C2D12%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23431407%22%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22url(%23g)%22%2F%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%22452%22%20height%3D%22452%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23F3D38C%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.45%22%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22250%22%20cy%3D%22215%22%20r%3D%22120%22%20fill%3D%22%23F3D38C%22%20fill-opacity%3D%220.1%22%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M205%20150%20L295%20150%20L325%20200%20L298%20220%20L290%20205%20L290%20285%20L210%20285%20L210%20205%20L202%20220%20L175%20200%20Z%22%20fill%3D%22%23FBF7F0%22%20stroke%3D%22%23C89B3C%22%20stroke-width%3D%224%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%3Cline%20x1%3D%22250%22%20y1%3D%22150%22%20x2%3D%22250%22%20y2%3D%22220%22%20stroke%3D%22%237C2D12%22%20stroke-width%3D%224%22%2F%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22395%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFFFFF%22%20font-family%3D%22Georgia%2C%20serif%22%20font-size%3D%2222%22%20font-weight%3D%22bold%22%3EBatik%20Cotton%20Kurta%3C%2Ftext%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%22250%22%20y%3D%22426%22%20text-anchor%3D%22middle%22%20fill%3D%22%23F3D38C%22%20font-family%3D%22sans-serif%22%20font-size%3D%2213%22%20letter-spacing%3D%223%22%3ESAAJ%20GOCHH%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20"],"inStock":true,"codAvailable":true,"return7Days":true,"whatsappNumber":"","affiliateLink":"","featureSummary":[]}]}</script>
@@ -32634,137 +32257,6 @@ function install(){const root=$('#root');const explore=$('#explore',root||docume
 function setup(){install();const root=$('#root');if(root){const ob=new MutationObserver(()=>install());ob.observe(root,{childList:true,subtree:true})}}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
 })();
-</script>
-
-<script type="module">
-import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
-import { getMessaging, isSupported, getToken, onMessage, deleteToken } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-messaging.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyA874tDgviiYwcKYZhPPvXtLEdKxo2og0",
-  authDomain: "saaj-gochh.firebaseapp.com",
-  projectId: "saaj-gochh",
-  storageBucket: "saaj-gochh.firebasestorage.app",
-  messagingSenderId: "575111387265",
-  appId: "1:575111387265:web:2450fbfd51a1024f19d580",
-  measurementId: "G-KHSMMLRX9L"
-};
-// Firebase Web Push Public VAPID key (Base64URL, uncompressed P-256 public key).
-const vapidKey = "BPdTS9L9ILpldgE0CB2DPi_BmE11IYMRv2uNG5lIxVIydYBJ9uE8hNTCfpwpc7omZWQ8YRkUGgXmUByVP1rRmM0";
-
-function validateVapidPublicKey(value) {
-  if (!value || value === "PASTE_FULL_VAPID_PUBLIC_KEY_HERE") {
-    throw new Error("VAPID Public Key is not configured. In Firebase Console open Project settings → Cloud Messaging → Web Push certificates, copy the complete public key, and replace PASTE_FULL_VAPID_PUBLIC_KEY_HERE in this HTML.");
-  }
-  if (!/^[A-Za-z0-9_-]+$/.test(value)) {
-    throw new Error("VAPID Public Key must be Base64URL text. Copy the Public key exactly from Firebase Console.");
-  }
-  let decoded;
-  try {
-    const padded = value.replace(/-/g, "+").replace(/_/g, "/") + "=".repeat((4 - value.length % 4) % 4);
-    decoded = atob(padded);
-  } catch {
-    throw new Error("VAPID Public Key could not be decoded. Copy the full key again from Firebase Console.");
-  }
-  if (decoded.length !== 65 || decoded.charCodeAt(0) !== 0x04) {
-    throw new Error("Invalid VAPID Public Key: expected a 65-byte uncompressed P-256 public key (usually 87 Base64URL characters). The supplied key is incomplete or malformed.");
-  }
-}
-
-let runtimePromise;
-
-async function checkSupport() {
-  validateVapidPublicKey(vapidKey);
-  if (!window.isSecureContext) throw new Error("Push notifications need HTTPS. Open the GitHub Pages HTTPS URL.");
-  if (!("Notification" in window) || !("serviceWorker" in navigator) || !("PushManager" in window)) {
-    throw new Error("This browser does not provide Notification, Service Worker and Push API support.");
-  }
-  const supported = await isSupported();
-  if (!supported) throw new Error("Firebase Messaging is not supported in this browser or its current browsing mode.");
-  return true;
-}
-
-async function ensureMessaging() {
-  if (runtimePromise) return runtimePromise;
-  runtimePromise = (async () => {
-    await checkSupport();
-    const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
-    const messaging = getMessaging(app);
-    // This relative URL correctly resolves at the GitHub Pages project-site root (for example /repo/).
-    const workerUrl = new URL("firebase-messaging-sw.js", document.baseURI);
-    const registration = await navigator.serviceWorker.register(workerUrl.href);
-    onMessage(messaging, async (payload) => {
-      const title = payload?.notification?.title || payload?.data?.title || "Saaj Gochh";
-      const body = payload?.notification?.body || payload?.data?.body || "There is a new update from Saaj Gochh.";
-      const link = payload?.data?.link || payload?.fcmOptions?.link || registration.scope;
-      window.dispatchEvent(new CustomEvent("saajgochh:fcm-message", { detail: payload }));
-      // Foreground messages are not displayed automatically, so show one browser notification.
-      if (Notification.permission === "granted") {
-        try { await registration.showNotification(title, { body, data: { link } }); }
-        catch (error) { console.warn("Could not display foreground notification:", error); }
-      }
-    });
-    return { app, messaging, registration };
-  })();
-  try { return await runtimePromise; }
-  catch (error) { runtimePromise = null; throw error; }
-}
-
-const SGFCM = {
-  checkSupport,
-  async requestToken() {
-    if (!("Notification" in window)) throw new Error("Notifications are unavailable in this browser.");
-    let permission = Notification.permission;
-    if (permission !== "granted") permission = await Notification.requestPermission();
-    if (permission !== "granted") throw new Error(permission === "denied" ? "Permission is blocked. Change this site's notification permission in browser settings." : "Notification permission was not granted.");
-    const { messaging, registration } = await ensureMessaging();
-    return await getToken(messaging, { vapidKey, serviceWorkerRegistration: registration });
-  },
-  async getCurrentToken() {
-    if (!("Notification" in window) || Notification.permission !== "granted") return "";
-    const { messaging, registration } = await ensureMessaging();
-    return await getToken(messaging, { vapidKey, serviceWorkerRegistration: registration });
-  },
-  async removeCurrentToken() {
-    const { messaging } = await ensureMessaging();
-    const removed = await deleteToken(messaging);
-    return removed;
-  }
-};
-window.SGFCM = SGFCM;
-
-// A voluntary customer opt-in control. It never prompts until the visitor clicks it.
-function addOptInButton() {
-  if (!document.body || document.getElementById("sg-fcm-optin-button")) return;
-  if (!("Notification" in window) || Notification.permission !== "default") return;
-  const button = document.createElement("button");
-  button.id = "sg-fcm-optin-button";
-  button.type = "button";
-  button.textContent = "🔔 Enable store updates";
-  button.setAttribute("aria-label", "Enable Saaj Gochh browser notifications");
-  button.style.cssText = "position:fixed;right:18px;bottom:88px;z-index:9998;padding:11px 16px;border:1px solid #b68d40;border-radius:999px;background:#181818;color:#f7e9c8;font:600 12px/1.2 Arial,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.18);cursor:pointer;";
-  button.addEventListener("click", async () => {
-    button.disabled = true;
-    button.textContent = "Enabling notifications…";
-    try {
-      await SGFCM.requestToken();
-      button.textContent = "✓ Notifications enabled";
-      button.style.background = "#166534";
-      setTimeout(() => button.remove(), 2200);
-    } catch (error) {
-      button.disabled = false;
-      button.textContent = error?.message?.includes("blocked") ? "Notifications blocked in browser settings" : "Could not enable · Try again";
-      if (Notification.permission === "denied") button.disabled = true;
-    }
-  });
-  document.body.appendChild(button);
-}
-if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", addOptInButton, { once: true });
-else addOptInButton();
-// Restore the receive listener for visitors who already opted in on a previous visit.
-if ("Notification" in window && Notification.permission === "granted") {
-  ensureMessaging().catch((error) => console.warn("FCM initialisation:", error));
-}
 </script>
 
 </body></html>
