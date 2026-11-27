@@ -1,7 +1,53 @@
 {
-  "updatedAt": 1795755088333,
+  "updatedAt": 1795769984346,
   "whatsapp": "918670234616",
   "products": [
+    {
+      "id": "item-1795769965738",
+      "title": "Fifth U Men  Thread work Kurta",
+      "price": 499,
+      "category": "Kurtis & Ethnic Wear",
+      "description": "Product Details\nColour: Brown\nSolid\nMandarin Collar\nLong, Regular Sleeves\nStraight shape with Regular style\nThread Work detail\nAbove Knee with Curved hem\nMachine Weave Regular Cotton\nSize & Fit\n1\nThe model (height 6') is wearing a size M.\nMaterial & Care\nCotton Polyester Blend\nGenuine Product\nQuality Checked\nEasy 7 days returns and exchanges\nChoose to return or exchange for a different size (if available) within 7 days.",
+      "images": [
+        "./images/products/item-1795769965738-1-mwyr2mex.jpg",
+        "./images/products/item-1795769965738-2-mwyr2om9.jpg",
+        "./images/products/item-1795769965738-3-mwyr2qu7.jpg",
+        "./images/products/item-1795769965738-4-mwyr2t8r.jpg",
+        "./images/products/item-1795769965738-5-mwyr2vhw.jpg",
+        "./images/products/item-1795769965738-6-mwyr2xjw.jpg"
+      ],
+      "inStock": true,
+      "codAvailable": true,
+      "return7Days": true,
+      "affiliateLink": "https://myntr.it/nOQ5GnK",
+      "featureSummary": [
+        {
+          "feature": "Color",
+          "detail": "Brown",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Material / Craft",
+          "detail": "Cotton",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Available Sizes",
+          "detail": "M",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Care & Setup",
+          "detail": "Material & Care",
+          "group": "Care & Specs"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Product Details",
+          "group": "Highlights"
+        }
+      ]
+    },
     {
       "id": "item-1795755075519",
       "title": "Korean Black Biker Jacket with Brand logo Embroidery | Stylish Jacket for Men | Winter Casual Wear",
@@ -14,9 +60,47 @@
         "./images/products/item-1795755075519-3-mwyi7lje.jpg",
         "./images/products/item-1795755075519-4-mwyi7nuy.jpg"
       ],
+      "variantMap": {
+        "colors": [
+          {
+            "id": "color-1795755016775",
+            "name": "Color 1",
+            "swatch": "#B68D40",
+            "image": "",
+            "images": [],
+            "imageIndex": 0,
+            "sizes": [
+              {
+                "label": "S",
+                "inStock": true
+              },
+              {
+                "label": "M",
+                "inStock": true
+              },
+              {
+                "label": "L",
+                "inStock": true
+              },
+              {
+                "label": "XL",
+                "inStock": true
+              },
+              {
+                "label": "XXL",
+                "inStock": true
+              }
+            ]
+          }
+        ]
+      },
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
+      "whatsappNumber": "",
+      "affiliateLink": "",
+      "video": "",
+      "youtubeId": "",
       "featureSummary": [
         {
           "feature": "Fabric",
@@ -58,41 +142,7 @@
           "detail": "S, M (Chest Size: 42 in, Length Size: 26 in, Waist Size: 40 in, Hip Size: 40 in)",
           "group": "Highlights"
         }
-      ],
-      "variantMap": {
-        "colors": [
-          {
-            "id": "color-1795755016775",
-            "name": "Color 1",
-            "swatch": "#B68D40",
-            "image": "",
-            "images": [],
-            "imageIndex": 0,
-            "sizes": [
-              {
-                "label": "S",
-                "inStock": true
-              },
-              {
-                "label": "M",
-                "inStock": true
-              },
-              {
-                "label": "L",
-                "inStock": true
-              },
-              {
-                "label": "XL",
-                "inStock": true
-              },
-              {
-                "label": "XXL",
-                "inStock": true
-              }
-            ]
-          }
-        ]
-      }
+      ]
     },
     {
       "id": "item-1795754845660",
