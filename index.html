@@ -32254,22 +32254,21 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
 
 <style id="sg-video-showcase-styles">
-#sg-video-showcase{max-width:1380px;margin:18px auto 28px;padding:0 24px;color:#292522}
-#sg-video-showcase .sgv-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:15px}
-#sg-video-showcase .sgv-kicker{margin:0 0 6px;color:#a17a3a;font:800 8px/1.2 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase}
-#sg-video-showcase .sgv-title{margin:0;color:#302820;font:600 clamp(22px,2.7vw,30px)/1.1 'Playfair Display',Georgia,serif}
-#sg-video-showcase .sgv-subtitle{margin:6px 0 0;color:#81786e;font:500 10px/1.6 'Plus Jakarta Sans',sans-serif}
-#sg-video-showcase .sgv-manage{flex:0 0 auto;min-height:34px;padding:0 13px;border:1px solid #c9ad7d;border-radius:3px;background:#fff;color:#6c5129;font:700 9px 'Plus Jakarta Sans',sans-serif;letter-spacing:.06em;cursor:pointer;transition:all .2s ease}
+#sg-video-showcase{max-width:1380px;margin:10px auto 14px;padding:0 24px;color:#292522}
+#sg-video-showcase[hidden]{display:none!important}
+#sg-video-showcase .sgv-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+#sg-video-showcase .sgv-kicker{margin:0 0 3px;color:#a17a3a;font:800 7px/1.2 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase}
+#sg-video-showcase .sgv-title{margin:0;color:#302820;font:600 clamp(16px,1.8vw,19px)/1.15 'Playfair Display',Georgia,serif}
+#sg-video-showcase .sgv-subtitle{display:none}
+#sg-video-showcase .sgv-manage{flex:0 0 auto;min-height:29px;padding:0 10px;border:1px solid #ded3c1;border-radius:3px;background:#fff;color:#6c5129;font:700 8px 'Plus Jakarta Sans',sans-serif;letter-spacing:.04em;cursor:pointer;transition:all .2s ease}
 #sg-video-showcase .sgv-manage:hover{background:#342a21;border-color:#342a21;color:#fff}
-#sg-video-showcase .sgv-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
-#sg-video-showcase .sgv-card{min-width:0;overflow:hidden;border:1px solid #e9e3da;border-radius:5px;background:#fff;box-shadow:0 4px 16px rgba(41,32,22,.045)}
+#sg-video-showcase .sgv-grid{display:flex;gap:10px;overflow-x:auto;overflow-y:hidden;padding:1px 1px 7px;scroll-snap-type:x proximity;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#d8c8ae transparent}
+#sg-video-showcase .sgv-card{flex:0 0 clamp(230px,27vw,320px);min-width:0;overflow:hidden;scroll-snap-align:start;border:1px solid #eee8df;border-radius:4px;background:#fff;box-shadow:0 2px 8px rgba(41,32,22,.035)}
 #sg-video-showcase .sgv-frame{display:block;width:100%;aspect-ratio:16/9;border:0;background:#171411}
-#sg-video-showcase .sgv-card-copy{padding:12px 13px 14px}
-#sg-video-showcase .sgv-product-name{margin:0;color:#302820;font:600 13px/1.4 'Plus Jakarta Sans',sans-serif}
-#sg-video-showcase .sgv-product-link{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:34px;margin-top:10px;padding:0 11px;border:1px solid #342a21;border-radius:3px;background:#342a21;color:#fff;text-decoration:none;font:700 8px 'Plus Jakarta Sans',sans-serif;letter-spacing:.11em;text-transform:uppercase;transition:all .2s ease}
-#sg-video-showcase .sgv-product-link:hover{background:#b68d40;border-color:#b68d40;color:#fff}
-#sg-video-showcase .sgv-empty{padding:22px;border:1px dashed #ddd1bd;border-radius:5px;background:#faf8f4;text-align:center;color:#81786e;font:500 10px/1.7 'Plus Jakarta Sans',sans-serif}
-#sg-video-showcase .sgv-empty strong{display:block;margin-bottom:3px;color:#4a3b2b;font:600 16px 'Playfair Display',Georgia,serif}
+#sg-video-showcase .sgv-card-copy{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 9px;min-height:34px}
+#sg-video-showcase .sgv-product-name{min-width:0;margin:0;color:#4a4036;font:600 10px/1.35 'Plus Jakarta Sans',sans-serif;overflow-wrap:anywhere}
+#sg-video-showcase .sgv-product-link{display:inline-flex;flex:0 0 auto;align-items:center;gap:6px;min-height:25px;padding:0 8px;border:1px solid #e2d8ca;border-radius:3px;background:#fff;color:#6c5129;text-decoration:none;font:700 7px 'Plus Jakarta Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;transition:all .2s ease}
+#sg-video-showcase .sgv-product-link:hover{background:#342a21;border-color:#342a21;color:#fff}
 #sg-video-showcase-modal{position:fixed;z-index:100000;inset:0;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(25,20,16,.62);backdrop-filter:blur(4px)}
 #sg-video-showcase-modal .sgv-dialog{width:min(100%,590px);max-height:min(90vh,780px);overflow:auto;border:1px solid #e5dac8;border-radius:7px;background:#fff;box-shadow:0 24px 70px rgba(0,0,0,.22)}
 #sg-video-showcase-modal .sgv-dialog-head{position:sticky;top:0;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:17px 19px;border-bottom:1px solid #eee8df;background:#fff}
@@ -32290,8 +32289,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 #sg-video-showcase-modal .sgv-existing-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid #f1eee9}
 #sg-video-showcase-modal .sgv-existing-name{min-width:0;color:#4b443c;font:600 10px/1.4 'Plus Jakarta Sans',sans-serif;overflow-wrap:anywhere}
 #sg-video-showcase-modal .sgv-remove{flex:0 0 auto;border:0;background:transparent;color:#a13d35;font:700 8px 'Plus Jakarta Sans',sans-serif;cursor:pointer}
-@media(max-width:900px){#sg-video-showcase .sgv-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:640px){#sg-video-showcase{padding:0 12px;margin:15px auto 22px}#sg-video-showcase .sgv-head{align-items:flex-start;gap:9px}#sg-video-showcase .sgv-title{font-size:23px}#sg-video-showcase .sgv-subtitle{max-width:270px}#sg-video-showcase .sgv-manage{min-height:31px;padding:0 9px;font-size:8px}#sg-video-showcase .sgv-grid{grid-template-columns:1fr;gap:11px}#sg-video-showcase .sgv-card-copy{padding:11px}#sg-video-showcase-modal{padding:9px}#sg-video-showcase-modal .sgv-dialog-head,#sg-video-showcase-modal .sgv-modal-body{padding-left:14px;padding-right:14px}}
+@media(max-width:640px){#sg-video-showcase{padding:0 12px;margin:8px auto 10px}#sg-video-showcase .sgv-head{align-items:center;gap:8px;margin-bottom:6px}#sg-video-showcase .sgv-title{font-size:17px}#sg-video-showcase .sgv-manage{min-height:27px;padding:0 8px;font-size:7px}#sg-video-showcase .sgv-grid{gap:8px}#sg-video-showcase .sgv-card{flex-basis:min(78vw,290px)}#sg-video-showcase .sgv-card-copy{padding:6px 8px;min-height:31px}#sg-video-showcase .sgv-product-name{font-size:9px}#sg-video-showcase .sgv-product-link{min-height:23px;padding:0 7px;font-size:6px}#sg-video-showcase-modal{padding:9px}#sg-video-showcase-modal .sgv-dialog-head,#sg-video-showcase-modal .sgv-modal-body{padding-left:14px;padding-right:14px}}
 @media(prefers-reduced-motion:reduce){#sg-video-showcase .sgv-manage,#sg-video-showcase .sgv-product-link{transition:none}}
 </style>
 <script id="sg-video-showcase-enhancements">
@@ -32341,8 +32339,9 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     return list.map(item=>{
       const title=String(item?.title||'').trim().slice(0,100);
       const youtubeId=parseYouTubeId(item?.youtubeId||item?.youtubeUrl||'');
-      const productUrl=safeProductUrl(item?.productUrl||item?.productLink||'');
-      if(!title||!youtubeId||!productUrl)return null;
+      const rawProductUrl=String(item?.productUrl||item?.productLink||'').trim();
+      const productUrl=safeProductUrl(rawProductUrl);
+      if(!title||!youtubeId||(rawProductUrl&&!productUrl))return null;
       return {id:String(item.id||('video-'+Math.random().toString(36).slice(2,10))),title,youtubeId,productUrl};
     }).filter(Boolean).slice(0,36);
   }
@@ -32397,22 +32396,19 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     const section=$('#sg-video-showcase');if(!section)return;
     const grid=$('.sgv-grid',section);if(!grid)return;
     const signature=JSON.stringify(videos);
+    section.hidden=videos.length===0;
     if(renderedSignature===signature&&grid.childNodes.length)return;
     renderedSignature=signature;
     grid.replaceChildren();
-    if(!videos.length){
-      const empty=make('div','sgv-empty');
-      empty.append(make('strong','', 'Product videos coming soon'),document.createTextNode('Watch product details and craftsmanship here. New videos will appear in this section.'));
-      grid.append(empty);return;
-    }
+    if(!videos.length)return;
     videos.forEach(item=>{
       const card=make('article','sgv-card');
       const frame=document.createElement('iframe');
       frame.className='sgv-frame';frame.src='https://www.youtube-nocookie.com/embed/'+encodeURIComponent(item.youtubeId)+'?rel=0';
       frame.title=item.title+' product video';frame.loading='lazy';frame.allow='accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';frame.allowFullscreen=true;frame.referrerPolicy='strict-origin-when-cross-origin';
       const copy=make('div','sgv-card-copy');copy.append(make('h3','sgv-product-name',item.title));
-      const link=make('a','sgv-product-link');link.href=item.productUrl;link.target='_blank';link.rel='noopener noreferrer';link.append(document.createTextNode('View product'),make('span','', '↗'));
-      copy.append(link);card.append(frame,copy);grid.append(card);
+      if(item.productUrl){const link=make('a','sgv-product-link');link.href=item.productUrl;link.target='_blank';link.rel='noopener noreferrer';link.append(document.createTextNode('View product'),make('span','', '↗'));copy.append(link)}
+      card.append(frame,copy);grid.append(card);
     });
   }
   function installSection(){
@@ -32424,7 +32420,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     if(!section){
       section=make('section');section.id='sg-video-showcase';section.setAttribute('aria-label','Product video showcase');renderedSignature=null;
       const head=make('div','sgv-head');
-      const copy=make('div');copy.append(make('p','sgv-kicker','SAAJ GOCHH · PRODUCT STORIES'),make('h2','sgv-title','See the craft in motion'),make('p','sgv-subtitle','Watch a closer look at selected pieces, then visit the product page to explore or order.'));
+      const copy=make('div');copy.append(make('p','sgv-kicker','SAAJ GOCHH · PRODUCT STORIES'),make('h2','sgv-title','Product videos'));
       const grid=make('div','sgv-grid');head.append(copy);section.append(head,grid);
       const anchor=$('#sg-pro20-trust',root)||hero;anchor.insertAdjacentElement('afterend',section);
     }
@@ -32458,13 +32454,13 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     closeManager();
     const modal=make('div');modal.id='sg-video-showcase-modal';modal.addEventListener('click',event=>{if(event.target===modal||event.target.closest('.sgv-close'))closeManager()});
     const dialog=make('section','sgv-dialog');dialog.setAttribute('role','dialog');dialog.setAttribute('aria-modal','true');dialog.setAttribute('aria-labelledby','sgv-manager-title');
-    const header=make('div','sgv-dialog-head');const headCopy=make('div');headCopy.append(make('h2','sgv-dialog-title','Manage product videos'),make('p','sgv-dialog-note','Add a YouTube video and the product page link customers should open.'));const close=make('button','sgv-close','×');close.type='button';close.setAttribute('aria-label','Close');header.append(headCopy,close);
+    const header=make('div','sgv-dialog-head');const headCopy=make('div');headCopy.append(make('h2','sgv-dialog-title','Manage product videos'),make('p','sgv-dialog-note','Add a YouTube video. A product page link is optional.'));const close=make('button','sgv-close','×');close.type='button';close.setAttribute('aria-label','Close');header.append(headCopy,close);
     const body=make('div','sgv-modal-body');const form=make('form','sgv-form');
     const titleLabel=make('label','sgv-field','Product name');const titleInput=make('input');titleInput.name='title';titleInput.required=true;titleInput.maxLength=100;titleInput.placeholder='e.g. Handcrafted Jamdani Saree';titleLabel.append(titleInput);
     const youtubeLabel=make('label','sgv-field','YouTube video link');const youtubeInput=make('input');youtubeInput.name='youtube';youtubeInput.type='url';youtubeInput.required=true;youtubeInput.placeholder='https://www.youtube.com/watch?v=...';youtubeLabel.append(youtubeInput);
     const youtubeHint=make('p','sgv-hint','Regular YouTube, youtu.be, Shorts and embed links are supported.');
-    const productLabel=make('label','sgv-field','Product page link');const productInput=make('input');productInput.name='product';productInput.required=true;productInput.placeholder='https://yourstore.com/?item=product-id or /?item=product-id';productLabel.append(productInput);
-    const productHint=make('p','sgv-hint','Paste the product share link from your store, or a full product URL.');
+    const productLabel=make('label','sgv-field','Product page link (optional)');const productInput=make('input');productInput.name='product';productInput.placeholder='Leave blank to show video only';productLabel.append(productInput);
+    const productHint=make('p','sgv-hint','Optional: add a product link to show a small “View product” link below this video. Leave it blank if you only want to show the video.');
     const save=make('button','sgv-save','Add video to website');save.type='submit';const status=make('p','sgv-status');status.setAttribute('role','status');
     form.append(titleLabel,youtubeLabel,youtubeHint,productLabel,productHint,save,status);
     const existing=make('div','sgv-existing');existing.append(make('h3','sgv-existing-title','Published video entries'));const list=make('div');existing.append(list);
@@ -32474,7 +32470,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       const title=titleInput.value.trim();const youtubeId=parseYouTubeId(youtubeInput.value);const productUrl=safeProductUrl(productInput.value);
       if(!title){status.textContent='Enter a product name.';titleInput.focus();return}
       if(!youtubeId){status.textContent='Enter a valid YouTube video link.';youtubeInput.focus();return}
-      if(!productUrl){status.textContent='Enter a valid product page link (https:// or a site-relative link).';productInput.focus();return}
+      if(productInput.value.trim()&&!productUrl){status.textContent='Enter a valid product page link (https:// or a site-relative link), or leave it blank.';productInput.focus();return}
       if(videos.length>=36){status.textContent='The showcase can contain up to 36 videos. Remove an entry first.';return}
       videos=[...videos,{id:'video-'+Date.now().toString(36),title,youtubeId,productUrl}];snapshotTime=Date.now();
       saveLocalSnapshot(videos,snapshotTime);renderShowcase();drawExisting();
