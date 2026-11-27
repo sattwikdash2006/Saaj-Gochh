@@ -1,7 +1,83 @@
 {
-  "updatedAt": 1795754629794,
+  "updatedAt": 1795754855067,
   "whatsapp": "918670234616",
   "products": [
+    {
+      "id": "item-1795754845660",
+      "title": "Jockey Super Combed Cotton Rich Pique Fabric Jacket With Ribbed Cuffs - Am99",
+      "price": 1999,
+      "category": "Men's Ethnic Wear",
+      "description": "Ribbed Collar and Cuffs\nFull Sleeve, Full Zip\nConvenient Zipper Pockets\n\nSize & Fit\nThe model (height 6') is wearing a size M\n\nMaterial & Care\nSuper Combed Cotton Rich Pique Fabric\nFabric Composition: Cotton and Polyester\nWash Care - Gentle wash 40C,Do not wring,Do not bleach,Do not dry clean,Tumble Dry Low,Low Iron,Wash inside out with like colours\n\nSpecifications\nSleeve Length\nLong Sleeves\nType\nBomber\nCollar\nStand Collar\nFeatures\nLightweight\nLength\nRegular\nClosure\nZip\nLining Fabric\nCotton\nNumber of Pockets\n2\nHemline\nStraight\nNumber of Items\n1\nPackage Contains\n1Pc Mens Jacket\nNet Quantity\n1Pc",
+      "images": [
+        "./images/products/item-1795754845660-1-mwyi2jhs.jpg",
+        "./images/products/item-1795754845660-2-mwyi2lrn.jpg",
+        "./images/products/item-1795754845660-3-mwyi2nws.jpg"
+      ],
+      "inStock": true,
+      "codAvailable": true,
+      "return7Days": true,
+      "featureSummary": [
+        {
+          "feature": "Fabric Composition",
+          "detail": "Cotton and Polyester",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Material / Craft",
+          "detail": "Cotton",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Available Sizes",
+          "detail": "M",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Care & Setup",
+          "detail": "Material & Care",
+          "group": "Care & Specs"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Ribbed Collar and Cuffs",
+          "group": "Highlights"
+        }
+      ],
+      "variantMap": {
+        "colors": [
+          {
+            "id": "color-1795754793021",
+            "name": "Color 1",
+            "swatch": "#B68D40",
+            "image": "",
+            "images": [],
+            "imageIndex": 0,
+            "sizes": [
+              {
+                "label": "S",
+                "inStock": true
+              },
+              {
+                "label": "M",
+                "inStock": true
+              },
+              {
+                "label": "L",
+                "inStock": true
+              },
+              {
+                "label": "XL",
+                "inStock": true
+              },
+              {
+                "label": "XXL",
+                "inStock": true
+              }
+            ]
+          }
+        ]
+      }
+    },
     {
       "id": "item-1795703697829",
       "title": "ICEE STRAIGHT JEANS",
