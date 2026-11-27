@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795703773003,
+  "updatedAt": 1795753502754,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -82,9 +82,47 @@
         "./images/products/item-1795703313814-3-mwxne67p.jpg",
         "./images/products/item-1795703313814-4-mwxne891.jpg"
       ],
+      "variantMap": {
+        "colors": [
+          {
+            "id": "color-1795703252460",
+            "name": "Color 1",
+            "swatch": "#B68D40",
+            "image": "",
+            "images": [],
+            "imageIndex": 0,
+            "sizes": [
+              {
+                "label": "S",
+                "inStock": true
+              },
+              {
+                "label": "M",
+                "inStock": true
+              },
+              {
+                "label": "L",
+                "inStock": true
+              },
+              {
+                "label": "XL",
+                "inStock": true
+              },
+              {
+                "label": "XXL",
+                "inStock": true
+              }
+            ]
+          }
+        ]
+      },
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
+      "whatsappNumber": "",
+      "affiliateLink": "",
+      "video": "",
+      "youtubeId": "",
       "featureSummary": [
         {
           "feature": "Fabric",
@@ -131,59 +169,21 @@
           "detail": "Printed Palazzo for Women Rayon Palazzo Pants Ethnic & Casual Palazzo Stylish Palazzo for Daily Wear Palazzo with Elastic Waistband Flora…",
           "group": "Highlights"
         }
-      ],
-      "variantMap": {
-        "colors": [
-          {
-            "id": "color-1795703252460",
-            "name": "Color 1",
-            "swatch": "#B68D40",
-            "image": "",
-            "images": [],
-            "imageIndex": 0,
-            "sizes": [
-              {
-                "label": "S",
-                "inStock": true
-              },
-              {
-                "label": "M",
-                "inStock": true
-              },
-              {
-                "label": "L",
-                "inStock": true
-              },
-              {
-                "label": "XL",
-                "inStock": true
-              },
-              {
-                "label": "XXL",
-                "inStock": true
-              }
-            ]
-          }
-        ]
-      }
+      ]
     },
     {
       "id": "item-1795701756415",
       "title": "Hand-Painted Eco-Friendly Kraft Paper Gift Bags – Butterfly & \"Be Happy in Life\" Floral Edition (Set of 2)",
       "price": 99,
-      "category": "Festive Gifts",
+      "category": "Handicrafts & Art",
       "description": "Add a personal, artistic touch to your gifting with this set of two hand-painted brown kraft paper bags. Unlike mass-printed bags, each piece features charming hand-drawn details that make any present feel more thoughtful.  \n​Unique Hand-Painted Art: Includes two distinct designs—one with a detailed butterfly illustration and a pink-silver bottom trim, and another featuring the uplifting message \"Be Happy in Life\" with colorful flowers, a bee, and a yellow border.  \n​Eco-Friendly Kraft Paper: Crafted from sturdy, recyclable brown kraft paper for a natural, rustic look.  \n​Easy to Carry: Fitted with black cord handles for comfortable holding.  \n​Versatile Gifting: Great for birthdays, return gifts, festive presents, small keepsakes, or boutique packaging.",
       "images": [
         "./images/products/item-1795701756415-1-mwxmgnu9.jpg"
       ],
-      "variantMap": null,
+      "youtubeId": "yCcmi4iCdk4",
       "inStock": true,
       "codAvailable": false,
       "return7Days": false,
-      "whatsappNumber": "",
-      "affiliateLink": "",
-      "video": "",
-      "youtubeId": "yCcmi4iCdk4",
       "featureSummary": [
         {
           "feature": "Ideal For",
