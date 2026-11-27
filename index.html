@@ -23071,15 +23071,15 @@ var motion = /* @__PURE__ */ createMotionProxy({
 	...layout
 }, createDomVisualElement);
 // src/components/storefront/ArchitecturalIntro.tsx
-var INTRO_SESSION_KEY = "saajGochhIntroPlayed_v1";
+var INTRO_SESSION_KEY = "saajGochhIntroPlayed_v2";
 var ArchitecturalIntro = ({ onComplete }) => {
 	const [stage, setStage] = (0, import_react.useState)(() => {
 		try {
 			if (typeof window === "undefined") return "done";
 			if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return "done";
-			if (window.sessionStorage.getItem("saajGochhIntroPlayed_v1") === "1") return "done";
+			if (window.sessionStorage.getItem(INTRO_SESSION_KEY) === "1") return "done";
 			if (new URLSearchParams(window.location.search).get("item") || window.location.hash.startsWith("#saaj-import=")) return "done";
-			return "crest";
+			return "seed";
 		} catch {
 			return "done";
 		}
@@ -23094,13 +23094,13 @@ var ArchitecturalIntro = ({ onComplete }) => {
 		try {
 			window.sessionStorage.setItem(INTRO_SESSION_KEY, "1");
 		} catch {}
-		const partTimer = window.setTimeout(() => {
-			setStage("parting");
-		}, 2100);
-		const finishTimer = window.setTimeout(() => {
-			setStage("done");
-		}, 3050);
+		const sproutTimer = window.setTimeout(() => setStage("sprout"), 760);
+		const canopyTimer = window.setTimeout(() => setStage("canopy"), 2050);
+		const partTimer = window.setTimeout(() => setStage("parting"), 4850);
+		const finishTimer = window.setTimeout(() => setStage("done"), 5850);
 		return () => {
+			window.clearTimeout(sproutTimer);
+			window.clearTimeout(canopyTimer);
 			window.clearTimeout(partTimer);
 			window.clearTimeout(finishTimer);
 		};
@@ -23111,181 +23111,154 @@ var ArchitecturalIntro = ({ onComplete }) => {
 		} catch {}
 		setStage("done");
 	};
+	const trunkProgress = stage === "seed" ? 0 : stage === "sprout" ? .72 : 1;
+	const branchProgress = stage === "seed" ? 0 : stage === "sprout" ? .28 : 1;
+	const leafProgress = stage === "canopy" || stage === "parting" ? 1 : 0;
+	const treeBranches = [
+		{ d: "M160 225 C139 207 119 188 99 163", delay: .12, width: 7 },
+		{ d: "M160 205 C181 184 201 160 219 132", delay: .23, width: 7 },
+		{ d: "M158 178 C139 158 132 138 126 112", delay: .34, width: 6 },
+		{ d: "M163 159 C184 139 194 116 199 88", delay: .43, width: 6 },
+		{ d: "M157 246 C132 237 112 221 87 202", delay: .54, width: 5 },
+		{ d: "M164 244 C190 231 213 211 237 185", delay: .63, width: 5 },
+		{ d: "M158 135 C145 119 142 101 143 83", delay: .73, width: 4 },
+		{ d: "M165 128 C181 109 183 91 181 70", delay: .82, width: 4 }
+	];
+	const treeLeaves = [
+		[91,157,-35],[108,171,-12],[119,145,-55],[130,113,-25],[144,94,18],
+		[181,76,35],[198,96,4],[216,126,42],[225,147,68],[238,180,26],
+		[213,197,58],[189,177,20],[162,110,-5],[151,139,-42],[105,202,-60],
+		[132,218,-18],[187,218,38],[222,166,12],[145,76,-38],[202,116,55],
+		[174,99,18],[117,128,-15],[245,195,38],[82,184,-42]
+	];
+	const pollen = [
+		{ left: "13%", top: "23%", delay: 0, size: 3 }, { left: "24%", top: "67%", delay: .4, size: 4 },
+		{ left: "77%", top: "26%", delay: .7, size: 3 }, { left: "86%", top: "64%", delay: 1.1, size: 4 },
+		{ left: "18%", top: "48%", delay: 1.4, size: 2 }, { left: "72%", top: "72%", delay: .2, size: 3 },
+		{ left: "35%", top: "18%", delay: .9, size: 2 }, { left: "64%", top: "17%", delay: 1.7, size: 3 },
+		{ left: "91%", top: "41%", delay: .55, size: 2 }, { left: "8%", top: "76%", delay: 1.25, size: 3 },
+		{ left: "43%", top: "78%", delay: .3, size: 2 }, { left: "57%", top: "11%", delay: 1.55, size: 3 }
+	];
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AnimatePresence, { children: stage !== "done" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
 		initial: { opacity: 1 },
-		exit: {
-			opacity: 0,
-			transition: {
-				duration: .35,
-				ease: [
-					.16,
-					1,
-					.3,
-					1
-				]
-			}
-		},
+		exit: { opacity: 0, transition: { duration: .55, ease: [ .16, 1, .3, 1 ] } },
 		"aria-label": "Saaj Gochh Opening Reveal",
 		className: "fixed inset-0 z-[100] overflow-hidden select-none pointer-events-auto",
 		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
-				initial: { x: "0%" },
-				animate: { x: stage === "parting" ? "-100%" : "0%" },
-				transition: {
-					duration: .95,
-					ease: [
-						.16,
-						1,
-						.3,
-						1
-					]
-				},
-				className: "absolute inset-y-0 left-0 w-1/2 bg-[#141416] border-r border-[#B68D40]/40 overflow-hidden",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "absolute inset-0 opacity-25",
-					style: { backgroundImage: "repeating-linear-gradient(90deg, transparent 0px, transparent 36px, rgba(182,141,64,0.08) 36px, rgba(182,141,64,0.08) 37px)" }
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-y-6 left-6 right-0 border-t border-b border-l border-[#B68D40]/20 pointer-events-none" })]
+			(0, import_jsx_runtime.jsx)("div", {
+				className: "absolute inset-0 pointer-events-none",
+				style: { background: "radial-gradient(ellipse at 50% 46%, rgba(91,112,54,.22) 0%, rgba(20,20,22,0) 42%), radial-gradient(ellipse at 50% 100%, rgba(182,141,64,.13) 0%, transparent 55%), linear-gradient(135deg,#111311 0%,#171816 48%,#101210 100%)" }
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
-				initial: { x: "0%" },
-				animate: { x: stage === "parting" ? "100%" : "0%" },
-				transition: {
-					duration: .95,
-					ease: [
-						.16,
-						1,
-						.3,
-						1
-					]
-				},
-				className: "absolute inset-y-0 right-0 w-1/2 bg-[#141416] border-l border-[#B68D40]/40 overflow-hidden",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "absolute inset-0 opacity-25",
-					style: { backgroundImage: "repeating-linear-gradient(90deg, transparent 0px, transparent 36px, rgba(182,141,64,0.08) 36px, rgba(182,141,64,0.08) 37px)" }
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-y-6 left-0 right-6 border-t border-b border-r border-[#B68D40]/20 pointer-events-none" })]
+			(0, import_jsx_runtime.jsx)(motion.div, {
+				className: "absolute inset-0 pointer-events-none",
+				initial: { opacity: 0 }, animate: { opacity: stage === "parting" ? 0 : .32 },
+				transition: { duration: 1.5 },
+				style: { backgroundImage: "radial-gradient(rgba(235,216,174,.2) .65px, transparent .65px)", backgroundSize: "23px 23px", maskImage: "radial-gradient(ellipse at center, black, transparent 76%)" }
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
-				initial: {
-					opacity: 0,
-					scale: .8
-				},
-				animate: {
-					opacity: stage === "parting" ? 0 : .75,
-					scale: stage === "parting" ? 1.25 : 1
-				},
-				transition: {
-					duration: .85,
-					ease: [
-						.16,
-						1,
-						.3,
-						1
-					]
-				},
+			...pollen.map((particle, idx) => (0, import_jsx_runtime.jsx)(motion.div, {
+				className: "absolute rounded-full bg-[#EBD8AE] pointer-events-none",
+				style: { left: particle.left, top: particle.top, width: particle.size, height: particle.size, boxShadow: "0 0 12px rgba(235,216,174,.8)" },
+				initial: { opacity: 0, y: 10, scale: .4 },
+				animate: { opacity: stage === "parting" ? 0 : [ .12, .78, .2 ], y: [ 10, -22, -42 ], x: [ 0, idx % 2 ? 9 : -8, idx % 2 ? -4 : 7 ], scale: [ .55, 1.2, .65 ] },
+				transition: { duration: 3.8 + (idx % 4) * .45, delay: particle.delay, repeat: Infinity, ease: "easeInOut" }
+			}, `sg-pollen-${idx}`)),
+			(0, import_jsx_runtime.jsxs)(motion.div, {
+				initial: { x: "0%" }, animate: { x: stage === "parting" ? "-100%" : "0%" },
+				transition: { duration: 1.05, ease: [ .76, 0, .24, 1 ] },
+				className: "absolute inset-y-0 left-0 w-1/2 bg-[#141416] border-r border-[#B68D40]/40 overflow-hidden", style: { backgroundColor: "rgba(20,20,22,.96)" },
+				children: [
+					(0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 opacity-25", style: { backgroundImage: "repeating-linear-gradient(90deg, transparent 0px, transparent 36px, rgba(182,141,64,0.08) 36px, rgba(182,141,64,0.08) 37px)" } }),
+					(0, import_jsx_runtime.jsx)("div", { className: "absolute inset-y-6 left-6 right-0 border-t border-b border-l border-[#B68D40]/20 pointer-events-none" }),
+					(0, import_jsx_runtime.jsx)(motion.div, { className: "absolute -right-20 top-0 bottom-0 w-24", animate: { opacity: stage === "parting" ? 0 : [.04,.13,.04] }, transition: { duration: 3, repeat: Infinity }, style: { background: "linear-gradient(90deg,transparent,rgba(214,181,112,.14),transparent)" } })
+				]
+			}),
+			(0, import_jsx_runtime.jsxs)(motion.div, {
+				initial: { x: "0%" }, animate: { x: stage === "parting" ? "100%" : "0%" },
+				transition: { duration: 1.05, ease: [ .76, 0, .24, 1 ] },
+				className: "absolute inset-y-0 right-0 w-1/2 bg-[#141416] border-l border-[#B68D40]/40 overflow-hidden", style: { backgroundColor: "rgba(20,20,22,.96)" },
+				children: [
+					(0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 opacity-25", style: { backgroundImage: "repeating-linear-gradient(90deg, transparent 0px, transparent 36px, rgba(182,141,64,0.08) 36px, rgba(182,141,64,0.08) 37px)" } }),
+					(0, import_jsx_runtime.jsx)("div", { className: "absolute inset-y-6 left-0 right-6 border-t border-b border-r border-[#B68D40]/20 pointer-events-none" }),
+					(0, import_jsx_runtime.jsx)(motion.div, { className: "absolute -left-20 top-0 bottom-0 w-24", animate: { opacity: stage === "parting" ? 0 : [.04,.13,.04] }, transition: { duration: 3, repeat: Infinity }, style: { background: "linear-gradient(90deg,transparent,rgba(214,181,112,.14),transparent)" } })
+				]
+			}),
+			(0, import_jsx_runtime.jsx)(motion.div, {
+				initial: { opacity: 0, scale: .7 },
+				animate: { opacity: stage === "parting" ? 0 : [.4,.85,.58], scale: stage === "parting" ? 1.38 : [ .78, 1.08, .98 ] },
+				transition: { duration: 3.8, repeat: stage === "parting" ? 0 : Infinity, ease: "easeInOut" },
 				className: "absolute inset-0 pointer-events-none flex items-center justify-center",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-[460px] h-[460px] rounded-full bg-[radial-gradient(circle,rgba(182,141,64,0.22)_0%,rgba(182,141,64,0.05)_45%,transparent_72%)]" })
+				children: (0, import_jsx_runtime.jsx)("div", { className: "aspect-square rounded-full", style: { width: "min(90vw,650px)", height: "min(90vw,650px)", background: "radial-gradient(circle,rgba(117,139,70,.16) 0%,rgba(182,141,64,.12) 30%,rgba(182,141,64,.035) 55%,transparent 72%)", filter: "blur(8px)" } })
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
-				initial: {
-					opacity: 0,
-					y: 12
-				},
-				animate: {
-					opacity: stage === "parting" ? 0 : 1,
-					y: stage === "parting" ? -14 : 0,
-					scale: stage === "parting" ? .96 : 1
-				},
-				transition: {
-					duration: .65,
-					ease: [
-						.16,
-						1,
-						.3,
-						1
-					]
-				},
+			(0, import_jsx_runtime.jsxs)(motion.div, {
+				initial: { opacity: 0, y: 18, scale: .97 },
+				animate: { opacity: stage === "parting" ? 0 : 1, y: stage === "parting" ? -18 : 0, scale: stage === "parting" ? .96 : 1 },
+				transition: { duration: .8, ease: [ .16, 1, .3, 1 ] },
 				className: "relative z-10 h-full flex flex-col items-center justify-center px-6 text-center pointer-events-none",
 				children: [
-					/* A decorative golden light mandala replaces the logo in the intro only. */
 					(0, import_jsx_runtime.jsxs)("div", {
-						className: "relative w-[min(64vw,280px)] h-[min(64vw,280px)] flex items-center justify-center",
+						className: "relative flex items-center justify-center", style: { width: "min(76vw,390px)", height: "min(76vw,390px)" },
 						children: [
-							(0, import_jsx_runtime.jsx)(motion.div, {
-								className: "absolute inset-3 rounded-full border border-[#B68D40]/55 border-t-[#F5E6C4] border-b-transparent",
-								initial: { opacity: 0, scale: .72, rotate: -35 },
-								animate: { opacity: stage === "parting" ? 0 : .9, scale: stage === "parting" ? 1.12 : [ .92, 1.02, .96 ], rotate: 325 },
-								transition: { opacity: { duration: .5 }, scale: { duration: 1.4, ease: "easeOut" }, rotate: { duration: 7, repeat: Infinity, ease: "linear" } }
-							}),
-							(0, import_jsx_runtime.jsx)(motion.div, {
-								className: "absolute inset-8 rounded-full border border-dashed border-[#EBD8AE]/45",
-								initial: { opacity: 0, scale: .6 },
-								animate: { opacity: stage === "parting" ? 0 : .8, scale: stage === "parting" ? 1.18 : 1, rotate: -360 },
-								transition: { opacity: { duration: .65, delay: .2 }, scale: { duration: .8, ease: "easeOut" }, rotate: { duration: 16, repeat: Infinity, ease: "linear" } }
-							}),
-							(0, import_jsx_runtime.jsx)(motion.svg, {
-								viewBox: "0 0 200 200",
-								className: "absolute w-[76%] h-[76%] overflow-visible drop-shadow-[0_0_16px_rgba(182,141,64,0.35)]",
-								initial: { opacity: 0, scale: .65, rotate: -22 },
-								animate: { opacity: stage === "parting" ? 0 : 1, scale: stage === "parting" ? 1.22 : 1, rotate: 22 },
-								transition: { duration: 1.1, ease: [ .16, 1, .3, 1 ] },
+							(0, import_jsx_runtime.jsx)(motion.div, { className: "absolute inset-4 rounded-full border border-[#B68D40]/40 border-t-[#EBD8AE] border-b-transparent", initial: { opacity: 0, scale: .7, rotate: -60 }, animate: { opacity: stage === "parting" ? 0 : .8, scale: stage === "parting" ? 1.15 : 1, rotate: 300 }, transition: { opacity: { duration: .6 }, scale: { duration: 1.6, ease: "easeOut" }, rotate: { duration: 22, repeat: Infinity, ease: "linear" } } }),
+							(0, import_jsx_runtime.jsx)(motion.div, { className: "absolute inset-9 rounded-full border border-dashed border-[#EBD8AE]/30", initial: { opacity: 0, scale: .55 }, animate: { opacity: stage === "parting" ? 0 : .65, scale: stage === "parting" ? 1.2 : 1, rotate: -360 }, transition: { opacity: { duration: .8, delay: .2 }, scale: { duration: 1.2, ease: "easeOut" }, rotate: { duration: 34, repeat: Infinity, ease: "linear" } } }),
+							(0, import_jsx_runtime.jsx)(motion.div, { className: "absolute inset-0 rounded-full", animate: { boxShadow: stage === "parting" ? "0 0 0 rgba(190,160,91,0)" : [ "0 0 24px rgba(190,160,91,.04)", "0 0 60px rgba(190,160,91,.17)", "0 0 24px rgba(190,160,91,.04)" ] }, transition: { duration: 3.2, repeat: Infinity, ease: "easeInOut" } }),
+							(0, import_jsx_runtime.jsxs)(motion.svg, {
+								viewBox: "0 0 320 340",
+								className: "absolute overflow-visible", style: { width: "88%", height: "88%", filter: "drop-shadow(0 0 18px rgba(182,141,64,.28))" },
+								initial: { opacity: 0, scale: .72, y: 12 },
+								animate: { opacity: stage === "parting" ? 0 : 1, scale: stage === "parting" ? 1.18 : 1, y: stage === "parting" ? -8 : 0 },
+								transition: { duration: 1.15, ease: [ .16, 1, .3, 1 ] },
 								children: [
-									(0, import_jsx_runtime.jsx)("circle", { cx: "100", cy: "100", r: "67", fill: "none", stroke: "#B68D40", strokeOpacity: ".65", strokeWidth: "1.2" }),
-									(0, import_jsx_runtime.jsx)("circle", { cx: "100", cy: "100", r: "48", fill: "none", stroke: "#EBD8AE", strokeOpacity: ".45", strokeWidth: "1" }),
-									(0, import_jsx_runtime.jsx)("g", { fill: "none", stroke: "#EBD8AE", strokeWidth: "1.5", strokeOpacity: ".9", children: [
-										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", fill: "rgba(182,141,64,.16)" }),
-										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(45 100 100)", fill: "rgba(182,141,64,.13)" }),
-										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(90 100 100)", fill: "rgba(182,141,64,.16)" }),
-										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(135 100 100)", fill: "rgba(182,141,64,.13)" }),
-										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(180 100 100)", fill: "rgba(182,141,64,.16)" }),
-										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(225 100 100)", fill: "rgba(182,141,64,.13)" }),
-										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(270 100 100)", fill: "rgba(182,141,64,.16)" }),
-										(0, import_jsx_runtime.jsx)("path", { d: "M100 22 C112 43 112 60 100 76 C88 60 88 43 100 22Z", transform: "rotate(315 100 100)", fill: "rgba(182,141,64,.13)" })
+									(0, import_jsx_runtime.jsx)("defs", { children: [
+										(0, import_jsx_runtime.jsxs)("linearGradient", { id: "sg-tree-bark", x1: "0", y1: "0", x2: "1", y2: "1", children: [ (0, import_jsx_runtime.jsx)("stop", { offset: "0%", stopColor: "#F4DEAE" }), (0, import_jsx_runtime.jsx)("stop", { offset: "48%", stopColor: "#B68D40" }), (0, import_jsx_runtime.jsx)("stop", { offset: "100%", stopColor: "#76552B" }) ] }),
+										(0, import_jsx_runtime.jsxs)("linearGradient", { id: "sg-tree-leaf", x1: "0", y1: "0", x2: "1", y2: "1", children: [ (0, import_jsx_runtime.jsx)("stop", { offset: "0%", stopColor: "#D6DDA0" }), (0, import_jsx_runtime.jsx)("stop", { offset: "100%", stopColor: "#617B43" }) ] }),
+										(0, import_jsx_runtime.jsxs)("radialGradient", { id: "sg-tree-heart", children: [ (0, import_jsx_runtime.jsx)("stop", { offset: "0%", stopColor: "#F8E9BE", stopOpacity: ".8" }), (0, import_jsx_runtime.jsx)("stop", { offset: "100%", stopColor: "#B68D40", stopOpacity: "0" }) ] })
 									] }),
-									(0, import_jsx_runtime.jsx)("circle", { cx: "100", cy: "100", r: "17", fill: "#EBD8AE", fillOpacity: ".9" }),
-									(0, import_jsx_runtime.jsx)("circle", { cx: "100", cy: "100", r: "7", fill: "#9A742E" })
+									(0, import_jsx_runtime.jsx)("circle", { cx: "160", cy: "177", r: "118", fill: "url(#sg-tree-heart)", opacity: ".45" }),
+									(0, import_jsx_runtime.jsx)("ellipse", { cx: "160", cy: "299", rx: "91", ry: "9", fill: "#B68D40", opacity: ".13" }),
+									/* Roots unfurl first, anchoring the living-tree reveal. */
+									(0, import_jsx_runtime.jsx)(motion.path, { d: "M160 278 C145 294 119 299 91 302 M160 280 C177 297 207 300 231 302 M158 288 C149 306 137 313 119 316 M164 289 C179 308 194 313 211 316", fill: "none", stroke: "url(#sg-tree-bark)", strokeWidth: "3.4", strokeLinecap: "round", initial: { pathLength: 0, opacity: 0 }, animate: { pathLength: trunkProgress, opacity: stage === "parting" ? 0 : .95 }, transition: { pathLength: { duration: 1.55, delay: .15, ease: "easeInOut" }, opacity: { duration: .5 } } }),
+									/* One continuous, hand-drawn trunk grows upward from the roots. */
+									(0, import_jsx_runtime.jsx)(motion.path, { d: "M160 286 C153 257 166 235 159 211 C152 187 165 164 160 139 C157 116 162 92 161 61", fill: "none", stroke: "url(#sg-tree-bark)", strokeWidth: "11", strokeLinecap: "round", initial: { pathLength: 0, opacity: 0 }, animate: { pathLength: trunkProgress, opacity: stage === "parting" ? 0 : 1 }, transition: { pathLength: { duration: 2.25, delay: .12, ease: [ .45, 0, .25, 1 ] }, opacity: { duration: .4 } } }),
+									(0, import_jsx_runtime.jsx)(motion.path, { d: "M159 282 C158 244 163 215 159 184 C157 156 163 118 161 76", fill: "none", stroke: "#F8E8C2", strokeWidth: "1.25", strokeOpacity: ".65", strokeLinecap: "round", initial: { pathLength: 0 }, animate: { pathLength: trunkProgress, opacity: stage === "parting" ? 0 : .85 }, transition: { pathLength: { duration: 2.1, delay: .2 }, opacity: { duration: .5 } } }),
+									...treeBranches.map((branch, idx) => (0, import_jsx_runtime.jsx)(motion.path, { d: branch.d, fill: "none", stroke: "url(#sg-tree-bark)", strokeWidth: branch.width, strokeLinecap: "round", initial: { pathLength: 0, opacity: 0 }, animate: { pathLength: branchProgress, opacity: stage === "parting" ? 0 : 1 }, transition: { pathLength: { duration: 1.55, delay: branch.delay, ease: "easeOut" }, opacity: { duration: .35, delay: branch.delay } } }, `sg-branch-${idx}`)),
+									...treeLeaves.map((leaf, idx) => (0, import_jsx_runtime.jsx)("g", { transform: `translate(${leaf[0]} ${leaf[1]}) rotate(${leaf[2]})`, children: (0, import_jsx_runtime.jsx)(motion.path, { d: "M0 0 C-5 -12 -19 -14 -22 -3 C-15 10 -5 9 0 0Z", style: { transformBox: "fill-box", transformOrigin: "center" }, fill: idx % 4 === 0 ? "#E2D79A" : "url(#sg-tree-leaf)", stroke: "#EBD8AE", strokeOpacity: ".48", strokeWidth: "1", initial: { opacity: 0, scale: .12 }, animate: { opacity: stage === "parting" ? 0 : leafProgress, scale: stage === "parting" ? .5 : leafProgress ? 1 : .12, rotate: stage === "canopy" ? [ -3, 3, -3 ] : 0 }, transition: { opacity: { duration: .55, delay: .04 * idx }, scale: { type: "spring", stiffness: 125, damping: 10, delay: .035 * idx }, rotate: { duration: 3.2, delay: .04 * idx, repeat: stage === "canopy" ? Infinity : 0, ease: "easeInOut" } } }) }, `sg-leaf-${idx}`)),
+									(0, import_jsx_runtime.jsx)(motion.circle, { cx: "160", cy: "61", r: "5", fill: "#F4DEAE", initial: { scale: 0, opacity: 0 }, animate: { scale: stage === "canopy" ? [ 1, 1.35, 1 ] : stage === "parting" ? 0 : 0, opacity: stage === "parting" ? 0 : stage === "canopy" ? 1 : 0 }, transition: { duration: 2, repeat: stage === "canopy" ? Infinity : 0, ease: "easeInOut" } })
 								]
 							}),
 							...[
-								{ left: "18%", top: "34%", delay: 0 },
-								{ right: "17%", top: "28%", delay: .25 },
-								{ left: "24%", bottom: "20%", delay: .5 },
-								{ right: "22%", bottom: "18%", delay: .75 }
+								{ left: "18%", top: "34%", delay: 0 }, { right: "17%", top: "28%", delay: .25 },
+								{ left: "24%", bottom: "20%", delay: .5 }, { right: "22%", bottom: "18%", delay: .75 },
+								{ left: "8%", top: "52%", delay: .9 }, { right: "8%", top: "55%", delay: 1.1 }
 							].map((spark, idx) => (0, import_jsx_runtime.jsx)(motion.div, {
-								className: "absolute w-2 h-2 rounded-full bg-[#F5E6C4] shadow-[0_0_14px_rgba(235,216,174,0.95)]",
-								style: { left: spark.left, right: spark.right, top: spark.top, bottom: spark.bottom },
+								className: "absolute w-2 h-2 rounded-full bg-[#F5E6C4]",
+								style: { left: spark.left, right: spark.right, top: spark.top, bottom: spark.bottom, boxShadow: "0 0 14px rgba(235,216,174,.95)" },
 								initial: { opacity: 0, scale: 0 },
 								animate: { opacity: stage === "parting" ? 0 : [ .15, 1, .35 ], scale: [ .45, 1.25, .6 ], y: [ 5, -9, 2 ] },
-								transition: { duration: 1.5, delay: spark.delay, repeat: Infinity, ease: "easeInOut" }
+								transition: { duration: 1.8, delay: spark.delay, repeat: Infinity, ease: "easeInOut" }
 							}, `intro-spark-${idx}`))
 						]
 					}),
+					(0, import_jsx_runtime.jsx)(motion.div, { initial: { opacity: 0, y: 8 }, animate: { opacity: stage === "parting" ? 0 : 1, y: 0 }, transition: { duration: .6, delay: .35 }, className: "text-[9px] sm:text-[10px] uppercase text-[#B7C393]/80", style: { marginTop: "-.5rem", letterSpacing: ".42em" }, children: "ROOTED IN BENGAL" }),
 					(0, import_jsx_runtime.jsx)(motion.h1, {
-						initial: { opacity: 0, y: 12 },
-						animate: { opacity: stage === "parting" ? 0 : 1, y: stage === "parting" ? -8 : 0 },
-						transition: { duration: .65, delay: .25, ease: [ .16, 1, .3, 1 ] },
-						className: "mt-1 font-serif-display text-3xl sm:text-5xl font-semibold tracking-tight text-white",
+						initial: { opacity: 0, y: 16, letterSpacing: ".12em" },
+						animate: { opacity: stage === "parting" ? 0 : 1, y: stage === "parting" ? -8 : 0, letterSpacing: ".015em" },
+						transition: { duration: .85, delay: .35, ease: [ .16, 1, .3, 1 ] },
+						className: "mt-1 font-serif-display text-3xl sm:text-5xl font-semibold tracking-tight text-white drop-shadow-[0_4px_24px_rgba(0,0,0,.35)]",
 						children: "Saaj Gochh"
 					}),
-					(0, import_jsx_runtime.jsx)(motion.div, {
-						initial: { scaleX: 0, opacity: 0 },
-						animate: { scaleX: stage === "parting" ? 0 : 1, opacity: stage === "parting" ? 0 : 1 },
-						transition: { duration: .65, delay: .4, ease: [ .16, 1, .3, 1 ] },
-						className: "w-28 h-px bg-gradient-to-r from-transparent via-[#B68D40] to-transparent my-3"
-					}),
+					(0, import_jsx_runtime.jsx)(motion.div, { initial: { scaleX: 0, opacity: 0 }, animate: { scaleX: stage === "parting" ? 0 : 1, opacity: stage === "parting" ? 0 : 1 }, transition: { duration: .8, delay: .52, ease: [ .16, 1, .3, 1 ] }, className: "w-36 h-px bg-gradient-to-r from-transparent via-[#B68D40] to-transparent my-3" }),
 					(0, import_jsx_runtime.jsx)(motion.p, {
-						initial: { opacity: 0, y: 7 },
-						animate: { opacity: stage === "parting" ? 0 : 1, y: stage === "parting" ? -5 : 0 },
-						transition: { duration: .55, delay: .52 },
-						className: "text-xs sm:text-sm tracking-[0.22em] uppercase text-[#EBD8AE]/90 font-medium",
+						initial: { opacity: 0, y: 8 }, animate: { opacity: stage === "parting" ? 0 : 1, y: stage === "parting" ? -5 : 0 },
+						transition: { duration: .65, delay: .68 },
+						className: "text-[10px] sm:text-xs uppercase text-[#EBD8AE]/90 font-medium", style: { letterSpacing: ".25em" },
 						children: "Handcrafted Bengal Artistry"
 					})
 				]
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
-				type: "button",
-				onClick: handleSkip,
+			(0, import_jsx_runtime.jsxs)("button", {
+				type: "button", onClick: handleSkip,
 				className: "absolute bottom-6 right-6 z-20 h-9 px-3.5 rounded-[4px] border border-[#B68D40]/50 bg-zinc-900/90 hover:bg-zinc-800 text-[#EBD8AE] text-xs font-semibold inline-flex items-center gap-1.5 transition-colors cursor-pointer",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Skip Intro" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, { className: "w-3.5 h-3.5" })]
+				children: [ (0, import_jsx_runtime.jsx)("span", { children: "Skip Intro" }), (0, import_jsx_runtime.jsx)(ArrowRight, { className: "w-3.5 h-3.5" }) ]
 			})
 		]
 	}, "sg-architectural-intro") });
