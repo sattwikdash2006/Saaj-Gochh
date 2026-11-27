@@ -32252,4 +32252,233 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 </script>
 
+
+<style id="sg-video-showcase-styles">
+#sg-video-showcase{max-width:1380px;margin:18px auto 28px;padding:0 24px;color:#292522}
+#sg-video-showcase .sgv-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:15px}
+#sg-video-showcase .sgv-kicker{margin:0 0 6px;color:#a17a3a;font:800 8px/1.2 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase}
+#sg-video-showcase .sgv-title{margin:0;color:#302820;font:600 clamp(22px,2.7vw,30px)/1.1 'Playfair Display',Georgia,serif}
+#sg-video-showcase .sgv-subtitle{margin:6px 0 0;color:#81786e;font:500 10px/1.6 'Plus Jakarta Sans',sans-serif}
+#sg-video-showcase .sgv-manage{flex:0 0 auto;min-height:34px;padding:0 13px;border:1px solid #c9ad7d;border-radius:3px;background:#fff;color:#6c5129;font:700 9px 'Plus Jakarta Sans',sans-serif;letter-spacing:.06em;cursor:pointer;transition:all .2s ease}
+#sg-video-showcase .sgv-manage:hover{background:#342a21;border-color:#342a21;color:#fff}
+#sg-video-showcase .sgv-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+#sg-video-showcase .sgv-card{min-width:0;overflow:hidden;border:1px solid #e9e3da;border-radius:5px;background:#fff;box-shadow:0 4px 16px rgba(41,32,22,.045)}
+#sg-video-showcase .sgv-frame{display:block;width:100%;aspect-ratio:16/9;border:0;background:#171411}
+#sg-video-showcase .sgv-card-copy{padding:12px 13px 14px}
+#sg-video-showcase .sgv-product-name{margin:0;color:#302820;font:600 13px/1.4 'Plus Jakarta Sans',sans-serif}
+#sg-video-showcase .sgv-product-link{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:34px;margin-top:10px;padding:0 11px;border:1px solid #342a21;border-radius:3px;background:#342a21;color:#fff;text-decoration:none;font:700 8px 'Plus Jakarta Sans',sans-serif;letter-spacing:.11em;text-transform:uppercase;transition:all .2s ease}
+#sg-video-showcase .sgv-product-link:hover{background:#b68d40;border-color:#b68d40;color:#fff}
+#sg-video-showcase .sgv-empty{padding:22px;border:1px dashed #ddd1bd;border-radius:5px;background:#faf8f4;text-align:center;color:#81786e;font:500 10px/1.7 'Plus Jakarta Sans',sans-serif}
+#sg-video-showcase .sgv-empty strong{display:block;margin-bottom:3px;color:#4a3b2b;font:600 16px 'Playfair Display',Georgia,serif}
+#sg-video-showcase-modal{position:fixed;z-index:100000;inset:0;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(25,20,16,.62);backdrop-filter:blur(4px)}
+#sg-video-showcase-modal .sgv-dialog{width:min(100%,590px);max-height:min(90vh,780px);overflow:auto;border:1px solid #e5dac8;border-radius:7px;background:#fff;box-shadow:0 24px 70px rgba(0,0,0,.22)}
+#sg-video-showcase-modal .sgv-dialog-head{position:sticky;top:0;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:17px 19px;border-bottom:1px solid #eee8df;background:#fff}
+#sg-video-showcase-modal .sgv-dialog-title{margin:0;color:#342a21;font:600 21px/1.2 'Playfair Display',Georgia,serif}
+#sg-video-showcase-modal .sgv-dialog-note{margin:5px 0 0;color:#82796e;font:500 9px/1.55 'Plus Jakarta Sans',sans-serif}
+#sg-video-showcase-modal .sgv-close{width:30px;height:30px;border:1px solid #e7e0d7;border-radius:50%;background:#fff;color:#4a4036;font:400 19px/1 Georgia,serif;cursor:pointer}
+#sg-video-showcase-modal .sgv-modal-body{padding:17px 19px 19px}
+#sg-video-showcase-modal .sgv-form{display:grid;gap:10px}
+#sg-video-showcase-modal .sgv-field{display:grid;gap:5px;color:#4c443a;font:700 9px 'Plus Jakarta Sans',sans-serif}
+#sg-video-showcase-modal input{width:100%;height:39px;padding:0 11px;border:1px solid #ddd6cc;border-radius:3px;background:#fff;color:#26221e;font:500 11px 'Plus Jakarta Sans',sans-serif;outline:none}
+#sg-video-showcase-modal input:focus{border-color:#b68d40;box-shadow:0 0 0 3px rgba(182,141,64,.11)}
+#sg-video-showcase-modal .sgv-hint{margin:-3px 0 0;color:#8a8177;font:500 8px/1.5 'Plus Jakarta Sans',sans-serif}
+#sg-video-showcase-modal .sgv-save{min-height:39px;margin-top:3px;border:1px solid #342a21;border-radius:3px;background:#342a21;color:#fff;font:800 9px 'Plus Jakarta Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+#sg-video-showcase-modal .sgv-save:disabled{opacity:.55;cursor:wait}
+#sg-video-showcase-modal .sgv-status{min-height:16px;margin:2px 0 0;color:#8a682e;font:600 9px/1.5 'Plus Jakarta Sans',sans-serif}
+#sg-video-showcase-modal .sgv-existing{margin-top:18px;padding-top:14px;border-top:1px solid #eee8df}
+#sg-video-showcase-modal .sgv-existing-title{margin:0 0 9px;color:#4b4035;font:800 8px 'Plus Jakarta Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase}
+#sg-video-showcase-modal .sgv-existing-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid #f1eee9}
+#sg-video-showcase-modal .sgv-existing-name{min-width:0;color:#4b443c;font:600 10px/1.4 'Plus Jakarta Sans',sans-serif;overflow-wrap:anywhere}
+#sg-video-showcase-modal .sgv-remove{flex:0 0 auto;border:0;background:transparent;color:#a13d35;font:700 8px 'Plus Jakarta Sans',sans-serif;cursor:pointer}
+@media(max-width:900px){#sg-video-showcase .sgv-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){#sg-video-showcase{padding:0 12px;margin:15px auto 22px}#sg-video-showcase .sgv-head{align-items:flex-start;gap:9px}#sg-video-showcase .sgv-title{font-size:23px}#sg-video-showcase .sgv-subtitle{max-width:270px}#sg-video-showcase .sgv-manage{min-height:31px;padding:0 9px;font-size:8px}#sg-video-showcase .sgv-grid{grid-template-columns:1fr;gap:11px}#sg-video-showcase .sgv-card-copy{padding:11px}#sg-video-showcase-modal{padding:9px}#sg-video-showcase-modal .sgv-dialog-head,#sg-video-showcase-modal .sgv-modal-body{padding-left:14px;padding-right:14px}}
+@media(prefers-reduced-motion:reduce){#sg-video-showcase .sgv-manage,#sg-video-showcase .sgv-product-link{transition:none}}
+</style>
+<script id="sg-video-showcase-enhancements">
+(function(){
+  'use strict';
+  const STORE_KEY='saajGochhProductVideoShowcase_v1';
+  const REPO_KEY='saajGochhGitHubRepo_v1';
+  const TOKEN_KEY='saajGochhGitHubToken_v1';
+  const BRANCH_KEY='saajGochhGitHubBranch_v1';
+  const $=(selector,context=document)=>context.querySelector(selector);
+  const make=(tag,className,text)=>{const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node};
+  let videos=[];
+  let snapshotTime=0;
+  let loadStarted=false;
+  let renderedSignature=null;
+
+  function getLocalSnapshot(){
+    try{const parsed=JSON.parse(localStorage.getItem(STORE_KEY)||'null');if(parsed&&Array.isArray(parsed.videos))return {videos:sanitizeList(parsed.videos),updatedAt:Number(parsed.updatedAt)||0};if(Array.isArray(parsed))return {videos:sanitizeList(parsed),updatedAt:0}}catch{}
+    return {videos:[],updatedAt:0};
+  }
+  function saveLocalSnapshot(list,updatedAt){
+    try{localStorage.setItem(STORE_KEY,JSON.stringify({updatedAt,videos:list}));return true}catch{return false}
+  }
+  function isUnlocked(){try{return sessionStorage.getItem('saajgochh_admin_unlocked')==='1'}catch{return false}}
+  function parseYouTubeId(input){
+    const value=String(input||'').trim();
+    if(/^[A-Za-z0-9_-]{11}$/.test(value))return value;
+    try{
+      const url=new URL(value);
+      const host=url.hostname.toLowerCase().replace(/^www\./,'');
+      if(!['youtube.com','m.youtube.com','music.youtube.com','youtu.be','youtube-nocookie.com'].includes(host))return '';
+      let id='';
+      if(host==='youtu.be')id=url.pathname.split('/').filter(Boolean)[0]||'';
+      else id=url.searchParams.get('v')||((url.pathname.match(/^\/(?:embed|shorts|live)\/([^/?#]+)/)||[])[1]||'');
+      return /^[A-Za-z0-9_-]{11}$/.test(id)?id:'';
+    }catch{return ''}
+  }
+  function safeProductUrl(input){
+    const value=String(input||'').trim();
+    if(!value||/[\u0000-\u0020]/.test(value))return '';
+    if(/^(?:https?:\/\/)/i.test(value)){try{const url=new URL(value);return ['http:','https:'].includes(url.protocol)?url.href:''}catch{return ''}}
+    if(/^(?:\/(?!\/)|\.\.?\/|\?)[^\s]*$/.test(value))return value;
+    return '';
+  }
+  function sanitizeList(list){
+    if(!Array.isArray(list))return [];
+    return list.map(item=>{
+      const title=String(item?.title||'').trim().slice(0,100);
+      const youtubeId=parseYouTubeId(item?.youtubeId||item?.youtubeUrl||'');
+      const productUrl=safeProductUrl(item?.productUrl||item?.productLink||'');
+      if(!title||!youtubeId||!productUrl)return null;
+      return {id:String(item.id||('video-'+Math.random().toString(36).slice(2,10))),title,youtubeId,productUrl};
+    }).filter(Boolean).slice(0,36);
+  }
+  async function fetchRemoteSnapshot(){
+    try{
+      if(location.protocol==='file:')return null;
+      const response=await fetch('./product-videos.json?v='+Date.now(),{cache:'no-store'});
+      if(!response.ok)return null;
+      const payload=await response.json();
+      if(!payload||!Array.isArray(payload.videos))return null;
+      return {videos:sanitizeList(payload.videos),updatedAt:Number(payload.updatedAt)||0};
+    }catch{return null}
+  }
+  async function loadVideos(){
+    if(loadStarted)return;
+    loadStarted=true;
+    const local=getLocalSnapshot();
+    videos=local.videos;snapshotTime=local.updatedAt;renderShowcase();
+    const remote=await fetchRemoteSnapshot();
+    if(remote&&remote.updatedAt>=snapshotTime){videos=remote.videos;snapshotTime=remote.updatedAt;saveLocalSnapshot(videos,snapshotTime);renderShowcase()}
+  }
+  function githubSettings(){
+    let repo='',token='',branch='';
+    try{repo=(localStorage.getItem(REPO_KEY)||'sattwikdash2006/Saaj-Gochh').trim();token=(localStorage.getItem(TOKEN_KEY)||'').trim();branch=(localStorage.getItem(BRANCH_KEY)||'').trim()}catch{}
+    if(!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(repo))repo='';
+    return {repo,token,branch};
+  }
+  function githubHeaders(token){return {Authorization:'Bearer '+token,Accept:'application/vnd.github+json','Content-Type':'application/json'}}
+  function toBase64Utf8(value){const bytes=new TextEncoder().encode(value);let binary='';for(let i=0;i<bytes.length;i+=32768)binary+=String.fromCharCode(...bytes.subarray(i,i+32768));return btoa(binary)}
+  async function publishVideos(list,updatedAt){
+    const config=githubSettings();
+    if(!config.token||!config.repo)return {published:false,reason:'Saved on this device only. Connect GitHub in Admin → Settings to publish for all customers.'};
+    let branch=config.branch;
+    if(!branch){
+      const metaResponse=await fetch('https://api.github.com/repos/'+config.repo,{headers:githubHeaders(config.token)});
+      const meta=await metaResponse.json().catch(()=>({}));
+      if(!metaResponse.ok||!meta.default_branch)throw new Error(meta.message||'Could not find the GitHub default branch.');
+      branch=meta.default_branch;
+      try{localStorage.setItem(BRANCH_KEY,branch)}catch{}
+    }
+    const apiUrl='https://api.github.com/repos/'+config.repo+'/contents/product-videos.json';
+    const getResponse=await fetch(apiUrl+'?ref='+encodeURIComponent(branch),{headers:githubHeaders(config.token)});
+    let sha='';
+    if(getResponse.ok){const current=await getResponse.json();sha=current.sha||''}
+    else if(getResponse.status!==404){const error=await getResponse.json().catch(()=>({}));throw new Error(error.message||'Could not read product-videos.json from GitHub.')}
+    const payload={updatedAt,videos:list};
+    const putResponse=await fetch(apiUrl,{method:'PUT',headers:githubHeaders(config.token),body:JSON.stringify({message:'Update Saaj Gochh product video showcase',content:toBase64Utf8(JSON.stringify(payload,null,2)),branch,...(sha?{sha}:{})})});
+    if(!putResponse.ok){const error=await putResponse.json().catch(()=>({}));throw new Error(error.message||'GitHub publish failed ('+putResponse.status+').')}
+    return {published:true};
+  }
+  function renderShowcase(){
+    const section=$('#sg-video-showcase');if(!section)return;
+    const grid=$('.sgv-grid',section);if(!grid)return;
+    const signature=JSON.stringify(videos);
+    if(renderedSignature===signature&&grid.childNodes.length)return;
+    renderedSignature=signature;
+    grid.replaceChildren();
+    if(!videos.length){
+      const empty=make('div','sgv-empty');
+      empty.append(make('strong','', 'Product videos coming soon'),document.createTextNode('Watch product details and craftsmanship here. New videos will appear in this section.'));
+      grid.append(empty);return;
+    }
+    videos.forEach(item=>{
+      const card=make('article','sgv-card');
+      const frame=document.createElement('iframe');
+      frame.className='sgv-frame';frame.src='https://www.youtube-nocookie.com/embed/'+encodeURIComponent(item.youtubeId)+'?rel=0';
+      frame.title=item.title+' product video';frame.loading='lazy';frame.allow='accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';frame.allowFullscreen=true;frame.referrerPolicy='strict-origin-when-cross-origin';
+      const copy=make('div','sgv-card-copy');copy.append(make('h3','sgv-product-name',item.title));
+      const link=make('a','sgv-product-link');link.href=item.productUrl;link.target='_blank';link.rel='noopener noreferrer';link.append(document.createTextNode('View product'),make('span','', '↗'));
+      copy.append(link);card.append(frame,copy);grid.append(card);
+    });
+  }
+  function installSection(){
+    const root=$('#root');if(!root)return;
+    const hero=$('section[aria-label="Featured Campaign Showcase"]',root);
+    const explore=$('#explore',root);
+    if(!hero||!explore)return;
+    let section=$('#sg-video-showcase',root);
+    if(!section){
+      section=make('section');section.id='sg-video-showcase';section.setAttribute('aria-label','Product video showcase');renderedSignature=null;
+      const head=make('div','sgv-head');
+      const copy=make('div');copy.append(make('p','sgv-kicker','SAAJ GOCHH · PRODUCT STORIES'),make('h2','sgv-title','See the craft in motion'),make('p','sgv-subtitle','Watch a closer look at selected pieces, then visit the product page to explore or order.'));
+      const grid=make('div','sgv-grid');head.append(copy);section.append(head,grid);
+      const anchor=$('#sg-pro20-trust',root)||hero;anchor.insertAdjacentElement('afterend',section);
+    }
+    const head=$('.sgv-head',section);
+    if(head){
+      let manage=$('.sgv-manage',head);
+      if(isUnlocked()&&!manage){manage=make('button','sgv-manage','Manage videos');manage.type='button';manage.addEventListener('click',openManager);head.append(manage)}
+      else if(!isUnlocked()&&manage)manage.remove();
+    }
+    renderShowcase();
+  }
+  function closeManager(){const modal=$('#sg-video-showcase-modal');if(modal)modal.remove();document.removeEventListener('keydown',managerKeydown)}
+  function managerKeydown(event){if(event.key==='Escape')closeManager()}
+  function openManager(){
+    if(!isUnlocked())return;
+    closeManager();
+    const modal=make('div');modal.id='sg-video-showcase-modal';modal.addEventListener('click',event=>{if(event.target===modal||event.target.closest('.sgv-close'))closeManager()});
+    const dialog=make('section','sgv-dialog');dialog.setAttribute('role','dialog');dialog.setAttribute('aria-modal','true');dialog.setAttribute('aria-labelledby','sgv-manager-title');
+    const header=make('div','sgv-dialog-head');const headCopy=make('div');headCopy.append(make('h2','sgv-dialog-title','Manage product videos'),make('p','sgv-dialog-note','Add a YouTube video and the product page link customers should open.'));const close=make('button','sgv-close','×');close.type='button';close.setAttribute('aria-label','Close');header.append(headCopy,close);
+    const body=make('div','sgv-modal-body');const form=make('form','sgv-form');
+    const titleLabel=make('label','sgv-field','Product name');const titleInput=make('input');titleInput.name='title';titleInput.required=true;titleInput.maxLength=100;titleInput.placeholder='e.g. Handcrafted Jamdani Saree';titleLabel.append(titleInput);
+    const youtubeLabel=make('label','sgv-field','YouTube video link');const youtubeInput=make('input');youtubeInput.name='youtube';youtubeInput.type='url';youtubeInput.required=true;youtubeInput.placeholder='https://www.youtube.com/watch?v=...';youtubeLabel.append(youtubeInput);
+    const youtubeHint=make('p','sgv-hint','Regular YouTube, youtu.be, Shorts and embed links are supported.');
+    const productLabel=make('label','sgv-field','Product page link');const productInput=make('input');productInput.name='product';productInput.required=true;productInput.placeholder='https://yourstore.com/?item=product-id or /?item=product-id';productLabel.append(productInput);
+    const productHint=make('p','sgv-hint','Paste the product share link from your store, or a full product URL.');
+    const save=make('button','sgv-save','Add video to website');save.type='submit';const status=make('p','sgv-status');status.setAttribute('role','status');
+    form.append(titleLabel,youtubeLabel,youtubeHint,productLabel,productHint,save,status);
+    const existing=make('div','sgv-existing');existing.append(make('h3','sgv-existing-title','Published video entries'));const list=make('div');existing.append(list);
+    function drawExisting(){list.replaceChildren();if(!videos.length){list.append(make('p','sgv-hint','No product videos added yet.'));return}videos.forEach((item,index)=>{const row=make('div','sgv-existing-row');row.append(make('span','sgv-existing-name',item.title));const remove=make('button','sgv-remove','Remove');remove.type='button';remove.addEventListener('click',async()=>{if(!isUnlocked()||!confirm('Remove this product video from the showcase?'))return;videos=videos.filter((_,i)=>i!==index);snapshotTime=Date.now();saveLocalSnapshot(videos,snapshotTime);renderShowcase();drawExisting();status.textContent='Removed on this device. Publishing update...';try{const result=await publishVideos(videos,snapshotTime);status.textContent=result.published?'Video removed and website updated.':result.reason}catch(error){status.textContent='Removed locally, but could not publish: '+(error.message||'GitHub error')}});row.append(remove);list.append(row)})}
+    form.addEventListener('submit',async event=>{
+      event.preventDefault();if(!isUnlocked())return;
+      const title=titleInput.value.trim();const youtubeId=parseYouTubeId(youtubeInput.value);const productUrl=safeProductUrl(productInput.value);
+      if(!title){status.textContent='Enter a product name.';titleInput.focus();return}
+      if(!youtubeId){status.textContent='Enter a valid YouTube video link.';youtubeInput.focus();return}
+      if(!productUrl){status.textContent='Enter a valid product page link (https:// or a site-relative link).';productInput.focus();return}
+      if(videos.length>=36){status.textContent='The showcase can contain up to 36 videos. Remove an entry first.';return}
+      videos=[...videos,{id:'video-'+Date.now().toString(36),title,youtubeId,productUrl}];snapshotTime=Date.now();
+      saveLocalSnapshot(videos,snapshotTime);renderShowcase();drawExisting();
+      save.disabled=true;save.textContent='Publishing...';status.textContent='Saved locally. Publishing the video section...';
+      try{const result=await publishVideos(videos,snapshotTime);status.textContent=result.published?'Published. Customers can now watch this video on the website.':result.reason;titleInput.value='';youtubeInput.value='';productInput.value='';titleInput.focus()}
+      catch(error){status.textContent='Saved on this device, but GitHub publishing failed: '+(error.message||'Please check Admin → Settings.')}
+      finally{save.disabled=false;save.textContent='Add video to website'}
+    });
+    drawExisting();body.append(form,existing);dialog.append(header,body);modal.append(dialog);document.body.append(modal);document.addEventListener('keydown',managerKeydown);titleInput.focus();
+  }
+  function setup(){
+    installSection();
+    loadVideos();
+    const observer=new MutationObserver(()=>installSection());
+    observer.observe(document.documentElement,{childList:true,subtree:true});
+    window.addEventListener('storage',event=>{if(event.key===STORE_KEY){const local=getLocalSnapshot();videos=local.videos;snapshotTime=local.updatedAt;renderShowcase()}});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
+})();
+</script>
+
 </body></html>
