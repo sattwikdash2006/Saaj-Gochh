@@ -1,11 +1,10 @@
 /* Saaj Gochh — Firebase Cloud Messaging service worker.
    Keep this file at the published GitHub Pages site root, beside index.html. */
-
 importScripts("https://www.gstatic.com/firebasejs/13.0.0/firebase-app-compat.js");
 importScripts("https://www.gstatic.com/firebasejs/13.0.0/firebase-messaging-compat.js");
 
 firebase.initializeApp({
-  apiKey: "AIzaSyA874tDgviiYycwKYZhPPvXtLEdKxo2og0",
+  apiKey: "AIzaSyA874tDgviiYwcKYZhPPvXtLEdKxo2og0",
   authDomain: "saaj-gochh.firebaseapp.com",
   projectId: "saaj-gochh",
   storageBucket: "saaj-gochh.firebasestorage.app",
@@ -17,46 +16,27 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-  // Avoid duplicate notifications when the payload already contains notification data.
+  // FCM automatically displays messages that already contain a notification payload.
+  // Show a notification here only for data-only messages to avoid duplicate alerts.
   if (payload && payload.notification) return;
-
   const data = (payload && payload.data) || {};
-
   const title = data.title || "Saaj Gochh";
-
   const options = {
     body: data.body || "There is a new update from Saaj Gochh.",
-    data: {
-      link: data.link || self.registration.scope
-    }
+    data: { link: data.link || self.registration.scope }
   };
-
   return self.registration.showNotification(title, options);
 });
 
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
-
-  const rawLink =
-    (event.notification.data && event.notification.data.link) ||
-    self.registration.scope;
-
+  const rawLink = (event.notification.data && event.notification.data.link) || self.registration.scope;
   const targetUrl = new URL(rawLink, self.registration.scope).href;
-
   event.waitUntil((async () => {
-    const windows = await self.clients.matchAll({
-      type: "window",
-      includeUncontrolled: true
-    });
-
+    const windows = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
     for (const client of windows) {
-      if (client.url === targetUrl && "focus" in client) {
-        return client.focus();
-      }
+      if (client.url === targetUrl && "focus" in client) return client.focus();
     }
-
-    if (self.clients.openWindow) {
-      return self.clients.openWindow(targetUrl);
-    }
+    if (self.clients.openWindow) return self.clients.openWindow(targetUrl);
   })());
 });
