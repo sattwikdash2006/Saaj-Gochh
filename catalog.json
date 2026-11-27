@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795753502754,
+  "updatedAt": 1795753565895,
   "whatsapp": "918670234616",
   "products": [
     {
@@ -180,10 +180,14 @@
       "images": [
         "./images/products/item-1795701756415-1-mwxmgnu9.jpg"
       ],
-      "youtubeId": "yCcmi4iCdk4",
+      "variantMap": null,
       "inStock": true,
       "codAvailable": false,
       "return7Days": false,
+      "whatsappNumber": "",
+      "affiliateLink": "",
+      "video": "",
+      "youtubeId": "yCcmi4iCdk4",
       "featureSummary": [
         {
           "feature": "Ideal For",
@@ -6253,19 +6257,14 @@
       "id": "prod-1794909098130",
       "title": "Handmade Shanti Niketan Necklace",
       "price": 230,
-      "category": "Jewelry & Craft",
+      "category": "Handicrafts & Art",
       "description": "Artist: Srijani Tripathy",
       "images": [
         "https://raw.githubusercontent.com/sattwikdash2006/Saaj-Gochh/main/images/products/prod-1794909098130-1-mwlnnpgk-l9zd5.jpg"
       ],
-      "variantMap": null,
       "inStock": false,
       "codAvailable": true,
       "return7Days": false,
-      "whatsappNumber": "",
-      "affiliateLink": "",
-      "video": "",
-      "youtubeId": "",
       "featureSummary": [
         {
           "feature": "Artist",
