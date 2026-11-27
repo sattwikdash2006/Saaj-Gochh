@@ -27526,7 +27526,8 @@ var FCMSetupPanel = () => {
 		(0, import_jsx_runtime.jsxs)("div", { className: "bg-white border border-zinc-200 rounded-xl p-4 sm:p-5 space-y-2", children: [
 			(0, import_jsx_runtime.jsx)("h3", { className: "text-sm font-bold text-zinc-900", children: "Important: what works without a backend" }),
 			(0, import_jsx_runtime.jsx)("p", { className: "text-xs leading-relaxed text-zinc-600", children: "This static site can ask for permission, register the service worker, generate this browser's token, receive foreground messages and display background notifications. The token is not uploaded to a database." }),
-			(0, import_jsx_runtime.jsx)("p", { className: "text-[11px] leading-relaxed text-amber-700", children: "Compatibility note: this build uses getToken() to provide the requested copyable registration token. Firebase currently marks getToken() deprecated and recommends register() with onRegistered() for new projects." }),
+			(0, import_jsx_runtime.jsx)("p", { className: "text-[11px] leading-relaxed text-amber-700", children: "VAPID Public Key is configured. Its Base64URL format and 65-byte uncompressed P-256 structure have been validated locally. Keep this Public Key paired with the matching Firebase Web Push certificate." }),
+			(0, import_jsx_runtime.jsx)("p", { className: "text-[11px] leading-relaxed text-zinc-500", children: "Compatibility note: this build uses getToken() to provide the requested copyable registration token. Firebase currently marks getToken() deprecated and recommends register() with onRegistered() for new projects." }),
 			(0, import_jsx_runtime.jsx)("p", { className: "text-xs leading-relaxed text-zinc-600", children: "Sending campaigns to all subscribers, storing every visitor's token, scheduling broadcasts and managing delivery reports require a trusted server or a secure Firebase service with suitable access rules. Never put a Firebase service-account key or FCM server credential in this HTML." }),
 			(0, import_jsx_runtime.jsx)("p", { className: "text-[11px] text-zinc-400", children: "Use HTTPS (GitHub Pages provides it), keep firebase-messaging-sw.js at the published site root, and test in a browser that supports Web Push." })
 		] })
@@ -32648,10 +32649,32 @@ const firebaseConfig = {
   appId: "1:575111387265:web:2450fbfd51a1024f19d580",
   measurementId: "G-KHSMMLRX9L"
 };
-const vapidKey = "BPdTS9L9ILpLdgEBC82DPi_BmE11IYNMv2uN8SLIxVlydYBJ9uE8hNTCfpmpc7omZWD8YRhUGg7mUByVP1xRm0";
+// Firebase Web Push Public VAPID key (Base64URL, uncompressed P-256 public key).
+const vapidKey = "BPdTS9L9ILpldgE0CB2DPi_BmE11IYMRv2uNG5lIxVIydYBJ9uE8hNTCfpwpc7omZWQ8YRkUGgXmUByVP1rRmM0";
+
+function validateVapidPublicKey(value) {
+  if (!value || value === "PASTE_FULL_VAPID_PUBLIC_KEY_HERE") {
+    throw new Error("VAPID Public Key is not configured. In Firebase Console open Project settings → Cloud Messaging → Web Push certificates, copy the complete public key, and replace PASTE_FULL_VAPID_PUBLIC_KEY_HERE in this HTML.");
+  }
+  if (!/^[A-Za-z0-9_-]+$/.test(value)) {
+    throw new Error("VAPID Public Key must be Base64URL text. Copy the Public key exactly from Firebase Console.");
+  }
+  let decoded;
+  try {
+    const padded = value.replace(/-/g, "+").replace(/_/g, "/") + "=".repeat((4 - value.length % 4) % 4);
+    decoded = atob(padded);
+  } catch {
+    throw new Error("VAPID Public Key could not be decoded. Copy the full key again from Firebase Console.");
+  }
+  if (decoded.length !== 65 || decoded.charCodeAt(0) !== 0x04) {
+    throw new Error("Invalid VAPID Public Key: expected a 65-byte uncompressed P-256 public key (usually 87 Base64URL characters). The supplied key is incomplete or malformed.");
+  }
+}
+
 let runtimePromise;
 
 async function checkSupport() {
+  validateVapidPublicKey(vapidKey);
   if (!window.isSecureContext) throw new Error("Push notifications need HTTPS. Open the GitHub Pages HTTPS URL.");
   if (!("Notification" in window) || !("serviceWorker" in navigator) || !("PushManager" in window)) {
     throw new Error("This browser does not provide Notification, Service Worker and Push API support.");
