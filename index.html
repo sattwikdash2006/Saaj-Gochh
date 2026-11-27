@@ -26073,7 +26073,7 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 			const initialRows = editingProduct.featureSummary && editingProduct.featureSummary.length > 0 ? editingProduct.featureSummary : generateLocalFeatureSummary(editingProduct.description || "", editingProduct.title || "").rows;
 			setFeatureRows(initialRows);
 			setAffiliateLink(editingProduct.affiliateLink || "");
-			setWhatsappNumber(editingProduct.whatsappNumber || "");
+			setWhatsappNumber(normalizeWhatsAppNumber(editingProduct.whatsappNumber || "") === "917908741893" ? "917908741893" : "");
 			setInStock(editingProduct.inStock);
 			setCodAvailable(editingProduct.codAvailable);
 			setReturn7Days(editingProduct.return7Days);
@@ -26541,13 +26541,14 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 						})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
 							className: "block text-xs font-semibold text-zinc-700 mb-1",
 							children: "Product WhatsApp (Optional)"
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
-							type: "tel",
-							inputMode: "numeric",
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("select", {
 							value: whatsappNumber,
 							onChange: (e) => setWhatsappNumber(e.target.value),
-							placeholder: "10-digit override (optional)",
-							className: "w-full h-9 px-3 rounded-[4px] border border-zinc-200 bg-white text-xs font-mono-num text-zinc-900 focus:border-[#B68D40] focus:outline-none"
+							className: "w-full h-9 px-3 rounded-[4px] border border-zinc-200 bg-white text-xs font-mono-num text-zinc-900 focus:border-[#B68D40] focus:outline-none",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", { value: "", children: "Use store default (optional)" }),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", { value: "917908741893", children: "79087 41893" })
+							]
 						})] })]
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
@@ -27778,9 +27779,9 @@ var CategoryFeaturedCardSections = ({ products, categories, onFilterCategory, on
 		})
 	});
 };
-// src/components/PremiumMotionPosters.tsx
-// Additive editorial poster rail. Every poster cycles through products in the live catalog.
-var PremiumMotionPosters = ({ products, onFilterCategory }) => {
+// src/components/PremiumMotionPosterCard.tsx
+// Individual editorial poster cards are interspersed between catalog items.
+var PremiumMotionPosterCard = ({ products, onFilterCategory, position = 0 }) => {
 	const [activeStart, setActiveStart] = (0, import_react.useState)(0);
 	(0, import_react.useEffect)(() => {
 		if (products.length < 2 || (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
@@ -27789,54 +27790,30 @@ var PremiumMotionPosters = ({ products, onFilterCategory }) => {
 		}, 4600);
 		return () => window.clearInterval(timer);
 	}, [products]);
-	const posters = products.length ? [0, 1, 2].map((position) => {
-		const product = products[(activeStart + position) % products.length];
-		return { position, product, category: product.category || "Handcrafted Edit", image: getProductImages(product)[0] || FALLBACK_IMG };
-	}) : [];
-	if (!posters.length) return null;
-	const explore = (category) => {
+	if (!products.length) return null;
+	const product = products[(activeStart + position) % products.length];
+	const category = product.category || "Handcrafted Edit";
+	const image = getProductImages(product)[0] || FALLBACK_IMG;
+	const explore = () => {
 		onFilterCategory(category);
 		const target = document.getElementById("explore");
 		if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
 	};
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
-		className: "sg-premium-posters",
-		"aria-label": "Saaj Gochh designer moving posters",
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
+		className: `sg-premium-poster sg-premium-poster-${position} sg-premium-poster-inline`,
+		"aria-label": `Moving showcase: ${category}`,
 		children: [
-			(0, import_jsx_runtime.jsxs)("div", {
-				className: "sg-premium-posters-heading",
-				children: [
-					(0, import_jsx_runtime.jsxs)("div", { children: [
-						(0, import_jsx_runtime.jsx)("span", { className: "sg-premium-eyebrow", children: "THE ART OF SAAJ GOCHH" }),
-						(0, import_jsx_runtime.jsx)("h2", { children: "Stories, stitched in Bengal." }),
-						(0, import_jsx_runtime.jsx)("p", { children: "A moving showcase of craft, colour and considered details." })
-					] })
-				]
-			}),
-			(0, import_jsx_runtime.jsx)("div", {
-				className: "sg-premium-poster-grid",
-				children: posters.map((poster) => (0, import_jsx_runtime.jsxs)("article", {
-					key: `${poster.product.id || poster.product.title}-${poster.position}`,
-					className: `sg-premium-poster sg-premium-poster-${poster.position}`,
-					children: [
-						(0, import_jsx_runtime.jsx)("div", { className: "sg-premium-poster-image", style: { backgroundImage: `url("${poster.image}")` }, "aria-hidden": "true" }),
-						(0, import_jsx_runtime.jsx)("div", { className: "sg-premium-poster-grain", "aria-hidden": "true" }),
-						(0, import_jsx_runtime.jsx)("span", { className: "sg-premium-poster-number", children: `0${poster.position + 1} / 03` }),
-						(0, import_jsx_runtime.jsx)("span", { className: "sg-premium-poster-seal", children: "SAAJ · GOCHH" }),
-						(0, import_jsx_runtime.jsxs)("div", { className: "sg-premium-poster-copy", children: [
-							(0, import_jsx_runtime.jsx)("span", { className: "sg-premium-poster-kicker", children: poster.position === 0 ? "THE SIGNATURE EDIT" : poster.position === 1 ? "MADE TO BE KEPT" : "CRAFTED WITH A STORY" }),
-							(0, import_jsx_runtime.jsx)("h3", { children: poster.category }),
-							(0, import_jsx_runtime.jsx)("p", { children: poster.product.title }),
-							(0, import_jsx_runtime.jsxs)("button", { type: "button", className: "sg-premium-poster-cta", onClick: () => explore(poster.category), children: ["EXPLORE THE EDIT", (0, import_jsx_runtime.jsx)("span", { "aria-hidden": "true", children: "↗" })] })
-						] }),
-						(0, import_jsx_runtime.jsx)("span", { className: "sg-premium-poster-orbit", "aria-hidden": "true" })
-					]
-				}, `${poster.product.id || poster.product.title}-${poster.position}`))
-			}),
-			(0, import_jsx_runtime.jsx)("div", { className: "sg-premium-poster-marquee", "aria-hidden": "true", children: (0, import_jsx_runtime.jsx)("div", {
-				className: "sg-premium-poster-marquee-track",
-				children: [0, 1, 2, 3].map((copy) => (0, import_jsx_runtime.jsxs)("span", { children: ["HANDCRAFTED IN SPIRIT", (0, import_jsx_runtime.jsx)("i", {}), "ROOTED IN BENGAL", (0, import_jsx_runtime.jsx)("i", {}), "MADE TO BE TREASURED", (0, import_jsx_runtime.jsx)("i", {})] }, copy))
-			}) })
+			(0, import_jsx_runtime.jsx)("div", { className: "sg-premium-poster-image", style: { backgroundImage: `url("${image}")` }, "aria-hidden": "true" }),
+			(0, import_jsx_runtime.jsx)("div", { className: "sg-premium-poster-grain", "aria-hidden": "true" }),
+			(0, import_jsx_runtime.jsx)("span", { className: "sg-premium-poster-number", children: `0${position + 1} / 03` }),
+			(0, import_jsx_runtime.jsx)("span", { className: "sg-premium-poster-seal", children: "SAAJ · GOCHH" }),
+			(0, import_jsx_runtime.jsxs)("div", { className: "sg-premium-poster-copy", children: [
+				(0, import_jsx_runtime.jsx)("span", { className: "sg-premium-poster-kicker", children: position === 0 ? "THE SIGNATURE EDIT" : position === 1 ? "MADE TO BE KEPT" : "CRAFTED WITH A STORY" }),
+				(0, import_jsx_runtime.jsx)("h3", { children: category }),
+				(0, import_jsx_runtime.jsx)("p", { children: product.title }),
+				(0, import_jsx_runtime.jsxs)("button", { type: "button", className: "sg-premium-poster-cta", onClick: explore, children: ["EXPLORE THE EDIT", (0, import_jsx_runtime.jsx)("span", { "aria-hidden": "true", children: "↗" })] })
+			] }),
+			(0, import_jsx_runtime.jsx)("span", { className: "sg-premium-poster-orbit", "aria-hidden": "true" })
 		]
 	});
 };
@@ -28185,10 +28162,6 @@ function App() {
 						})),
 						onOpenProduct: handleOpenProduct
 					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(PremiumMotionPosters, {
-						products,
-						onFilterCategory: (cat) => setFilters((prev) => ({ ...prev, categories: [cat], search: "" }))
-					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CategoryFeaturedCardSections, {
     products,
     categories,
@@ -28298,6 +28271,16 @@ function App() {
 								onShare: handleShareProduct, onOpenDetail: handleOpenProduct
 							}, product.id);
 							if (filters.search?.trim() || filters.categories?.length) return [productCard];
+							const movingPosterSlots = [5, 15, 25];
+							const posterPosition = movingPosterSlots.indexOf(index);
+							if (posterPosition !== -1) {
+								const movingPoster = (0, import_jsx_runtime.jsx)(PremiumMotionPosterCard, {
+									products,
+									position: posterPosition,
+									onFilterCategory: (cat) => setFilters((prev) => ({ ...prev, categories: [cat], search: "" }))
+								}, `sg-moving-poster-${posterPosition}`);
+								return [productCard, movingPoster];
+							}
 							if (![7, 17, 27].includes(index)) return [productCard];
 							const promoImage = getProductImages(product)[0] || FALLBACK_IMG;
 							const promo = (0, import_jsx_runtime.jsx)("article", {
@@ -31961,6 +31944,10 @@ section[aria-label="Featured Campaign Showcase"] p{font-size:clamp(12px,1.15vw,1
  .sg-ajio-card-rail{grid-auto-columns:minmax(238px,84%)!important}
  .sg-ajio-card-image-wrap{height:225px!important;flex-basis:225px!important}
 }
+.sg-premium-poster-inline{grid-column:span 2;height:clamp(220px,24vw,275px);min-height:220px;margin:2px 0;border-radius:14px}
+@media(min-width:640px){.sg-premium-poster-inline{grid-column:span 3;height:245px}}
+@media(min-width:1024px){.sg-premium-poster-inline{height:260px}}
+@media(max-width:640px){.sg-premium-poster-inline{grid-column:span 2;height:220px;min-height:220px}.sg-premium-poster-inline .sg-premium-poster-copy{left:18px;right:18px;bottom:18px}.sg-premium-poster-inline .sg-premium-poster-copy h3{font-size:23px}.sg-premium-poster-inline .sg-premium-poster-number{top:17px;left:18px}.sg-premium-poster-inline .sg-premium-poster-seal{top:17px;right:17px}.sg-premium-poster-inline:after{inset:8px}}
 @media(prefers-reduced-motion:reduce){
  .sg-premium-poster,.sg-premium-poster-image,.sg-premium-poster-orbit,.sg-premium-poster-marquee-track,.sg-ajio-banner-visual img{animation:none!important;transition:none!important}
  .sg-premium-poster-image{transform:none!important}
