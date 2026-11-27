@@ -27781,16 +27781,9 @@ var CategoryFeaturedCardSections = ({ products, categories, onFilterCategory, on
 // src/components/PremiumMotionPosters.tsx
 // Additive editorial poster rail. Every poster cycles through products in the live catalog.
 var PremiumMotionPosters = ({ products, onFilterCategory }) => {
-	const [activeStart, setActiveStart] = (0, import_react.useState)(0);
-	(0, import_react.useEffect)(() => {
-		if (products.length < 2 || (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
-		const timer = window.setInterval(() => {
-			setActiveStart((previous) => (previous + 1) % products.length);
-		}, 4600);
-		return () => window.clearInterval(timer);
-	}, [products]);
-	const posters = products.length ? [0, 1, 2].map((position) => {
-		const product = products[(activeStart + position) % products.length];
+	// Static editorial poster mosaic: fewer moving elements, more varied poster sizes.
+	const posters = products.length ? [0, 1, 2, 3, 4, 5].map((position) => {
+		const product = products[position % products.length];
 		return { position, product, category: product.category || "Handcrafted Edit", image: getProductImages(product)[0] || FALLBACK_IMG };
 	}) : [];
 	if (!posters.length) return null;
@@ -27809,7 +27802,7 @@ var PremiumMotionPosters = ({ products, onFilterCategory }) => {
 					(0, import_jsx_runtime.jsxs)("div", { children: [
 						(0, import_jsx_runtime.jsx)("span", { className: "sg-premium-eyebrow", children: "THE ART OF SAAJ GOCHH" }),
 						(0, import_jsx_runtime.jsx)("h2", { children: "Stories, stitched in Bengal." }),
-						(0, import_jsx_runtime.jsx)("p", { children: "A moving showcase of craft, colour and considered details." })
+						(0, import_jsx_runtime.jsx)("p", { children: "An editorial showcase of craft, colour and considered details." })
 					] })
 				]
 			}),
@@ -27821,7 +27814,7 @@ var PremiumMotionPosters = ({ products, onFilterCategory }) => {
 					children: [
 						(0, import_jsx_runtime.jsx)("div", { className: "sg-premium-poster-image", style: { backgroundImage: `url("${poster.image}")` }, "aria-hidden": "true" }),
 						(0, import_jsx_runtime.jsx)("div", { className: "sg-premium-poster-grain", "aria-hidden": "true" }),
-						(0, import_jsx_runtime.jsx)("span", { className: "sg-premium-poster-number", children: `0${poster.position + 1} / 03` }),
+						(0, import_jsx_runtime.jsx)("span", { className: "sg-premium-poster-number", children: `0${poster.position + 1} / 06` }),
 						(0, import_jsx_runtime.jsx)("span", { className: "sg-premium-poster-seal", children: "SAAJ · GOCHH" }),
 						(0, import_jsx_runtime.jsxs)("div", { className: "sg-premium-poster-copy", children: [
 							(0, import_jsx_runtime.jsx)("span", { className: "sg-premium-poster-kicker", children: poster.position === 0 ? "THE SIGNATURE EDIT" : poster.position === 1 ? "MADE TO BE KEPT" : "CRAFTED WITH A STORY" }),
@@ -32260,3 +32253,24 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 </script>
 
 </body></html>
+<style>
+
+/* Saaj Gochh editorial mosaic refinement */
+.sg-premium-poster-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:minmax(145px,11vw);gap:16px}
+.sg-premium-poster{height:auto;min-height:0;border-radius:18px;animation:none;box-shadow:0 10px 28px rgba(37,25,18,.10);transition:transform .35s ease,box-shadow .35s ease}
+.sg-premium-poster-0{grid-column:span 2;grid-row:span 2;min-height:350px}
+.sg-premium-poster-1{grid-column:span 1;grid-row:span 2;min-height:350px}
+.sg-premium-poster-2{grid-column:span 1;grid-row:span 1;min-height:165px}
+.sg-premium-poster-3{grid-column:span 2;grid-row:span 1;min-height:190px}
+.sg-premium-poster-4{grid-column:span 1;grid-row:span 2;min-height:350px}
+.sg-premium-poster-5{grid-column:span 1;grid-row:span 1;min-height:165px}
+.sg-premium-poster-image{animation:none;transform:scale(1.02)}
+.sg-premium-poster:hover{transform:translateY(-4px);box-shadow:0 18px 36px rgba(37,25,18,.16)}
+.sg-premium-poster-copy h3{font-size:clamp(19px,2vw,30px)}
+.sg-ajio-product-card{border:1px solid #eee7dc!important;border-radius:14px!important;overflow:hidden!important;background:#fff!important;box-shadow:0 5px 18px rgba(39,29,20,.045)!important;transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease!important}
+.sg-ajio-product-card:hover{transform:translateY(-4px)!important;box-shadow:0 16px 32px rgba(39,29,20,.11)!important;border-color:#e2d2b6!important}
+.sg-ajio-card-image-wrap{background:linear-gradient(145deg,#f7f3ed,#eee6da)!important}
+@media(max-width:900px){.sg-premium-poster-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:160px}.sg-premium-poster-0,.sg-premium-poster-3{grid-column:span 2}.sg-premium-poster-1,.sg-premium-poster-4{grid-row:span 2;min-height:320px}.sg-premium-poster-2,.sg-premium-poster-5{grid-row:span 1;min-height:160px}}
+@media(max-width:640px){.sg-premium-poster-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:150px;gap:9px}.sg-premium-poster{height:auto;min-height:0;border-radius:12px}.sg-premium-poster-0{grid-column:span 2;grid-row:span 2;min-height:300px}.sg-premium-poster-1,.sg-premium-poster-4{grid-column:span 1;grid-row:span 2;min-height:300px}.sg-premium-poster-2,.sg-premium-poster-5{grid-column:span 1;grid-row:span 1;min-height:150px}.sg-premium-poster-3{grid-column:span 2;grid-row:span 1;min-height:170px}}
+
+</style>
