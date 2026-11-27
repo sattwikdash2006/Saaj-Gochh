@@ -1,7 +1,49 @@
 {
-  "updatedAt": 1795792342287,
+  "updatedAt": 1795793728564,
   "whatsapp": "918670234616",
   "products": [
+    {
+      "id": "item-1795793717957",
+      "title": "Decathlon Forclaz - Men Black MT50 Quick Dry Trekking Puffer Jackets",
+      "price": 999,
+      "category": "Men's Ethnic Wear",
+      "description": "Black solid insulator padded jacket with, has a mandarin collar, 2 pockets, has a zip closure, long sleeves, straight hemline, polyester lining engineered with\n\nSize & Fit\nThe model (height 6') is wearing a size M\n\nMaterial & Care\nOuter shell: Polyester\nLining fabric: Polyester\nMachine wash\n\nSpecifications\nSleeve Length\nLong Sleeves\nType\nPadded Jacket\nCollar\nMandarin Collar\nFeatures\nInsulator\nLength\nRegular\nClosure\nZip\nLining Fabric\nPolyester\nNumber of Pockets\n2\nHemline\nStraight\nNumber of Items\n1",
+      "images": [
+        "./images/products/item-1795793717957-1-mwz57ptr.jpg",
+        "./images/products/item-1795793717957-2-mwz57s1o.jpg",
+        "./images/products/item-1795793717957-3-mwz57uty.jpg"
+      ],
+      "inStock": true,
+      "codAvailable": true,
+      "return7Days": true,
+      "featureSummary": [
+        {
+          "feature": "Outer Shell",
+          "detail": "Polyester",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Lining Fabric",
+          "detail": "Polyester",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Available Sizes",
+          "detail": "M",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Care & Setup",
+          "detail": "Material & Care",
+          "group": "Care & Specs"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Black solid insulator padded jacket with, has a mandarin collar, 2 pockets, has a zip closure, long sleeves, straight hemline, polyester …",
+          "group": "Highlights"
+        }
+      ]
+    },
     {
       "id": "item-1795769965738",
       "title": "Fifth U Men  Thread work Kurta",
