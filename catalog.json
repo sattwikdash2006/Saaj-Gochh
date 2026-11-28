@@ -1,7 +1,70 @@
 {
-  "updatedAt": 1795840410101,
+  "updatedAt": 1795840825123,
   "whatsapp": "918670234616",
   "products": [
+    {
+      "id": "item-1795840813556",
+      "title": "Sunshine Elegance – Yellow Ruched Bodycon Midi Dress",
+      "price": 999,
+      "category": "Western Wear",
+      "description": "Step into elegance with this beautiful sunshine-yellow midi dress! Designed with a flattering square neckline, stylish shoulder straps and elegant side ruching, this dress enhances your silhouette beautifully.\n\nThe chic front slit and asymmetrical hemline add a touch of modern sophistication, making it perfect for parties, special occasions, date nights and stylish outings.\n\nProduct Details:\n\n- Colour: Sunshine Yellow\n- Neckline: Square Neck\n- Sleeve Type: Sleeveless\n- Pattern: Solid\n- Style: Bodycon / Fitted\n- Length: Midi\n- Special Features: Side Ruching & Front Slit\n- Occasion: Party, Evening & Casual Wear\n\nWear confidence. Wear elegance.",
+      "images": [
+        "./images/products/item-1795840813556-1-mwzx94sn.jpg",
+        "./images/products/item-1795840813556-2-mwzx96v4.jpg",
+        "./images/products/item-1795840813556-3-mwzx99au.jpg",
+        "./images/products/item-1795840813556-4-mwzx9b9x.jpg"
+      ],
+      "inStock": true,
+      "codAvailable": true,
+      "return7Days": true,
+      "featureSummary": [
+        {
+          "feature": "Color",
+          "detail": "Sunshine Yellow",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Neckline",
+          "detail": "Square Neck",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Sleeve Type",
+          "detail": "Sleeveless",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Pattern",
+          "detail": "Solid",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Style",
+          "detail": "Bodycon / Fitted",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Special Features",
+          "detail": "Side Ruching & Front Slit",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Occasion",
+          "detail": "Party, Evening & Casual Wear",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: Midi",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Step into elegance with this beautiful sunshine-yellow midi dress! Designed with a flattering square neckline, stylish shoulder straps an…",
+          "group": "Highlights"
+        }
+      ]
+    },
     {
       "id": "item-1795793717957",
       "title": "Decathlon Forclaz - Men Black MT50 Quick Dry Trekking Puffer Jackets",
