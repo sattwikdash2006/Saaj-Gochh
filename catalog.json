@@ -1,103 +1,146 @@
 {
-  "updatedAt": 1795841301156,
+  "updatedAt": 1795841358526,
   "whatsapp": "918670234616",
   "products": [
     {
-      "id": "item-1795841281319",
-      "title": "Phosphorus Panel Detailed Shoulder Straps Sheer Maxi A-Line Dress",
-      "price": 935,
-      "category": "Lehengas & Wedding Wear",
-      "description": "A garment designed for dramatic elegance and movement, utilizing the power of transparency for a striking effect. Its A-Line Maxi silhouette offers a supremely flattering, elongated form that flows gracefully from the bodice to the floor, enhancing an ethereal and romantic quality.\nColor: Maroon\nNeckline: Shoulder straps\nSleeves: Sleeveless\nHem: Flared\nLength: Maxi\nClosure: Concealed zip\n\nSize & Fit\nThe model (height 5'4'') is wearing a size S\n\nMaterial & Care\n98% Polyester & 2% Elastane\nMachine Wash\n\nSpecifications\nShape\nA-Line\nNeck\nShoulder Straps\nLength\nMaxi\nSleeve Length\nSleeveless\nSleeve Styling\nNo Sleeves\nKnit or Woven\nWoven\nHemline\nFlared\nTransparency\nOpaque\nClosure\nConcealed Zip\nNumber of Items\n1\nPackage Contains\nDress\nNet Quantity\n1.0",
+      "id": "item-1795841349219",
+      "title": "Urban Legend – Black & White Varsity Hooded Jacket",
+      "price": 1299,
+      "category": "Western Wear",
+      "description": "Upgrade your streetwear game with the Urban Legend Varsity Jacket! Featuring a bold black-and-white colour combination, contrasting white sleeves, an attached hood and a stylish number 7 chest design.\n\nDesigned for a trendy, sporty and effortlessly cool look, this jacket is perfect for casual outings, college wear, hangouts and everyday street fashion.\n\nProduct Details:\n\n- Category: Men's Fashion\n- Product Type: Varsity Jacket\n- Colour: Black & White\n- Design: Number 7 Graphic\n- Style: Hooded Baseball / Varsity\n- Closure: Front Button Closure\n- Sleeves: Full Sleeves\n- Pattern: Colour Block\n- Occasion: Casual / Streetwear / College Wear\n- Fit: Regular Style\n\nMake Every Street Your Runway!",
       "images": [
-        "./images/products/item-1795841281319-1-mwzxj5oe.jpg",
-        "./images/products/item-1795841281319-2-mwzxj7wz.jpg",
-        "./images/products/item-1795841281319-3-mwzxjaxp.jpg",
-        "./images/products/item-1795841281319-4-mwzxjd17.jpg",
-        "./images/products/item-1795841281319-5-mwzxjf4u.jpg",
-        "./images/products/item-1795841281319-6-mwzxjhq7.jpg"
+        "./images/products/item-1795841349219-1-mwzxkm7k.jpg",
+        "./images/products/item-1795841349219-2-mwzxkok6.jpg",
+        "./images/products/item-1795841349219-3-mwzxkqgf.jpg"
       ],
-      "inStock": true,
+      "inStock": false,
       "codAvailable": true,
       "return7Days": true,
       "featureSummary": [
         {
+          "feature": "Category",
+          "detail": "Men's Fashion",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Product Type",
+          "detail": "Varsity Jacket",
+          "group": "Design & Usage"
+        },
+        {
           "feature": "Color",
-          "detail": "Maroon",
+          "detail": "Black & White",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Design",
+          "detail": "Number 7 Graphic",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Style",
+          "detail": "Hooded Baseball / Varsity",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Closure",
+          "detail": "Front Button Closure",
+          "group": "Care & Specs"
+        },
+        {
+          "feature": "Sleeves",
+          "detail": "Full Sleeves",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Pattern",
+          "detail": "Colour Block",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Occasion",
+          "detail": "Casual / Streetwear / College Wear",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Fit",
+          "detail": "Regular Style",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Upgrade your streetwear game with the Urban Legend Varsity Jacket! Featuring a bold black-and-white colour combination, contrasting white…",
+          "group": "Highlights"
+        }
+      ]
+    },
+    {
+      "id": "item-1795840813556",
+      "title": "Sunshine Elegance – Yellow Ruched Bodycon Midi Dress",
+      "price": 999,
+      "category": "Western Wear",
+      "description": "Step into elegance with this beautiful sunshine-yellow midi dress! Designed with a flattering square neckline, stylish shoulder straps and elegant side ruching, this dress enhances your silhouette beautifully.\n\nThe chic front slit and asymmetrical hemline add a touch of modern sophistication, making it perfect for parties, special occasions, date nights and stylish outings.\n\nProduct Details:\n\n- Colour: Sunshine Yellow\n- Neckline: Square Neck\n- Sleeve Type: Sleeveless\n- Pattern: Solid\n- Style: Bodycon / Fitted\n- Length: Midi\n- Special Features: Side Ruching & Front Slit\n- Occasion: Party, Evening & Casual Wear\n\nWear confidence. Wear elegance.",
+      "images": [
+        "./images/products/item-1795840813556-1-mwzx94sn.jpg",
+        "./images/products/item-1795840813556-2-mwzx96v4.jpg",
+        "./images/products/item-1795840813556-3-mwzx99au.jpg",
+        "./images/products/item-1795840813556-4-mwzx9b9x.jpg"
+      ],
+      "variantMap": null,
+      "inStock": true,
+      "codAvailable": true,
+      "return7Days": true,
+      "whatsappNumber": "",
+      "affiliateLink": "",
+      "video": "",
+      "youtubeId": "",
+      "featureSummary": [
+        {
+          "feature": "Color",
+          "detail": "Sunshine Yellow",
           "group": "Design & Usage"
         },
         {
           "feature": "Neckline",
-          "detail": "Shoulder straps",
+          "detail": "Square Neck",
           "group": "Design & Usage"
         },
         {
-          "feature": "Sleeves",
+          "feature": "Sleeve Type",
           "detail": "Sleeveless",
           "group": "Design & Usage"
         },
         {
-          "feature": "Hem",
-          "detail": "Flared",
+          "feature": "Pattern",
+          "detail": "Solid",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Style",
+          "detail": "Bodycon / Fitted",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Special Features",
+          "detail": "Side Ruching & Front Slit",
           "group": "Highlights"
         },
         {
-          "feature": "Closure",
-          "detail": "Concealed zip",
-          "group": "Care & Specs"
+          "feature": "Occasion",
+          "detail": "Party, Evening & Casual Wear",
+          "group": "Design & Usage"
         },
         {
           "feature": "Dimensions (L × H × B)",
-          "detail": "Length: Maxi",
+          "detail": "Length: Midi",
           "group": "Dimensions & Sizing"
-        },
-        {
-          "feature": "Available Sizes",
-          "detail": "S",
-          "group": "Dimensions & Sizing"
-        },
-        {
-          "feature": "Care & Setup",
-          "detail": "Material & Care",
-          "group": "Care & Specs"
         },
         {
           "feature": "Key Highlight",
-          "detail": "A garment designed for dramatic elegance and movement, utilizing the power of transparency for a striking effect",
+          "detail": "Step into elegance with this beautiful sunshine-yellow midi dress! Designed with a flattering square neckline, stylish shoulder straps an…",
           "group": "Highlights"
         }
-      ],
-      "variantMap": {
-        "colors": [
-          {
-            "id": "color-1795841079693",
-            "name": "Color 1",
-            "swatch": "#B68D40",
-            "image": "",
-            "images": [],
-            "imageIndex": 1,
-            "sizes": [
-              {
-                "label": "M",
-                "inStock": true
-              }
-            ]
-          },
-          {
-            "id": "color-1795841105216",
-            "name": "Color 2",
-            "swatch": "#B68D40",
-            "image": "",
-            "images": [],
-            "imageIndex": 5,
-            "sizes": [
-              {
-                "label": "Size 1",
-                "inStock": false
-              }
-            ]
-          }
-        ]
-      }
+      ]
     },
     {
       "id": "item-1795793717957",
