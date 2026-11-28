@@ -1,26 +1,21 @@
 {
-  "updatedAt": 1795842001329,
+  "updatedAt": 1795842062678,
   "whatsapp": "918670234616",
   "products": [
     {
       "id": "item-1795841349219",
       "title": "Urban Legend – Black & White Varsity Hooded Jacket",
       "price": 1299,
-      "category": "Western Wear",
+      "category": "Home Textiles",
       "description": "Upgrade your streetwear game with the Urban Legend Varsity Jacket! Featuring a bold black-and-white colour combination, contrasting white sleeves, an attached hood and a stylish number 7 chest design.\n\nDesigned for a trendy, sporty and effortlessly cool look, this jacket is perfect for casual outings, college wear, hangouts and everyday street fashion.\n\nProduct Details:\n\n- Category: Men's Fashion\n- Product Type: Varsity Jacket\n- Colour: Black & White\n- Design: Number 7 Graphic\n- Style: Hooded Baseball / Varsity\n- Closure: Front Button Closure\n- Sleeves: Full Sleeves\n- Pattern: Colour Block\n- Occasion: Casual / Streetwear / College Wear\n- Fit: Regular Style\n\nMake Every Street Your Runway!",
       "images": [
         "./images/products/item-1795841349219-1-mwzxkm7k.jpg",
         "./images/products/item-1795841349219-2-mwzxkok6.jpg",
         "./images/products/item-1795841349219-3-mwzxkqgf.jpg"
       ],
-      "variantMap": null,
       "inStock": false,
       "codAvailable": true,
       "return7Days": true,
-      "whatsappNumber": "",
-      "affiliateLink": "",
-      "video": "",
-      "youtubeId": "",
       "featureSummary": [
         {
           "feature": "Category",
