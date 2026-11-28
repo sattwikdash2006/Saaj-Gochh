@@ -1,78 +1,98 @@
 {
-  "updatedAt": 1795841358526,
+  "updatedAt": 1795841841870,
   "whatsapp": "918670234616",
   "products": [
     {
-      "id": "item-1795841349219",
-      "title": "Urban Legend – Black & White Varsity Hooded Jacket",
-      "price": 1299,
+      "id": "item-1795841824591",
+      "title": "Phosphorus Panel Detailed Shoulder Straps Sheer Maxi A-Line Dress",
+      "price": 935,
       "category": "Western Wear",
-      "description": "Upgrade your streetwear game with the Urban Legend Varsity Jacket! Featuring a bold black-and-white colour combination, contrasting white sleeves, an attached hood and a stylish number 7 chest design.\n\nDesigned for a trendy, sporty and effortlessly cool look, this jacket is perfect for casual outings, college wear, hangouts and everyday street fashion.\n\nProduct Details:\n\n- Category: Men's Fashion\n- Product Type: Varsity Jacket\n- Colour: Black & White\n- Design: Number 7 Graphic\n- Style: Hooded Baseball / Varsity\n- Closure: Front Button Closure\n- Sleeves: Full Sleeves\n- Pattern: Colour Block\n- Occasion: Casual / Streetwear / College Wear\n- Fit: Regular Style\n\nMake Every Street Your Runway!",
+      "description": "A garment designed for dramatic elegance and movement, utilizing the power of transparency for a striking effect. Its A-Line Maxi silhouette offers a supremely flattering, elongated form that flows gracefully from the bodice to the floor, enhancing an ethereal and romantic quality.\nColor: Maroon\nNeckline: Shoulder straps\nSleeves: Sleeveless\nHem: Flared\nLength: Maxi\nClosure: Concealed zip\n\nSize & Fit\nThe model (height 5'4'') is wearing a size S\n\nMaterial & Care\n98% Polyester & 2% Elastane\nMachine Wash\n\nSpecifications\nShape\nA-Line\nNeck\nShoulder Straps\nLength\nMaxi\nSleeve Length\nSleeveless\nSleeve Styling\nNo Sleeves\nKnit or Woven\nWoven\nHemline\nFlared\nTransparency\nOpaque\nClosure\nConcealed Zip\nNumber of Items\n1\nPackage Contains\nDress\nNet Quantity\n1.0",
       "images": [
-        "./images/products/item-1795841349219-1-mwzxkm7k.jpg",
-        "./images/products/item-1795841349219-2-mwzxkok6.jpg",
-        "./images/products/item-1795841349219-3-mwzxkqgf.jpg"
+        "./images/products/item-1795841824591-1-mwzxusy9.jpg",
+        "./images/products/item-1795841824591-2-mwzxuux7.jpg",
+        "./images/products/item-1795841824591-3-mwzxuwtn.jpg",
+        "./images/products/item-1795841824591-4-mwzxuyvh.jpg",
+        "./images/products/item-1795841824591-5-mwzxv14l.jpg",
+        "./images/products/item-1795841824591-6-mwzxv3bk.jpg"
       ],
-      "inStock": false,
+      "inStock": true,
       "codAvailable": true,
       "return7Days": true,
       "featureSummary": [
         {
-          "feature": "Category",
-          "detail": "Men's Fashion",
-          "group": "Highlights"
-        },
-        {
-          "feature": "Product Type",
-          "detail": "Varsity Jacket",
-          "group": "Design & Usage"
-        },
-        {
           "feature": "Color",
-          "detail": "Black & White",
+          "detail": "Maroon",
           "group": "Design & Usage"
         },
         {
-          "feature": "Design",
-          "detail": "Number 7 Graphic",
+          "feature": "Neckline",
+          "detail": "Shoulder straps",
           "group": "Design & Usage"
-        },
-        {
-          "feature": "Style",
-          "detail": "Hooded Baseball / Varsity",
-          "group": "Design & Usage"
-        },
-        {
-          "feature": "Closure",
-          "detail": "Front Button Closure",
-          "group": "Care & Specs"
         },
         {
           "feature": "Sleeves",
-          "detail": "Full Sleeves",
+          "detail": "Sleeveless",
           "group": "Design & Usage"
         },
         {
-          "feature": "Pattern",
-          "detail": "Colour Block",
-          "group": "Design & Usage"
+          "feature": "Hem",
+          "detail": "Flared",
+          "group": "Highlights"
         },
         {
-          "feature": "Occasion",
-          "detail": "Casual / Streetwear / College Wear",
-          "group": "Design & Usage"
+          "feature": "Closure",
+          "detail": "Concealed zip",
+          "group": "Care & Specs"
         },
         {
-          "feature": "Fit",
-          "detail": "Regular Style",
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: Maxi",
           "group": "Dimensions & Sizing"
         },
         {
+          "feature": "Available Sizes",
+          "detail": "S",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Care & Setup",
+          "detail": "Material & Care",
+          "group": "Care & Specs"
+        },
+        {
           "feature": "Key Highlight",
-          "detail": "Upgrade your streetwear game with the Urban Legend Varsity Jacket! Featuring a bold black-and-white colour combination, contrasting white…",
+          "detail": "A garment designed for dramatic elegance and movement, utilizing the power of transparency for a striking effect",
           "group": "Highlights"
         }
-      ]
+      ],
+      "variantMap": {
+        "colors": [
+          {
+            "id": "color-1795841712931",
+            "name": "RED",
+            "swatch": "#B68D40",
+            "image": "",
+            "images": [],
+            "imageIndex": 0,
+            "sizes": [
+              {
+                "label": "M",
+                "inStock": true
+              }
+            ]
+          },
+          {
+            "id": "color-1795841724506",
+            "name": "White",
+            "swatch": "#B68D40",
+            "image": "",
+            "images": [],
+            "imageIndex": 5,
+            "sizes": []
+          }
+        ]
+      }
     },
     {
       "id": "item-1795840813556",
