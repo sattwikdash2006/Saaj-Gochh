@@ -1,7 +1,69 @@
 {
-  "updatedAt": 1795842253265,
+  "updatedAt": 1795842579328,
   "whatsapp": "918670234616",
   "products": [
+    {
+      "id": "item-1795842570101",
+      "title": "Phosphorus Panel Detailed Shoulder Straps Sheer Maxi A-Line Dress",
+      "price": 935,
+      "category": "Western Wear",
+      "description": "A garment designed for dramatic elegance and movement, utilizing the power of transparency for a striking effect. Its A-Line Maxi silhouette offers a supremely flattering, elongated form that flows gracefully from the bodice to the floor, enhancing an ethereal and romantic quality.\nColor: Maroon\nNeckline: Shoulder straps\nSleeves: Sleeveless\nHem: Flared\nLength: Maxi\nClosure: Concealed zip\n\nSize & Fit\nThe model (height 5'4'') is wearing a size S\n\nMaterial & Care\n98% Polyester & 2% Elastane\nMachine Wash\n\nSpecifications\nShape\nA-Line\nNeck\nShoulder Straps\nLength\nMaxi\nSleeve Length\nSleeveless\nSleeve Styling\nNo Sleeves\nKnit or Woven\nWoven\nHemline\nFlared\nTransparency\nOpaque\nClosure\nConcealed Zip\nNumber of Items\n1\nPackage Contains\nDress\nNet Quantity\n1.0",
+      "images": [
+        "./images/products/item-1795842570101-1-mwzyas35.jpg",
+        "./images/products/item-1795842570101-2-mwzyau3r.jpg",
+        "./images/products/item-1795842570101-3-mwzyawh1.jpg"
+      ],
+      "inStock": true,
+      "codAvailable": true,
+      "return7Days": true,
+      "featureSummary": [
+        {
+          "feature": "Color",
+          "detail": "Maroon",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Neckline",
+          "detail": "Shoulder straps",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Sleeves",
+          "detail": "Sleeveless",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Hem",
+          "detail": "Flared",
+          "group": "Highlights"
+        },
+        {
+          "feature": "Closure",
+          "detail": "Concealed zip",
+          "group": "Care & Specs"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: Maxi",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Available Sizes",
+          "detail": "S",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Care & Setup",
+          "detail": "Material & Care",
+          "group": "Care & Specs"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "A garment designed for dramatic elegance and movement, utilizing the power of transparency for a striking effect",
+          "group": "Highlights"
+        }
+      ]
+    },
     {
       "id": "item-1795841349219",
       "title": "Urban Legend – Black & White Varsity Hooded Jacket",
