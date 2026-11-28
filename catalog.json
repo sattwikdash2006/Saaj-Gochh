@@ -1,7 +1,82 @@
 {
-  "updatedAt": 1795844286804,
+  "updatedAt": 1795846711070,
   "whatsapp": "918670234616",
   "products": [
+    {
+      "id": "item-1795846693205",
+      "title": "COFFEE NEW TREDY DRESS",
+      "price": 350,
+      "category": "Western Wear",
+      "description": "Fabric: Lycra\nSleeve Length: Sleeveless\nPattern: Solid\nNet Quantity (N): 1\nXS (Bust Size: 32 in, Length Size: 49 in)\nS (Bust Size: 34 in, Length Size: 49 in)\nM (Bust Size: 36 in, Length Size: 49 in)\nL (Bust Size: 38 in, Length Size: 49 in)\nXL (Bust Size: 40 in, Length Size: 49 in)\nXXL (Bust Size: 42 in, Length Size: 49 in)\nCountry of Origin: India",
+      "images": [
+        "./images/products/item-1795846693205-1-mx00r5im.jpg",
+        "./images/products/item-1795846693205-2-mx00r7df.jpg",
+        "./images/products/item-1795846693205-3-mx00r9rb.jpg",
+        "./images/products/item-1795846693205-4-mx00rbz1.jpg",
+        "./images/products/item-1795846693205-5-mx00re2j.jpg",
+        "./images/products/item-1795846693205-6-mx00rgaj.jpg"
+      ],
+      "inStock": true,
+      "codAvailable": true,
+      "return7Days": true,
+      "featureSummary": [
+        {
+          "feature": "Fabric",
+          "detail": "Lycra",
+          "group": "Material & Craft"
+        },
+        {
+          "feature": "Sleeve Length",
+          "detail": "Sleeveless",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Pattern",
+          "detail": "Solid",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Net Quantity",
+          "detail": "1",
+          "group": "Package & Origin"
+        },
+        {
+          "feature": "XS (Bust Size",
+          "detail": "32 in, Length Size: 49 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "S (Bust Size",
+          "detail": "34 in, Length Size: 49 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "M (Bust Size",
+          "detail": "36 in, Length Size: 49 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "L (Bust Size",
+          "detail": "38 in, Length Size: 49 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XL (Bust Size",
+          "detail": "40 in, Length Size: 49 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "XXL (Bust Size",
+          "detail": "42 in, Length Size: 49 in)",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Country of Origin",
+          "detail": "India",
+          "group": "Package & Origin"
+        }
+      ]
+    },
     {
       "id": "item-1795844283812",
       "title": "Champagne Gold & Off-White Saree with Magenta Border | Floral Motif Ethnic Saree for Festive & Party Wear",
@@ -11,9 +86,14 @@
       "images": [
         "./images/products/item-1795844283812-1-mwzzbi65.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
+      "whatsappNumber": "",
+      "affiliateLink": "",
+      "video": "",
+      "youtubeId": "",
       "featureSummary": [
         {
           "feature": "Primary Color",
