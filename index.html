@@ -29329,6 +29329,9 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 	const [isProcessingMedia, setIsProcessingMedia] = (0, import_react.useState)(false);
 	const [autoCatStatus, setAutoCatStatus] = (0, import_react.useState)("AI Auto-Detect Ready");
 	const [meeshoInput, setMeeshoInput] = (0, import_react.useState)("");
+	const [smartPasteInput, setSmartPasteInput] = (0, import_react.useState)("");
+	const [smartParseStatus, setSmartParseStatus] = (0, import_react.useState)("");
+	const [smartParseFields, setSmartParseFields] = (0, import_react.useState)([]);
 	const [marginVal, setMarginVal] = (0, import_react.useState)(() => safeGetItem(STORAGE_KEYS.MEESHO_MARGIN_VAL) || "0");
 	const [marginType, setMarginType] = (0, import_react.useState)(() => safeGetItem(STORAGE_KEYS.MEESHO_MARGIN_TYPE) === "pct" ? "pct" : "flat");
 	const [autoPublish, setAutoPublish] = (0, import_react.useState)(() => safeGetItem(STORAGE_KEYS.MEESHO_AUTO_PUB) === "1");
@@ -29643,6 +29646,109 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 			onToast("Description formatted into clean key-value lines.");
 		}
 	};
+	const handleSmartParse = async () => {
+		const raw = String(smartPasteInput || "").trim();
+		if (!raw) {
+			setSmartParseStatus("Paste the product text first.");
+			return;
+		}
+		const lines = raw.replace(/\u00a0/g, " ").split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+		const asciiDigits = (value) => String(value || "").replace(/[০-৯]/g, (digit) => String("০১২৩৪৫৬৭৮৯".indexOf(digit)));
+		const readLabel = (regex) => {
+			for (const line of lines) {
+				const match = line.match(regex);
+				if (match && match[1]) return match[1].trim();
+			}
+			return "";
+		};
+		const fields = [];
+		const fallback = parseMeeshoTextPayload(raw);
+		const parsedTitle = readLabel(/^(?:product\s*name|item\s*name|name|title|পণ্যের\s*নাম|নাম)\s*[:：=\-–]\s*(.+)$/i);
+		const nextTitle = (parsedTitle || fallback.title || lines.find((line) => line.length >= 5 && !/^https?:\/\//i.test(line) && !/^(?:₹|৳|rs\.?|inr|price|mrp|offer price|check out|shop now|download meesho|category|description)\b/i.test(line)) || "").slice(0, 140).trim();
+		if (nextTitle) { setTitle(nextTitle); fields.push("Product title"); }
+		const priceLine = lines.find((line) => /^(?:selling\s*price|offer\s*price|special\s*price|mrp|price|দাম|মূল্য)\s*[:：=\-–]/i.test(line));
+		const priceMatch = priceLine && asciiDigits(priceLine).match(/(?:₹|৳|rs\.?|inr|tk\.?|টাকা)?\s*([0-9][0-9,]*(?:\.[0-9]{1,2})?)/i) || asciiDigits(raw).match(/(?:₹|৳|rs\.?|inr|tk\.?|টাকা)\s*([0-9][0-9,]*(?:\.[0-9]{1,2})?)/i);
+		const nextPrice = priceMatch ? Number(priceMatch[1].replace(/,/g, "")) : Number(fallback.price || 0);
+		if (nextPrice > 0 && Number.isFinite(nextPrice)) { setPrice(String(nextPrice)); fields.push("Price"); }
+		const categoryText = readLabel(/^(?:category|product\s*category|ক্যাটাগরি|বিভাগ)\s*[:：=\-–]\s*(.+)$/i);
+		let matchedCategory = categoryText ? CATEGORIES.find((item) => item.toLowerCase() === categoryText.toLowerCase() || categoryText.toLowerCase().includes(item.toLowerCase())) : null;
+		const searchable = (nextTitle + " " + raw).toLowerCase();
+		if (!matchedCategory) {
+			const categoryRules = [
+				[/saree|sari|jamdani|dhakai|tant|শাড়ি|সারি/i, "Sarees"],
+				[/men.?s wear|menswear|dhoti|panjabi|punjabi|পাঞ্জাবি/i, "Men's Ethnic Wear"],
+				[/kurti|kurta|salwar|ethnic suit/i, "Kurtis & Ethnic Wear"],
+				[/lehenga|bridal wear|বিয়ের পোশাক/i, "Lehengas & Wedding Wear"],
+				[/dress|t-?shirt|jeans|western wear|gown|topwear/i, "Western Wear"],
+				[/jewel|necklace|earring|bangle|bracelet|গয়না|অলংকার/i, "Jewelry & Craft"],
+				[/bag|wallet|purse|ব্যাগ/i, "Bags & Wallets"],
+				[/shoe|footwear|sandal|জুতো|জুতা/i, "Footwear"],
+				[/home decor|wall decor|showpiece|terracotta|ঘর সাজানো/i, "Home Decor"],
+				[/bedsheet|cushion|curtain|table runner|home textile/i, "Home Textiles"],
+				[/kitchen|dining|cookware|মসলা|বাসন/i, "Kitchen & Dining"],
+				[/painting|wall art|handicraft|craft|কাঁথা|হস্তশিল্প/i, "Handicrafts & Art"],
+				[/puja|festive|দুর্গা|পূজা/i, "Festive & Puja Items"],
+				[/beauty|skincare|personal care|cosmetic|সৌন্দর্য/i, "Beauty & Personal Care"],
+				[/kids|baby|children|শিশু/i, "Kids & Baby"],
+				[/gift|উপহার/i, "Festive Gifts"]
+			];
+			const rule = categoryRules.find(([regex]) => regex.test(searchable));
+			if (rule) matchedCategory = rule[1];
+		}
+		if (matchedCategory && CATEGORIES.includes(matchedCategory)) { setCategory(matchedCategory); setAutoCatStatus("Auto: " + matchedCategory); fields.push("Category"); }
+		const descriptionLabel = readLabel(/^(?:product\s*)?(?:description|details|বিবরণ|বিস্তারিত)\s*[:：=\-–]\s*(.+)$/i);
+		const metaLine = /^(?:product\s*name|item\s*name|name|title|price|mrp|selling\s*price|offer\s*price|special\s*price|category|product\s*category|description|product\s*description|details|whatsapp|mobile|phone|contact|affiliate\s*link|partner\s*link|stock|availability|status|cod|cash\s*on\s*delivery|return(?:\s*policy)?|returnable|colors?|colours?|sizes?|video\s*url|youtube|পণ্যের\s*নাম|নাম|দাম|মূল্য|ক্যাটাগরি|বিভাগ|বিবরণ|বিস্তারিত|মোবাইল|যোগাযোগ|স্টক)\s*[:：=\-–]/i;
+		const specLines = lines.filter((line) => !metaLine.test(line) && !/^https?:\/\//i.test(line) && line !== nextTitle && !/(?:₹|৳|rs\.?|inr|tk\.?|টাকা)\s*[0-9]/i.test(line));
+		const nextDescription = [descriptionLabel, ...specLines].filter(Boolean).join("\n").trim() || (fallback.description && fallback.description !== nextTitle ? fallback.description : "");
+		if (nextDescription) { setDescription(nextDescription); setFeatureRows(generateLocalFeatureSummary(nextDescription, nextTitle).rows); fields.push("Description & specs"); }
+		const waText = readLabel(/^(?:whatsapp|wa|mobile|phone|contact|মোবাইল|যোগাযোগ)\s*[:：=\-–]\s*(.+)$/i);
+		if (waText) {
+			const normalized = normalizeWhatsAppNumber(asciiDigits(waText));
+			if (normalized === "917908741893") { setWhatsappNumber(normalized); fields.push("WhatsApp"); }
+			else fields.push("WhatsApp needs review");
+		}
+		const affiliateText = readLabel(/^(?:affiliate\s*link|partner\s*link|affiliate\s*url)\s*[:：=\-–]\s*(https?:\/\/\S+)/i);
+		if (affiliateText && /^https?:\/\//i.test(affiliateText)) { setAffiliateLink(affiliateText.replace(/[),.]+$/, "")); fields.push("Partner link"); }
+		const youtubeMatch = raw.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})|\b([A-Za-z0-9_-]{11})\b(?=\s*(?:youtube|video))/i);
+		if (youtubeMatch) {
+			const id = normalizeYouTubeVideoId(youtubeMatch[1] || youtubeMatch[2] || "");
+			if (id) { setYoutubeId(id); fields.push("YouTube video"); }
+		}
+		const stockText = readLabel(/^(?:stock|availability|status|স্টক)\s*[:：=\-–]\s*(.+)$/i);
+		if (stockText) { setInStock(!/out|sold|no|false|unavailable|নেই|না/i.test(stockText)); fields.push("Stock status"); }
+		else if (/out of stock|sold out|unavailable|স্টক নেই/i.test(raw)) { setInStock(false); fields.push("Stock status"); }
+		const codText = readLabel(/^(?:cod|cash\s*on\s*delivery)\s*[:：=\-–]\s*(.+)$/i);
+		if (codText) { setCodAvailable(!/no|false|not available|unavailable|না|নেই/i.test(codText)); fields.push("COD"); }
+		const returnText = readLabel(/^(?:return(?:\s*policy)?|returnable|7\s*day\s*return)\s*[:：=\-–]\s*(.+)$/i);
+		if (returnText) { setReturn7Days(!/no|false|not accepted|non.?return|না|নেই/i.test(returnText)); fields.push("Return policy"); }
+		const colorText = readLabel(/^(?:colou?rs?)\s*[:：=\-–]\s*(.+)$/i);
+		const sizeText = readLabel(/^(?:sizes?)\s*[:：=\-–]\s*(.+)$/i);
+		if (colorText) {
+			const colorNames = colorText.split(/,|\/|\band\b|\s*&\s*/i).map((item) => item.trim()).filter(Boolean).slice(0, 12);
+			const sizeNames = sizeText ? sizeText.split(/,|\/|\band\b|\s*&\s*/i).map((item) => item.trim()).filter(Boolean).slice(0, 20) : [];
+			if (colorNames.length) { setVariantColors(colorNames.map((name, index) => ({ id: `smart-color-${Date.now()}-${index}`, name, swatch: "#B68D40", imageIndex: null, sizes: sizeNames.map((label) => ({ label, inStock: true })) }))); fields.push("Color & size variants"); }
+		}
+		const videoLink = readLabel(/^(?:video\s*url)\s*[:：=\-–]\s*(https?:\/\/\S+)/i);
+		if (videoLink && /\.(?:mp4|webm)(?:\?|$)/i.test(videoLink)) { setVideoUrl(videoLink.replace(/[),.]+$/, "")); setVideoPreviewUrl(videoLink.replace(/[),.]+$/, "")); fields.push("Product video link"); }
+		const imageUrls = [...new Set((raw.match(/https?:\/\/[^\s"'<>]+/gi) || []).map((url) => url.replace(/[),.;]+$/, "")).filter((url) => /\.(?:jpe?g|png|webp|gif)(?:\?|#|$)/i.test(url) || /images\.meesho\.com/i.test(url)))].slice(0, 10 - photos.length);
+		if (imageUrls.length) {
+			setIsProcessingMedia(true);
+			const processed = [];
+			for (const url of imageUrls) {
+				try {
+					const result = await autoProcessImageFromUrl(url, { cropMode, enhance: autoEnhance });
+					processed.push(result.dataUrl);
+				} catch (err) {
+					if (err instanceof Error && err.message === "CORS_ONLY") processed.push(url);
+				}
+			}
+			if (processed.length) { setPhotos((previous) => [...previous, ...processed].slice(0, 10)); fields.push(`${processed.length} product photo(s)`); }
+			setIsProcessingMedia(false);
+		}
+		setSmartParseFields(fields);
+		setSmartParseStatus(fields.length ? `Detected ${fields.length} field group(s). Review the filled values, then publish when ready.` : "No confident fields found. Try adding labels such as Product Name:, Price:, Category: and Description:.");
+		if (fields.length) onToast(`Smart Parser filled ${fields.length} field group(s). Please review before publishing.`);
+	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (isProcessingMedia) {
@@ -29731,7 +29837,41 @@ var AdminEditorTab = ({ editingProduct, pendingMeeshoPayload, onConsumeMeeshoPay
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
 		onSubmit: handleSubmit,
 		className: "grid grid-cols-1 xl:grid-cols-12 gap-5",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+			className: "xl:col-span-12 overflow-hidden rounded-2xl border border-[#DCCBA8] bg-gradient-to-br from-zinc-950 via-[#211E19] to-[#4B3920] p-5 sm:p-6 shadow-lg",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex items-center gap-2 mb-1", children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-[#EBD8AE] text-[10px] font-bold tracking-[0.22em]", children: "✦ SMART PRODUCT PARSER" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "px-2 py-0.5 rounded-full border border-white/20 text-[9px] text-zinc-300", children: "BROWSER-BASED · NO API" })] }),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", { className: "text-lg sm:text-xl font-semibold text-white", children: "Paste once. Fill the product form automatically." }),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "text-xs text-zinc-300 mt-1 max-w-3xl", children: "Paste supplier details, a WhatsApp product message, catalogue text or a product listing. The parser maps recognised details into the fields below; it never invents missing values." })
+							]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-[10px] text-[#EBD8AE] font-medium", children: "English + বাংলা labels supported" })
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("textarea", {
+					rows: 5,
+					value: smartPasteInput,
+					onChange: (e) => setSmartPasteInput(e.target.value),
+					placeholder: "Product Name: Handloom Cotton Saree\nPrice: ₹1,250\nCategory: Sarees\nDescription: Soft cotton, handwoven border...\nColors: Maroon, Blue\nSizes: Free Size\nStock: In Stock\nCOD: Yes\nReturn: 7 Days",
+					className: "w-full rounded-xl border border-white/15 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-zinc-400 focus:border-[#EBD8AE] focus:outline-none resize-y"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex flex-wrap items-center gap-2 mt-3",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { type: "button", onClick: handleSmartParse, disabled: isProcessingMedia, className: "h-10 px-5 rounded-lg bg-[#EBD8AE] hover:bg-[#F5E7CA] disabled:opacity-60 text-zinc-950 text-xs font-bold transition-colors cursor-pointer", children: isProcessingMedia ? "Processing..." : "✦ Parse & Auto-Fill Fields" }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { type: "button", onClick: () => { setSmartPasteInput(""); setSmartParseStatus(""); setSmartParseFields([]); }, className: "h-10 px-4 rounded-lg border border-white/20 bg-white/5 hover:bg-white/10 text-white text-xs font-semibold cursor-pointer", children: "Clear paste" }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-[10px] text-zinc-400", children: "Parsed locally in this browser · Nothing is published until you press Publish" })
+					]
+				}),
+				smartParseStatus && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { role: "status", className: "mt-3 rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-xs text-[#F3E8D2]", children: smartParseStatus }),
+				smartParseFields.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "mt-2 flex flex-wrap gap-1.5", children: smartParseFields.map((field, index) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "rounded-full border border-[#EBD8AE]/30 bg-[#EBD8AE]/10 px-2.5 py-1 text-[10px] text-[#F5E7CA]", children: field }, `${field}-${index}`)) })
+			]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 			className: "xl:col-span-7 space-y-5",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "bg-white border border-zinc-200 rounded-[6px] p-5 space-y-4",
