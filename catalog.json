@@ -1,177 +1,149 @@
 {
-  "updatedAt": 1795843556228,
+  "updatedAt": 1795843655386,
   "whatsapp": "918670234616",
   "products": [
     {
-      "id": "item-1795843544926",
-      "title": "Stylish Ravishing Women Dresses",
-      "price": 499,
+      "id": "item-1795843645587",
+      "title": "Women's Royal Plum Sleeveless V-Neck Wrap Slit Maxi Dress",
+      "price": 899,
       "category": "Western Wear",
-      "description": "Stylish Ravishing Women Dresses\nName: Stylish Ravishing Women Dresses\nFabric: Lycra\nSleeve Length: Sleeveless\nPattern: Solid\nNet Quantity (N): 1\nSizes:\nXS (Bust Size: 32 in, Length Size: 48 in) \nS (Bust Size: 34 in, Length Size: 48 in) \nM (Bust Size: 36 in, Length Size: 48 in) \nL (Bust Size: 38 in, Length Size: 49 in) \nXL (Bust Size: 40 in, Length Size: 49 in) \n\nWomen's Square Neckline Ruched Waist Slit Dress For Vacation, Daily Wear, Wedding Season and party\nCountry of Origin: India",
+      "description": "Make a stunning statement with our Royal Plum Elegant Wrap Maxi Dress!\n\nDesigned for women who love timeless elegance, this beautiful dress features a flattering V-neckline, stylish sleeveless design and a graceful wrap-style bodice. Its flowing floor-length silhouette with a daring front slit adds a touch of glamour and sophistication.\n\nThe rich royal plum colour makes it an ideal choice for parties, evening occasions, date nights and special celebrations.\n\nProduct Features:\n\n- Gorgeous royal plum colour\n- Elegant V-neckline\n- Sleeveless design\n- Stylish wrap-style front\n- Flattering fitted waist\n- Beautiful front thigh-high slit\n- Flowing maxi-length silhouette\n- Perfect for parties and evening wear\n\nStyle: Elegant Western Wear",
       "images": [
-        "./images/products/item-1795843544926-1-mwzyvoe2.jpg",
-        "./images/products/item-1795843544926-2-mwzyvqkl.jpg",
-        "./images/products/item-1795843544926-3-mwzyvsg4.jpg",
-        "./images/products/item-1795843544926-4-mwzyvufp.jpg"
+        "./images/products/item-1795843645587-1-mwzyxts2.jpg",
+        "./images/products/item-1795843645587-2-mwzyxvk6.jpg",
+        "./images/products/item-1795843645587-3-mwzyxx84.jpg",
+        "./images/products/item-1795843645587-4-mwzyxz5u.jpg"
       ],
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
       "featureSummary": [
         {
-          "feature": "Fabric",
-          "detail": "Lycra",
-          "group": "Material & Craft"
-        },
-        {
-          "feature": "Sleeve Length",
-          "detail": "Sleeveless",
-          "group": "Dimensions & Sizing"
-        },
-        {
-          "feature": "Pattern",
-          "detail": "Solid",
+          "feature": "Style",
+          "detail": "Elegant Western Wear",
           "group": "Design & Usage"
         },
         {
-          "feature": "Net Quantity",
-          "detail": "1",
-          "group": "Package & Origin"
-        },
-        {
-          "feature": "XS (Bust Size",
-          "detail": "32 in, Length Size: 48 in)",
-          "group": "Dimensions & Sizing"
-        },
-        {
-          "feature": "S (Bust Size",
-          "detail": "34 in, Length Size: 48 in)",
-          "group": "Dimensions & Sizing"
-        },
-        {
-          "feature": "M (Bust Size",
-          "detail": "36 in, Length Size: 48 in)",
-          "group": "Dimensions & Sizing"
-        },
-        {
-          "feature": "L (Bust Size",
-          "detail": "38 in, Length Size: 49 in)",
-          "group": "Dimensions & Sizing"
-        },
-        {
-          "feature": "XL (Bust Size",
-          "detail": "40 in, Length Size: 49 in)",
-          "group": "Dimensions & Sizing"
-        },
-        {
-          "feature": "Country of Origin",
-          "detail": "India",
-          "group": "Package & Origin"
+          "feature": "Ideal For",
+          "detail": "Parties and evening wear",
+          "group": "Design & Usage"
         },
         {
           "feature": "Key Highlight",
-          "detail": "Stylish Ravishing Women Dresses",
+          "detail": "Make a stunning statement with our Royal Plum Elegant Wrap Maxi Dress!",
           "group": "Highlights"
         }
-      ],
-      "variantMap": {
-        "colors": [
-          {
-            "id": "color-1795843438818",
-            "name": "Color 1",
-            "swatch": "#B68D40",
-            "image": "",
-            "images": [],
-            "imageIndex": 0,
-            "sizes": [
-              {
-                "label": "XS",
-                "inStock": true
-              },
-              {
-                "label": "M",
-                "inStock": true
-              },
-              {
-                "label": "S",
-                "inStock": true
-              },
-              {
-                "label": "L",
-                "inStock": true
-              },
-              {
-                "label": "XL",
-                "inStock": true
-              }
-            ]
-          }
-        ]
-      }
+      ]
     },
     {
-      "id": "item-1795842570101",
-      "title": "Phosphorus Panel Detailed Shoulder Straps Sheer Maxi A-Line Dress",
-      "price": 935,
+      "id": "item-1795843206116",
+      "title": "White & Pink Floral Printed Women's Spaghetti Strap Mini Dress",
+      "price": 699,
       "category": "Western Wear",
-      "description": "A garment designed for dramatic elegance and movement, utilizing the power of transparency for a striking effect. Its A-Line Maxi silhouette offers a supremely flattering, elongated form that flows gracefully from the bodice to the floor, enhancing an ethereal and romantic quality.\nColor: Maroon\nNeckline: Shoulder straps\nSleeves: Sleeveless\nHem: Flared\nLength: Maxi\nClosure: Concealed zip\n\nSize & Fit\nThe model (height 5'4'') is wearing a size S\n\nMaterial & Care\n98% Polyester & 2% Elastane\nMachine Wash\n\nSpecifications\nShape\nA-Line\nNeck\nShoulder Straps\nLength\nMaxi\nSleeve Length\nSleeveless\nSleeve Styling\nNo Sleeves\nKnit or Woven\nWoven\nHemline\nFlared\nTransparency\nOpaque\nClosure\nConcealed Zip\nNumber of Items\n1\nPackage Contains\nDress\nNet Quantity\n1.0",
+      "description": "Step into effortless elegance with our beautiful Pink Floral Dream Mini Dress!\n\nFeaturing a gorgeous white and soft pink base with vibrant pink floral prints, this dress brings a fresh, feminine and trendy look. Designed with delicate spaghetti straps, a flattering fitted silhouette and a stylish mini-length finish, it's perfect for summer outings, vacations, brunch dates and casual parties.\n\nProduct Features:\n\n- Beautiful white and pink floral print\n- Delicate spaghetti shoulder straps\n- Attractive fitted silhouette\n- Stylish mini-length design\n- Soft and feminine colour combination\n- Trendy summer-inspired look\n- Perfect for vacations, parties and casual outings\n\nStyle: Western Wear",
       "images": [
-        "./images/products/item-1795842570101-1-mwzyas35.jpg",
-        "./images/products/item-1795842570101-2-mwzyau3r.jpg",
-        "./images/products/item-1795842570101-3-mwzyawh1.jpg"
+        "./images/products/item-1795843206116-1-mwzyoem8.jpg",
+        "./images/products/item-1795843206116-2-mwzyogiu.jpg",
+        "./images/products/item-1795843206116-3-mwzyoiic.jpg"
       ],
       "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
       "whatsappNumber": "",
-      "affiliateLink": "https://myntr.it/e8TubCo",
+      "affiliateLink": "",
       "video": "",
-      "youtubeId": "2AO7LwY1yYU",
+      "youtubeId": "",
       "featureSummary": [
         {
-          "feature": "Color",
-          "detail": "Maroon",
+          "feature": "Style",
+          "detail": "Western Wear",
           "group": "Design & Usage"
         },
         {
-          "feature": "Neckline",
-          "detail": "Shoulder straps",
+          "feature": "Ideal For",
+          "detail": "Summer outings",
           "group": "Design & Usage"
-        },
-        {
-          "feature": "Sleeves",
-          "detail": "Sleeveless",
-          "group": "Design & Usage"
-        },
-        {
-          "feature": "Hem",
-          "detail": "Flared",
-          "group": "Highlights"
-        },
-        {
-          "feature": "Closure",
-          "detail": "Concealed zip",
-          "group": "Care & Specs"
-        },
-        {
-          "feature": "Dimensions (L × H × B)",
-          "detail": "Length: Maxi",
-          "group": "Dimensions & Sizing"
-        },
-        {
-          "feature": "Available Sizes",
-          "detail": "S",
-          "group": "Dimensions & Sizing"
-        },
-        {
-          "feature": "Care & Setup",
-          "detail": "Material & Care",
-          "group": "Care & Specs"
         },
         {
           "feature": "Key Highlight",
-          "detail": "A garment designed for dramatic elegance and movement, utilizing the power of transparency for a striking effect",
+          "detail": "Step into effortless elegance with our beautiful Pink Floral Dream Mini Dress!",
+          "group": "Highlights"
+        }
+      ]
+    },
+    {
+      "id": "item-1795842910100",
+      "title": "Chocolate Brown Polka Dot Sleeveless Women's Maxi Dress with Matching Scarf",
+      "price": 999,
+      "category": "Sarees & Apparel",
+      "description": "Bring timeless elegance to your wardrobe with this gorgeous Chocolate Brown Polka Dot Dress.\n\nDesigned with a flattering square neckline, stylish sleeveless silhouette and a beautiful flowing skirt, this dress creates a graceful and sophisticated look. The delicate white polka dot print and matching neck scarf add a charming vintage-inspired touch.\n\nProduct Features:\n\n- Rich chocolate brown colour\n- Elegant white polka dot pattern\n- Stylish square neckline\n- Sleeveless design\n- Matching neck scarf detail\n- Flattering fitted waist\n- Beautiful flowy flared hem\n- Perfect for parties, dates, outings and special occasions\n\nStyle: Elegant Western Wear",
+      "images": [
+        "./images/products/item-1795842910100-1-mwzyi272.jpg",
+        "./images/products/item-1795842910100-2-mwzyi4it.jpg",
+        "./images/products/item-1795842910100-3-mwzyi6qi.jpg",
+        "./images/products/item-1795842910100-4-mwzyi8r6.jpg"
+      ],
+      "variantMap": null,
+      "inStock": true,
+      "codAvailable": true,
+      "return7Days": true,
+      "whatsappNumber": "",
+      "affiliateLink": "",
+      "video": "",
+      "youtubeId": "",
+      "featureSummary": [
+        {
+          "feature": "Style",
+          "detail": "Elegant Western Wear",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Parties",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Bring timeless elegance to your wardrobe with this gorgeous Chocolate Brown Polka Dot Dress",
+          "group": "Highlights"
+        }
+      ]
+    },
+    {
+      "id": "item-1795842479180",
+      "title": "Black & Rose Printed Tiered Midi Dress",
+      "price": 899,
+      "category": "Sarees & Apparel",
+      "description": "Add a touch of elegance to your everyday style with this beautiful Black & Rose Printed Tiered Midi Dress.\n\nFeaturing a stylish abstract floral print, flattering waist-tie detail, comfortable short sleeves and a gorgeous tiered flared design, this dress is perfect for casual outings, shopping, day trips and special gatherings.\n\nFeatures:\n\n- Elegant black and dusty rose colour combination\n- Beautiful abstract floral print\n- Stylish V-slit neckline\n- Adjustable waist-tie detail\n- Short sleeves\n- Flowy tiered design\n- Chic and fashionable look\n\nStyle: Casual & Western Wear",
+      "images": [
+        "./images/products/item-1795842479180-1-mwzy8tq8.jpg",
+        "./images/products/item-1795842479180-2-mwzy8wdr.jpg",
+        "./images/products/item-1795842479180-3-mwzy8yzk.jpg",
+        "./images/products/item-1795842479180-4-mwzy90uj.jpg"
+      ],
+      "variantMap": null,
+      "inStock": true,
+      "codAvailable": true,
+      "return7Days": true,
+      "whatsappNumber": "",
+      "affiliateLink": "",
+      "video": "",
+      "youtubeId": "",
+      "featureSummary": [
+        {
+          "feature": "Style",
+          "detail": "Casual & Western Wear",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Ideal For",
+          "detail": "Casual outings",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Key Highlight",
+          "detail": "Add a touch of elegance to your everyday style with this beautiful Black & Rose Printed Tiered Midi Dress",
           "group": "Highlights"
         }
       ]
@@ -180,7 +152,7 @@
       "id": "item-1795841349219",
       "title": "Urban Legend – Black & White Varsity Hooded Jacket",
       "price": 1299,
-      "category": "Western Wear",
+      "category": "Home Textiles",
       "description": "Upgrade your streetwear game with the Urban Legend Varsity Jacket! Featuring a bold black-and-white colour combination, contrasting white sleeves, an attached hood and a stylish number 7 chest design.\n\nDesigned for a trendy, sporty and effortlessly cool look, this jacket is perfect for casual outings, college wear, hangouts and everyday street fashion.\n\nProduct Details:\n\n- Category: Men's Fashion\n- Product Type: Varsity Jacket\n- Colour: Black & White\n- Design: Number 7 Graphic\n- Style: Hooded Baseball / Varsity\n- Closure: Front Button Closure\n- Sleeves: Full Sleeves\n- Pattern: Colour Block\n- Occasion: Casual / Streetwear / College Wear\n- Fit: Regular Style\n\nMake Every Street Your Runway!",
       "images": [
         "./images/products/item-1795841349219-1-mwzxkm7k.jpg",
@@ -188,7 +160,7 @@
         "./images/products/item-1795841349219-3-mwzxkqgf.jpg"
       ],
       "variantMap": null,
-      "inStock": true,
+      "inStock": false,
       "codAvailable": true,
       "return7Days": true,
       "whatsappNumber": "",
