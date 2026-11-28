@@ -1,74 +1,67 @@
 {
-  "updatedAt": 1795842921558,
+  "updatedAt": 1795843200098,
   "whatsapp": "918670234616",
   "products": [
     {
-      "id": "item-1795842910100",
-      "title": "Chocolate Brown Polka Dot Sleeveless Women's Maxi Dress with Matching Scarf",
-      "price": 999,
-      "category": "Sarees & Apparel",
-      "description": "Bring timeless elegance to your wardrobe with this gorgeous Chocolate Brown Polka Dot Dress.\n\nDesigned with a flattering square neckline, stylish sleeveless silhouette and a beautiful flowing skirt, this dress creates a graceful and sophisticated look. The delicate white polka dot print and matching neck scarf add a charming vintage-inspired touch.\n\nProduct Features:\n\n- Rich chocolate brown colour\n- Elegant white polka dot pattern\n- Stylish square neckline\n- Sleeveless design\n- Matching neck scarf detail\n- Flattering fitted waist\n- Beautiful flowy flared hem\n- Perfect for parties, dates, outings and special occasions\n\nStyle: Elegant Western Wear",
+      "id": "item-1795842570101",
+      "title": "Phosphorus Panel Detailed Shoulder Straps Sheer Maxi A-Line Dress",
+      "price": 935,
+      "category": "Western Wear",
+      "description": "A garment designed for dramatic elegance and movement, utilizing the power of transparency for a striking effect. Its A-Line Maxi silhouette offers a supremely flattering, elongated form that flows gracefully from the bodice to the floor, enhancing an ethereal and romantic quality.\nColor: Maroon\nNeckline: Shoulder straps\nSleeves: Sleeveless\nHem: Flared\nLength: Maxi\nClosure: Concealed zip\n\nSize & Fit\nThe model (height 5'4'') is wearing a size S\n\nMaterial & Care\n98% Polyester & 2% Elastane\nMachine Wash\n\nSpecifications\nShape\nA-Line\nNeck\nShoulder Straps\nLength\nMaxi\nSleeve Length\nSleeveless\nSleeve Styling\nNo Sleeves\nKnit or Woven\nWoven\nHemline\nFlared\nTransparency\nOpaque\nClosure\nConcealed Zip\nNumber of Items\n1\nPackage Contains\nDress\nNet Quantity\n1.0",
       "images": [
-        "./images/products/item-1795842910100-1-mwzyi272.jpg",
-        "./images/products/item-1795842910100-2-mwzyi4it.jpg",
-        "./images/products/item-1795842910100-3-mwzyi6qi.jpg",
-        "./images/products/item-1795842910100-4-mwzyi8r6.jpg"
+        "./images/products/item-1795842570101-1-mwzyas35.jpg",
+        "./images/products/item-1795842570101-2-mwzyau3r.jpg",
+        "./images/products/item-1795842570101-3-mwzyawh1.jpg"
       ],
+      "youtubeId": "2AO7LwY1yYU",
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
+      "affiliateLink": "https://myntr.it/e8TubCo",
       "featureSummary": [
         {
-          "feature": "Style",
-          "detail": "Elegant Western Wear",
+          "feature": "Color",
+          "detail": "Maroon",
           "group": "Design & Usage"
         },
         {
-          "feature": "Ideal For",
-          "detail": "Parties",
+          "feature": "Neckline",
+          "detail": "Shoulder straps",
           "group": "Design & Usage"
         },
         {
-          "feature": "Key Highlight",
-          "detail": "Bring timeless elegance to your wardrobe with this gorgeous Chocolate Brown Polka Dot Dress",
+          "feature": "Sleeves",
+          "detail": "Sleeveless",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Hem",
+          "detail": "Flared",
           "group": "Highlights"
-        }
-      ]
-    },
-    {
-      "id": "item-1795842479180",
-      "title": "Black & Rose Printed Tiered Midi Dress",
-      "price": 899,
-      "category": "Sarees & Apparel",
-      "description": "Add a touch of elegance to your everyday style with this beautiful Black & Rose Printed Tiered Midi Dress.\n\nFeaturing a stylish abstract floral print, flattering waist-tie detail, comfortable short sleeves and a gorgeous tiered flared design, this dress is perfect for casual outings, shopping, day trips and special gatherings.\n\nFeatures:\n\n- Elegant black and dusty rose colour combination\n- Beautiful abstract floral print\n- Stylish V-slit neckline\n- Adjustable waist-tie detail\n- Short sleeves\n- Flowy tiered design\n- Chic and fashionable look\n\nStyle: Casual & Western Wear",
-      "images": [
-        "./images/products/item-1795842479180-1-mwzy8tq8.jpg",
-        "./images/products/item-1795842479180-2-mwzy8wdr.jpg",
-        "./images/products/item-1795842479180-3-mwzy8yzk.jpg",
-        "./images/products/item-1795842479180-4-mwzy90uj.jpg"
-      ],
-      "variantMap": null,
-      "inStock": true,
-      "codAvailable": true,
-      "return7Days": true,
-      "whatsappNumber": "",
-      "affiliateLink": "",
-      "video": "",
-      "youtubeId": "",
-      "featureSummary": [
-        {
-          "feature": "Style",
-          "detail": "Casual & Western Wear",
-          "group": "Design & Usage"
         },
         {
-          "feature": "Ideal For",
-          "detail": "Casual outings",
-          "group": "Design & Usage"
+          "feature": "Closure",
+          "detail": "Concealed zip",
+          "group": "Care & Specs"
+        },
+        {
+          "feature": "Dimensions (L × H × B)",
+          "detail": "Length: Maxi",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Available Sizes",
+          "detail": "S",
+          "group": "Dimensions & Sizing"
+        },
+        {
+          "feature": "Care & Setup",
+          "detail": "Material & Care",
+          "group": "Care & Specs"
         },
         {
           "feature": "Key Highlight",
-          "detail": "Add a touch of elegance to your everyday style with this beautiful Black & Rose Printed Tiered Midi Dress",
+          "detail": "A garment designed for dramatic elegance and movement, utilizing the power of transparency for a striking effect",
           "group": "Highlights"
         }
       ]
@@ -77,7 +70,7 @@
       "id": "item-1795841349219",
       "title": "Urban Legend – Black & White Varsity Hooded Jacket",
       "price": 1299,
-      "category": "Home Textiles",
+      "category": "Western Wear",
       "description": "Upgrade your streetwear game with the Urban Legend Varsity Jacket! Featuring a bold black-and-white colour combination, contrasting white sleeves, an attached hood and a stylish number 7 chest design.\n\nDesigned for a trendy, sporty and effortlessly cool look, this jacket is perfect for casual outings, college wear, hangouts and everyday street fashion.\n\nProduct Details:\n\n- Category: Men's Fashion\n- Product Type: Varsity Jacket\n- Colour: Black & White\n- Design: Number 7 Graphic\n- Style: Hooded Baseball / Varsity\n- Closure: Front Button Closure\n- Sleeves: Full Sleeves\n- Pattern: Colour Block\n- Occasion: Casual / Streetwear / College Wear\n- Fit: Regular Style\n\nMake Every Street Your Runway!",
       "images": [
         "./images/products/item-1795841349219-1-mwzxkm7k.jpg",
@@ -85,7 +78,7 @@
         "./images/products/item-1795841349219-3-mwzxkqgf.jpg"
       ],
       "variantMap": null,
-      "inStock": false,
+      "inStock": true,
       "codAvailable": true,
       "return7Days": true,
       "whatsappNumber": "",
