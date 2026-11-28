@@ -1,7 +1,37 @@
 {
-  "updatedAt": 1795843655386,
+  "updatedAt": 1795844286804,
   "whatsapp": "918670234616",
   "products": [
+    {
+      "id": "item-1795844283812",
+      "title": "Champagne Gold & Off-White Saree with Magenta Border | Floral Motif Ethnic Saree for Festive & Party Wear",
+      "price": 900,
+      "category": "Sarees & Apparel",
+      "description": "Primary Color: Champagne Gold, Off-White & Magenta\nDesign & Pattern: Lustrous champagne-gold upper drape paired with an off-white floral and botanical vine patterned lower body and pallu, finished with a contrast magenta border and decorative band\nStyling & Occasion: Ideal for festive gatherings, family functions, daytime celebrations, and special occasions (gold-toned blouse and jewelry shown for styling reference)",
+      "images": [
+        "./images/products/item-1795844283812-1-mwzzbi65.jpg"
+      ],
+      "inStock": true,
+      "codAvailable": true,
+      "return7Days": true,
+      "featureSummary": [
+        {
+          "feature": "Primary Color",
+          "detail": "Champagne Gold, Off-White & Magenta",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Design & Pattern",
+          "detail": "Lustrous champagne-gold upper drape paired with an off-white floral and botanical vine patterned lower body and pallu, finished with a contrast magenta border and decorative band",
+          "group": "Design & Usage"
+        },
+        {
+          "feature": "Styling & Occasion",
+          "detail": "Ideal for festive gatherings, family functions, daytime celebrations, and special occasions (gold-toned blouse and jewelry shown for styling reference)",
+          "group": "Design & Usage"
+        }
+      ]
+    },
     {
       "id": "item-1795843645587",
       "title": "Women's Royal Plum Sleeveless V-Neck Wrap Slit Maxi Dress",
@@ -14,9 +44,14 @@
         "./images/products/item-1795843645587-3-mwzyxx84.jpg",
         "./images/products/item-1795843645587-4-mwzyxz5u.jpg"
       ],
+      "variantMap": null,
       "inStock": true,
       "codAvailable": true,
       "return7Days": true,
+      "whatsappNumber": "",
+      "affiliateLink": "",
+      "video": "",
+      "youtubeId": "",
       "featureSummary": [
         {
           "feature": "Style",
@@ -76,7 +111,7 @@
       "id": "item-1795842910100",
       "title": "Chocolate Brown Polka Dot Sleeveless Women's Maxi Dress with Matching Scarf",
       "price": 999,
-      "category": "Sarees & Apparel",
+      "category": "Western Wear",
       "description": "Bring timeless elegance to your wardrobe with this gorgeous Chocolate Brown Polka Dot Dress.\n\nDesigned with a flattering square neckline, stylish sleeveless silhouette and a beautiful flowing skirt, this dress creates a graceful and sophisticated look. The delicate white polka dot print and matching neck scarf add a charming vintage-inspired touch.\n\nProduct Features:\n\n- Rich chocolate brown colour\n- Elegant white polka dot pattern\n- Stylish square neckline\n- Sleeveless design\n- Matching neck scarf detail\n- Flattering fitted waist\n- Beautiful flowy flared hem\n- Perfect for parties, dates, outings and special occasions\n\nStyle: Elegant Western Wear",
       "images": [
         "./images/products/item-1795842910100-1-mwzyi272.jpg",
@@ -114,7 +149,7 @@
       "id": "item-1795842479180",
       "title": "Black & Rose Printed Tiered Midi Dress",
       "price": 899,
-      "category": "Sarees & Apparel",
+      "category": "Western Wear",
       "description": "Add a touch of elegance to your everyday style with this beautiful Black & Rose Printed Tiered Midi Dress.\n\nFeaturing a stylish abstract floral print, flattering waist-tie detail, comfortable short sleeves and a gorgeous tiered flared design, this dress is perfect for casual outings, shopping, day trips and special gatherings.\n\nFeatures:\n\n- Elegant black and dusty rose colour combination\n- Beautiful abstract floral print\n- Stylish V-slit neckline\n- Adjustable waist-tie detail\n- Short sleeves\n- Flowy tiered design\n- Chic and fashionable look\n\nStyle: Casual & Western Wear",
       "images": [
         "./images/products/item-1795842479180-1-mwzy8tq8.jpg",
